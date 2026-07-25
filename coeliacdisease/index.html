@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celiac Disease — The Complete Mechanism</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F8F3;
+    --bg-card:#EFF3EA;
+    --bg-band:#EDF1E7;
+    --ink:#24312A;
+    --ink-soft:#55645B;
+    --ink-faint:#8A968C;
+    --sage:#6B8F71;
+    --sage-deep:#43614A;
+    --honey:#C98A2E;
+    --alert:#A6472F;
+    --alert-bg:#F6E9E3;
+    --line: rgba(36,49,42,0.14);
+    --radius: 16px;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:var(--sage-deep); }
+  .wrap{ max-width:780px; margin:0 auto; padding:0 28px; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.11em;
+    text-transform:uppercase; color:var(--sage-deep); font-weight:600;
+  }
+  .topbar{ padding:22px 0; border-bottom:1px solid var(--line); }
+  .topbar .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  .topbar .eyebrow{ color:var(--ink-faint); }
+
+  .hero{ padding:60px 0 30px; }
+  .hero h1{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(2rem, 4.6vw, 3rem); line-height:1.12; letter-spacing:-0.01em;
+    margin:16px 0 18px; max-width:17ch;
+  }
+  .hero .lede{ font-size:1.12rem; color:var(--ink-soft); max-width:60ch; margin:0 0 8px; }
+  .hero .disclaimer{
+    font-size:0.87rem; color:var(--ink-faint); max-width:56ch;
+    margin-top:18px; padding-top:18px; border-top:1px solid var(--line);
+  }
+
+  section{ padding:50px 0; }
+  section.on-band{ background:var(--bg-band); }
+  .section-head{ margin-bottom:24px; }
+  .section-head .eyebrow{ margin-bottom:10px; display:block; }
+  .section-head h2{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(1.4rem, 2.8vw, 1.75rem); margin:0 0 10px; letter-spacing:-0.01em;
+  }
+  .section-head p{ color:var(--ink-soft); margin:0; max-width:62ch; }
+  .body-text p{ color:var(--ink); margin:0 0 14px; max-width:66ch; }
+  .body-text p:last-child{ margin-bottom:0; }
+  .body-text strong{ color:var(--ink); }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } }
+
+  .fact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
+  .fact-card{
+    background:var(--bg-card); border-radius:var(--radius); padding:18px 20px;
+    border-left:3px solid var(--sage);
+  }
+  .fact-card.warn{ border-left-color:var(--honey); }
+  .fact-card h3{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; margin:0 0 6px; }
+  .fact-card p{ font-size:0.92rem; color:var(--ink-soft); margin:0; }
+  @media (max-width:640px){ .fact-grid{ grid-template-columns:1fr; } }
+
+  .badge-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .badge{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.02em;
+    color:var(--sage-deep); background:#fff; border:1px solid var(--line);
+    border-radius:999px; padding:3px 9px;
+  }
+
+  /* Marsh stage timeline */
+  .marsh-timeline{ margin-top:20px; }
+  .marsh-step{
+    display:grid; grid-template-columns:64px 1fr; gap:16px;
+    position:relative; padding-bottom:26px;
+  }
+  .marsh-step:last-child{ padding-bottom:0; }
+  .marsh-step::before{
+    content:''; position:absolute; left:31px; top:38px; bottom:-2px;
+    width:1px; background:var(--line);
+  }
+  .marsh-step:last-child::before{ display:none; }
+  .marsh-num{
+    font-family:var(--font-mono); font-size:0.76rem; font-weight:600; color:#fff;
+    background:var(--sage-deep); width:64px; height:36px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center; z-index:1;
+  }
+  .marsh-step.diagnostic .marsh-num{ background:var(--alert); }
+  .marsh-body h3{ font-family:var(--font-body); font-size:0.98rem; font-weight:600; margin:2px 0 6px; }
+  .marsh-body p{ margin:0; color:var(--ink-soft); font-size:0.92rem; }
+
+  /* nutrient table-ish list */
+  .nutrient-list{ margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  .nutrient-item{
+    display:grid; grid-template-columns:110px 1fr; gap:14px;
+    padding:14px 16px; background:#fff; border:1px solid var(--line); border-radius:12px;
+  }
+  .nutrient-item .n-name{ font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-deep); font-weight:600; }
+  .nutrient-item p{ margin:0; font-size:0.9rem; color:var(--ink-soft); }
+  @media (max-width:560px){ .nutrient-item{ grid-template-columns:1fr; } }
+
+  /* mechanism svg cards (shared style with animations) */
+  .mech-card{
+    background:var(--bg-card); border-radius:var(--radius); padding:22px 22px 18px;
+    border-left:3px solid var(--honey); margin-top:6px;
+  }
+  .mech-card svg{ width:100%; height:auto; display:block; background:#fff; border-radius:12px; }
+  .mech-label{ font-family:var(--font-mono); font-size:10px; fill:var(--ink-soft); }
+  .mech-caption{ font-size:0.9rem; color:var(--ink-soft); margin:14px 0 0; max-width:64ch; }
+
+  @keyframes villus-flatten{
+    0%,20%{ transform:scaleY(1); } 55%,80%{ transform:scaleY(0.22); } 100%{ transform:scaleY(1); }
+  }
+  .villus{ transform-box:fill-box; transform-origin:bottom; animation:villus-flatten 6s ease-in-out infinite; }
+
+  @keyframes antibody-attack{
+    0%,15%{ opacity:0; transform:translateY(-8px); }
+    32%,68%{ opacity:1; transform:translateY(0); }
+    85%,100%{ opacity:0; transform:translateY(-8px); }
+  }
+  .antibody-dot{ fill:var(--alert); animation:antibody-attack 6s ease-in-out infinite; }
+
+  @keyframes nutrient-pass{
+    0%{ transform:translateX(0); opacity:0; } 10%{ opacity:1; } 92%{ opacity:1; }
+    100%{ transform:translateX(560px); opacity:0; }
+  }
+  .nutrient-dot{ fill:var(--honey); animation:nutrient-pass 3.2s linear infinite; }
+
+  @keyframes cascade-pulse{
+    0%{ opacity:1; } 14%{ opacity:1; } 30%{ opacity:0.5; } 100%{ opacity:0.5; }
+  }
+  .stage-box{ opacity:0.5; animation:cascade-pulse 6.2s ease-in-out infinite; }
+  .stage-box.final{ fill:var(--alert-bg); }
+
+  @media (prefers-reduced-motion: reduce){
+    .villus, .antibody-dot, .nutrient-dot, .stage-box{ animation:none; opacity:1; }
+  }
+
+  footer{ border-top:1px solid var(--line); padding:40px 0 60px; }
+  footer h4{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-faint); margin:0 0 14px;
+  }
+  .source-list{ display:flex; flex-direction:column; gap:9px; }
+  .source-list a{ font-size:0.92rem; text-decoration:none; border-bottom:1px solid var(--line); display:inline-block; padding-bottom:1px; }
+  .source-list a:hover{ border-color:var(--sage-deep); }
+
+  @media (max-width:640px){ section{ padding:38px 0; } .hero{ padding:44px 0 20px; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="eyebrow">Celiac disease · mechanism</span>
+    <span class="eyebrow">Molecular biology to diagnosis</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep dive</span>
+    <h1>Celiac disease — the complete mechanism</h1>
+    <p class="lede">Not "gluten is bad." A specific chain of molecular events: a protein fragment that resists digestion, an enzyme that chemically alters it, a genetically inherited receptor that displays it to the immune system, and a two-pronged immune response — one arm producing antibodies, the other directly killing gut cells — that together flatten the structures the small intestine uses to absorb food. Every step below, in order, with the biology behind each one.</p>
+    <p class="disclaimer">This is mechanism, not a diagnosis — that requires the blood tests and biopsy described near the end. Sources are listed at the bottom.</p>
+  </div>
+</header>
+
+<section id="animation-1">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Watch it happen</span>
+      <h2>What the gut lining looks like, before and during</h2>
+      <p>Simplified for clarity, not exact timing.</p>
+    </div>
+    <div class="mech-card reveal">
+      <svg viewBox="0 0 640 220" role="img" aria-label="Animated diagram of intestinal villi flattening under immune attack while nutrients pass through unabsorbed">
+        <text x="20" y="25" class="mech-label">food &amp; nutrients</text>
+        <circle class="nutrient-dot" cx="20" cy="40" r="6" style="animation-delay:0s"></circle>
+        <circle class="nutrient-dot" cx="20" cy="40" r="6" style="animation-delay:1.1s"></circle>
+        <circle class="nutrient-dot" cx="20" cy="40" r="6" style="animation-delay:2.2s"></circle>
+
+        <line x1="40" y1="150" x2="600" y2="150" stroke="var(--line)" stroke-width="2"></line>
+        <rect class="villus" x="90" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:0s"></rect>
+        <rect class="villus" x="160" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:.1s"></rect>
+        <rect class="villus" x="230" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:.2s"></rect>
+        <rect class="villus" x="300" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:.3s"></rect>
+        <rect class="villus" x="370" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:.4s"></rect>
+        <rect class="villus" x="440" y="80" width="28" height="70" rx="8" fill="var(--sage)" style="animation-delay:.5s"></rect>
+
+        <circle class="antibody-dot" cx="104" cy="72" r="4" style="animation-delay:0s"></circle>
+        <circle class="antibody-dot" cx="174" cy="72" r="4" style="animation-delay:.1s"></circle>
+        <circle class="antibody-dot" cx="244" cy="72" r="4" style="animation-delay:.2s"></circle>
+        <circle class="antibody-dot" cx="314" cy="72" r="4" style="animation-delay:.3s"></circle>
+        <circle class="antibody-dot" cx="384" cy="72" r="4" style="animation-delay:.4s"></circle>
+        <circle class="antibody-dot" cx="454" cy="72" r="4" style="animation-delay:.5s"></circle>
+
+        <text x="320" y="205" text-anchor="middle" class="mech-label">villi flatten under immune attack</text>
+        <text x="600" y="185" text-anchor="end" class="mech-label">→ passes through unused</text>
+      </svg>
+      <p class="mech-caption">The villi are the finger-like projections that give the small intestine its absorptive surface area. When they flatten (villous atrophy), that surface area collapses, and food passes through largely unabsorbed — the end result of everything below.</p>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="what-it-is">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">01 — Definition</span>
+      <h2>What celiac disease actually is</h2>
+    </div>
+    <div class="body-text reveal">
+      <p>Celiac disease is a chronic autoimmune disorder in which dietary gluten — a protein family in wheat, barley, and rye — triggers the immune system to attack the lining of the small intestine, in people who carry a specific genetic susceptibility.<sup>[1]</sup> It affects roughly 1 in 100 people worldwide, though most cases go undiagnosed for years because the symptoms are so variable.<sup>[4]</sup></p>
+      <p>Two things have to be true at once for it to happen: the genetic susceptibility (a particular immune-receptor gene) has to be present, <em>and</em> gluten has to be eaten. Neither alone is sufficient — carrying the gene without eating gluten never triggers disease, and eating gluten without the gene doesn't either. That's why it runs in families but doesn't affect every relative equally.</p>
+    </div>
+  </div>
+</section>
+
+<section id="step1">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — The trigger</span>
+      <h2>Why gluten survives digestion intact</h2>
+    </div>
+    <div class="body-text reveal">
+      <p>Gliadin, the reactive component of gluten, is unusually rich in the amino acids proline and glutamine. Human digestive enzymes are poor at cutting peptide bonds next to proline, so instead of being broken all the way down into single amino acids like most protein, gliadin leaves behind larger fragments — some over 30 amino acids long — that survive intact into the small intestine.<sup>[8]</sup> One of these fragments, a 33-amino-acid piece of alpha-gliadin, turns out to be exactly the piece the immune system reacts to.</p>
+      <p>These leftover fragments then have to get from the gut lumen (where digestion happens) into the tissue underneath (the lamina propria, where immune cells live) to cause any trouble. They cross by two routes: a receptor called CD71, normally used to transport iron-carrying proteins, can be hijacked to ferry gliadin-antibody complexes across the epithelial cells; fragments can also slip between cells if the tight junctions holding them together loosen.<sup>[4]</sup></p>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="step2">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">03 — The chemical modification</span>
+      <h2>Tissue transglutaminase rewrites the peptide</h2>
+    </div>
+    <div class="body-text reveal">
+      <p>Once in the lamina propria, the gliadin fragment meets an enzyme called tissue transglutaminase 2 (TG2 or tTG) — an enzyme the body normally uses for wound healing and tissue repair, released into the area during any local inflammation.<sup>[3]</sup> TG2 performs a specific chemical reaction called deamidation: it converts certain glutamine residues in the gliadin peptide into glutamate, which carries a negative electrical charge that glutamine doesn't have.<sup>[8]</sup></p>
+      <p>That single change matters enormously, because the receptor in the next step — the one that decides whether the immune system ever sees this peptide — binds negatively charged residues far more tightly than neutral ones. Deamidation isn't incidental damage; it's the step that converts a harmless food fragment into a peptide the immune system can actually latch onto.<sup>[8]</sup></p>
+    </div>
+    <div class="fact-grid reveal">
+      <div class="fact-card warn">
+        <h3>TG2's second job</h3>
+        <p>TG2 is also the target of the antibodies celiac blood tests measure (anti-tTG). The body ends up making antibodies against its own repair enzyme, not just against gluten.<sup>[3]</sup></p>
+      </div>
+      <div class="fact-card warn">
+        <h3>Not a food allergy</h3>
+        <p>This is a T-cell-driven autoimmune reaction, mechanistically distinct from an IgE food allergy — which is why it doesn't cause hives or anaphylaxis, but does cause lasting tissue damage.<sup>[1]</sup></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="step3">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 — The genetic gatekeeper</span>
+      <h2>HLA-DQ2 and HLA-DQ8: why genetics decide who's even eligible</h2>
+    </div>
+    <div class="body-text reveal">
+      <p>The modified peptide still has to be shown to the immune system, and that job belongs to a specific receptor sitting on antigen-presenting cells: HLA-DQ2 (found in over 90% of people with celiac disease) or, in most of the remainder, HLA-DQ8.<sup>[4]</sup> These are inherited immune-recognition molecules — the same general family used to distinguish "self" from "foreign" — and their binding groove happens to have a strong preference for negatively charged residues, exactly what deamidation produces.<sup>[8]</sup></p>
+      <p>About 30–40% of the general population carries HLA-DQ2 or DQ8, but only roughly 1% develops celiac disease — so the gene is necessary but nowhere near sufficient.<sup>[4]</sup> This is also why genetic testing is used to <em>rule out</em> celiac disease (a negative result makes it very unlikely) rather than to confirm it (a positive result just means the door is unlocked, not that anyone walked through it).</p>
+    </div>
+    <div class="badge-row reveal">
+      <span class="badge">HLA-DQ2 (DQA1*05:01, DQB1*02:01)</span>
+      <span class="badge">HLA-DQ8 (DQA1*03:01, DQB1*03:02)</span>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="cascade">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Watch it happen</span>
+      <h2>The full molecular cascade, step by step</h2>
+      <p>Each box lights up in sequence — this is the order the biology actually happens in.</p>
+    </div>
+    <div class="mech-card reveal">
+      <svg viewBox="0 0 640 550" role="img" aria-label="Animated flowchart of the celiac disease immune cascade from gluten ingestion to villous atrophy">
+        <rect class="stage-box" x="160" y="16" width="320" height="50" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:0s"></rect>
+        <text x="320" y="36" text-anchor="middle" class="mech-label">Gluten (gliadin) enters the gut,</text>
+        <text x="320" y="52" text-anchor="middle" class="mech-label">resists full digestion</text>
+
+        <line x1="320" y1="66" x2="320" y2="96" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+
+        <rect class="stage-box" x="160" y="96" width="320" height="50" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:.6s"></rect>
+        <text x="320" y="116" text-anchor="middle" class="mech-label">Tissue transglutaminase (TG2)</text>
+        <text x="320" y="132" text-anchor="middle" class="mech-label">deamidates key glutamines</text>
+
+        <line x1="320" y1="146" x2="320" y2="176" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+
+        <rect class="stage-box" x="130" y="176" width="380" height="50" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:1.2s"></rect>
+        <text x="320" y="196" text-anchor="middle" class="mech-label">Deamidated peptide binds HLA-DQ2/DQ8</text>
+        <text x="320" y="212" text-anchor="middle" class="mech-label">on an antigen-presenting cell</text>
+
+        <line x1="320" y1="226" x2="320" y2="256" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+
+        <rect class="stage-box" x="160" y="256" width="320" height="50" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:1.8s"></rect>
+        <text x="320" y="276" text-anchor="middle" class="mech-label">A CD4+ T cell recognizes the complex</text>
+        <text x="320" y="292" text-anchor="middle" class="mech-label">and activates</text>
+
+        <line x1="320" y1="306" x2="170" y2="336" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+        <line x1="320" y1="306" x2="470" y2="336" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+
+        <rect class="stage-box" x="40" y="336" width="260" height="74" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:2.4s"></rect>
+        <text x="170" y="358" text-anchor="middle" class="mech-label">IFN-γ, IL-21 + IL-15 signal</text>
+        <text x="170" y="374" text-anchor="middle" class="mech-label">cytotoxic intraepithelial</text>
+        <text x="170" y="390" text-anchor="middle" class="mech-label">lymphocytes to attack enterocytes</text>
+
+        <rect class="stage-box" x="340" y="336" width="260" height="74" rx="10" fill="var(--bg-card)" stroke="var(--honey)" stroke-width="1.5" style="animation-delay:2.4s"></rect>
+        <text x="470" y="358" text-anchor="middle" class="mech-label">B cells produce antibodies:</text>
+        <text x="470" y="374" text-anchor="middle" class="mech-label">anti-tTG, anti-endomysial,</text>
+        <text x="470" y="390" text-anchor="middle" class="mech-label">anti-deamidated gliadin</text>
+
+        <line x1="170" y1="410" x2="320" y2="440" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+        <line x1="470" y1="410" x2="320" y2="440" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+        <line x1="320" y1="440" x2="320" y2="458" stroke="var(--ink-faint)" stroke-width="1.5"></line>
+
+        <rect class="stage-box final" x="110" y="458" width="420" height="74" rx="10" stroke="var(--alert)" stroke-width="1.5" style="animation-delay:3s"></rect>
+        <text x="320" y="480" text-anchor="middle" class="mech-label">Enterocytes are killed; villi flatten</text>
+        <text x="320" y="496" text-anchor="middle" class="mech-label">and crypts elongate — the Marsh 3</text>
+        <text x="320" y="512" text-anchor="middle" class="mech-label">lesion diagnostic of celiac disease</text>
+      </svg>
+      <p class="mech-caption">Two immune arms run in parallel from the same trigger: the adaptive arm (T cells → cytokines → B cells → antibodies) and the innate arm (IL-15 directly arming intraepithelial lymphocytes as killer cells). Both converge on the same outcome — a flattened, inflamed gut lining.<sup>[2]</sup></p>
+    </div>
+  </div>
+</section>
+
+<section id="two-arms">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">05 &amp; 06 — The two immune arms</span>
+      <h2>Antibodies on one side, direct killing on the other</h2>
+    </div>
+    <div class="body-text reveal">
+      <p><strong>The adaptive arm.</strong> The activated CD4+ T cell polarizes into a Th1-dominant response, releasing interferon-gamma (IFN-γ) and IL-21. These cytokines do two things: they recruit and activate cytotoxic immune cells in the gut lining, and they help B cells mature into antibody-producing plasma cells.<sup>[2]</sup> The antibodies produced — against tissue transglutaminase, against endomysium (connective tissue), and against the deamidated gliadin peptide itself — are what standard celiac blood tests actually measure. They're a marker of the immune response, not directly the cause of the tissue damage.</p>
+      <p><strong>The innate arm.</strong> Separately, a different gliadin fragment (called p31–43) isn't recognized by T cells at all, but directly triggers gut epithelial cells and dendritic cells to release IL-15.<sup>[2],[8]</sup> IL-15 arms intraepithelial lymphocytes — immune cells that already live embedded in the gut lining — turning them into cytotoxic killers that directly destroy the epithelial cells around them, independent of the antibody response. This innate pathway helps explain why gut damage can be extensive even when antibody levels don't perfectly track symptom severity.</p>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="marsh">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">07 — What the biopsy actually shows</span>
+      <h2>The Marsh classification: grading the damage</h2>
+      <p>This is the histological scale a pathologist uses on a small-bowel biopsy sample.<sup>[5],[6]</sup></p>
+    </div>
+    <div class="marsh-timeline reveal">
+      <div class="marsh-step">
+        <div class="marsh-num">0</div>
+        <div class="marsh-body"><h3>Normal</h3><p>No increase in intraepithelial lymphocytes (IELs), normal villous architecture. Doesn't rule out celiac disease if serology is positive — early or patchy disease can look normal on a given sample.</p></div>
+      </div>
+      <div class="marsh-step">
+        <div class="marsh-num">1</div>
+        <div class="marsh-body"><h3>Infiltrative</h3><p>Raised IEL count (typically over 25–30 per 100 enterocytes), but villi and crypts still look structurally normal. Suggestive but not confirmatory on its own.</p></div>
+      </div>
+      <div class="marsh-step">
+        <div class="marsh-num">2</div>
+        <div class="marsh-body"><h3>Hyperplastic</h3><p>Raised IELs plus crypt hyperplasia — the crypts elongate as the tissue tries to regenerate faster than it's being damaged. Villi are still intact at this stage.</p></div>
+      </div>
+      <div class="marsh-step diagnostic">
+        <div class="marsh-num">3a–3c</div>
+        <div class="marsh-body"><h3>Villous atrophy (diagnostic)</h3><p>Partial (3a), subtotal (3b), or total (3c) flattening of the villi, on top of crypt hyperplasia and raised IELs. Marsh 3 with positive serology is what confirms the diagnosis.<sup>[6]</sup></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nutrients">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">08 — The downstream effect</span>
+      <h2>Malabsorption, nutrient by nutrient</h2>
+      <p>Where in the gut a nutrient is normally absorbed determines how early it's affected — celiac damage is worst in the duodenum and upper jejunum, and tapers off further down.<sup>[6]</sup></p>
+    </div>
+    <div class="nutrient-list reveal">
+      <div class="nutrient-item"><div class="n-name">Iron &amp; folate</div><p>Absorbed almost entirely in the duodenum — exactly where villous damage is worst — so deficiency shows up early and is often the first clue, sometimes before any GI symptoms appear.<sup>[6]</sup></p></div>
+      <div class="nutrient-item"><div class="n-name">Vitamin B12</div><p>Absorbed further downstream in the terminal ileum, which is usually spared even in fairly severe disease — so B12 often stays normal even when iron and folate are already low.<sup>[6]</sup></p></div>
+      <div class="nutrient-item"><div class="n-name">Calcium &amp; vitamin D</div><p>Reduced absorption over time leads to low bone density and, in children, can slow growth; in adults it raises long-term osteoporosis risk.<sup>[5]</sup></p></div>
+      <div class="nutrient-item"><div class="n-name">Fat &amp; fat-soluble vitamins (A, D, E, K)</div><p>Damaged villi and reduced enzyme output impair fat absorption generally, which drags these vitamins down with it.</p></div>
+      <div class="nutrient-item"><div class="n-name">Protein &amp; calories overall</div><p>The cumulative effect of reduced absorptive surface area — this is the direct mechanistic link to unexplained weight loss despite normal intake.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="presentation">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">09 — Why it's so often missed</span>
+      <h2>It doesn't have to look like a stomach problem</h2>
+    </div>
+    <div class="fact-grid reveal">
+      <div class="fact-card"><h3>Classic presentation</h3><p>Diarrhea, bloating, abdominal pain, weight loss — the textbook picture, but only a minority of cases present this way.</p></div>
+      <div class="fact-card"><h3>Silent / atypical presentation</h3><p>Iron-deficiency anemia, unexplained fatigue, osteoporosis, elevated liver enzymes, infertility, or — in teenagers — slowed growth or delayed puberty, with normal-looking digestion.<sup>[5]</sup></p></div>
+      <div class="fact-card"><h3>Dermatitis herpetiformis</h3><p>An intensely itchy blistering skin rash, driven by the same anti-tTG immune response depositing in the skin — considered the cutaneous form of celiac disease.</p></div>
+      <div class="fact-card"><h3>Neurological signs</h3><p>Peripheral neuropathy, chronic headache, and balance problems have been linked to untreated celiac disease in some patients, though the mechanism is less well defined than the gut findings.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="diagnosis">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">10 — Confirming it</span>
+      <h2>How it's actually diagnosed</h2>
+    </div>
+    <div class="body-text reveal">
+      <p><strong>Step one: serology, while still eating gluten.</strong> Blood tests measure the antibodies produced by the adaptive immune response described above: anti-tTG IgA is the standard first test, alongside a total IgA level (about 2–3% of people with celiac disease are IgA-deficient, which would make anti-tTG IgA falsely negative — in that case, IgG-based versions of the same tests are used instead).<sup>[5],[6]</sup></p>
+      <p><strong>Step two: duodenal biopsy.</strong> Multiple small samples are taken during upper endoscopy and graded on the Marsh scale above. This remains the diagnostic gold standard in most guidelines, though some recent pediatric guidelines allow skipping biopsy when antibody titers are extremely high (commonly defined as more than 10 times the upper limit of normal) alongside a second positive antibody and compatible symptoms.<sup>[6]</sup></p>
+      <p><strong>Genetic testing (HLA-DQ2/DQ8)</strong> isn't used to confirm the diagnosis — too many people carry the gene without disease — but it's useful to rule celiac disease out when the picture is ambiguous, since a negative result makes celiac disease very unlikely.</p>
+      <p style="color:var(--ink-faint); font-size:0.9rem;">One practical note: all of this needs to happen while gluten is still being eaten regularly. Removing gluten before testing lets the antibody levels and the villi both start recovering, which can produce a false negative on tests taken afterward.</p>
+    </div>
+    <div class="badge-row reveal">
+      <span class="badge">anti-tTG IgA</span><span class="badge">Total IgA</span><span class="badge">anti-endomysial antibody</span><span class="badge">anti-DGP (IgG)</span><span class="badge">Duodenal biopsy</span><span class="badge">HLA-DQ2/DQ8</span>
+    </div>
+  </div>
+</section>
+
+<section class="on-band" id="treatment">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">11 — The only treatment</span>
+      <h2>Strict, lifelong gluten elimination — and why "strict" matters</h2>
+    </div>
+    <div class="body-text reveal">
+      <p>There's no drug that treats celiac disease directly; the only established treatment is removing gluten from the diet completely.<sup>[5]</sup> Once gluten stops arriving, the whole cascade above has nothing to trigger it: antibody levels typically fall over months, and the villi themselves can regenerate — though full histological recovery can take one to two years, sometimes longer in adults than in children.</p>
+      <p>"Strict" isn't an exaggeration: because the immune trigger is a specific, potent peptide, even small amounts of cross-contamination (shared toasters, fryer oil, mislabeled products) are enough to re-trigger the immune cascade in a genuinely sensitive person, even without obvious symptoms each time. Repeated low-level exposure can keep the villi from ever fully healing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="untreated">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">12 — Left untreated</span>
+      <h2>What years of unaddressed exposure adds up to</h2>
+    </div>
+    <div class="fact-grid reveal">
+      <div class="fact-card warn"><h3>Bone &amp; reproductive</h3><p>Chronic calcium/vitamin D malabsorption raises osteoporosis and fracture risk; celiac disease is also linked to higher rates of infertility and adverse pregnancy outcomes.<sup>[5]</sup></p></div>
+      <div class="fact-card warn"><h3>Refractory disease</h3><p>A small subset of patients continue having damage despite a strict gluten-free diet, requiring specialist management.</p></div>
+      <div class="fact-card warn"><h3>Cancer risk</h3><p>Long-standing untreated disease is associated with an increased risk of enteropathy-associated T-cell lymphoma and certain other GI cancers, though absolute risk is still low.<sup>[5]</sup></p></div>
+      <div class="fact-card warn"><h3>Mortality</h3><p>Population studies link prolonged, undiagnosed celiac disease to a modest increase in all-cause mortality, largely explained by the complications above.<sup>[5]</sup></p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h4>References — mechanisms cited above</h4>
+    <div class="source-list">
+      <a href="https://www.ncbi.nlm.nih.gov/books/NBK441900/" target="_blank" rel="noopener">[1] StatPearls / NCBI Bookshelf — Celiac Disease ↗</a>
+      <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12894275/" target="_blank" rel="noopener">[2] Immune cell dynamics and mechanisms of epithelial injury in celiac disease ↗</a>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/22326684/" target="_blank" rel="noopener">[3] The function of tissue transglutaminase in celiac disease ↗</a>
+      <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12513477/" target="_blank" rel="noopener">[4] A dendritic cell population responsible for TG2-mediated gluten antigen presentation ↗</a>
+      <a href="https://www.ncbi.nlm.nih.gov/books/NBK344442/" target="_blank" rel="noopener">[5] Diagnosis of Celiac Disease — NCBI Bookshelf ↗</a>
+      <a href="https://www.gastrojournal.org/article/S0016-5085(05)00180-0/fulltext" target="_blank" rel="noopener">[6] Clinical features and diagnosis of celiac disease — Gastroenterology ↗</a>
+      <a href="https://www.mayoclinicproceedings.org/article/S0025-6196(17)30892-3/fulltext" target="_blank" rel="noopener">[7] Not All That Flattens Villi Is Celiac Disease — Mayo Clinic Proceedings ↗</a>
+      <a href="https://celiac.org/wp-content/uploads/2009/12/genetic-20background-20.pdf" target="_blank" rel="noopener">[8] Genetic Background of Celiac Disease and Its Clinical Implications ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  items.forEach(i => io.observe(i));
+</script>
+
+</body>
+</html>
