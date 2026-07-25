@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Orcasho — The Crux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0E0D; --ink2:#161A18;
+    --paper:#ECE7DE; --muted:#7A8480; --dim:#3A4040;
+    --line:rgba(236,231,222,.07); --line2:rgba(236,231,222,.14);
+    --blue:#5B9BD6; --blue2:#A8CDEF;
+    --clay:#C17F4A; --clay2:#E0B080;
+    --moss:#6B9E73; --lime:#B8E04A;
+    --df:"DM Serif Display",serif; --sf:"Inter",sans-serif; --mn:"JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;height:100dvh;margin:0;padding:0;background:var(--ink);color:var(--paper);
+    font-family:var(--sf);overflow:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:72px 72px;opacity:.55;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse at 50% 46%, transparent 0%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .wordmark{position:fixed;top:calc(20px + env(safe-area-inset-top));left:calc(28px + env(safe-area-inset-left));
+    z-index:20;font-family:var(--mn);font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--muted);
+    display:flex;align-items:center;gap:8px;}
+  .wordmark .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);}
+
+  .badge{position:fixed;top:calc(18px + env(safe-area-inset-top));right:calc(28px + env(safe-area-inset-right));
+    z-index:20;text-align:right;font-family:var(--mn);}
+  .badge .n{font-size:16px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums;transition:transform .25s ease;}
+  .badge .n.bump{transform:scale(1.18);}
+  .badge .l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+
+  .wrap{position:relative;z-index:2;width:100vw;height:100vh;height:100dvh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:8vh 7vw 4vh;text-align:center;}
+
+  .eyebrow{font-family:var(--mn);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--moss);
+    display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--moss);}
+
+  .headline{font-family:var(--df);font-weight:400;
+    font-size:clamp(21px,3.3vw,38px);line-height:1.22;max-width:800px;letter-spacing:-.005em;}
+  .headline em{font-style:italic;color:var(--lime);}
+
+  .sub{font-family:var(--sf);font-weight:300;font-size:clamp(12px,1.2vw,14.5px);color:var(--muted);
+    max-width:560px;margin-top:12px;line-height:1.6;}
+
+  .stage-wrap{position:relative;width:100%;max-width:1040px;margin-top:28px;}
+  canvas{display:block;width:100%;height:clamp(240px,36vh,380px);}
+
+  .tag{position:absolute;font-family:var(--mn);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+    white-space:nowrap;pointer-events:none;}
+  .tag-chaos{left:2%;top:calc(30% - 15px);color:var(--clay2);}
+  .tag-stable{right:2%;top:calc(30% - 15px);color:var(--lime);}
+  .tag-engine{left:50%;top:calc(30% - 32px);transform:translateX(-50%);color:var(--blue2);text-align:center;}
+  .tag-feedback{left:50%;top:calc(75% + 10px);transform:translateX(-50%);color:rgba(168,205,239,0.75);}
+
+  .foot{margin-top:20px;font-family:var(--df);font-style:italic;font-size:clamp(12.5px,1.35vw,15px);
+    color:var(--muted);}
+  .foot b{color:var(--lime);font-weight:400;}
+
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms !important;} }
+  @media (max-width:640px){
+    .wrap{padding:7vh 6vw 4vh;}
+    .stage-wrap{margin-top:18px;}
+    canvas{height:clamp(220px,34vh,300px);}
+    .tag{font-size:8px;}
+    .badge{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wordmark"><span class="dot"></span>ORCASHO</div>
+<div class="badge">
+  <div class="n" id="cycleCount">2,336</div>
+  <div class="l">cycles logged</div>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">The crux, in one shot</div>
+  <div class="headline">Every cycle makes Orcasho <em>smarter</em> at keeping you stable.</div>
+  <div class="sub">Food, medication, hormones, travel, and daily life create noise. Orcasho's ionic engine adapts through the gut every 20 days — and every outcome loops back, sharpening the next prediction.</div>
+
+  <div class="stage-wrap">
+    <canvas id="stage"></canvas>
+    <div class="tag tag-chaos">life's noise</div>
+    <div class="tag tag-stable">stable, compounding</div>
+    <div class="tag tag-engine">engine adapts<br>every 20 days</div>
+    <div class="tag tag-feedback">outcome feeds back</div>
+  </div>
+
+  <div class="foot">The moat is <b>time</b>, not capital.</div>
+</div>
+
+<script>
+const canvas = document.getElementById('stage');
+const ctx = canvas.getContext('2d');
+const cycleEl = document.getElementById('cycleCount');
+
+const COLORS = {
+  clay: '#C17F4A',
+  clay2: '#E0B080',
+  blue: '#5B9BD6',
+  blue2: '#A8CDEF',
+  lime: '#B8E04A',
+  paper: '#ECE7DE'
+};
+
+let W = 0, H = 0, DPR = 1;
+// track geometry
+let topY, bottomY, centerY, R, leftCenterX, rightCenterX, L, f1, f2, f3, coreX, coreY;
+
+function resize(){
+  const rect = canvas.getBoundingClientRect();
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = rect.width; H = rect.height;
+  canvas.width = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  computeGeometry();
+}
+function computeGeometry(){
+  topY = H*0.30;
+  bottomY = H*0.75;
+  centerY = (topY+bottomY)/2;
+  R = (bottomY-topY)/2;
+  const marginX = W*0.09;
+  leftCenterX = marginX + R;
+  rightCenterX = W - marginX - R;
+  L = Math.max(10, rightCenterX - leftCenterX);
+  const straight = L, arc = Math.PI*R;
+  const total = 2*straight + 2*arc;
+  f1 = straight/total;
+  f2 = f1 + arc/total;
+  f3 = f2 + straight/total;
+  coreX = leftCenterX + 0.5*L;
+  coreY = topY;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function smooth(t){ return t*t*(3-2*t); }
+function hexToRgb(h){ h=h.replace('#',''); return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]; }
+function mix(c1,c2,t){
+  const a=hexToRgb(c1), b=hexToRgb(c2);
+  const r=Math.round(lerp(a[0],b[0],t)), g=Math.round(lerp(a[1],b[1],t)), bl=Math.round(lerp(a[2],b[2],t));
+  return `rgb(${r},${g},${bl})`;
+}
+
+// chaos fades out by local 0.42 of the top straight (core sits at 0.5, already calm)
+function chaosAmount(local){
+  const t = clamp(local/0.42, 0, 1);
+  return 1 - smooth(t);
+}
+
+// the underlying stable rhythm is always present; the noise on top of it is what compounding reduces
+function waveOffset(local, time, ampMult){
+  const c = chaosAmount(local);
+  const slow = Math.sin(local*10 + time*1.3) * H*0.065;
+  const fast1 = Math.sin(local*46 + time*3.6) * H*0.15 * c * ampMult;
+  const fast2 = Math.sin(local*77 - time*4.9) * H*0.095 * c * ampMult;
+  const jitter = Math.sin(local*140 + time*7.4) * H*0.05 * c * ampMult;
+  return slow + fast1 + fast2 + jitter;
+}
+
+function colorAt(local){
+  if(local < 0.30) return mix(COLORS.clay, COLORS.clay2, clamp(local/0.30,0,1));
+  if(local < 0.46) return mix(COLORS.clay2, COLORS.blue, clamp((local-0.30)/0.16,0,1));
+  if(local < 0.60) return mix(COLORS.blue, COLORS.lime, clamp((local-0.46)/0.14,0,1));
+  return COLORS.lime;
+}
+function loopColor(t){
+  t = ((t%1)+1)%1;
+  if(t < f1) return colorAt(t/f1);
+  if(t < f2) return COLORS.lime;
+  if(t < f3){
+    const local=(t-f2)/(f3-f2);
+    return mix(COLORS.lime, COLORS.blue2, local*0.7);
+  }
+  const local=(t-f3)/(1-f3);
+  return mix(mix(COLORS.lime, COLORS.blue2, 0.7), COLORS.clay, local);
+}
+
+// position along the closed racetrack loop, t in [0,1)
+function trackPos(t, time, ampMult){
+  t = ((t%1)+1)%1;
+  if(t < f1){
+    const local = t/f1;
+    return {x:leftCenterX+local*L, y:topY+waveOffset(local,time,ampMult), zone:'top', local};
+  } else if(t < f2){
+    const local = (t-f1)/(f2-f1);
+    const a = -Math.PI/2 + local*Math.PI;
+    return {x:rightCenterX+R*Math.cos(a), y:centerY+R*Math.sin(a), zone:'rightArc', local};
+  } else if(t < f3){
+    const local = (t-f2)/(f3-f2);
+    return {x:rightCenterX-local*L, y:bottomY, zone:'bottom', local};
+  } else {
+    const local = (t-f3)/(1-f3);
+    const a = Math.PI/2 + local*Math.PI;
+    return {x:leftCenterX+R*Math.cos(a), y:centerY+R*Math.sin(a), zone:'leftArc', local};
+  }
+}
+
+// ambient variable particles, decorative, ride the same track & wave
+const PARTICLE_N = 8;
+let particles = [];
+for(let i=0;i<PARTICLE_N;i++){
+  particles.push({ t: Math.random(), speed: 0.028 + Math.random()*0.018, r: 1.8+Math.random()*1.1 });
+}
+
+// floating "cycle logged" toasts, spawned on each lap completion
+let toasts = [];
+
+let start = performance.now();
+let last = start;
+let paused = false;
+
+// compounding state
+const LAP_DURATION = 5.6;     // seconds per lead lap at normal speed
+const DECAY_BASE = 0.93;      // each lap, remaining excess chaos multiplies by this
+const CHAOS_FLOOR = 0.22;     // chaos never fully disappears — it's alive, not dead
+let lapsCompleted = 0;        // continuous float, never resets — total laps since load
+let lastIntLap = 0;
+let baseCycleCount = 2336;
+
+function frame(now){
+  const dt = Math.min(0.05, (now-last)/1000);
+  last = now;
+
+  if(!paused){
+    const t = (now - start) / 1000;
+
+    lapsCompleted += dt / LAP_DURATION;
+    const ampMult = CHAOS_FLOOR + (1-CHAOS_FLOOR) * Math.pow(DECAY_BASE, lapsCompleted);
+
+    const curIntLap = Math.floor(lapsCompleted);
+    let justFlashed = false;
+    if(curIntLap > lastIntLap){
+      lastIntLap = curIntLap;
+      justFlashed = true;
+      cycleEl.textContent = (baseCycleCount + curIntLap).toLocaleString('en-US');
+      cycleEl.classList.remove('bump'); void cycleEl.offsetWidth; cycleEl.classList.add('bump');
+      toasts.push({ life: 1, x: coreX, y: coreY, text: '+1 cycle' });
+    }
+
+    ctx.fillStyle = 'rgba(12,14,13,0.30)';
+    ctx.fillRect(0,0,W,H);
+
+    // sample the closed loop
+    const STEPS = 360;
+    const pts = new Array(STEPS+1);
+    for(let i=0;i<=STEPS;i++){
+      pts[i] = trackPos(i/STEPS, t, ampMult);
+    }
+
+    // pass 1: soft glow underlay, one stroke
+    ctx.save();
+    ctx.shadowColor = 'rgba(184,224,74,0.45)';
+    ctx.shadowBlur = 13;
+    ctx.strokeStyle = 'rgba(184,224,74,0.22)';
+    ctx.lineWidth = 6;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for(let i=1;i<=STEPS;i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.stroke();
+    ctx.restore();
+
+    // pass 2: crisp multi-hue line, no per-segment shadow
+    ctx.lineWidth = 2.3;
+    ctx.lineCap = 'round';
+    for(let i=1;i<=STEPS;i++){
+      ctx.strokeStyle = loopColor(i/STEPS);
+      ctx.beginPath();
+      ctx.moveTo(pts[i-1].x, pts[i-1].y);
+      ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.stroke();
+    }
+
+    // dashed feedback tick marks along the bottom straight
+    ctx.save();
+    ctx.setLineDash([5,7]);
+    ctx.lineDashOffset = -t*22;
+    ctx.strokeStyle = 'rgba(168,205,239,0.28)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(rightCenterX, bottomY);
+    ctx.lineTo(leftCenterX, bottomY);
+    ctx.stroke();
+    ctx.restore();
+
+    // ===== core: the ionic engine =====
+    const flashBoost = justFlashed ? 1 : Math.max(0, 1 - (lapsCompleted-curIntLap)*6);
+    const pulse = 1 + Math.sin(t*2.4)*0.13 + flashBoost*0.35;
+    const coreR = clamp(H*0.05,9,17) * pulse;
+
+    // orbiting factor nodes (F1..F9)
+    ctx.save();
+    ctx.translate(coreX, coreY);
+    for(let i=0;i<9;i++){
+      const a = (i/9)*Math.PI*2 + t*0.35;
+      const fx = Math.cos(a)*(coreR+18), fy = Math.sin(a)*(coreR+18)*0.55;
+      ctx.fillStyle = 'rgba(168,205,239,0.5)';
+      ctx.beginPath();
+      ctx.arc(fx, fy, 1.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // radar rings, stronger right after a lap completes
+    for(let i=0;i<2;i++){
+      const ringT = ((t*0.5 + i*0.5) % 1);
+      ctx.strokeStyle = `rgba(184,224,74,${(0.22+flashBoost*0.3)*(1-ringT)})`;
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      ctx.arc(coreX, coreY, coreR + ringT*40, 0, Math.PI*2);
+      ctx.stroke();
+    }
+
+    // rotating ticks
+    ctx.save();
+    ctx.translate(coreX, coreY);
+    ctx.rotate(t*1.1);
+    ctx.strokeStyle = 'rgba(236,231,222,0.55)';
+    ctx.lineWidth = 1.6;
+    for(let i=0;i<3;i++){
+      const a = (i/3)*Math.PI*2;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a)*(coreR+5), Math.sin(a)*(coreR+5));
+      ctx.lineTo(Math.cos(a)*(coreR+12), Math.sin(a)*(coreR+12));
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    const grad = ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,coreR*2.3);
+    grad.addColorStop(0, `rgba(91,155,214,${0.75+flashBoost*0.2})`);
+    grad.addColorStop(1, 'rgba(91,155,214,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(coreX, coreY, coreR*2.3, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = COLORS.lime;
+    ctx.beginPath();
+    ctx.arc(coreX, coreY, coreR*0.4, 0, Math.PI*2);
+    ctx.fill();
+
+    // ===== ambient variable particles =====
+    particles.forEach(p=>{
+      p.t += p.speed*dt;
+      const pos = trackPos(p.t, t, ampMult);
+      const c = loopColor(p.t);
+      ctx.fillStyle = c;
+      ctx.shadowColor = c;
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+
+    // ===== lead pulse: the cycle itself, driving compounding =====
+    const leadPos = trackPos(lapsCompleted, t, ampMult);
+    ctx.fillStyle = COLORS.paper;
+    ctx.shadowColor = COLORS.lime;
+    ctx.shadowBlur = 11;
+    ctx.beginPath();
+    ctx.arc(leadPos.x, leadPos.y, 4, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // ===== toasts =====
+    toasts = toasts.filter(tx => tx.life > 0);
+    toasts.forEach(tx=>{
+      tx.life -= dt/0.9;
+      const yy = tx.y - 28 - (1-tx.life)*22;
+      ctx.globalAlpha = clamp(tx.life,0,1);
+      ctx.fillStyle = COLORS.lime;
+      ctx.font = '700 10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(tx.text, tx.x, yy);
+      ctx.globalAlpha = 1;
+    });
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+document.body.addEventListener('click', ()=>{ paused = !paused; last = performance.now(); });
+</script>
+</body>
+</html>
