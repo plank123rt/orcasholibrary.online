@@ -13,7 +13,7 @@
     --ink-dim:#93897a;
     --rule:#2c2822;
     --amber:#e8b04b;
-    --amber-dim:#5c481f;
+    --amber-dim:#fcbf44;
     --card-bg:#241f18;
     --card-glow:rgba(232,176,75,0.14);
     --danger:#c96a4f;
@@ -80,6 +80,8 @@
   #status .led{width:6px;height:6px;border-radius:50%;background:var(--ink-dim); transition:background .3s;}
   #status.saved .led{background:#7fae6a;}
   #status.saving .led{background:var(--amber); animation:pulse 1s infinite;}
+  #status.local-only .led{background:#e8b04b;}
+  #status.error .led{background:var(--danger);}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
   /* ---------- Main flow / notepad ---------- */
@@ -238,8 +240,13 @@ let firebaseReady = false;
 
 function setStatus(state){
   statusEl.className = state;
-  statusEl.querySelector('.txt').textContent =
-    state === 'saving' ? 'saving…' : state === 'saved' ? 'saved' : 'offline';
+  const labels = {
+    saving: 'saving…',
+    saved: 'saved (synced)',
+    'local-only': 'saved (this device only)',
+    error: 'sync error — see console'
+  };
+  statusEl.querySelector('.txt').textContent = labels[state] || state;
 }
 
 // ---------- Firebase init (best-effort; local storage is the source of truth either way) ----------
@@ -251,12 +258,18 @@ try{
     if(user){
       uid = user.uid;
       firebaseReady = true;
+      console.info('[Flow] Anonymous auth OK, uid:', uid);
       loadFromCloudIfNewer();
     }
   });
-  signInAnonymously(auth).catch(() => { firebaseReady = false; });
+  signInAnonymously(auth).catch((err) => {
+    firebaseReady = false;
+    console.error('[Flow] signInAnonymously FAILED — this is almost always because Anonymous sign-in is disabled in Firebase Console > Authentication > Sign-in method. Full error:', err);
+    setStatus('error');
+  });
 }catch(e){
-  console.warn('Firebase unavailable, using local storage only.', e);
+  console.error('[Flow] Firebase failed to initialize, using local storage only.', e);
+  setStatus('error');
 }
 
 // ---------- Migration: upgrade cards saved before the delete button existed ----------
@@ -285,7 +298,10 @@ async function loadFromCloudIfNewer(){
         migrateOldCards();
       }
     }
-  }catch(e){ /* silent — local copy still works */ }
+  }catch(e){
+    console.error('[Flow] Reading from Firestore FAILED — check Firestore security rules for the "notepads" collection (they may have expired if the project was created in test mode). Full error:', e);
+    setStatus('error');
+  }
 }
 
 // ---------- Load local ----------
@@ -305,9 +321,14 @@ function scheduleSave(){
     if(db && firebaseReady){
       try{
         await setDoc(doc(db, DOC_PATH), { html, updatedAt: now });
-      }catch(e){ /* offline is fine, local storage already has it */ }
+        setStatus('saved');
+      }catch(e){
+        console.error('[Flow] Writing to Firestore FAILED — check Firestore security rules for the "notepads" collection (they may have expired if the project was created in test mode, or anonymous users may not have write access). Full error:', e);
+        setStatus('error');
+      }
+    } else {
+      setStatus('local-only');
     }
-    setStatus('saved');
   }, 600);
 }
 notepad.addEventListener('input', scheduleSave);
