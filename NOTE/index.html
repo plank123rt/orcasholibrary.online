@@ -13,7 +13,7 @@
     --ink-dim:#93897a;
     --rule:#2c2822;
     --amber:#e8b04b;
-    --amber-dim:#fcbf44;
+    --amber-dim:#5c481f;
     --card-bg:#241f18;
     --card-glow:rgba(232,176,75,0.14);
     --danger:#c96a4f;
@@ -83,6 +83,17 @@
   #status.local-only .led{background:#e8b04b;}
   #status.error .led{background:var(--danger);}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  #errorDetail{
+    position:fixed; bottom:12px; left:12px; right:12px;
+    max-width:680px; margin:0 auto;
+    background:#241412; border:1px solid var(--danger);
+    color:#f0d6ce; font-family:ui-monospace,monospace; font-size:12px;
+    padding:10px 14px; border-radius:8px; z-index:30;
+    display:none; white-space:pre-wrap; word-break:break-word;
+    box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  }
+  #errorDetail.show{display:block;}
+  #errorDetail b{color:var(--danger);}
 
   /* ---------- Main flow / notepad ---------- */
   main{
@@ -149,6 +160,15 @@
     padding:2px 4px;
     box-shadow:inset 0 0 0 1px var(--amber-dim);
   }
+  .card-edit-area{
+    display:block; width:100%; box-sizing:border-box;
+    font-family:inherit; font-size:var(--font-size); line-height:1.65;
+    color:#ffffff; background:rgba(255,255,255,0.02);
+    border:none; border-radius:4px; padding:6px 8px;
+    box-shadow:inset 0 0 0 1px var(--amber-dim);
+    resize:none; min-height:60px; outline:none;
+    white-space:pre-wrap; overflow:hidden;
+  }
   .card-actions{
     display:flex; gap:6px; margin-top:10px;
     flex-wrap:wrap;
@@ -207,6 +227,8 @@
   </div>
 </main>
 
+<div id="errorDetail"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -244,9 +266,17 @@ function setStatus(state){
     saving: 'saving…',
     saved: 'saved (synced)',
     'local-only': 'saved (this device only)',
-    error: 'sync error — see console'
+    error: 'sync error — details below'
   };
   statusEl.querySelector('.txt').textContent = labels[state] || state;
+}
+
+const errorBox = document.getElementById('errorDetail');
+function showError(label, err){
+  const msg = (err && (err.code || err.message)) ? `${err.code || ''} ${err.message || err}`.trim() : String(err);
+  errorBox.innerHTML = `<b>${label}</b><br>${msg}`;
+  errorBox.classList.add('show');
+  console.error(`[Flow] ${label}`, err);
 }
 
 // ---------- Firebase init (best-effort; local storage is the source of truth either way) ----------
@@ -264,12 +294,12 @@ try{
   });
   signInAnonymously(auth).catch((err) => {
     firebaseReady = false;
-    console.error('[Flow] signInAnonymously FAILED — this is almost always because Anonymous sign-in is disabled in Firebase Console > Authentication > Sign-in method. Full error:', err);
     setStatus('error');
+    showError('Sign-in failed (check Authentication > Sign-in method > Anonymous is enabled):', err);
   });
 }catch(e){
-  console.error('[Flow] Firebase failed to initialize, using local storage only.', e);
   setStatus('error');
+  showError('Firebase failed to initialize:', e);
 }
 
 // ---------- Migration: upgrade cards saved before the delete button existed ----------
@@ -299,8 +329,8 @@ async function loadFromCloudIfNewer(){
       }
     }
   }catch(e){
-    console.error('[Flow] Reading from Firestore FAILED — check Firestore security rules for the "notepads" collection (they may have expired if the project was created in test mode). Full error:', e);
     setStatus('error');
+    showError('Reading from Firestore failed (check security rules for the "notepads" collection):', e);
   }
 }
 
@@ -322,9 +352,10 @@ function scheduleSave(){
       try{
         await setDoc(doc(db, DOC_PATH), { html, updatedAt: now });
         setStatus('saved');
+        errorBox.classList.remove('show');
       }catch(e){
-        console.error('[Flow] Writing to Firestore FAILED — check Firestore security rules for the "notepads" collection (they may have expired if the project was created in test mode, or anonymous users may not have write access). Full error:', e);
         setStatus('error');
+        showError('Writing to Firestore failed (check security rules / that Firestore database exists):', e);
       }
     } else {
       setStatus('local-only');
@@ -364,6 +395,10 @@ function niceDate(d = new Date()){
 
 // ---------- Paste → tile (forces plain white text, ignores source colors/formatting) ----------
 notepad.addEventListener('paste', (e) => {
+  // Cards being edited use a real <textarea> now — let the browser handle
+  // paste there natively rather than intercepting it.
+  if(e.target && e.target.classList && e.target.classList.contains('card-edit-area')) return;
+
   const cd = e.clipboardData || window.clipboardData;
   if(!cd) return; // let the browser handle it if we truly can't read the clipboard
   const text = cd.getData('text/plain');
@@ -384,15 +419,6 @@ notepad.addEventListener('paste', (e) => {
     sel.addRange(fallback);
   }
   const range = sel.getRangeAt(0);
-
-  // If we're pasting inside a card that's actively being edited, just insert
-  // plain (recolored) text in place — don't nest a new tile inside a tile.
-  const anchorEl = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement);
-  if(anchorEl && anchorEl.closest('.card-body[contenteditable="true"]')){
-    document.execCommand('insertText', false, text);
-    scheduleSave();
-    return;
-  }
 
   if(!text.trim()) return;
 
@@ -517,16 +543,45 @@ notepad.addEventListener('click', async (e) => {
   }
 
   if(act === 'edit'){
-    const editing = body.getAttribute('contenteditable') === 'true';
-    if(editing){
+    const existingArea = card.querySelector('.card-edit-area');
+    if(existingArea){
+      // Save: pull the text back out of the textarea into the display body.
+      body.textContent = existingArea.value;
+      existingArea.remove();
+      body.style.display = '';
       body.setAttribute('contenteditable', 'false');
+      card.setAttribute('contenteditable', 'false'); // re-lock the card now that editing is done
       btn.textContent = '✎ Edit';
       card.dataset.created = niceDate();
       card.querySelector('.when').textContent = card.dataset.created + ' · edited';
       scheduleSave();
     }else{
-      body.setAttribute('contenteditable', 'true');
-      body.focus();
+      // Edit: swap in a real <textarea>. Chrome/Safari disable clipboard
+      // commands (Cmd/Ctrl+V, right-click Paste) for anything living inside
+      // a contenteditable="false" ancestor, even a plain <textarea> — typing
+      // still works because it doesn't go through that check, but paste
+      // silently gets blocked. Lifting contenteditable off the card while
+      // it's being edited fixes paste; we restore it on Save above.
+      card.removeAttribute('contenteditable');
+
+      const area = document.createElement('textarea');
+      area.className = 'card-edit-area';
+      area.value = body.textContent;
+      body.style.display = 'none';
+      body.after(area);
+
+      // Auto-grow: the box should always show the full note, never scroll
+      // internally. Reset height first so scrollHeight reflects a shrink too
+      // (e.g. after deleting a bunch of text), then grow to fit.
+      const autoGrow = () => {
+        area.style.height = 'auto';
+        area.style.height = area.scrollHeight + 'px';
+      };
+      area.addEventListener('input', autoGrow);
+
+      area.focus();
+      area.setSelectionRange(area.value.length, area.value.length);
+      autoGrow(); // size to the existing text immediately on opening
       btn.textContent = '✓ Save';
     }
   }
