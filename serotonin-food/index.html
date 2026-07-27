@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The serotonin plate — gut-friendly foods, explained</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF3EB;
+    --bg-deep:#E2EAE0;
+    --surface:#FFFFFE;
+    --surface-tint:#F6F8F1;
+    --ink:#1B2E28;
+    --ink-soft:#48594F;
+    --ink-faint:#7C8B80;
+    --teal:#0F6E56;
+    --teal-deep:#0A4C3B;
+    --teal-pale:#DCEEE6;
+    --amber:#C9821F;
+    --amber-pale:#F7E7CB;
+    --coral:#C24C2A;
+    --coral-pale:#F5DFD3;
+    --line: rgba(27,46,40,0.14);
+    --line-soft: rgba(27,46,40,0.08);
+    --shadow: 0 1px 2px rgba(27,46,40,0.06), 0 8px 24px rgba(27,46,40,0.06);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;height:1px;background:var(--teal);
+  }
+  a{color:var(--teal-deep);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px;}
+  section{padding:88px 0;}
+  @media (max-width:640px){ section{padding:56px 0;} .wrap{padding:0 20px;} .gate-card{padding:20px;} .gate-head{flex-direction:column; align-items:flex-start;} }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:96px 0 64px;
+    background:
+      radial-gradient(700px 420px at 82% -10%, var(--teal-pale) 0%, transparent 65%),
+      radial-gradient(600px 380px at -10% 20%, var(--amber-pale) 0%, transparent 60%),
+      var(--bg);
+  }
+  .hero-inner{position:relative; z-index:2;}
+  .hero .eyebrow{margin-bottom:22px;}
+  .hero h1{
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.04;
+    max-width:820px;
+  }
+  .hero h1 em{font-style:italic; color:var(--teal-deep);}
+  .hero p.lede{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:560px;
+    margin-top:22px;
+  }
+  .hero-tags{display:flex; gap:10px; flex-wrap:wrap; margin-top:30px;}
+  .tag{
+    font-size:13px; font-weight:500; color:var(--teal-deep);
+    background:var(--surface); border:0.5px solid var(--line);
+    padding:7px 14px; border-radius:999px;
+    display:flex; align-items:center; gap:6px;
+  }
+
+  /* floating molecule field */
+  .molecules{position:absolute; inset:0; z-index:1; pointer-events:none;}
+  .mol{
+    position:absolute; border-radius:50%;
+    background:var(--teal);
+    opacity:0.16;
+    animation:drift 14s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(14px,-22px) scale(1.12); }
+  }
+  @media (prefers-reduced-motion: reduce){ .mol{animation:none;} }
+
+  /* ---------- SIGNATURE: the gate ---------- */
+  .gate-card{
+    background:var(--surface);
+    border:0.5px solid var(--line);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:32px;
+    margin-top:20px;
+  }
+  .gate-head{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:22px;}
+  .gate-head h3{font-size:21px;}
+  .gate-head p{margin:6px 0 0; color:var(--ink-soft); font-size:14.5px; max-width:460px;}
+  .toggle-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .toggle-btn{
+    font-family:'Inter',sans-serif; font-size:13.5px; font-weight:500;
+    padding:9px 16px; border-radius:10px; border:0.5px solid var(--line);
+    background:var(--surface-tint); color:var(--ink-soft); cursor:pointer;
+    transition:all .25s ease;
+  }
+  .toggle-btn.active{background:var(--teal); color:#fff; border-color:var(--teal-deep);}
+  .toggle-btn:hover:not(.active){background:var(--bg-deep);}
+
+  svg.gate-svg{width:100%; height:auto; display:block; margin-top:10px;}
+  .lane-dot{ transition: transform .8s cubic-bezier(.4,0,.2,1), opacity .5s ease; }
+  .gate-fill{ transition: y .7s ease, height .7s ease; }
+  .flow-dot{
+    animation: flowacross 3.2s linear infinite;
+  }
+  .flow-dot.slow{animation-duration:5.2s; opacity:0.35;}
+  @keyframes flowacross{
+    0%{ transform:translateX(0); opacity:0; }
+    8%{ opacity:1; }
+    85%{ opacity:1; }
+    100%{ transform:translateX(65px); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .flow-dot{animation:none; opacity:.6;} }
+  .gate-caption{
+    text-align:center; font-size:13px; color:var(--ink-faint); margin-top:14px;
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  /* ---------- pool cards ---------- */
+  .pool-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:32px;}
+  @media (max-width:640px){ .pool-grid{grid-template-columns:1fr;} }
+  .pool-card{
+    background:var(--surface); border:0.5px solid var(--line); border-radius:18px;
+    padding:28px; position:relative; overflow:hidden;
+  }
+  .pool-card .big-emoji{
+    font-size:34px; display:inline-block;
+    animation:pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.12);} }
+  .pool-card h3{font-size:19px; margin-top:14px;}
+  .pool-card .pct{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--teal-deep);
+    background:var(--teal-pale); display:inline-block; padding:3px 10px; border-radius:999px;
+    margin-top:8px;
+  }
+  .pool-card.brain .pct{color:var(--amber); background:var(--amber-pale);}
+  .pool-card p{color:var(--ink-soft); font-size:14.5px; margin:12px 0 0;}
+  .bar-track{height:8px; background:var(--bg-deep); border-radius:99px; margin-top:16px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:99px; background:var(--teal); width:0%; transition:width 1.4s cubic-bezier(.2,.8,.2,1);}
+  .pool-card.brain .bar-fill{background:var(--amber);}
+  .bar-fill.filled{width:var(--w);}
+
+  /* ---------- section headers ---------- */
+  .sec-head{max-width:640px; margin-bottom:36px;}
+  .sec-head h2{font-size:clamp(26px,3.4vw,34px); margin-top:10px;}
+  .sec-head p{color:var(--ink-soft); font-size:15.5px; margin-top:12px;}
+
+  /* ---------- tier sections ---------- */
+  .tier-block{margin-top:8px;}
+  .tier-label{
+    display:flex; align-items:center; gap:12px; margin:52px 0 20px;
+  }
+  .tier-num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:14px; flex-shrink:0;
+  }
+  .tier-label.t2 .tier-num{background:var(--amber);}
+  .tier-label.t3 .tier-num{background:var(--coral);}
+  .tier-label h3{font-size:19px;}
+  .tier-label span.sub{color:var(--ink-faint); font-size:13.5px; display:block; margin-top:2px; font-weight:400; font-family:'Inter',sans-serif;}
+
+  .food-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:760px){ .food-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:480px){ .food-grid{grid-template-columns:1fr;} }
+
+  .food-card{
+    background:var(--surface); border:0.5px solid var(--line); border-radius:16px;
+    padding:20px; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    position:relative;
+  }
+  .food-card:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--line-soft);}
+  .food-card .emoji{
+    font-size:28px; display:inline-block; transition:transform .35s ease;
+  }
+  .food-card:hover .emoji{transform:rotate(-8deg) scale(1.15);}
+  .food-card h4{font-family:'Fraunces',serif; font-weight:600; font-size:16.5px; margin:10px 0 4px;}
+  .food-card .trp{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--teal-deep);
+    background:var(--teal-pale); padding:2px 8px; border-radius:999px; display:inline-block;
+  }
+  .food-card p{font-size:13.5px; color:var(--ink-soft); margin:10px 0 0; line-height:1.55;}
+  .food-card .gut-badge{
+    margin-top:10px; display:flex; align-items:center; gap:5px;
+    font-size:12px; color:var(--teal-deep); font-weight:500;
+  }
+
+  /* limit list */
+  .limit-box{
+    background:var(--coral-pale); border:0.5px solid rgba(194,76,42,0.25); border-radius:16px;
+    padding:24px 26px; margin-top:14px;
+  }
+  .limit-box h3{font-size:17px; color:#7A3419; display:flex; align-items:center; gap:8px;}
+  .limit-box ul{margin:14px 0 0; padding-left:0; list-style:none;}
+  .limit-box li{
+    font-size:14.5px; color:#7A3419; padding:8px 0; border-top:0.5px solid rgba(194,76,42,0.18);
+    display:flex; gap:10px;
+  }
+  .limit-box li:first-child{border-top:none;}
+
+  /* meal callout */
+  .meal-card{
+    background:var(--ink); color:var(--bg); border-radius:20px; padding:36px;
+    margin-top:14px; position:relative; overflow:hidden;
+  }
+  .meal-card h3{color:#fff; font-size:20px;}
+  .meal-card p{color:#C9D6CF; font-size:14.5px; margin-top:8px;}
+  .meal-steps{display:flex; gap:14px; flex-wrap:wrap; margin-top:22px;}
+  .meal-step{
+    background:rgba(255,255,255,0.06); border:0.5px solid rgba(255,255,255,0.12);
+    border-radius:12px; padding:14px 16px; flex:1; min-width:140px;
+  }
+  .meal-step .emoji{font-size:22px;}
+  .meal-step .lbl{font-size:12.5px; color:#9FB3A8; margin-top:8px; font-family:'JetBrains Mono',monospace;}
+  .meal-step .name{font-size:14.5px; color:#fff; margin-top:2px; font-weight:500;}
+  .plus{color:#5DCAA5; font-size:20px; align-self:center;}
+
+  /* ---------- recipes ---------- */
+  .recipe-card{
+    background:var(--surface); border:0.5px solid var(--line); border-radius:18px;
+    margin-top:16px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .recipe-head{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:22px 26px; cursor:pointer; user-select:none;
+  }
+  .recipe-head:hover{background:var(--surface-tint);}
+  .recipe-title{display:flex; align-items:center; gap:14px;}
+  .recipe-title .emoji{font-size:30px;}
+  .recipe-title h3{font-size:19px;}
+  .recipe-title .region{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--teal-deep);
+    background:var(--teal-pale); padding:2px 9px; border-radius:999px; margin-top:5px; display:inline-block;
+  }
+  .recipe-chevron{
+    width:30px; height:30px; border-radius:50%; border:0.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition:transform .35s ease, background .25s ease;
+    font-size:14px; color:var(--ink-soft);
+  }
+  .recipe-card.open .recipe-chevron{transform:rotate(180deg); background:var(--teal-pale); color:var(--teal-deep);}
+  .recipe-body{
+    max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .recipe-card.open .recipe-body{max-height:1400px;}
+  .recipe-inner{padding:0 26px 28px;}
+  .recipe-why{
+    background:var(--teal-pale); border-radius:12px; padding:14px 16px; font-size:13.5px;
+    color:var(--teal-deep); margin-bottom:22px; line-height:1.6;
+  }
+  .recipe-cols{display:grid; grid-template-columns:1fr 1.3fr; gap:28px;}
+  @media (max-width:640px){ .recipe-cols{grid-template-columns:1fr;} }
+  .recipe-cols h4{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.07em; color:var(--ink-faint); margin:0 0 12px;
+  }
+  .ing-list{list-style:none; margin:0; padding:0;}
+  .ing-list li{
+    font-size:14px; color:var(--ink); padding:7px 0; border-top:0.5px solid var(--line-soft);
+    display:flex; justify-content:space-between; gap:12px;
+  }
+  .ing-list li:first-child{border-top:none;}
+  .ing-list li span.qty{color:var(--ink-faint); font-family:'JetBrains Mono',monospace; font-size:12.5px; white-space:nowrap;}
+  .step-list{list-style:none; margin:0; padding:0; counter-reset:step;}
+  .step-list li{
+    counter-increment:step; padding:10px 0 10px 38px; position:relative; font-size:14px;
+    color:var(--ink-soft); line-height:1.6; border-top:0.5px solid var(--line-soft);
+  }
+  .step-list li:first-child{border-top:none;}
+  .step-list li::before{
+    content:counter(step); position:absolute; left:0; top:9px;
+    width:24px; height:24px; border-radius:50%; background:var(--amber-pale); color:var(--amber);
+    font-family:'JetBrains Mono',monospace; font-size:12px; display:flex; align-items:center; justify-content:center;
+  }
+  .recipe-tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px;}
+  .recipe-tags .tag{font-size:12px; padding:5px 11px;}
+
+  .heat-badge{
+    display:inline-flex; align-items:center; gap:6px; margin-top:7px;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--coral);
+    background:var(--coral-pale); padding:4px 10px 4px 9px; border-radius:999px;
+  }
+  .heat-badge .flame{display:inline-block; animation:flamepulse 1.5s ease-in-out infinite;}
+  @keyframes flamepulse{ 0%,100%{transform:scale(1) translateY(0);} 50%{transform:scale(1.18) translateY(-1px);} }
+  .steam{display:inline-flex; align-items:flex-end; gap:2px; height:12px; margin-left:2px;}
+  .steam span{
+    width:2px; height:7px; background:var(--ink-faint); border-radius:2px;
+    opacity:0; animation:steamrise 2s ease-in-out infinite;
+  }
+  .steam span:nth-child(2){animation-delay:.35s;}
+  .steam span:nth-child(3){animation-delay:.7s;}
+  @keyframes steamrise{
+    0%{ transform:translateY(2px) scaleY(0.8); opacity:0; }
+    35%{ opacity:.55; }
+    100%{ transform:translateY(-9px) scaleY(1.3); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .heat-badge .flame, .steam span{animation:none; opacity:.6;} }
+
+  .science-note{
+    display:flex; gap:13px; align-items:flex-start; background:var(--amber-pale);
+    border-radius:14px; padding:16px 18px; margin-bottom:20px;
+  }
+  .science-note .icon{font-size:19px; flex-shrink:0; margin-top:1px; animation:pulse 3.2s ease-in-out infinite;}
+  .science-note p{margin:0; font-size:13.5px; color:#5C3E12; line-height:1.65;}
+  .science-note strong{color:#4A2F0C;}
+
+  .bio-label{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.07em; color:var(--ink-faint); margin:0 0 12px;
+  }
+  .bio-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px;}
+  @media (max-width:640px){ .bio-grid{grid-template-columns:1fr;} }
+  .bio-chip{
+    background:var(--surface-tint); border:0.5px solid var(--line-soft); border-radius:12px;
+    padding:12px 14px; transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .bio-chip:hover{transform:translateY(-3px); border-color:var(--teal); background:var(--surface);}
+  .bio-chip .bio-top{display:flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; color:var(--ink);}
+  .bio-chip .bio-top .emoji{font-size:16px;}
+  .bio-chip p{margin:6px 0 0; font-size:12.5px; color:var(--ink-soft); line-height:1.55;}
+
+  /* footer */
+  footer{
+    padding:56px 0 80px; border-top:0.5px solid var(--line); margin-top:20px;
+  }
+  footer p{font-size:13px; color:var(--ink-faint); max-width:600px;}
+  footer .caveat{
+    background:var(--amber-pale); border-radius:12px; padding:16px 18px; font-size:13.5px;
+    color:#5C3E12; margin-top:20px; max-width:640px;
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="molecules" id="molecules"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">🧬 nutrition biochemistry, gut-safe edition</div>
+    <h1>Food that feeds serotonin, <em>without</em> upsetting your gut.</h1>
+    <p class="lede">Serotonin isn't something you eat directly — it's something your body builds from tryptophan, with help from a few cofactors and a very picky doorway into the brain. Here's how that works, and which foods support it without irritating a sensitive gut.</p>
+    <div class="hero-tags">
+      <span class="tag">🧠 brain pathway</span>
+      <span class="tag">🌱 gut pathway</span>
+      <span class="tag">🥚 veg + non-veg</span>
+      <span class="tag">🛡️ low-FODMAP filtered</span>
+    </div>
+  </div>
+</section>
+
+<section id="pools">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">01 — two separate factories</div>
+      <h2>Your body makes serotonin in two places that never share stock.</h2>
+      <p>One pool runs your mood and sleep signaling. The other — nine times bigger — runs your gut. They're built the same way, from the same raw material, but gut serotonin never crosses into the brain, and vice versa.</p>
+    </div>
+
+    <div class="pool-grid">
+      <div class="pool-card reveal">
+        <span class="big-emoji">🌱</span>
+        <span class="pct">~90–95% of total</span>
+        <h3>Gut serotonin</h3>
+        <p>Made by enterochromaffin cells in your intestinal lining. It controls motility and gut-immune signaling — and directly affects how comfortable your digestion feels.</p>
+        <div class="bar-track"><div class="bar-fill" style="--w:92%"></div></div>
+      </div>
+      <div class="pool-card brain reveal">
+        <span class="big-emoji">🧠</span>
+        <span class="pct">~5% of total</span>
+        <h3>Brain serotonin</h3>
+        <p>Made locally inside the brain from tryptophan that survives the trip across the blood-brain barrier. This is the pool tied to mood, sleep, and appetite regulation.</p>
+        <div class="bar-track"><div class="bar-fill" style="--w:8%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gate" style="padding-top:20px;">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">02 — the bottleneck</div>
+      <h2>Tryptophan has to win a seat on a crowded shuttle.</h2>
+      <p>Tryptophan shares its transporter across the blood-brain barrier with other large amino acids — leucine, valine, tyrosine. Whichever amino acid is more abundant in your blood wins more seats. This is the single biggest lever food actually has.</p>
+    </div>
+
+    <div class="gate-card reveal">
+      <div class="gate-head">
+        <div>
+          <h3>Try it — shift the meal, watch the gate</h3>
+          <p>A high-protein meal floods the blood with competing amino acids. A meal that pairs tryptophan with carbohydrate lets insulin clear the competitors away, widening tryptophan's share of the gate.</p>
+        </div>
+        <div class="toggle-row">
+          <button class="toggle-btn active" id="btn-protein" onclick="setMeal('protein')">🥩 High-protein meal</button>
+          <button class="toggle-btn" id="btn-carb" onclick="setMeal('carb')">🍚 Carb + tryptophan meal</button>
+        </div>
+      </div>
+
+      <svg class="gate-svg" viewBox="0 0 680 260" role="img" aria-label="Diagram of tryptophan competing with other amino acids at the blood-brain barrier">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#7C8B80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <rect x="20" y="20" width="220" height="216" rx="16" fill="#F6F8F1" stroke="#E2EAE0" stroke-width="1"/>
+        <text x="130" y="44" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#48594F">Bloodstream</text>
+
+        <circle id="trp-dot" cx="66" cy="84" r="8" fill="#0F6E56"/>
+        <text x="82" y="88" font-family="JetBrains Mono" font-size="11" fill="#1B2E28">Tryptophan</text>
+
+        <g id="lnaa-dots">
+          <circle cx="60" cy="118" r="8" fill="#C9821F"/>
+          <circle cx="86" cy="132" r="8" fill="#C9821F"/>
+          <circle cx="60" cy="146" r="8" fill="#C9821F"/>
+          <circle cx="112" cy="124" r="8" fill="#C9821F"/>
+          <circle cx="112" cy="148" r="8" fill="#C9821F"/>
+        </g>
+        <text font-family="JetBrains Mono" font-size="11" fill="#1B2E28">
+          <tspan x="40" y="176">Leucine, valine,</tspan>
+          <tspan x="40" y="191">tyrosine (LNAAs)</tspan>
+        </text>
+
+        <rect x="285" y="20" width="70" height="216" rx="10" fill="#DCEEE6" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="320" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0A4C3B">BBB gate</text>
+        <rect id="gate-fill" class="gate-fill" x="292" y="105" width="56" height="50" rx="6" fill="#0F6E56" opacity="0.55"/>
+
+        <circle class="flow-dot" cx="362" cy="118" r="5" fill="#0F6E56"/>
+        <circle class="flow-dot slow" cx="362" cy="138" r="5" fill="#C9821F" style="animation-delay:1s"/>
+        <circle class="flow-dot" cx="362" cy="128" r="5" fill="#0F6E56" style="animation-delay:1.8s"/>
+
+        <rect x="420" y="20" width="240" height="216" rx="16" fill="#F6F8F1" stroke="#E2EAE0" stroke-width="1"/>
+        <text x="540" y="44" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#48594F">Brain</text>
+
+        <text text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#48594F">
+          <tspan x="540" y="76">TPH2 enzyme</tspan>
+          <tspan x="540" y="90">needs B6 + folate</tspan>
+        </text>
+        <line x1="540" y1="98" x2="540" y2="120" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <circle cx="540" cy="142" r="15" fill="#534AB7"/>
+        <text x="540" y="146" text-anchor="middle" font-family="Inter" font-size="10.5" font-weight="600" fill="#fff">5-HT</text>
+
+        <text text-anchor="middle" font-family="Inter" font-size="11.5" fill="#7C8B80">
+          <tspan x="540" y="180">Serotonin made here</tspan>
+          <tspan x="540" y="195">stays here — it never</tspan>
+          <tspan x="540" y="210">leaves the brain.</tspan>
+        </text>
+      </svg>
+      <div class="gate-caption" id="gate-caption">both amino acid types compete equally for the gate</div>
+    </div>
+  </div>
+</section>
+
+<section id="foods">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">03 — the food list</div>
+      <h2>Ranked by tryptophan density and gut tolerance, not hype.</h2>
+      <p>Every food below has been filtered against common IBS/gut irritants: high-FODMAP fructans, heavy fat, excess spice. Veg and non-veg both included.</p>
+    </div>
+
+    <div class="tier-label reveal">
+      <div class="tier-num">1</div>
+      <div>
+        <h3>Tryptophan + cofactors in one bite</h3>
+        <span class="sub">Highest density, gentlest on digestion</span>
+      </div>
+    </div>
+    <div class="food-grid reveal">
+      <div class="food-card">
+        <span class="emoji">🫘</span>
+        <h4>Moong dal (split)</h4>
+        <span class="trp">~200 mg / 100g cooked</span>
+        <p>The one legume that's both tryptophan-rich and genuinely low-FODMAP once split and hulled — the base of khichdi below.</p>
+        <div class="gut-badge">🛡️ easiest legume to digest</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🐟</span>
+        <h4>Salmon &amp; mackerel</h4>
+        <span class="trp">~250 mg / 100g</span>
+        <p>Tryptophan plus omega-3s, which calm gut inflammation rather than trigger it.</p>
+        <div class="gut-badge">🛡️ anti-inflammatory</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🎃</span>
+        <h4>Pumpkin seeds</h4>
+        <span class="trp">~576 mg / 100g</span>
+        <p>The single densest whole-food source, plus the magnesium that activates the synthesis enzymes.</p>
+        <div class="gut-badge">🛡️ low-FODMAP</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🧊</span>
+        <h4>Firm tofu</h4>
+        <span class="trp">~180 mg / 100g</span>
+        <p>Nearly a complete amino acid profile, and processing strips out most of the gassy soy sugars.</p>
+        <div class="gut-badge">🛡️ low-FODMAP</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🍌</span>
+        <h4>Ripe banana</h4>
+        <span class="trp">tryptophan + B6</span>
+        <p>Carries its own carbohydrate pairing — helps clear the competing amino acids for you.</p>
+        <div class="gut-badge">🛡️ standard low-FODMAP fruit</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🥣</span>
+        <h4>Oats</h4>
+        <span class="trp">carb pairing + fiber</span>
+        <p>Supplies the insulin trigger, plus gentle soluble fiber rather than fermentable, gassy fiber.</p>
+        <div class="gut-badge">🛡️ soothing, not fermenting</div>
+      </div>
+    </div>
+
+    <div class="tier-label t2 reveal">
+      <div class="tier-num">2</div>
+      <div>
+        <h3>Good tryptophan, gut-neutral</h3>
+        <span class="sub">Reliable everyday options</span>
+      </div>
+    </div>
+    <div class="food-grid reveal">
+      <div class="food-card">
+        <span class="emoji">🍗</span>
+        <h4>Chicken &amp; turkey</h4>
+        <span class="trp">~290–360 mg / 100g</span>
+        <p>Lean, well tolerated. Skip the skin and heavy sauces to keep it gut-neutral.</p>
+        <div class="gut-badge">🛡️ well tolerated</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🧀</span>
+        <h4>Hard cheeses</h4>
+        <span class="trp">Parmesan, cheddar</span>
+        <p>Naturally low in lactose since aging removes most of it — the sugar that irritates sensitive guts.</p>
+        <div class="gut-badge">🛡️ low-lactose</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🥔</span>
+        <h4>Potato (cooked + cooled)</h4>
+        <span class="trp">~80 mg / oz + B6</span>
+        <p>Cooling after cooking creates resistant starch — gentle fuel for gut bacteria.</p>
+        <div class="gut-badge">🛡️ low-FODMAP</div>
+      </div>
+    </div>
+
+    <div class="tier-label t3 reveal">
+      <div class="tier-num">3</div>
+      <div>
+        <h3>The microbiome route</h3>
+        <span class="sub">Feeds the bacteria that trigger gut-serotonin release</span>
+      </div>
+    </div>
+    <div class="food-grid reveal">
+      <div class="food-card">
+        <span class="emoji">🥛</span>
+        <h4>Plain yogurt / kefir</h4>
+        <span class="trp">probiotic strains</span>
+        <p>Live cultures directly influence how much serotonin your enterochromaffin cells release.</p>
+        <div class="gut-badge">🛡️ choose low-lactose if sensitive</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🍚</span>
+        <h4>Cooked-cooled rice</h4>
+        <span class="trp">resistant starch</span>
+        <p>Short-chain fatty acids from fermented resistant starch are a direct trigger for gut serotonin release.</p>
+        <div class="gut-badge">🛡️ gentle prebiotic</div>
+      </div>
+      <div class="food-card">
+        <span class="emoji">🥒</span>
+        <h4>Cucumber &amp; leafy greens</h4>
+        <span class="trp">mild tryptophan + fiber</span>
+        <p>Low-irritant fiber and hydration that support motility without fermentation-driven bloating.</p>
+        <div class="gut-badge">🛡️ low-FODMAP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="limit">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">04 — go easy on these</div>
+      <h2>Not because they lack tryptophan — because of what else they bring.</h2>
+    </div>
+    <div class="limit-box reveal">
+      <h3>⚠️ Common gut irritants to portion carefully</h3>
+      <ul>
+        <li>🧄 <span>Garlic, onion, and wheat in large amounts — high-FODMAP fructans that ferment and bloat, even though some legumes here carry decent tryptophan.</span></li>
+        <li>🍟 <span>Fried and very high-fat foods — fat strengthens intestinal contractions and can trigger cramping independent of nutrient content.</span></li>
+        <li>🌶️ <span>Chili-heavy spicing — a direct trigger for abdominal pain in sensitive guts.</span></li>
+        <li>🧈 <span>Soft, fresh cheeses (ricotta, cream cheese) — higher lactose than aged hard cheese.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="meal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">05 — put it together</div>
+      <h2>One plate, all three levers pulled at once.</h2>
+    </div>
+    <div class="meal-card reveal">
+      <h3>🍽️ The gut-safe serotonin plate</h3>
+      <p>Precursor, transport advantage, and microbiome support — in a single low-irritant meal.</p>
+      <div class="meal-steps">
+        <div class="meal-step">
+          <div class="emoji">🐟</div>
+          <div class="lbl">precursor</div>
+          <div class="name">Fish or paneer</div>
+        </div>
+        <div class="plus">+</div>
+        <div class="meal-step">
+          <div class="emoji">🍚</div>
+          <div class="lbl">insulin trigger</div>
+          <div class="name">White rice or oats</div>
+        </div>
+        <div class="plus">+</div>
+        <div class="meal-step">
+          <div class="emoji">🎃</div>
+          <div class="lbl">cofactor</div>
+          <div class="name">Pumpkin seeds</div>
+        </div>
+        <div class="plus">+</div>
+        <div class="meal-step">
+          <div class="emoji">🥛</div>
+          <div class="lbl">microbiome</div>
+          <div class="name">Plain yogurt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recipes">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">06 — recipes, in depth</div>
+      <h2>Six Indian recipes built on the same three levers.</h2>
+      <p>No eggs, onion or garlic swapped for hing (asafoetida) where a low-FODMAP version is possible, and every recipe pairs a tryptophan source with a carbohydrate for the insulin effect. Tap a recipe to open it.</p>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🥣</span>
+          <div><h3>Moong dal khichdi with pumpkin seed tadka</h3>
+          <span class="region">north indian · one-pot</span>
+          <span class="heat-badge"><span class="flame">🔥</span>pressure cook, ~15 min<span class="steam"><span></span><span></span><span></span></span></span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>What the heat is actually doing:</strong> raw dal protein is tightly folded, which hides tryptophan from your digestive enzymes. Pressure-cooking denatures that structure — the heat unfolds the protein chains so trypsin and chymotrypsin in your gut can actually cleave off free tryptophan for absorption. The same heat also destroys trypsin-inhibitor compounds naturally present in raw legumes, which would otherwise blunt that same digestion. Meanwhile the rice starch gelatinizes in the water, turning into a rapidly-absorbed glucose source — the insulin spike from that glucose lands roughly 30–60 minutes later, which is the same window the newly-freed tryptophan needs to win its seat across the blood-brain barrier.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🫘</span>Moong dal</div><p>Source protein — tryptophan is bound inside its structure until heat unfolds it.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍚</span>Rice</div><p>Starch gelatinizes with heat, becoming the fast carb that triggers the insulin/LNAA-clearing effect.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🫚</span>Ginger + hing</div><p>Replace onion-garlic's fructans; hing is traditionally used as a carminative to reduce gas from legume fermentation.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🎃</span>Pumpkin seeds</div><p>Added after the flame is off — this protects their magnesium-cofactor oils from high-heat oxidation.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (serves 2)</h4>
+            <ul class="ing-list">
+              <li>Split yellow moong dal <span class="qty">1/2 cup</span></li>
+              <li>White rice <span class="qty">1/2 cup</span></li>
+              <li>Turmeric powder <span class="qty">1/4 tsp</span></li>
+              <li>Cumin seeds <span class="qty">1 tsp</span></li>
+              <li>Ghee or oil <span class="qty">1 tbsp</span></li>
+              <li>Hing (asafoetida) <span class="qty">a pinch</span></li>
+              <li>Grated ginger <span class="qty">1 tsp</span></li>
+              <li>Curry leaves <span class="qty">6–8</span></li>
+              <li>Pumpkin seeds, roasted <span class="qty">2 tbsp</span></li>
+              <li>Salt <span class="qty">to taste</span></li>
+              <li>Water <span class="qty">3.5 cups</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Wash rice and dal together until water runs clear, then soak 15 minutes.</li>
+              <li>Heat ghee in a pressure cooker or deep pot. Add cumin seeds, let them sizzle, then add hing and curry leaves.</li>
+              <li>Add grated ginger and sauté 30 seconds — this replaces the onion-garlic base without adding FODMAP load.</li>
+              <li>Add the soaked rice-dal, turmeric, and salt. Stir for a minute to coat everything in the tempering.</li>
+              <li>Add water, close the lid, and pressure cook 3–4 whistles, or simmer covered 25 minutes on the stovetop until soft and porridge-like.</li>
+              <li>Finish with a scatter of roasted pumpkin seeds and an extra drizzle of ghee just before serving.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🛡️ low-FODMAP</span><span class="tag">🎃 magnesium</span><span class="tag">🍚 carb pairing</span></div>
+      </div></div>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🐟</span>
+          <div><h3>Coconut fish curry, Kerala-style (mild)</h3>
+          <span class="region">kerala · non-veg</span>
+          <span class="heat-badge"><span class="flame">🔥</span>gentle simmer, no hard boil<span class="steam"><span></span><span></span><span></span></span></span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>What the heat is actually doing:</strong> fish protein (myosin and actin) coagulates at a low 50–60°C — far lower than meat — which is why it cooks fast and why a hard boil overshoots into toughened, less digestible protein. The gentle simmer here denatures the protein just enough to expose tryptophan-containing peptides without cross-linking them into rubber. Coconut milk must stay below a rolling boil too, or its own proteins and fats separate ("breaking") — kept at a simmer, its medium-chain fats stay emulsified, which slows gastric emptying and smooths out the amino acid release into your blood instead of one sharp spike.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🐟</span>Fish</div><p>Dense tryptophan plus omega-3s that are anti-inflammatory on gut lining rather than irritating.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🥥</span>Coconut milk</div><p>Fat slows digestion, smoothing the amino acid release curve; stays emulsified only below a hard boil.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🟡</span>Turmeric</div><p>Curcumin is poorly absorbed alone — the fat in coconut milk meaningfully improves its uptake.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍋</span>Kokum / tamarind</div><p>Acidity lowers pH, which helps activate pepsin for protein breakdown further down the gut.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (serves 2)</h4>
+            <ul class="ing-list">
+              <li>Firm white fish or salmon <span class="qty">300 g</span></li>
+              <li>Coconut milk <span class="qty">1 cup</span></li>
+              <li>Kashmiri chili powder (mild) <span class="qty">1 tsp</span></li>
+              <li>Turmeric powder <span class="qty">1/2 tsp</span></li>
+              <li>Coriander powder <span class="qty">1 tsp</span></li>
+              <li>Curry leaves <span class="qty">10</span></li>
+              <li>Mustard seeds <span class="qty">1/2 tsp</span></li>
+              <li>Hing <span class="qty">a pinch</span></li>
+              <li>Kokum or tamarind <span class="qty">2 pieces</span></li>
+              <li>Coconut oil <span class="qty">1.5 tbsp</span></li>
+              <li>Salt <span class="qty">to taste</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Cut fish into large chunks, rub lightly with turmeric and salt, and set aside 10 minutes.</li>
+              <li>Heat coconut oil in a clay or heavy-bottomed pot. Splutter mustard seeds, then add hing and curry leaves.</li>
+              <li>Lower heat and add chili powder, turmeric, and coriander powder. Stir for 20 seconds so the spices don't burn.</li>
+              <li>Add half a cup of water and the kokum or tamarind, bring to a gentle simmer for 5 minutes.</li>
+              <li>Slide in the fish pieces, then pour in coconut milk. Simmer uncovered on low heat 8–10 minutes — do not boil hard, or the coconut milk can split.</li>
+              <li>Rest 5 minutes off heat before serving; the flavor rounds out as it sits.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🐟 tryptophan-dense</span><span class="tag">🫒 omega-3</span><span class="tag">🛡️ onion-free</span></div>
+      </div></div>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🧀</span>
+          <div><h3>Paneer bhurji with pumpkin seeds</h3>
+          <span class="region">north indian · veg</span>
+          <span class="heat-badge"><span class="flame">🔥</span>quick sauté, ~8 min<span class="steam"><span></span><span></span><span></span></span></span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>What the heat is actually doing:</strong> paneer is already pre-denatured — acid (lemon juice) curdles the milk protein casein before you even start cooking, which is why paneer is naturally easier to digest than raw milk and why most of the lactose-carrying whey drains away with the liquid. In the pan, light sautéing keeps that curdled protein structure loose and porous. Overcook it, though, and the same thing that happens to a scrambled egg left too long happens here: the proteins cross-link tighter, moisture cooks out, and the block turns rubbery and harder for digestive enzymes to break into — so this is a dish where less heat time genuinely means better tryptophan availability.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🧀</span>Paneer</div><p>Acid-curdled, so most lactose already drained off with the whey before cooking even starts.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍅</span>Tomato</div><p>Acidity aids protein digestion; vitamin C supports iron absorption from the same plate.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🫚</span>Ginger + hing</div><p>Carminative aromatics that replace onion-garlic's fermentable fructans.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🎃</span>Pumpkin seeds</div><p>Scattered on top, uncooked — keeps their magnesium and oils from degrading under heat.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (serves 2)</h4>
+            <ul class="ing-list">
+              <li>Fresh paneer, crumbled <span class="qty">200 g</span></li>
+              <li>Tomato, finely chopped <span class="qty">1 small</span></li>
+              <li>Capsicum, diced <span class="qty">1/2</span></li>
+              <li>Grated ginger <span class="qty">1 tsp</span></li>
+              <li>Green chili, slit <span class="qty">1</span></li>
+              <li>Turmeric powder <span class="qty">1/4 tsp</span></li>
+              <li>Cumin seeds <span class="qty">1/2 tsp</span></li>
+              <li>Hing <span class="qty">a pinch</span></li>
+              <li>Coriander leaves <span class="qty">2 tbsp</span></li>
+              <li>Roasted pumpkin seeds <span class="qty">2 tbsp</span></li>
+              <li>Oil or ghee <span class="qty">1 tbsp</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Heat oil in a pan, add cumin seeds and let them crackle, then add hing.</li>
+              <li>Add ginger and green chili, sauté 30 seconds until fragrant.</li>
+              <li>Add capsicum and cook 2 minutes until just softened, keeping some crunch.</li>
+              <li>Add chopped tomato and turmeric, cook until the tomato breaks down into a soft base, about 4 minutes.</li>
+              <li>Crumble in the paneer and toss gently to coat — don't overcook, paneer turns rubbery fast.</li>
+              <li>Finish with coriander leaves and a scatter of roasted pumpkin seeds. Serve with warm roti or on toast.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🥛 low-lactose</span><span class="tag">🧄 onion-free</span><span class="tag">⚡ 15 min</span></div>
+      </div></div>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🥭</span>
+          <div><h3>Thayir sadam (curd rice) with pomegranate</h3>
+          <span class="region">south indian · veg, cooling</span>
+          <span class="heat-badge"><span class="flame">❄️</span>curd added cold — no cooking</span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>Why this recipe avoids heat on purpose:</strong> every other dish here uses heat to unlock something. This one deliberately doesn't. Fresh curd's live Lactobacillus cultures have already fermented and partially pre-digested the milk's proteins and sugars — that's the whole value of it — and heat above roughly 45°C kills those live cultures outright. So the curd goes in only after the rice has fully cooled, never into a hot pot. The one heating step that does happen — the tempering — is cooked completely separately in a small pan and poured on top at the end, so the mustard seeds and curry leaves get their flavor-releasing heat without ever touching, and killing, the live cultures in the curd itself.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🥛</span>Fresh curd</div><p>Live bacterial cultures and their metabolites are what interact with gut enterochromaffin cells — kept raw.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍚</span>Cooled rice</div><p>Starch retrogrades slightly as it cools, forming resistant starch — a prebiotic fiber for the same bacteria.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🌿</span>Curry leaf tempering</div><p>Cooked separately so its heat never reaches, and kills, the curd's live cultures.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🌰</span>Pomegranate</div><p>Adds polyphenols and texture without introducing any fermentable sugar load.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (serves 2)</h4>
+            <ul class="ing-list">
+              <li>Cooked rice, cooled <span class="qty">1.5 cups</span></li>
+              <li>Fresh plain curd/yogurt <span class="qty">1 cup</span></li>
+              <li>Lactose-free milk (optional) <span class="qty">2 tbsp</span></li>
+              <li>Mustard seeds <span class="qty">1/2 tsp</span></li>
+              <li>Split urad dal <span class="qty">1/2 tsp</span></li>
+              <li>Curry leaves <span class="qty">8</span></li>
+              <li>Grated ginger <span class="qty">1/2 tsp</span></li>
+              <li>Pomegranate seeds <span class="qty">2 tbsp</span></li>
+              <li>Salt <span class="qty">to taste</span></li>
+              <li>Ghee <span class="qty">1 tsp</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Mash the cooled rice lightly with the back of a spoon — it should be soft, not sticky-firm.</li>
+              <li>Stir in the curd, milk, and salt until the texture is loose and pourable. Adjust curd quantity to taste.</li>
+              <li>In a small pan, heat ghee and splutter mustard seeds, then add urad dal and fry until golden.</li>
+              <li>Add curry leaves and grated ginger, sauté 20 seconds, then pour the whole tempering over the curd rice.</li>
+              <li>Mix gently and top with pomegranate seeds just before serving. Best eaten fresh, at room temperature.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🦠 probiotic</span><span class="tag">🛡️ cooling on the gut</span><span class="tag">⚡ 10 min</span></div>
+      </div></div>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🌾</span>
+          <div><h3>Ragi (finger millet) porridge with banana</h3>
+          <span class="region">karnataka · veg, breakfast</span>
+          <span class="heat-badge"><span class="flame">🔥</span>low simmer, banana off-heat<span class="steam"><span></span><span></span><span></span></span></span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>What the heat is actually doing:</strong> whisking the ragi flour into cold water before it ever meets heat matters biochemically, not just texturally — starch granules need to hydrate evenly before they gelatinize; if hot water hits dry flour directly, the outer layer of each granule seals and swells first, trapping dry starch inside as permanent lumps. Once it's smoothly slurried, the gentle simmer gelatinizes the starch fully. The banana, though, goes in only after the pot is off the heat — vitamin B6 is heat-labile and degrades with prolonged cooking, and B6 is precisely the cofactor enzyme that drives the final step of converting tryptophan into serotonin, so folding it in cold protects the one nutrient this whole guide keeps coming back to.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🌾</span>Ragi flour</div><p>Unusually tryptophan- and magnesium-dense for a grain, and naturally gluten-free.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍌</span>Banana</div><p>Folded in off-heat specifically to protect its heat-sensitive vitamin B6 content.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍯</span>Jaggery</div><p>Less refined than sugar, so it carries trace iron and magnesium alongside the same insulin-triggering sweetness.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🎃</span>Pumpkin seeds</div><p>Added as a topping, not cooked into the porridge — same oxidation-protection logic as the other recipes.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (serves 2)</h4>
+            <ul class="ing-list">
+              <li>Ragi (finger millet) flour <span class="qty">4 tbsp</span></li>
+              <li>Water <span class="qty">2 cups</span></li>
+              <li>Lactose-free milk <span class="qty">1/2 cup</span></li>
+              <li>Ripe banana, mashed <span class="qty">1</span></li>
+              <li>Jaggery, grated <span class="qty">1 tbsp</span></li>
+              <li>Cardamom powder <span class="qty">1/4 tsp</span></li>
+              <li>Roasted pumpkin seeds <span class="qty">1 tbsp</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Whisk ragi flour into 1/2 cup cold water until completely lump-free — this step decides the texture.</li>
+              <li>Bring the remaining water to a boil, then slowly pour in the ragi slurry while whisking continuously.</li>
+              <li>Simmer on low heat 6–8 minutes, stirring often, until it thickens to a smooth porridge.</li>
+              <li>Stir in the milk and jaggery, cook 2 more minutes until the jaggery dissolves fully.</li>
+              <li>Remove from heat, fold in the mashed banana and cardamom powder.</li>
+              <li>Top with roasted pumpkin seeds and serve warm.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🌾 gluten-free grain</span><span class="tag">🎃 magnesium</span><span class="tag">🍌 tryptophan + B6</span></div>
+      </div></div>
+    </div>
+
+    <div class="recipe-card reveal" onclick="toggleRecipe(this)">
+      <div class="recipe-head">
+        <div class="recipe-title">
+          <span class="emoji">🍬</span>
+          <div><h3>Til-pumpkin seed chikki (sesame jaggery bar)</h3>
+          <span class="region">pan-indian · snack</span>
+          <span class="heat-badge"><span class="flame">🔥</span>syrup to ~115°C soft-ball stage<span class="steam"><span></span><span></span><span></span></span></span></div>
+        </div>
+        <div class="recipe-chevron">▾</div>
+      </div>
+      <div class="recipe-body"><div class="recipe-inner">
+        <div class="science-note">
+          <span class="icon">🔬</span>
+          <p><strong>What the heat is actually doing:</strong> two separate heat-chemistry events are happening here. Dry-roasting the sesame seeds is a Maillard reaction — the moderate, dry heat cracks the hard outer hull and browns the surface, developing flavor and making the mineral-rich core more accessible, without ever getting hot enough to meaningfully degrade the magnesium (unlike vitamins, minerals like magnesium don't break down with cooking heat). The jaggery syrup is precise sugar chemistry: at around 113–115°C it hits "soft-ball stage," where a droplet in cold water forms a pliable ball — undershoot it and the bar never sets, overshoot it and the sugar crystallizes hard and grainy instead of chewy. You then have roughly 30–60 seconds before the syrup hardens, which is why the seeds get folded in fast and the mixture gets flattened immediately.</p>
+        </div>
+        <h4 class="bio-label">Ingredient-level breakdown</h4>
+        <div class="bio-grid">
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🌰</span>Sesame seeds</div><p>Roasting is heat-stable for magnesium — only the flavor and hull-crack are heat-driven here.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🎃</span>Pumpkin seeds</div><p>Roasted separately and briefly, since they scorch faster than sesame.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">🍯</span>Jaggery</div><p>Precise soft-ball syrup stage (~115°C) determines chewy versus grainy texture.</p></div>
+          <div class="bio-chip"><div class="bio-top"><span class="emoji">☕</span>The snack itself</div><p>A portable magnesium hit for the afternoon slump — an alternative to caffeine, which can deplete tryptophan stores.</p></div>
+        </div>
+        <div class="recipe-cols">
+          <div>
+            <h4>Ingredients (makes ~12 pieces)</h4>
+            <ul class="ing-list">
+              <li>White sesame seeds <span class="qty">1/2 cup</span></li>
+              <li>Pumpkin seeds <span class="qty">1/4 cup</span></li>
+              <li>Jaggery, chopped <span class="qty">1/2 cup</span></li>
+              <li>Ghee <span class="qty">1 tsp</span></li>
+              <li>Water <span class="qty">1 tbsp</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Method</h4>
+            <ul class="step-list">
+              <li>Dry roast sesame seeds on low heat until they turn light golden and start to pop. Set aside.</li>
+              <li>Dry roast pumpkin seeds separately for 2–3 minutes until they puff slightly. Set aside.</li>
+              <li>Grease a plate or tray with ghee. Keep a rolling pin or flat glass ready, also greased.</li>
+              <li>In a heavy pan, melt jaggery with 1 tbsp water on low heat, stirring until it forms a one-string consistency syrup (a drop in cold water should form a soft, pliable ball).</li>
+              <li>Turn off heat, quickly stir in the roasted sesame and pumpkin seeds, mixing fast before the jaggery hardens.</li>
+              <li>Pour onto the greased tray, flatten with the rolling pin to about 1cm thickness, and score into pieces while still warm. Let cool fully before breaking apart.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipe-tags"><span class="tag">🎃 magnesium-dense</span><span class="tag">🥜 portable snack</span><span class="tag">☕ caffeine alternative</span></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong style="color:var(--ink);">Sources:</strong> Findings drawn from peer-reviewed reviews on tryptophan/LNAA competition at the blood-brain barrier, enterochromaffin cell physiology (Cell Reports, PMC), and Monash University low-FODMAP research. Individual tryptophan values are per-100g averages and vary by preparation.</p>
+    <div class="caveat">🔎 <strong>Honest caveat:</strong> the carb-tryptophan effect on brain serotonin is real biochemistry, but modest in size in humans — think "stack the odds over weeks," not a fast mood switch. And if you have diagnosed IBS or another gut condition, check portions with a dietitian before changing your diet.</div>
+  </div>
+</footer>
+
+<script>
+  // floating molecule field
+  const molContainer = document.getElementById('molecules');
+  const molCount = window.innerWidth < 640 ? 8 : 14;
+  for (let i = 0; i < molCount; i++) {
+    const d = document.createElement('div');
+    d.className = 'mol';
+    const size = 6 + Math.random() * 22;
+    d.style.width = size + 'px';
+    d.style.height = size + 'px';
+    d.style.left = (Math.random() * 100) + '%';
+    d.style.top = (Math.random() * 100) + '%';
+    d.style.animationDuration = (10 + Math.random() * 10) + 's';
+    d.style.animationDelay = (Math.random() * 6) + 's';
+    molContainer.appendChild(d);
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // pool bars fill on view
+  const bars = document.querySelectorAll('.bar-fill');
+  const barIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('filled');
+        barIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => barIo.observe(b));
+
+  // recipe accordion
+  function toggleRecipe(card) {
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.recipe-card.open').forEach(c => c.classList.remove('open'));
+    if (!wasOpen) card.classList.add('open');
+  }
+
+  // BBB gate toggle
+  function setMeal(type) {
+    document.getElementById('btn-protein').classList.toggle('active', type === 'protein');
+    document.getElementById('btn-carb').classList.toggle('active', type === 'carb');
+    const gate = document.getElementById('gate-fill');
+    const caption = document.getElementById('gate-caption');
+    const trp = document.getElementById('trp-dot');
+    const lnaa = document.getElementById('lnaa-dots');
+    if (type === 'protein') {
+      gate.setAttribute('y', '105'); gate.setAttribute('height', '50');
+      trp.setAttribute('transform', 'translate(0,0)');
+      lnaa.setAttribute('transform', 'translate(0,0)');
+      caption.textContent = 'both amino acid types compete equally for the gate';
+    } else {
+      gate.setAttribute('y', '55'); gate.setAttribute('height', '100');
+      trp.setAttribute('transform', 'translate(0,-15)');
+      lnaa.setAttribute('transform', 'translate(-10,25)');
+      caption.textContent = 'insulin clears competitors — tryptophan wins more of the gate';
+    }
+  }
+</script>
+
+</body>
+</html>
