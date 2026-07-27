@@ -165,6 +165,8 @@
   }
   .card-actions button:hover{ border-color:var(--amber); color:var(--amber); }
   .card-actions button.flash{ border-color:#7fae6a; color:#7fae6a; }
+  .card-actions button.danger-btn{ margin-left:auto; }
+  .card-actions button.danger-btn:hover{ border-color:var(--danger); color:var(--danger); }
 
   /* ---------- Mobile ---------- */
   @media (max-width:640px){
@@ -257,6 +259,20 @@ try{
   console.warn('Firebase unavailable, using local storage only.', e);
 }
 
+// ---------- Migration: upgrade cards saved before the delete button existed ----------
+function migrateOldCards(){
+  notepad.querySelectorAll('.card').forEach(card => {
+    const actions = card.querySelector('.card-actions');
+    if(actions && !actions.querySelector('button[data-act="delete"]')){
+      const del = document.createElement('button');
+      del.dataset.act = 'delete';
+      del.className = 'danger-btn';
+      del.textContent = '✕ Delete';
+      actions.appendChild(del);
+    }
+  });
+}
+
 async function loadFromCloudIfNewer(){
   if(!db) return;
   try{
@@ -266,6 +282,7 @@ async function loadFromCloudIfNewer(){
       const localTime = Number(localStorage.getItem(LOCAL_KEY + ':time') || 0);
       if(data.updatedAt && data.updatedAt > localTime && data.html){
         notepad.innerHTML = data.html;
+        migrateOldCards();
       }
     }
   }catch(e){ /* silent — local copy still works */ }
@@ -273,7 +290,7 @@ async function loadFromCloudIfNewer(){
 
 // ---------- Load local ----------
 const saved = localStorage.getItem(LOCAL_KEY);
-if(saved) notepad.innerHTML = saved;
+if(saved){ notepad.innerHTML = saved; migrateOldCards(); }
 
 // ---------- Autosave ----------
 let saveTimer = null;
@@ -332,9 +349,19 @@ notepad.addEventListener('paste', (e) => {
   if(text === '') return; // nothing pasted as text (e.g. an image) — let default happen
 
   e.preventDefault();
+  notepad.focus();
 
-  const sel = window.getSelection();
-  if(!sel || sel.rangeCount === 0) notepad.focus();
+  let sel = window.getSelection();
+  // If there's no valid selection inside the notepad (this happens after
+  // placing a caret next to a contenteditable="false" card), fall back to
+  // the end of the notepad instead of crashing on getRangeAt(0).
+  if(!sel || sel.rangeCount === 0 || !notepad.contains(sel.anchorNode)){
+    const fallback = document.createRange();
+    fallback.selectNodeContents(notepad);
+    fallback.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(fallback);
+  }
   const range = sel.getRangeAt(0);
 
   // If we're pasting inside a card that's actively being edited, just insert
@@ -352,8 +379,13 @@ notepad.addEventListener('paste', (e) => {
   range.deleteContents();
   range.insertNode(card);
 
+  // Leave a real text node right after the card as a landing spot for the
+  // caret — placing a range directly "after" a contenteditable=false node
+  // with nothing else there can silently fail and break future selections.
+  const spacer = document.createTextNode('\u200B');
+  card.after(spacer);
   const after = document.createRange();
-  after.setStartAfter(card);
+  after.setStart(spacer, spacer.length);
   after.collapse(true);
   sel.removeAllRanges();
   sel.addRange(after);
@@ -378,6 +410,7 @@ function buildCard(text, dateStr){
       <button data-act="shot">▣ Screenshot</button>
       <button data-act="edit">✎ Edit</button>
       <button data-act="pdf">⇩ PDF</button>
+      <button data-act="delete" class="danger-btn">✕ Delete</button>
     </div>
   `;
   const body = card.querySelector('.card-body');
@@ -444,6 +477,14 @@ notepad.addEventListener('click', async (e) => {
   const card = btn.closest('.card');
   const body = card.querySelector('.card-body');
   const act = btn.dataset.act;
+
+  if(act === 'delete'){
+    if(confirm('Delete this card?')){
+      card.remove();
+      scheduleSave();
+    }
+    return;
+  }
 
   if(act === 'copy'){
     try{
