@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Flow — a seamless notepad</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<style>
+  :root{
+    --bg:#14120f;
+    --bg-soft:#1b1815;
+    --ink:#eae4d8;
+    --ink-dim:#93897a;
+    --rule:#2c2822;
+    --amber:#e8b04b;
+    --amber-dim:#5c481f;
+    --card-bg:#241f18;
+    --card-glow:rgba(232,176,75,0.14);
+    --danger:#c96a4f;
+    --font-size:19px;
+    --font-body: 'Iowan Old Style','Georgia',ui-serif,serif;
+    --font-ui: 'Inter','Segoe UI',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,176,75,0.05), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--font-ui);
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+
+  /* ---------- Top bar ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; gap:14px;
+    padding:10px 16px;
+    background:rgba(20,18,15,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    flex-wrap:wrap;
+  }
+  .brand{
+    font-family:var(--font-body);
+    font-style:italic;
+    font-size:20px;
+    letter-spacing:0.02em;
+    color:var(--amber);
+    margin-right:auto;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  .toolgroup{display:flex; align-items:center; gap:6px;}
+  .toolbtn{
+    background:var(--bg-soft);
+    border:1px solid var(--rule);
+    color:var(--ink-dim);
+    width:30px;height:30px;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s, color .15s, transform .1s;
+  }
+  .toolbtn:hover{color:var(--ink); border-color:var(--amber-dim);}
+  .toolbtn:active{transform:scale(0.92);}
+  .fontlabel{font-size:12px; color:var(--ink-dim); min-width:34px; text-align:center; font-variant-numeric:tabular-nums;}
+  #status{
+    font-size:11.5px;
+    color:var(--ink-dim);
+    display:flex; align-items:center; gap:6px;
+    padding-left:8px;
+    border-left:1px solid var(--rule);
+  }
+  #status .led{width:6px;height:6px;border-radius:50%;background:var(--ink-dim); transition:background .3s;}
+  #status.saved .led{background:#7fae6a;}
+  #status.saving .led{background:var(--amber); animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* ---------- Main flow / notepad ---------- */
+  main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    padding:40px 20px 120px;
+  }
+  #page{
+    width:100%;
+    max-width:720px;
+  }
+  #notepad{
+    font-family:var(--font-body);
+    font-size:var(--font-size);
+    line-height:1.75;
+    color:var(--ink);
+    outline:none;
+    min-height:60vh;
+    caret-color:var(--amber);
+  }
+  #notepad:empty:before{
+    content: attr(data-placeholder);
+    color:var(--ink-dim);
+    font-style:italic;
+  }
+  #notepad ::selection{background:var(--amber-dim); color:#fff;}
+
+  /* ---------- Cards (a copied clip) ---------- */
+  .card{
+    display:block;
+    margin:22px -18px;
+    padding:16px 18px 12px;
+    background:var(--card-bg);
+    border-left:3px solid var(--amber);
+    border-radius:6px;
+    box-shadow:0 4px 24px var(--card-glow);
+    position:relative;
+    animation:cardIn .35s ease;
+  }
+  @keyframes cardIn{
+    from{ opacity:0; transform:translateY(4px) scale(0.99); background:var(--amber-dim); }
+    to{ opacity:1; transform:none; }
+  }
+  .card-head{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--font-ui);
+    font-size:11.5px;
+    color:var(--ink-dim);
+    margin-bottom:8px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+  .card-head .tag{color:var(--amber);}
+  .card-body{
+    font-size:var(--font-size);
+    line-height:1.65;
+    white-space:pre-wrap;
+    outline:none;
+  }
+  .card-body[contenteditable="true"]{
+    background:rgba(255,255,255,0.02);
+    border-radius:4px;
+    padding:2px 4px;
+    box-shadow:inset 0 0 0 1px var(--amber-dim);
+  }
+  .card-actions{
+    display:flex; gap:6px; margin-top:10px;
+    flex-wrap:wrap;
+  }
+  .card-actions button{
+    font-family:var(--font-ui);
+    font-size:11.5px;
+    background:transparent;
+    border:1px solid var(--rule);
+    color:var(--ink-dim);
+    padding:5px 9px;
+    border-radius:6px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:5px;
+    transition:all .15s;
+  }
+  .card-actions button:hover{ border-color:var(--amber); color:var(--amber); }
+  .card-actions button.flash{ border-color:#7fae6a; color:#7fae6a; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width:640px){
+    header{padding:8px 10px; gap:8px;}
+    .brand{font-size:17px;}
+    main{padding:24px 12px 100px;}
+    .card{margin:18px -10px; padding:12px 12px 10px;}
+    #status span.txt{display:none;}
+  }
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-thumb{background:var(--rule); border-radius:5px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="dot"></span>Flow</div>
+
+  <div class="toolgroup" title="Text size">
+    <button class="toolbtn" id="fontDown">A−</button>
+    <span class="fontlabel" id="fontLabel">19</span>
+    <button class="toolbtn" id="fontUp">A+</button>
+  </div>
+
+  <div class="toolgroup">
+    <button class="toolbtn" id="clearBtn" title="Clear everything">🗑</button>
+  </div>
+
+  <div id="status" class="saved"><span class="led"></span><span class="txt">saved</span></div>
+</header>
+
+<main>
+  <div id="page">
+    <div id="notepad" contenteditable="true" data-placeholder="Start writing… anything you select and copy turns into its own card."></div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, getDoc
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import {
+  getAuth, signInAnonymously, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAgFqv67vywj0T2TKJZMNlcPhzLEQSeaSU",
+  authDomain: "copy-paste-c8f22.firebaseapp.com",
+  projectId: "copy-paste-c8f22",
+  storageBucket: "copy-paste-c8f22.firebasestorage.app",
+  messagingSenderId: "129369083853",
+  appId: "1:129369083853:web:384c2dce8201f744923e84",
+  measurementId: "G-BKRV9CNL5S"
+};
+
+const notepad = document.getElementById('notepad');
+const statusEl = document.getElementById('status');
+const LOCAL_KEY = 'flow-notepad-content';
+const DOC_PATH = 'notepads/main';
+
+let uid = null;
+let db = null;
+let firebaseReady = false;
+
+function setStatus(state){
+  statusEl.className = state;
+  statusEl.querySelector('.txt').textContent =
+    state === 'saving' ? 'saving…' : state === 'saved' ? 'saved' : 'offline';
+}
+
+// ---------- Firebase init (best-effort; local storage is the source of truth either way) ----------
+try{
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
+    if(user){
+      uid = user.uid;
+      firebaseReady = true;
+      loadFromCloudIfNewer();
+    }
+  });
+  signInAnonymously(auth).catch(() => { firebaseReady = false; });
+}catch(e){
+  console.warn('Firebase unavailable, using local storage only.', e);
+}
+
+async function loadFromCloudIfNewer(){
+  if(!db) return;
+  try{
+    const snap = await getDoc(doc(db, DOC_PATH));
+    if(snap.exists()){
+      const data = snap.data();
+      const localTime = Number(localStorage.getItem(LOCAL_KEY + ':time') || 0);
+      if(data.updatedAt && data.updatedAt > localTime && data.html){
+        notepad.innerHTML = data.html;
+      }
+    }
+  }catch(e){ /* silent — local copy still works */ }
+}
+
+// ---------- Load local ----------
+const saved = localStorage.getItem(LOCAL_KEY);
+if(saved) notepad.innerHTML = saved;
+
+// ---------- Autosave ----------
+let saveTimer = null;
+function scheduleSave(){
+  setStatus('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    const html = notepad.innerHTML;
+    const now = Date.now();
+    localStorage.setItem(LOCAL_KEY, html);
+    localStorage.setItem(LOCAL_KEY + ':time', String(now));
+    if(db && firebaseReady){
+      try{
+        await setDoc(doc(db, DOC_PATH), { html, updatedAt: now });
+      }catch(e){ /* offline is fine, local storage already has it */ }
+    }
+    setStatus('saved');
+  }, 600);
+}
+notepad.addEventListener('input', scheduleSave);
+
+// ---------- Font size ----------
+const root = document.documentElement;
+const fontLabel = document.getElementById('fontLabel');
+let fontSize = parseInt(localStorage.getItem('flow-font-size') || '19', 10);
+function applyFont(){
+  root.style.setProperty('--font-size', fontSize + 'px');
+  fontLabel.textContent = fontSize;
+  localStorage.setItem('flow-font-size', String(fontSize));
+}
+applyFont();
+document.getElementById('fontUp').addEventListener('click', () => { fontSize = Math.min(fontSize + 2, 40); applyFont(); });
+document.getElementById('fontDown').addEventListener('click', () => { fontSize = Math.max(fontSize - 2, 12); applyFont(); });
+
+// ---------- Clear ----------
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(confirm('Clear the whole page? This can\'t be undone.')){
+    notepad.innerHTML = '';
+    scheduleSave();
+  }
+});
+
+// ---------- Timestamp helper ----------
+function niceDate(d = new Date()){
+  return d.toLocaleString(undefined, {
+    month:'short', day:'numeric', year:'numeric',
+    hour:'numeric', minute:'2-digit'
+  });
+}
+
+// ---------- Paste → tile (forces plain white text, ignores source colors/formatting) ----------
+notepad.addEventListener('paste', (e) => {
+  const cd = e.clipboardData || window.clipboardData;
+  if(!cd) return; // let the browser handle it if we truly can't read the clipboard
+  const text = cd.getData('text/plain');
+  if(text === '') return; // nothing pasted as text (e.g. an image) — let default happen
+
+  e.preventDefault();
+
+  const sel = window.getSelection();
+  if(!sel || sel.rangeCount === 0) notepad.focus();
+  const range = sel.getRangeAt(0);
+
+  // If we're pasting inside a card that's actively being edited, just insert
+  // plain (recolored) text in place — don't nest a new tile inside a tile.
+  const anchorEl = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement);
+  if(anchorEl && anchorEl.closest('.card-body[contenteditable="true"]')){
+    document.execCommand('insertText', false, text);
+    scheduleSave();
+    return;
+  }
+
+  if(!text.trim()) return;
+
+  const card = buildCard(text, niceDate());
+  range.deleteContents();
+  range.insertNode(card);
+
+  const after = document.createRange();
+  after.setStartAfter(card);
+  after.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(after);
+
+  scheduleSave();
+});
+
+function buildCard(text, dateStr){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('contenteditable', 'false');
+  card.dataset.created = dateStr;
+
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="tag">◆ pasted</span>
+      <span class="when">${dateStr}</span>
+    </div>
+    <div class="card-body" contenteditable="false"></div>
+    <div class="card-actions">
+      <button data-act="copy">⧉ Copy</button>
+      <button data-act="shot">▣ Screenshot</button>
+      <button data-act="edit">✎ Edit</button>
+      <button data-act="pdf">⇩ PDF</button>
+    </div>
+  `;
+  const body = card.querySelector('.card-body');
+  body.textContent = text; // plain text only — any source color/formatting is dropped
+  body.style.color = '#ffffff'; // guaranteed contrast no matter what was copied in
+  return card;
+}
+
+// ---------- Export helper (html2canvas doesn't reliably resolve CSS variables,
+// so we build a plain, hard-coded-color clone just for capture) ----------
+function buildExportClone(card){
+  const clone = card.cloneNode(true);
+  const cloneActions = clone.querySelector('.card-actions');
+  if(cloneActions) cloneActions.remove();
+  clone.removeAttribute('contenteditable');
+  const cloneBody = clone.querySelector('.card-body');
+  const originalBody = card.querySelector('.card-body');
+
+  clone.style.cssText = `
+    background:#241f18;
+    border-left:4px solid #e8b04b;
+    border-radius:6px;
+    padding:18px 22px 18px;
+    box-sizing:border-box;
+    width:${Math.min(card.getBoundingClientRect().width, 640)}px;
+    font-family:'Iowan Old Style','Georgia',serif;
+  `;
+
+  const cloneHead = clone.querySelector('.card-head');
+  if(cloneHead){
+    cloneHead.style.cssText = `
+      display:flex; justify-content:space-between; align-items:center;
+      font-family:'Inter',system-ui,sans-serif;
+      font-size:11.5px; letter-spacing:.03em; text-transform:uppercase;
+      margin-bottom:12px; color:#93897a;
+    `;
+    const tag = cloneHead.querySelector('.tag');
+    if(tag) tag.style.color = '#e8b04b';
+  }
+
+  if(cloneBody && originalBody){
+    cloneBody.setAttribute('contenteditable', 'false');
+    cloneBody.style.cssText = `
+      color:#ffffff;
+      font-size:${getComputedStyle(originalBody).fontSize};
+      line-height:1.65;
+      white-space:pre-wrap;
+      box-shadow:none; background:transparent; padding:0;
+    `;
+  }
+
+  const holder = document.createElement('div');
+  holder.style.cssText = 'position:fixed; left:-9999px; top:0; z-index:-1;';
+  holder.appendChild(clone);
+  document.body.appendChild(holder);
+  return { clone, holder };
+}
+
+// ---------- Card action delegation ----------
+notepad.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-act]');
+  if(!btn) return;
+  e.preventDefault();
+  const card = btn.closest('.card');
+  const body = card.querySelector('.card-body');
+  const act = btn.dataset.act;
+
+  if(act === 'copy'){
+    try{
+      await navigator.clipboard.writeText(body.textContent);
+      flash(btn, '✓ Copied');
+    }catch(err){
+      flash(btn, 'Select & ⌘/Ctrl+C');
+    }
+  }
+
+  if(act === 'edit'){
+    const editing = body.getAttribute('contenteditable') === 'true';
+    if(editing){
+      body.setAttribute('contenteditable', 'false');
+      btn.textContent = '✎ Edit';
+      card.dataset.created = niceDate();
+      card.querySelector('.when').textContent = card.dataset.created + ' · edited';
+      scheduleSave();
+    }else{
+      body.setAttribute('contenteditable', 'true');
+      body.focus();
+      btn.textContent = '✓ Save';
+    }
+  }
+
+  if(act === 'shot'){
+    flash(btn, 'Rendering…', false);
+    const { clone, holder } = buildExportClone(card);
+    try{
+      const canvas = await html2canvas(clone, {
+        backgroundColor: '#241f18',
+        scale: 2
+      });
+      const link = document.createElement('a');
+      link.download = `flow-clip-${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      flash(btn, '✓ Saved');
+    }catch(err){
+      flash(btn, 'Failed');
+    }finally{
+      holder.remove();
+    }
+  }
+
+  if(act === 'pdf'){
+    flash(btn, 'Building…', false);
+    const { clone, holder } = buildExportClone(card);
+    try{
+      const { jsPDF } = window.jspdf;
+      const canvas = await html2canvas(clone, {
+        backgroundColor: '#241f18',
+        scale: 2
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({ unit:'pt', format:'a4' });
+      const pageWidth = pdf.internal.pageSize.getWidth() - 60;
+      const ratio = pageWidth / canvas.width;
+      const imgHeight = canvas.height * ratio;
+      pdf.setFontSize(9);
+      pdf.setTextColor(60,60,60);
+      pdf.text(card.dataset.created, 30, 30);
+      pdf.addImage(imgData, 'PNG', 30, 40, pageWidth, imgHeight);
+      pdf.save(`flow-clip-${Date.now()}.pdf`);
+      flash(btn, '✓ Saved');
+    }catch(err){
+      flash(btn, 'Failed');
+    }finally{
+      holder.remove();
+    }
+  }
+});
+
+function flash(btn, label, revert = true){
+  const original = btn.textContent;
+  btn.textContent = label;
+  btn.classList.add('flash');
+  if(revert){
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('flash');
+    }, 1400);
+  }
+}
+</script>
+</body>
+</html>
