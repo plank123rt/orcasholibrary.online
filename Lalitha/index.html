@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol — Gastrotrack-Centered Fertility &amp; Pregnancy Support</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF3EE;
+    --bg-alt: #E3ECE5;
+    --ink: #1B3A34;
+    --ink-soft: #52716A;
+    --coral: #D9714A;
+    --gold: #C0923A;
+    --line: rgba(27,58,52,0.14);
+    --card: #F7FAF6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 5vw;
+    background:rgba(238,243,238,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .logo{font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; letter-spacing:-0.01em;}
+  nav .dots{display:flex; gap:7px;}
+  nav .dots span{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--line); display:inline-block;
+    transition:background .3s, transform .3s;
+  }
+  nav .dots span.active{background:var(--coral); transform:scale(1.3);}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:140px 6vw 80px;
+    position:relative;
+  }
+  .hero .patient-name{
+    font-family:'Fraunces',serif; font-weight:450; font-style:italic;
+    font-size:1.3rem; color:var(--coral);
+    margin-bottom:10px; letter-spacing:.01em;
+  }
+  .hero .patient-source{
+    font-family:'IBM Plex Mono',monospace; font-size:.7rem;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+    opacity:.7; margin-bottom:20px;
+  }
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:.78rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 6vw, 4.4rem);
+    max-width:16ch;
+    line-height:1.04;
+  }
+  .hero h1 em{font-style:italic; color:var(--coral);}
+  .hero p.sub{
+    max-width:52ch; margin-top:26px; font-size:1.08rem; color:var(--ink-soft);
+  }
+
+  /* VENN */
+  .venn{ position:relative; width:340px; height:230px; margin:56px auto 10px; }
+  .venn svg{ width:100%; height:100%; overflow:visible; }
+  .venn circle{
+    fill-opacity:0.38; mix-blend-mode:multiply;
+    animation:breathe 7s ease-in-out infinite;
+  }
+  .venn .c1{fill:#D9714A; animation-delay:0s;}
+  .venn .c2{fill:#C0923A; animation-delay:1.4s;}
+  .venn .c3{fill:#3E7D6E; animation-delay:2.8s;}
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.045); }
+  }
+  .venn-label{
+    font-family:'IBM Plex Mono',monospace; font-size:.68rem;
+    text-transform:uppercase; letter-spacing:.06em; fill:var(--ink);
+  }
+
+  /* SECTIONS */
+  section.block{
+    padding:110px 6vw;
+    position:relative;
+    border-top:1px solid var(--line);
+  }
+  section.block:nth-of-type(even){ background:var(--bg-alt); }
+  .block-inner{ max-width:760px; margin:0 auto; }
+  .num{
+    font-family:'IBM Plex Mono',monospace; color:var(--coral);
+    font-size:.85rem; letter-spacing:.08em; display:block; margin-bottom:14px;
+  }
+  h2.title{ font-size:clamp(1.6rem,3.4vw,2.3rem); margin-bottom:26px; }
+  p{ margin:0 0 18px; color:var(--ink); font-size:1.02rem; }
+  p.lede{ font-size:1.14rem; color:var(--ink-soft); }
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* VILLI DIVIDER */
+  .villi{ width:100%; height:64px; display:block; }
+  .villi path{
+    transform-origin:bottom;
+    animation:sway 3.6s ease-in-out infinite;
+  }
+  @keyframes sway{
+    0%,100%{ transform:rotate(0deg); }
+    50%{ transform:rotate(3deg); }
+  }
+
+  /* EQUATION FLOW */
+  .eqflow{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:30px 26px;
+    margin:30px 0 12px;
+  }
+  .eqnode{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.92rem;
+    padding:10px 14px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    white-space:nowrap;
+    animation:pulse 4.8s ease-in-out infinite;
+  }
+  .eqnode:nth-child(1){animation-delay:0s;}
+  .eqnode:nth-child(3){animation-delay:1.2s;}
+  .eqnode:nth-child(5){animation-delay:2.4s;}
+  .eqnode:nth-child(7){animation-delay:3.6s;}
+  @keyframes pulse{
+    0%,80%,100%{ background:transparent; color:var(--ink-soft); border-color:var(--line); }
+    15%,35%{ background:rgba(217,113,74,0.12); color:var(--coral); border-color:var(--coral); }
+  }
+  .arrow{
+    font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:1.2rem;
+    position:relative; overflow:hidden; width:34px; text-align:center;
+  }
+  .arrow::after{
+    content:''; position:absolute; left:-100%; top:50%; width:100%; height:2px;
+    background:linear-gradient(90deg, transparent, var(--coral), transparent);
+    animation:travel 2.4s linear infinite;
+  }
+  @keyframes travel{ to{ left:100%; } }
+
+  .eq2{
+    font-family:'IBM Plex Mono',monospace;
+    text-align:center; font-size:1.05rem;
+    padding:26px; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; margin:24px 0; color:var(--ink);
+    letter-spacing:.02em;
+  }
+  .eq2 .k{ color:var(--coral); font-weight:500; }
+
+  /* CALLOUT */
+  .callout{
+    border-left:3px solid var(--gold);
+    background:var(--card);
+    padding:20px 24px; border-radius:0 10px 10px 0;
+    margin:26px 0; color:var(--ink-soft); font-size:.98rem;
+  }
+  .callout strong{ color:var(--ink); }
+
+  /* FOOTER */
+  footer{
+    padding:100px 6vw 70px; text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer h2{ font-size:clamp(1.6rem,3.6vw,2.4rem); margin-bottom:18px; }
+  footer p{ max-width:52ch; margin:0 auto 10px; color:var(--ink-soft); }
+  footer .sign{ margin-top:34px; font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width: 640px){
+    nav .dots{ display:none; }
+    .venn{ width:260px; height:180px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">The Protocol</div>
+  <div class="dots" id="dots"></div>
+</nav>
+
+<section class="hero" id="s0">
+  <div class="patient-name">Lalitha</div>
+  <div class="patient-source">Extracted from patient database</div>
+  <div class="eyebrow">Cycle Three · Months 1–3</div>
+  <h1>One Gastrotrack. <em>Three</em> overlapping states.</h1>
+  <p class="sub">Pre-pregnancy, active conception, and pregnancy itself aren't separate protocols — they're one continuous window. What we build in the small intestine now keeps paying out even if conception happens tomorrow.</p>
+
+  <div class="venn">
+    <svg viewBox="0 0 340 230">
+      <circle class="c1" cx="130" cy="100" r="90"></circle>
+      <circle class="c2" cx="210" cy="100" r="90"></circle>
+      <circle class="c3" cx="170" cy="155" r="90"></circle>
+      <text class="venn-label" x="72" y="55">Pre-Pregnancy</text>
+      <text class="venn-label" x="228" y="55">Conception</text>
+      <text class="venn-label" x="140" y="222">Pregnancy</text>
+    </svg>
+  </div>
+</section>
+
+<svg class="villi" viewBox="0 0 400 64" preserveAspectRatio="none"><g id="villiGroup"></g></svg>
+
+<section class="block" id="s1">
+  <div class="block-inner reveal">
+    <span class="num">02 — Program Philosophy</span>
+    <h2 class="title">Built to work across all three states at once</h2>
+    <p class="lede">This protocol doesn't assume a single outcome. It's designed so the same three months of work stay useful no matter which of the three states you're in when they end.</p>
+    <p>Even if conception happens immediately, the new supplements selected for the next three months remain fully supportive — nothing needs to be re-thought or restarted. At the same time, the program is structured to counterbalance the gastrointestinal and systemic side effects of immunosuppressant medication, so resilience is built across organ systems simultaneously, not just in one direction.</p>
+    <div class="callout"><strong>In plain terms:</strong> one plan, three states, no wasted effort — whichever door you walk through next, the groundwork already fits.</div>
+  </div>
+</section>
+
+<section class="block" id="s2">
+  <div class="block-inner reveal">
+    <span class="num">03 — Why the Small Intestine</span>
+    <h2 class="title">The interface everything else runs through</h2>
+    <p>The small intestine is the primary biochemical interface between nutrition, endocrine signaling, immune modulation, and nervous system regulation. It's not one input among many — it's the shared gateway all of them pass through.</p>
+    <p>Optimizing that interface has a direct line to menstruation, fertility, implantation, placental development, and fetal growth. Improve the gateway, and every downstream system gets cleaner signal.</p>
+  </div>
+</section>
+
+<svg class="villi" viewBox="0 0 400 64" preserveAspectRatio="none"><g id="villiGroup2"></g></svg>
+
+<section class="block" id="s3">
+  <div class="block-inner reveal">
+    <span class="num">04 — pH, Enzymes &amp; Villi</span>
+    <h2 class="title">Correct pH is where the whole chain starts</h2>
+    <p>Optimized intraluminal pH creates the conditions for maximal enzyme activity, which drives efficient macronutrient hydrolysis. Each link only works if the one before it holds.</p>
+
+    <div class="eqflow">
+      <span class="eqnode">Correct pH</span>
+      <span class="arrow">→</span>
+      <span class="eqnode">↑ Enzyme Kinetics</span>
+      <span class="arrow">→</span>
+      <span class="eqnode">↑ Nutrient Liberation</span>
+      <span class="arrow">→</span>
+      <span class="eqnode">↑ Absorptive Efficiency</span>
+    </div>
+
+    <p>And healthy villi morphology is what turns that liberated nutrient pool into something the body can actually use — increased surface area means more efficient absorption of ions, straight through the Gastrotrack wall and into circulation.</p>
+  </div>
+</section>
+
+<section class="block" id="s4">
+  <div class="block-inner reveal">
+    <span class="num">05 — Menstrual Cycle</span>
+    <h2 class="title">Stable absorption, stable cycle</h2>
+    <p>Enhanced nutrient absorption stabilizes plasma micronutrient levels, which in turn improves synthesis of FSH, LH, estrogen, and progesterone.</p>
+    <div class="eq2">plasma micronutrients <span class="k">↑</span> → FSH · LH · estrogen · progesterone <span class="k">↑</span></div>
+    <p>The same stability also reduces uterine smooth muscle spasm, while optimizing red blood cell turnover and reducing fatigue — the cycle runs smoother because the raw materials behind it are finally consistent.</p>
+  </div>
+</section>
+
+<section class="block" id="s5">
+  <div class="block-inner reveal">
+    <span class="num">06 — Fertility &amp; Ovulation</span>
+    <h2 class="title">Better inputs, better timing</h2>
+    <p>The goal here is direct: improve oocyte maturation and ovulatory timing. And because inflammation that originates in the Gastrotrack doesn't stay local, reducing it improves uterine receptivity and implantation potential as well.</p>
+  </div>
+</section>
+
+<svg class="villi" viewBox="0 0 400 64" preserveAspectRatio="none"><g id="villiGroup3"></g></svg>
+
+<section class="block" id="s6">
+  <div class="block-inner reveal">
+    <span class="num">07 — Pregnancy &amp; Fetal Development</span>
+    <h2 class="title">The same absorption, now supporting two</h2>
+    <p>Efficient intestinal absorption supports placental vascularization and fetal structural development, and reduces inflammatory pregnancy risks — the same interface from Section 3, now working on behalf of two physiological systems at once.</p>
+  </div>
+</section>
+
+<section class="block" id="s7">
+  <div class="block-inner reveal">
+    <span class="num">08 — Nervous System &amp; Vagal Tone</span>
+    <h2 class="title">Calmer Gastrotrack, calmer signaling</h2>
+    <p>Improved digestion reduces visceral stress and supports parasympathetic dominance — the "rest and digest" state. That shift benefits hormonal rhythms and uterine perfusion, closing the loop between nervous system regulation and reproductive function.</p>
+  </div>
+</section>
+
+<section class="block" id="s8">
+  <div class="block-inner reveal">
+    <span class="num">09 — Continuity &amp; Supplement Strategy</span>
+    <h2 class="title">Same rhythm, refreshed formulation</h2>
+    <p>The founder and Dr. Bhavna will finalize the next three months the way they always have — a mix of a few carried over from past cycles and a few new additions, rotated in dynamically rather than fixed in advance.</p>
+    <div class="callout"><strong>What's changing:</strong> a handful of higher-cost supplements are being added this cycle to support you more fully, and pricing is staying exactly where it is. This is a good window to continue straight through without a break.</div>
+  </div>
+</section>
+
+<footer>
+  <p class="sign">— Program continuity notes, Cycle 3</p>
+</footer>
+
+<script>
+  // nav dots
+  const sections = document.querySelectorAll('section');
+  const dotsWrap = document.getElementById('dots');
+  sections.forEach((s,i)=>{
+    const d = document.createElement('span');
+    dotsWrap.appendChild(d);
+  });
+  const dots = dotsWrap.querySelectorAll('span');
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        const idx = Array.from(sections).indexOf(e.target);
+        dots.forEach(d=>d.classList.remove('active'));
+        if(dots[idx]) dots[idx].classList.add('active');
+      }
+    });
+  },{threshold:0.35});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  sections.forEach(s=>io.observe(s));
+
+  // villi divider generator
+  function buildVilli(id, count){
+    const g = document.getElementById(id);
+    if(!g) return;
+    const w = 400/count;
+    for(let i=0;i<count;i++){
+      const x = i*w + w/2;
+      const h = 30 + Math.sin(i)*14;
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', `M ${x-4} 64 Q ${x-6} ${64-h/1.4} ${x} ${64-h} Q ${x+6} ${64-h/1.4} ${x+4} 64 Z`);
+      path.setAttribute('fill', i%2===0 ? '#D9714A' : '#3E7D6E');
+      path.setAttribute('fill-opacity', '0.5');
+      path.style.animationDelay = (i*0.12)+'s';
+      g.appendChild(path);
+    }
+  }
+  buildVilli('villiGroup', 28);
+  buildVilli('villiGroup2', 28);
+  buildVilli('villiGroup3', 28);
+</script>
+</body>
+</html>
