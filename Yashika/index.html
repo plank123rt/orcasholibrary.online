@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Wellness Journey · Yashika Ahuja</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush:#fdf1f2;
+    --blush-deep:#f7dbe2;
+    --rose:#e78ca0;
+    --rose-deep:#c2607a;
+    --berry:#7a2e46;
+    --berry-ink:#4a1c2e;
+    --gold:#d8ab7a;
+    --cream:#fffaf8;
+    --line:rgba(122,46,70,0.12);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Nunito Sans', sans-serif;
+    background:
+      radial-gradient(circle at 15% 8%, #fbe4ea 0%, transparent 45%),
+      radial-gradient(circle at 85% 15%, #f6dfe8 0%, transparent 40%),
+      var(--blush);
+    color:var(--berry-ink);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--berry);
+    letter-spacing:0.2px;
+  }
+
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Floating petal background ---------- */
+  .petal{
+    position:fixed;
+    top:-40px;
+    font-size:22px;
+    opacity:0.55;
+    pointer-events:none;
+    animation:fall linear infinite;
+    z-index:0;
+    filter:hue-rotate(0deg);
+  }
+  @keyframes fall{
+    0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:0.55;}
+    90%{opacity:0.4;}
+    100%{transform:translateY(110vh) translateX(30px) rotate(320deg); opacity:0;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:36px 28px 90px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-ring{
+    width:132px;height:132px;
+    margin:0 auto 28px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:56px;
+    background:radial-gradient(circle at 30% 30%, #ffffff, var(--blush-deep));
+    box-shadow:0 0 0 8px rgba(231,140,160,0.15), 0 20px 40px -20px rgba(122,46,70,0.35);
+    animation:breathe 4.5s ease-in-out infinite;
+    transform-style:preserve-3d;
+    perspective:600px;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(1) rotateY(0deg);}
+    50%{transform:scale(1.06) rotateY(10deg);}
+  }
+
+  /* ---------- Top masthead ---------- */
+  .masthead{
+    text-align:center;
+    padding-top:52px;
+    margin-bottom:36px;
+    perspective:800px;
+  }
+  .masthead .db-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--gold);
+    background:var(--cream);
+    border:1px solid var(--line);
+    padding:8px 20px;
+    border-radius:999px;
+    box-shadow:0 12px 26px -18px rgba(122,46,70,0.35);
+    opacity:0;
+    animation:riseIn 0.8s ease forwards 0s;
+  }
+  .masthead h1.cycle-heading{
+    margin-top:22px;
+    font-size:clamp(30px, 5.2vw, 48px);
+    letter-spacing:0.5px;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards 0.15s;
+    text-shadow:0 1px 0 #fff, 0 12px 30px rgba(199,86,111,0.25);
+  }
+  .masthead h1.cycle-heading em{
+    font-style:italic;
+    color:var(--rose-deep);
+  }
+
+  /* ---------- floating / spinning icon animation ---------- */
+  @keyframes iconFloat{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-6px) rotate(-6deg);}
+  }
+  @keyframes iconFloatAlt{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-5px) rotate(6deg);}
+  }
+  .topic-icon{
+    animation:iconFloat 3.2s ease-in-out infinite;
+    transform-style:preserve-3d;
+  }
+  .topic-card:nth-child(even) .topic-icon{
+    animation-name:iconFloatAlt;
+    animation-duration:3.6s;
+  }
+  .topic-card:nth-child(3n) .topic-icon{
+    animation-duration:4s;
+  }
+
+  /* ---------- 3D tilt on topic cards ---------- */
+  .topic-card{
+    perspective:900px;
+    transition:transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .topic-card:hover{
+    transform:rotateX(3deg) rotateY(-3deg) translateY(-4px) scale(1.012);
+    box-shadow:0 40px 70px -35px rgba(122,46,70,0.5);
+  }
+  .topic-card:hover .topic-icon{
+    animation-play-state:paused;
+    transform:translateZ(20px) scale(1.12) rotate(0deg);
+    box-shadow:0 14px 26px -10px rgba(216,171,122,0.55), inset 0 0 0 1px var(--line);
+  }
+
+  /* ---------- extra-animated icons: digestive / villi / gastric / bile ---------- */
+  .topic-icon.icon-glow{
+    position:relative;
+    animation:iconFloat 3.2s ease-in-out infinite, glowPulse 2.4s ease-in-out infinite;
+  }
+  .topic-icon.icon-glow::before{
+    content:"";
+    position:absolute;
+    inset:-6px;
+    border-radius:22px;
+    background:conic-gradient(from 0deg, var(--rose), var(--gold), var(--rose-deep), var(--rose));
+    opacity:0.35;
+    z-index:-1;
+    animation:ringSpin 5s linear infinite;
+    filter:blur(4px);
+  }
+  @keyframes glowPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(231,140,160,0.0), inset 0 0 0 1px var(--line);}
+    50%{box-shadow:0 0 22px 4px rgba(231,140,160,0.45), inset 0 0 0 1px var(--line);}
+  }
+  @keyframes ringSpin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+  }
+  .topic-card:hover .topic-icon.icon-glow{
+    animation-play-state:running, running;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'Nunito Sans', sans-serif;
+    font-size:12.5px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--rose-deep);
+    font-weight:700;
+    margin-bottom:16px;
+    opacity:0;
+    animation:riseIn 0.8s ease forwards 0.1s;
+  }
+  .hero h1{
+    font-size:clamp(34px, 6vw, 56px);
+    line-height:1.12;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards 0.25s;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--rose-deep);
+  }
+  .hero p{
+    max-width:560px;
+    margin:22px auto 0;
+    font-size:17px;
+    color:#8a4a5c;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards 0.45s;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .phase-badge{
+    margin-top:34px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    padding:10px 22px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--berry);
+    box-shadow:0 10px 30px -18px rgba(122,46,70,0.4);
+    opacity:0;
+    animation:riseIn 0.9s ease forwards 0.6s;
+  }
+  .phase-badge .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--rose-deep);
+    box-shadow:0 0 0 4px rgba(199,86,111,0.18);
+  }
+
+  /* ---------- Note card ---------- */
+  section{
+    position:relative;
+    z-index:1;
+    padding:52px 0;
+  }
+
+  .card{
+    background:var(--cream);
+    border-radius:26px;
+    padding:38px 40px;
+    box-shadow:0 30px 60px -40px rgba(122,46,70,0.35);
+    border:1px solid var(--line);
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.8s ease, transform 0.8s ease, box-shadow 0.4s ease;
+    perspective:1000px;
+  }
+  .card.visible{opacity:1; transform:translateY(0);}
+  .card.visible:hover{
+    box-shadow:0 40px 80px -35px rgba(122,46,70,0.45);
+    transform:translateY(-3px) rotateX(1.2deg);
+  }
+
+  .note-card{
+    position:relative;
+    background:linear-gradient(155deg, #fff 0%, var(--blush-deep) 130%);
+  }
+  .note-card::before{
+    content:"💌";
+    position:absolute;
+    top:-22px; left:36px;
+    font-size:34px;
+    background:var(--cream);
+    border-radius:50%;
+    width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 24px -12px rgba(122,46,70,0.4);
+  }
+  .note-card p{
+    font-size:16.5px;
+    color:#5f2c3c;
+    margin-top:8px;
+  }
+  .note-card .to{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--rose-deep);
+    margin-bottom:14px;
+  }
+
+  .disclaimer{
+    margin-top:26px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    background:#fbeef1;
+    border:1px dashed var(--rose);
+    border-radius:18px;
+    padding:18px 22px;
+    font-size:13.5px;
+    color:#8a4a5c;
+  }
+  .disclaimer .icon{font-size:20px; flex-shrink:0;}
+
+  /* ---------- Section headings ---------- */
+  .section-head{
+    text-align:center;
+    margin-bottom:38px;
+  }
+  .section-head .tag{
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--rose-deep);
+    font-weight:700;
+    margin-bottom:10px;
+    display:block;
+  }
+  .section-head h2{
+    font-size:clamp(26px, 4vw, 36px);
+  }
+  .section-head .sub{
+    color:#9a6072;
+    font-size:15px;
+    max-width:520px;
+    margin:12px auto 0;
+  }
+
+  /* ---------- Focus pills ---------- */
+  .focus-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+  }
+  .pill{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:11px 18px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--berry);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    opacity:0;
+    transform:translateY(14px) scale(0.94);
+    transition:opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    cursor:default;
+  }
+  .pill.visible{opacity:1; transform:translateY(0) scale(1);}
+  .pill:hover{
+    box-shadow:0 14px 30px -18px rgba(122,46,70,0.45);
+    transform:translateY(-3px) scale(1.03);
+  }
+
+  /* ---------- Topic cards with flow ---------- */
+  .topic-grid{
+    display:grid;
+    gap:26px;
+  }
+  .topic-card{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:20px;
+    align-items:start;
+  }
+  .topic-icon{
+    width:56px;height:56px;
+    border-radius:18px;
+    background:linear-gradient(145deg, var(--blush-deep), #fff);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;
+    box-shadow:inset 0 0 0 1px var(--line);
+  }
+  .topic-card h3{
+    font-size:19px;
+    margin-bottom:8px;
+  }
+  .topic-card p{
+    font-size:14.5px;
+    color:#7a4453;
+  }
+
+  .flow{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--rose-deep);
+  }
+  .flow .step{
+    background:var(--blush-deep);
+    padding:7px 13px;
+    border-radius:10px;
+    color:var(--berry);
+    white-space:nowrap;
+  }
+  .flow .arrow{
+    color:var(--rose);
+    font-size:16px;
+    animation:pulseArrow 1.8s ease-in-out infinite;
+  }
+  .flow .step:nth-of-type(1) ~ .arrow{animation-delay:0s;}
+  @keyframes pulseArrow{
+    0%,100%{opacity:0.4; transform:translateX(0);}
+    50%{opacity:1; transform:translateX(3px);}
+  }
+
+  /* ---------- Timeline / continuation ---------- */
+  .timeline{
+    position:relative;
+    padding-left:34px;
+    border-left:2px dashed var(--rose);
+  }
+  .timeline .t-item{
+    position:relative;
+    margin-bottom:26px;
+  }
+  .timeline .t-item::before{
+    content:"🌸";
+    position:absolute;
+    left:-46px;
+    top:-2px;
+    font-size:18px;
+  }
+  .timeline h4{
+    font-family:'Fraunces', serif;
+    font-size:16px;
+    color:var(--berry);
+    margin-bottom:4px;
+  }
+  .timeline p{
+    font-size:14.5px;
+    color:#7a4453;
+  }
+
+  /* ---------- Closing ---------- */
+  .closing{
+    text-align:center;
+    padding:70px 28px 100px;
+  }
+  .closing .heart{
+    font-size:40px;
+    animation:heartbeat 1.6s ease-in-out infinite;
+    display:inline-block;
+  }
+  @keyframes heartbeat{
+    0%,100%{transform:scale(1);}
+    15%{transform:scale(1.18);}
+    30%{transform:scale(1);}
+    45%{transform:scale(1.12);}
+    60%{transform:scale(1);}
+  }
+  .closing h2{
+    margin-top:18px;
+    font-size:clamp(24px,3.6vw,32px);
+  }
+  .closing p{
+    max-width:480px;
+    margin:14px auto 0;
+    color:#8a4a5c;
+    font-size:15.5px;
+  }
+  .signature{
+    margin-top:30px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:16px;
+  }
+
+  /* ---------- section divider ribbon ---------- */
+  .ribbon{
+    height:3px;
+    width:120px;
+    margin:0 auto;
+    border-radius:3px;
+    background:linear-gradient(90deg, transparent, var(--rose), transparent);
+    background-size:200% 100%;
+    animation:shimmer 3s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:0% 0;}
+    100%{background-position:200% 0;}
+  }
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:#b98a97;
+    padding-bottom:40px;
+  }
+
+  @media (max-width:600px){
+    .container{padding:0 18px;}
+
+    .hero{padding:28px 18px 60px;}
+    .masthead{padding-top:32px; margin-bottom:26px;}
+    .masthead .db-tag{
+      font-size:10.5px;
+      letter-spacing:2.5px;
+      padding:7px 14px;
+      gap:6px;
+    }
+    .hero-ring{width:104px; height:104px; font-size:44px; margin-bottom:20px;}
+    .hero p{font-size:15.5px; padding:0 4px;}
+    .phase-badge{font-size:12.5px; padding:9px 16px; text-align:left; white-space:normal;}
+
+    section{padding:36px 0;}
+    .card{padding:26px 20px; border-radius:20px;}
+    .note-card::before{
+      top:-18px; left:50%; transform:translateX(-50%);
+      width:44px; height:44px; font-size:24px;
+    }
+    .note-card .to{font-size:17px;}
+    .note-card p{font-size:15px;}
+    .disclaimer{flex-direction:row; padding:14px 16px; font-size:12.5px;}
+
+    .section-head h2{font-size:24px;}
+    .section-head .sub{font-size:14px; padding:0 6px;}
+
+    .pill{font-size:12.5px; padding:9px 14px;}
+
+    .topic-card{grid-template-columns:44px 1fr; gap:14px;}
+    .topic-icon{width:44px; height:44px; font-size:20px; border-radius:14px;}
+    .topic-card h3{font-size:17px;}
+    .topic-card p{font-size:13.5px;}
+    .flow{gap:5px; font-size:11.5px;}
+    .flow .step{padding:5px 10px; border-radius:8px;}
+    .flow .arrow{font-size:13px;}
+
+    .timeline{padding-left:26px;}
+    .timeline .t-item::before{left:-34px; font-size:15px;}
+    .timeline h4{font-size:15px;}
+    .timeline p{font-size:13.5px;}
+
+    .closing{padding:50px 18px 70px;}
+    .closing .heart{font-size:32px;}
+    .closing p{font-size:14.5px; padding:0 6px;}
+
+    /* 3D tilt effects rely on hover, which doesn't fire reliably on touch —
+       keep transforms available but avoid layout shift on tap */
+    .topic-card:hover, .card.visible:hover{
+      transform:none;
+    }
+  }
+
+  @media (max-width:380px){
+    .masthead h1.cycle-heading{font-size:26px;}
+    .hero-ring{width:88px; height:88px; font-size:38px;}
+    .flow{font-size:11px;}
+    .flow .step{padding:4px 8px;}
+  }
+
+  @media (hover:none){
+    .topic-icon.icon-glow{animation-play-state:running, running;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="petals"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="masthead">
+    <span class="db-tag">🗂️ Orcasho Patient Database</span>
+    <h1 class="cycle-heading">Next Cycle <em>Focus</em></h1>
+  </div>
+  <div class="hero-ring">🌷</div>
+  <span class="eyebrow">Program Overview</span>
+  <h1>Yashika, here's the<br><em>next phase</em> of your care</h1>
+  <p>Every phase builds gently on the one before it — a continued, personalized path designed around how your body has been responding.</p>
+  <div class="phase-badge"><span class="dot"></span> Next phase · 4 months · same price, as our thanks 💗</div>
+</div>
+
+<div class="container">
+
+  <!-- NOTE -->
+  <section>
+    <div class="card note-card">
+      <div class="to">A note for you</div>
+      <p>Ma'am, thank you for completing the previous cycles. We are pleased with the progress observed so far. Maintaining continuity allows each phase of care to build upon the previous one. As a gesture of appreciation, we would like to extend the next phase to four months at the same price. Some elements of the program will continue while others will be updated according to your progress.</p>
+      <div class="disclaimer">
+        <span class="icon">📖</span>
+        <span>The biological pathway illustrations in this report are simplified educational representations of complex physiology. They explain treatment goals and physiological concepts and should not be interpreted as guarantees of individual outcomes.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section>
+    <div class="section-head">
+      <span class="tag">✨ What we're focusing on</span>
+      <h2>Program Focus</h2>
+      <p class="sub">This next phase gently emphasizes the following areas of your wellbeing:</p>
+    </div>
+    <div class="focus-grid" id="focusGrid">
+      <div class="pill">🍽️ Digestive physiology</div>
+      <div class="pill">🧬 Enzyme activity</div>
+      <div class="pill">🌊 Gastric regulation</div>
+      <div class="pill">🛡️ Intestinal barrier support</div>
+      <div class="pill">🔥 Esophageal protection</div>
+      <div class="pill">💧 Bile physiology</div>
+      <div class="pill">🌿 Nutrient absorption</div>
+      <div class="pill">🩸 Blood health monitoring</div>
+      <div class="pill">🌸 Menstrual wellbeing</div>
+      <div class="pill">🧠 Nervous system wellbeing</div>
+      <div class="pill">💖 Overall recovery</div>
+    </div>
+  </section>
+
+  <div class="ribbon"></div>
+
+  <!-- TOPICS -->
+  <section>
+    <div class="section-head">
+      <span class="tag">🔬 The science, simply put</span>
+      <h2>How Your Body Processes &amp; Restores</h2>
+    </div>
+
+    <div class="topic-grid">
+
+      <div class="card topic-card">
+        <div class="topic-icon icon-glow">🍎</div>
+        <div>
+          <h3>Digestive Physiology</h3>
+          <p>The full journey your food takes — from the first bite to fueling your cells.</p>
+          <div class="flow">
+            <span class="step">Food Intake</span><span class="arrow">➜</span>
+            <span class="step">Mechanical Processing</span><span class="arrow">➜</span>
+            <span class="step">Enzymatic Digestion</span><span class="arrow">➜</span>
+            <span class="step">Small Intestinal Absorption</span><span class="arrow">➜</span>
+            <span class="step">Nutrient Availability</span><span class="arrow">➜</span>
+            <span class="step">Cellular Function</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon icon-glow">🌱</div>
+        <div>
+          <h3>Small Intestinal Villi</h3>
+          <p>Healthy villi support efficient nutrient transport, carrying nourishment where it's needed most.</p>
+          <div class="flow">
+            <span class="step">Digested Nutrients</span><span class="arrow">➜</span>
+            <span class="step">Villi Surface</span><span class="arrow">➜</span>
+            <span class="step">Portal Circulation</span><span class="arrow">➜</span>
+            <span class="step">Tissue Distribution</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon icon-glow">🌊</div>
+        <div>
+          <h3>Gastric Physiology</h3>
+          <p>Maintaining balanced gastric physiology supports normal, comfortable digestion.</p>
+          <div class="flow">
+            <span class="step">Coordinated Gastric Secretion</span><span class="arrow">➜</span>
+            <span class="step">Food Processing</span><span class="arrow">➜</span>
+            <span class="step">Digestive Progression</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon icon-glow">💧</div>
+        <div>
+          <h3>Bile &amp; Fat Digestion</h3>
+          <p>How bile helps break down and absorb the fats in your meals.</p>
+          <div class="flow">
+            <span class="step">Bile Release</span><span class="arrow">➜</span>
+            <span class="step">Fat Emulsification</span><span class="arrow">➜</span>
+            <span class="step">Micelle Formation</span><span class="arrow">➜</span>
+            <span class="step">Lipid Absorption</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon">🛡️</div>
+        <div>
+          <h3>Mucosal Barrier &amp; Esophagus</h3>
+          <p>Protecting delicate tissue is the foundation of digestive comfort.</p>
+          <div class="flow">
+            <span class="step">Barrier Integrity</span><span class="arrow">➜</span>
+            <span class="step">Reduced Irritation</span><span class="arrow">➜</span>
+            <span class="step">Tissue Recovery</span><span class="arrow">➜</span>
+            <span class="step">Digestive Comfort</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon">🩸</div>
+        <div>
+          <h3>Blood Health</h3>
+          <p>Laboratory markers are best interpreted together with symptoms and longitudinal trends rather than isolated values.</p>
+        </div>
+      </div>
+
+      <div class="card topic-card">
+        <div class="topic-icon">🌸</div>
+        <div>
+          <h3>Women's Health</h3>
+          <p>General nutrition, sleep, physical activity, and digestive health all contribute to your long-term wellbeing.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ribbon"></div>
+
+  <!-- CONTINUATION -->
+  <section>
+    <div class="section-head">
+      <span class="tag">🗓️ Between now and then</span>
+      <h2>While We Prepare Your Next Phase</h2>
+    </div>
+    <div class="card">
+      <div class="timeline">
+        <div class="t-item">
+          <h4>Stay the course</h4>
+          <p>Ma'am, please continue the current combination until we ship the new supplements.</p>
+        </div>
+        <div class="t-item">
+          <h4>Building forward</h4>
+          <p>This continuity allows us to continue the biochemical momentum without losing it — especially for someone of your age, this is of prime importance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <span class="heart">💗</span>
+  <h2>Thank you for your trust</h2>
+  <p>We look forward to supporting the next phase of your program, Yashika.</p>
+  <div class="signature">— With care, Team Orcasho</div>
+</div>
+
+<footer>Orcasho Patient Database · Program Overview</footer>
+
+<script>
+  // Floating petals
+  const petalsContainer = document.getElementById('petals');
+  const petalEmojis = ['🌸','🌷','💗','🌺'];
+  const petalCount = 14;
+  for(let i=0;i<petalCount;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[i % petalEmojis.length];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = (10 + Math.random()*10) + 's';
+    p.style.animationDelay = (Math.random()*10) + 's';
+    p.style.fontSize = (16 + Math.random()*14) + 'px';
+    petalsContainer.appendChild(p);
+  }
+
+  // Scroll reveal for cards
+  const revealEls = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Staggered pill reveal
+  const pills = document.querySelectorAll('.pill');
+  const pio = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        pills.forEach((pill, idx)=>{
+          setTimeout(()=>pill.classList.add('visible'), idx*80);
+        });
+        pio.disconnect();
+      }
+    });
+  }, {threshold:0.1});
+  if(pills.length) pio.observe(document.getElementById('focusGrid'));
+</script>
+
+</body>
+</html>
