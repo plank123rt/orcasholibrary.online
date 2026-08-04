@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Wellness Journey · Yashika Ahuja</title>
-<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<title>Orcasho Patient Database · Yashika Ahuja</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -554,7 +553,7 @@
     .closing .heart{font-size:32px;}
     .closing p{font-size:14.5px; padding:0 6px;}
 
-    /* 3D tilt effects rely on hover, which doesn't fire reliably on touch —
+    /* 3D tilt effects rely on hover, which doesn't fire reliably on touch -
        keep transforms available but avoid layout shift on tap */
     .topic-card:hover, .card.visible:hover{
       transform:none;
@@ -572,6 +571,135 @@
     .topic-icon.icon-glow{animation-play-state:running, running;}
   }
 
+  /* ---------- Cellular energy → neuron → nervous system visual ---------- */
+  .neuro-flow-card{padding-top:34px;}
+  .neuro-flow-card .section-head{margin-bottom:6px; text-align:left;}
+  .neuro-flow-card .section-head h2{font-size:21px;}
+  .neuro-svg{
+    width:100%;
+    height:auto;
+    display:block;
+    margin:14px 0 12px;
+    overflow:visible;
+  }
+  .neuro-captions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:4px;
+  }
+  .neuro-captions span{
+    flex:1 1 170px;
+    text-align:center;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--rose-deep);
+    background:var(--blush-deep);
+    padding:9px 10px;
+    border-radius:10px;
+  }
+  @media (max-width:600px){
+    .neuro-captions span{flex:1 1 100%;}
+  }
+
+  /* ---------- Mitochondria → Neuron → Nervous System illustration ---------- */
+  .bio-panel-glow{
+    filter:blur(22px);
+    opacity:0.5;
+  }
+  .mito-outer{
+    fill:var(--blush-deep);
+    stroke:var(--rose-deep);
+    stroke-width:3;
+    animation:brainGlow 3s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  .mito-crista{
+    fill:none;
+    stroke:var(--rose-deep);
+    stroke-width:2.5;
+    stroke-linecap:round;
+    opacity:0.75;
+  }
+  .atp-spark{
+    fill:var(--gold);
+    filter:drop-shadow(0 0 5px rgba(216,171,122,0.85));
+    animation:sparkPulse 2.4s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes sparkPulse{
+    0%,100%{opacity:0.25; transform:scale(0.55);}
+    50%{opacity:1; transform:scale(1.2);}
+  }
+  .neuron-soma{
+    fill:var(--cream);
+    stroke:var(--rose-deep);
+    stroke-width:3;
+  }
+  .neuron-dendrite,
+  .neuron-axon{
+    fill:none;
+    stroke:var(--rose);
+    stroke-width:2.5;
+    stroke-linecap:round;
+  }
+  .neuron-myelin{
+    fill:var(--blush-deep);
+    stroke:var(--rose-deep);
+    stroke-width:1.5;
+  }
+  .neuron-bouton{
+    fill:var(--rose-deep);
+  }
+  .neuron-signal{
+    fill:var(--gold);
+    filter:drop-shadow(0 0 6px rgba(216,171,122,0.95));
+  }
+  .brain-shape{
+    fill:var(--blush-deep);
+    stroke:var(--rose-deep);
+    stroke-width:3;
+    animation:brainGlow 2.6s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes brainGlow{
+    0%,100%{filter:drop-shadow(0 0 2px rgba(231,140,160,0.25));}
+    50%{filter:drop-shadow(0 0 16px rgba(231,140,160,0.75));}
+  }
+  .brain-fold{
+    fill:none;
+    stroke:var(--rose);
+    stroke-width:2;
+    opacity:0.55;
+  }
+  .spine-line{
+    fill:none;
+    stroke:var(--rose-deep);
+    stroke-width:3;
+    stroke-linecap:round;
+  }
+  .nerve-branch{
+    fill:none;
+    stroke:var(--rose);
+    stroke-width:2;
+    opacity:0.8;
+    stroke-linecap:round;
+  }
+  .ns-signal{
+    fill:var(--gold);
+    filter:drop-shadow(0 0 6px rgba(216,171,122,0.95));
+  }
+  .flow-arrow-svg{
+    font-size:32px;
+    fill:var(--rose);
+    font-weight:700;
+    animation:pulseArrow 1.8s ease-in-out infinite;
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
   }
@@ -585,12 +713,12 @@
 <div class="hero">
   <div class="masthead">
     <span class="db-tag">🗂️ Orcasho Patient Database</span>
-    <h1 class="cycle-heading">Next Cycle <em>Focus</em></h1>
+    <h1 class="cycle-heading">Orcasho Patient <em>Database</em></h1>
   </div>
   <div class="hero-ring">🌷</div>
   <span class="eyebrow">Program Overview</span>
-  <h1>Yashika, here's the<br><em>next phase</em> of your care</h1>
-  <p>Every phase builds gently on the one before it — a continued, personalized path designed around how your body has been responding.</p>
+  <h1>Yashika Ahuja<br><em>Scientific Program Overview</em></h1>
+  <p>Every phase builds gently on the one before it - a continued, personalized path designed around how your body has been responding.</p>
   <div class="phase-badge"><span class="dot"></span> Next phase · 4 months · same price, as our thanks 💗</div>
 </div>
 
@@ -600,7 +728,7 @@
   <section>
     <div class="card note-card">
       <div class="to">A note for you</div>
-      <p>Ma'am, thank you for completing the previous cycles. We are pleased with the progress observed so far. Maintaining continuity allows each phase of care to build upon the previous one. As a gesture of appreciation, we would like to extend the next phase to four months at the same price. Some elements of the program will continue while others will be updated according to your progress.</p>
+      <p>Ma'am, we have seen substantial improvements throughout your previous cycles and it is encouraging to see this progress. Continuing at this stage is important because it helps preserve the biochemical momentum established over the earlier phases. During the next cycle we will introduce a combination of previously adapted supplements together with carefully selected new supplements. The objective is to continue building upon the physiological adaptations that have already occurred rather than restarting the process.</p>
       <div class="disclaimer">
         <span class="icon">📖</span>
         <span>The biological pathway illustrations in this report are simplified educational representations of complex physiology. They explain treatment goals and physiological concepts and should not be interpreted as guarantees of individual outcomes.</span>
@@ -623,7 +751,7 @@
       <div class="pill">🔥 Esophageal protection</div>
       <div class="pill">💧 Bile physiology</div>
       <div class="pill">🌿 Nutrient absorption</div>
-      <div class="pill">🩸 Blood health monitoring</div>
+      <div class="pill">🩸 Blood health improvement</div>
       <div class="pill">🌸 Menstrual wellbeing</div>
       <div class="pill">🧠 Nervous system wellbeing</div>
       <div class="pill">💖 Overall recovery</div>
@@ -645,7 +773,7 @@
         <div class="topic-icon icon-glow">🍎</div>
         <div>
           <h3>Digestive Physiology</h3>
-          <p>The full journey your food takes — from the first bite to fueling your cells.</p>
+          <p>The full journey your food takes - from the first bite to fueling your cells.</p>
           <div class="flow">
             <span class="step">Food Intake</span><span class="arrow">➜</span>
             <span class="step">Mechanical Processing</span><span class="arrow">➜</span>
@@ -712,28 +840,116 @@
         </div>
       </div>
 
-      <div class="card topic-card">
-        <div class="topic-icon">🩸</div>
-        <div>
-          <h3>Blood Health</h3>
-          <p>Laboratory markers are best interpreted together with symptoms and longitudinal trends rather than isolated values.</p>
-        </div>
-      </div>
-
-      <div class="card topic-card">
-        <div class="topic-icon">🌸</div>
-        <div>
-          <h3>Women's Health</h3>
-          <p>General nutrition, sleep, physical activity, and digestive health all contribute to your long-term wellbeing.</p>
-        </div>
-      </div>
-
     </div>
   </section>
 
   <div class="ribbon"></div>
 
-  <!-- CONTINUATION -->
+  
+<section>
+<div class="section-head">
+<span class="tag">Scientific Objectives</span>
+<h2>Primary Physiological Focus</h2>
+<p class="sub">Educational pathway models describing the biological systems being monitored.</p>
+</div>
+<div class="topic-grid">
+<div class="card topic-card"><div class="topic-icon">🧬</div><div><h3>Enzyme Hydrolysis</h3><p><b>Conceptual pathway</b><br>Food Macromolecules → Enzymatic Hydrolysis → Smaller Absorbable Molecules → Intestinal Uptake → Cellular Availability.<br><br>Goal: support efficient digestion and nutrient availability.</p></div></div>
+<div class="card topic-card"><div class="topic-icon">🌿</div><div><h3>Small Intestinal Villi</h3><p>Digested Nutrients → Villi Interface → Portal Circulation → Tissue Distribution. Focus on maintaining absorptive efficiency.</p></div></div>
+<div class="card topic-card"><div class="topic-icon">⚖️</div><div><h3>Bile and Gastric Balance</h3><p>Bile Release + Gastric Digestion → Lipid Processing → Nutrient Absorption. Physiological balance between digestive processes supports efficient fat handling.</p></div></div>
+<div class="card topic-card"><div class="topic-icon">🛡️</div><div><h3>Mucosal Barrier & Esophageal Health</h3><p>Barrier Integrity → Reduced Irritation → Tissue Recovery → Functional Stability. Educational model describing protective gastrointestinal physiology.</p></div></div>
+<div class="card topic-card"><div class="topic-icon">🩸</div><div><h3>Blood Health Improvement</h3><p><strong>Conceptual physiological pathway</strong><br>Nutrient Availability → Cellular Energy Production (ATP) → Mitochondrial Function → Cellular Maintenance → Bone Marrow Activity → Blood Cell Formation → Systemic Circulation.<br><br>During this cycle, one of the objectives is to support overall cellular energy systems, including ATP production, mitochondrial function and NAD<sup>+</sup>-dependent metabolic pathways as part of the broader physiological program. The intention is to support the biological environment involved in healthy blood cell production and maintenance, including red blood cells, platelets and normal immune cell function. Blood markers, including RBC indices, RDW, lymphocytes and monocytes, will continue to be reviewed alongside the overall clinical picture rather than in isolation.</p></div></div>
+<div class="card topic-card"><div class="topic-icon">🧠</div><div><h3>Nervous System & Women's Health</h3><div class="flow">
+            <span class="step">⚡ Cellular Energy</span><span class="arrow">➜</span>
+            <span class="step">🎯 Daily Function</span>
+          </div></div></div>
+</div>
+
+<div class="card neuro-flow-card">
+  <div class="section-head">
+    <span class="tag">🧠 A closer look</span>
+    <h2>From Cellular Energy to Nervous System Balance</h2>
+    <p class="sub">A simplified, educational look at how the energy made inside your cells supports nerve signaling and overall nervous system function.</p>
+  </div>
+  <svg class="neuro-svg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <ellipse class="bio-panel-glow" cx="135" cy="150" rx="120" ry="90" style="fill:var(--rose)"></ellipse>
+    <ellipse class="bio-panel-glow" cx="460" cy="150" rx="150" ry="90" style="fill:var(--rose)"></ellipse>
+    <ellipse class="bio-panel-glow" cx="760" cy="150" rx="150" ry="110" style="fill:var(--rose)"></ellipse>
+
+    <!-- MITOCHONDRIA -->
+    <ellipse class="mito-outer" cx="135" cy="150" rx="108" ry="66"></ellipse>
+    <path class="mito-crista" d="M80,118 Q110,108 110,150 Q110,192 80,182"></path>
+    <path class="mito-crista" d="M100,104 Q140,94 140,150 Q140,206 100,196"></path>
+    <path class="mito-crista" d="M120,100 Q165,90 165,150 Q165,210 120,200"></path>
+    <path class="mito-crista" d="M140,104 Q185,94 185,150 Q185,206 140,196"></path>
+    <circle class="atp-spark" cx="90" cy="88" r="5" style="animation-delay:0s"></circle>
+    <circle class="atp-spark" cx="192" cy="78" r="4" style="animation-delay:0.35s"></circle>
+    <circle class="atp-spark" cx="212" cy="142" r="5" style="animation-delay:0.7s"></circle>
+    <circle class="atp-spark" cx="182" cy="214" r="4" style="animation-delay:1.05s"></circle>
+    <circle class="atp-spark" cx="66" cy="200" r="5" style="animation-delay:1.4s"></circle>
+    <circle class="atp-spark" cx="135" cy="56" r="4" style="animation-delay:1.75s"></circle>
+
+    <text class="flow-arrow-svg" x="255" y="165">➜</text>
+
+    <!-- NEURON -->
+    <path class="neuron-dendrite" d="M325,128 Q298,102 282,80"></path>
+    <path class="neuron-dendrite" d="M332,120 Q312,90 302,64"></path>
+    <path class="neuron-dendrite" d="M345,116 Q335,84 330,58"></path>
+    <path class="neuron-dendrite" d="M320,142 Q286,136 264,142"></path>
+    <path class="neuron-dendrite" d="M323,164 Q292,180 270,196"></path>
+    <circle class="neuron-soma" cx="358" cy="150" r="34"></circle>
+    <path id="axonPath" class="neuron-axon" d="M392,150 C430,150 460,150 560,150"></path>
+    <rect class="neuron-myelin" x="404" y="142" width="26" height="16" rx="7"></rect>
+    <rect class="neuron-myelin" x="444" y="142" width="26" height="16" rx="7"></rect>
+    <rect class="neuron-myelin" x="484" y="142" width="26" height="16" rx="7"></rect>
+    <rect class="neuron-myelin" x="524" y="142" width="26" height="16" rx="7"></rect>
+    <path class="neuron-axon" d="M560,150 L586,128"></path>
+    <path class="neuron-axon" d="M560,150 L592,150"></path>
+    <path class="neuron-axon" d="M560,150 L586,172"></path>
+    <circle class="neuron-bouton" cx="586" cy="128" r="4"></circle>
+    <circle class="neuron-bouton" cx="592" cy="150" r="4"></circle>
+    <circle class="neuron-bouton" cx="586" cy="172" r="4"></circle>
+    <circle class="neuron-signal" r="6">
+      <animateMotion dur="2.4s" repeatCount="indefinite">
+        <mpath xlink:href="#axonPath" href="#axonPath"></mpath>
+      </animateMotion>
+    </circle>
+
+    <text class="flow-arrow-svg" x="622" y="165">➜</text>
+
+    <!-- NERVOUS SYSTEM -->
+    <path class="brain-shape" d="M700,68 Q700,34 738,28 Q758,14 788,28 Q818,34 814,64 Q824,88 800,100 Q780,114 750,104 Q716,100 700,68 Z"></path>
+    <path class="brain-fold" d="M722,48 Q738,58 722,74"></path>
+    <path class="brain-fold" d="M756,44 Q772,57 758,71"></path>
+    <path class="brain-fold" d="M788,50 Q800,62 786,78"></path>
+    <path id="spinePath" class="spine-line" d="M750,108 L750,278"></path>
+    <path class="nerve-branch" d="M750,140 L692,160"></path>
+    <path class="nerve-branch" d="M750,140 L808,160"></path>
+    <path class="nerve-branch" d="M750,180 L680,205"></path>
+    <path class="nerve-branch" d="M750,180 L820,205"></path>
+    <path class="nerve-branch" d="M750,220 L688,246"></path>
+    <path class="nerve-branch" d="M750,220 L812,246"></path>
+    <path class="nerve-branch" d="M750,258 L702,280"></path>
+    <path class="nerve-branch" d="M750,258 L798,280"></path>
+    <circle class="ns-signal" r="5">
+      <animateMotion dur="2.8s" repeatCount="indefinite" begin="0s">
+        <mpath xlink:href="#spinePath" href="#spinePath"></mpath>
+      </animateMotion>
+    </circle>
+    <circle class="ns-signal" r="5">
+      <animateMotion dur="2.8s" repeatCount="indefinite" begin="1.4s">
+        <mpath xlink:href="#spinePath" href="#spinePath"></mpath>
+      </animateMotion>
+    </circle>
+  </svg>
+  <div class="neuro-captions">
+    <span>⚡ Mitochondrial Energy (ATP)</span>
+    <span>🧬 Nerve Cell Signaling</span>
+    <span>🧠 Nervous System Function</span>
+  </div>
+</div>
+</section>
+
+<!-- CONTINUATION -->
   <section>
     <div class="section-head">
       <span class="tag">🗓️ Between now and then</span>
@@ -743,11 +959,11 @@
       <div class="timeline">
         <div class="t-item">
           <h4>Stay the course</h4>
-          <p>Ma'am, please continue the current combination until we ship the new supplements.</p>
+          <p>Ma'am, please continue the current combination until the updated supplements are shipped. We do not recommend a treatment gap because each cycle is designed to build upon the previous physiological adaptation.</p>
         </div>
         <div class="t-item">
           <h4>Building forward</h4>
-          <p>This continuity allows us to continue the biochemical momentum without losing it — especially for someone of your age, this is of prime importance.</p>
+          <p>Maintaining continuity allows the next phase to build upon the previous one. As a gesture of appreciation, the next phase will be provided for four months at the same price.</p>
         </div>
       </div>
     </div>
@@ -760,7 +976,7 @@
   <span class="heart">💗</span>
   <h2>Thank you for your trust</h2>
   <p>We look forward to supporting the next phase of your program, Yashika.</p>
-  <div class="signature">— With care, Team Orcasho</div>
+  <div class="signature">- With care, Team Orcasho</div>
 </div>
 
 <footer>Orcasho Patient Database · Program Overview</footer>
