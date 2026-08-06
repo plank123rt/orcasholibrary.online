@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Why is the sky dark?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,440;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#050508;
+    --void-2:#0a0a12;
+    --star:#f4efe2;
+    --amber:#e8a355;
+    --ember:#c23b22;
+    --deep-red:#5c1414;
+    --dim:#7a7568;
+    --line: rgba(244,239,226,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    height:100%;
+    background:var(--void);
+    color:var(--star);
+    font-family:'Fraunces', serif;
+    overflow-x:hidden;
+  }
+  body{
+    scroll-snap-type:y mandatory;
+    overflow-y:scroll;
+    height:100vh;
+  }
+  canvas#sky{
+    position:fixed;
+    top:0; left:0;
+    width:100vw; height:100vh;
+    z-index:0;
+    display:block;
+  }
+
+  /* top segmented progress, echoing the source: a reel */
+  .progress{
+    position:fixed;
+    top:0; left:0; right:0;
+    display:flex;
+    gap:4px;
+    padding:10px 12px 0 12px;
+    z-index:10;
+    pointer-events:none;
+  }
+  .progress .seg{
+    flex:1;
+    height:2px;
+    background:rgba(244,239,226,0.18);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress .seg i{
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--star);
+    transition:width .5s ease;
+  }
+
+  main{ position:relative; z-index:1; }
+
+  section.beat{
+    height:100vh;
+    width:100vw;
+    scroll-snap-align:start;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-start;
+    position:relative;
+    padding:0 7vw 12vh 7vw;
+  }
+  section.beat .txt{
+    max-width:640px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+  }
+  section.beat.active .txt{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .eyebrow{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-bottom:14px;
+  }
+  .line{
+    font-weight:300;
+    font-size:clamp(26px, 5vw, 44px);
+    line-height:1.28;
+    letter-spacing:-0.01em;
+  }
+  .line em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--amber);
+  }
+  .line .red{ color:var(--ember); font-style:italic; font-weight:400; }
+  .small{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--dim);
+    margin-top:18px;
+    line-height:1.6;
+  }
+
+  /* math beat */
+  .math{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    max-width:420px;
+  }
+  .math .row{ display:flex; align-items:center; gap:12px; }
+  .math .label{ width:96px; color:var(--dim); flex-shrink:0; }
+  .math .bar{
+    flex:1;
+    height:6px;
+    background:rgba(244,239,226,0.1);
+    border-radius:3px;
+    overflow:hidden;
+    position:relative;
+  }
+  .math .bar i{
+    display:block;
+    height:100%;
+    border-radius:3px;
+    transition:width 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .math .bar.light i{ background:var(--amber); width:100%; }
+  .math .bar.count i{ background:var(--ember); width:25%; }
+  section.beat.active .math .bar.light i{ width:25%; }
+  section.beat.active .math .bar.count i{ width:100%; }
+  .math .result{
+    margin-top:6px;
+    color:var(--star);
+    font-size:13px;
+    opacity:0;
+    transition:opacity .8s ease 1.2s;
+  }
+  section.beat.active .math .result{ opacity:1; }
+
+  section.hero{
+    align-items:flex-start;
+    padding-top:14vh;
+  }
+
+  section.final{
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 8vw;
+  }
+  section.final .line{ font-size:clamp(24px,4.4vw,38px); }
+
+  @media (prefers-reduced-motion: reduce){
+    * { transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sky"></canvas>
+
+<div class="progress" id="progress"></div>
+
+<main id="story">
+
+  <section class="beat hero" data-stage="1">
+    <div class="txt">
+      <span class="eyebrow">A dark sky, considered closely</span>
+      <p class="line">Pick <em>any</em> direction.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="2">
+    <div class="txt">
+      <p class="line">And follow it outward.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="3">
+    <div class="txt">
+      <p class="line">In a universe with no edge, that line can only end one way —</p>
+      <p class="line"><em>on the surface of a star.</em></p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="4">
+    <div class="txt">
+      <span class="eyebrow">Shell after shell</span>
+      <div class="math">
+        <div class="row">
+          <span class="label">2× distance</span>
+          <span class="bar light"><i></i></span>
+          <span>¼ light</span>
+        </div>
+        <div class="row">
+          <span class="label">same shell</span>
+          <span class="bar count"><i></i></span>
+          <span>4× stars</span>
+        </div>
+      </div>
+      <p class="result">They cancel exactly. Every shell, forever.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="5">
+    <div class="txt">
+      <p class="line">So the night sky should not be dark at all.</p>
+      <p class="line">It should burn <span class="red">as bright as the sun</span> — everywhere you look.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="6">
+    <div class="txt">
+      <span class="eyebrow">Olbers' paradox &mdash; 1823</span>
+      <p class="line">It doesn't.</p>
+      <p class="small">The universe hasn't existed long enough for that light to arrive.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="7">
+    <div class="txt">
+      <p class="line">Most of that starlight is still <em>on its way</em> —</p>
+      <p class="line">crossing space, right now, toward you.</p>
+    </div>
+  </section>
+
+  <section class="beat" data-stage="8">
+    <div class="txt">
+      <p class="line">And what does arrive has been stretched by an expanding universe —</p>
+      <p class="line">pulled <span class="red">past red</span>, past what your eyes can catch.</p>
+    </div>
+  </section>
+
+  <section class="beat final" data-stage="9">
+    <div class="txt">
+      <p class="line">The dark above you tonight isn't empty.</p>
+      <p class="line" style="margin-top:6px;">It's light — <em>still on its way.</em></p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR;
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // ---------- star fields ----------
+  function rand(a,b){ return a + Math.random()*(b-a); }
+
+  const baseStars = [];
+  for(let i=0;i<180;i++){
+    baseStars.push({
+      x: Math.random(), y: Math.random(),
+      r: rand(0.6,1.8),
+      a: rand(0.35,1),
+      tw: rand(0.5,2.2),
+      to: rand(0,Math.PI*2)
+    });
+  }
+
+  const fillStars = [];
+  for(let i=0;i<1600;i++){
+    fillStars.push({
+      x: Math.random(), y: Math.random(),
+      r: rand(0.4,1.3),
+      a: rand(0.25,0.9),
+      thresh: Math.random(),
+      tw: rand(0.4,2),
+      to: rand(0,Math.PI*2)
+    });
+  }
+
+  const arrivalParticles = [];
+  for(let i=0;i<34;i++){
+    arrivalParticles.push({
+      edge: Math.random(),
+      target: baseStars[Math.floor(Math.random()*baseStars.length)],
+      speed: rand(0.06,0.14),
+      t: Math.random(),
+      offset: rand(0,1)
+    });
+  }
+
+  // ---------- scene state ----------
+  const target = { ray:0, rings:0, density:0, white:0, redshift:0, arrival:0, final:0 };
+  const current = { ray:0, rings:0, density:0, white:0, redshift:0, arrival:0, final:0 };
+
+  const stageTargets = {
+    1: { ray:0,    rings:0,   density:0.02, white:0,   redshift:0,   arrival:0,   final:0 },
+    2: { ray:1,    rings:0.12,density:0.08, white:0,   redshift:0,   arrival:0,   final:0 },
+    3: { ray:1,    rings:0.55,density:0.55, white:0.04,redshift:0,   arrival:0,   final:0 },
+    4: { ray:1,    rings:0.55,density:0.55, white:0.04,redshift:0,   arrival:0,   final:0 },
+    5: { ray:1,    rings:1,   density:1,    white:0.92,redshift:0,   arrival:0,   final:0 },
+    6: { ray:0,    rings:0,   density:0.12, white:0,   redshift:0,   arrival:0,   final:0 },
+    7: { ray:0,    rings:0,   density:0.12, white:0,   redshift:0,   arrival:1,   final:0 },
+    8: { ray:0,    rings:0,   density:0.12, white:0,   redshift:1,   arrival:0.25,final:0 },
+    9: { ray:0,    rings:0,   density:0.04, white:0,   redshift:0.15,arrival:0,   final:1 },
+  };
+
+  let activeStage = 1;
+  function setStage(n){
+    activeStage = n;
+    Object.assign(target, stageTargets[n] || stageTargets[1]);
+  }
+  setStage(1);
+
+  // ---------- draw ----------
+  let t0 = performance.now();
+
+  function lerp(a,b,f){ return a + (b-a)*f; }
+
+  function draw(now){
+    const dt = Math.min((now - t0)/1000, 0.05);
+    t0 = now;
+    const time = now/1000;
+
+    // ease current -> target
+    const ease = 1 - Math.pow(0.001, dt);
+    for(const k in target){ current[k] = lerp(current[k], target[k], ease); }
+
+    ctx.clearRect(0,0,W,H);
+
+    // deep space gradient
+    const grad = ctx.createRadialGradient(W*0.5,H*0.35,0, W*0.5,H*0.5, Math.max(W,H)*0.8);
+    grad.addColorStop(0, '#0b0b14');
+    grad.addColorStop(1, '#050508');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+
+    const cx = W*0.5, cy = H*0.56;
+
+    // concentric shells
+    if(current.rings > 0.01){
+      const maxR = Math.hypot(W,H)*0.62;
+      const count = Math.ceil(current.rings * 9);
+      ctx.strokeStyle = 'rgba(244,239,226,' + (0.10*current.rings) + ')';
+      ctx.lineWidth = 1;
+      for(let i=1;i<=count;i++){
+        const r = (i/9)*maxR;
+        ctx.beginPath();
+        ctx.arc(cx,cy,r,0,Math.PI*2);
+        ctx.stroke();
+      }
+    }
+
+    // fill stars (progressive density) with redshift tint
+    for(const s of fillStars){
+      const reveal = Math.max(0, Math.min(1, (current.density - s.thresh) * 4));
+      if(reveal <= 0.001) continue;
+      const tw = 0.7 + 0.3*Math.sin(time*s.tw + s.to);
+      let alpha = s.a * reveal * tw * (1 - current.redshift*0.75);
+      const rr = Math.round(lerp(244, 92, current.redshift));
+      const gg = Math.round(lerp(239, 20, current.redshift));
+      const bb = Math.round(lerp(226, 20, current.redshift));
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${rr},${gg},${bb},${Math.max(0,alpha)})`;
+      ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // base sparse stars (the ones actually "arrived")
+    for(const s of baseStars){
+      const tw = 0.65 + 0.35*Math.sin(time*s.tw + s.to);
+      const warm = current.redshift*0.3;
+      const rr = Math.round(lerp(244, 255, warm));
+      const gg = Math.round(lerp(239, 210, warm));
+      const bb = Math.round(lerp(226, 160, warm));
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${rr},${gg},${bb},${s.a*tw})`;
+      ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // outward ray
+    if(current.ray > 0.01){
+      const ang = -0.62;
+      const len = Math.hypot(W,H)*0.62 * Math.min(1,current.ray*1.15);
+      const ex = cx + Math.cos(ang)*len;
+      const ey = cy + Math.sin(ang)*len;
+      ctx.strokeStyle = 'rgba(232,163,85,' + (0.55*Math.min(1,current.ray)) + ')';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.lineTo(ex,ey);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(232,163,85,' + Math.min(1,current.ray) + ')';
+      ctx.arc(ex,ey, 2.6, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // light-arrival particles (converging streaks)
+    if(current.arrival > 0.01){
+      ctx.lineWidth = 1;
+      for(const p of arrivalParticles){
+        p.t += dt * p.speed;
+        if(p.t > 1) p.t -= 1;
+        const ang = p.edge * Math.PI*2;
+        const startR = Math.hypot(W,H)*0.62;
+        const sx = cx + Math.cos(ang)*startR;
+        const sy = cy + Math.sin(ang)*startR;
+        const tx = p.target.x*W, ty = p.target.y*H;
+        const x = lerp(sx,tx,p.t);
+        const y = lerp(sy,ty,p.t);
+        const px = lerp(sx,tx,Math.max(0,p.t-0.05));
+        const py = lerp(sy,ty,Math.max(0,p.t-0.05));
+        const fade = Math.sin(p.t*Math.PI);
+        ctx.strokeStyle = `rgba(244,239,226,${0.5*fade*current.arrival})`;
+        ctx.beginPath();
+        ctx.moveTo(px,py);
+        ctx.lineTo(x,y);
+        ctx.stroke();
+      }
+    }
+
+    // final soft pulse
+    if(current.final > 0.01){
+      const pulse = 0.5 + 0.5*Math.sin(time*1.1);
+      const r = lerp(30, 90, pulse) * current.final;
+      const g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      g.addColorStop(0, `rgba(244,239,226,${0.35*current.final})`);
+      g.addColorStop(1, 'rgba(244,239,226,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(244,239,226,${0.9*current.final})`;
+      ctx.arc(cx,cy,2.2,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    // whiteout
+    if(current.white > 0.005){
+      ctx.fillStyle = `rgba(250,246,236,${current.white})`;
+      ctx.fillRect(0,0,W,H);
+    }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // ---------- scroll-driven stage switching ----------
+  const sections = Array.from(document.querySelectorAll('section.beat'));
+  const segWrap = document.getElementById('progress');
+  sections.forEach(()=>{
+    const seg = document.createElement('div');
+    seg.className = 'seg';
+    seg.innerHTML = '<i></i>';
+    segWrap.appendChild(seg);
+  });
+  const segs = Array.from(segWrap.children);
+
+  function updateProgress(activeIndex){
+    segs.forEach((seg,i)=>{
+      seg.querySelector('i').style.width = i < activeIndex ? '100%' : (i === activeIndex ? '100%' : '0%');
+    });
+  }
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting && entry.intersectionRatio > 0.55){
+        sections.forEach(s=>s.classList.remove('active'));
+        entry.target.classList.add('active');
+        const stage = parseInt(entry.target.dataset.stage,10);
+        setStage(stage);
+        updateProgress(sections.indexOf(entry.target));
+      }
+    });
+  }, { threshold: [0.55] });
+
+  sections.forEach(s=>io.observe(s));
+
+  // reveal first section immediately
+  sections[0].classList.add('active');
+  updateProgress(0);
+})();
+</script>
+
+</body>
+</html>
