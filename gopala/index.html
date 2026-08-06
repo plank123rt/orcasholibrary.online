@@ -786,6 +786,139 @@
     100%{transform:scaleY(0.15);}
   }
 
+  /* ---------- Primary Focus card micro-animations ---------- */
+  .mini-viz{
+    width:100%;
+    height:auto;
+    display:block;
+    margin-top:16px;
+    overflow:visible;
+  }
+  .vessel-line{
+    fill:none;
+    stroke:var(--rose);
+    stroke-width:2;
+    opacity:0.5;
+    stroke-dasharray:3 5;
+  }
+  .cell-target{
+    fill:var(--cream);
+    stroke:var(--rose-deep);
+    stroke-width:2.5;
+  }
+
+  /* Enzyme hydrolysis */
+  .macro-shape{
+    fill:var(--blush-deep);
+    stroke:var(--rose-deep);
+    stroke-width:2.5;
+  }
+  .enzyme-blade{
+    fill:var(--gold);
+    stroke:var(--rose-deep);
+    stroke-width:1.5;
+    animation:bladeCut 2.4s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes bladeCut{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    50%{transform:translateX(10px) rotate(-14deg);}
+  }
+  .enzyme-frag, .nutrient-dot, .lipid-droplet{
+    fill:var(--gold);
+    filter:drop-shadow(0 0 4px rgba(201,151,74,0.8));
+  }
+
+  /* Villi */
+  .villus-shape{
+    fill:none;
+    stroke:var(--rose-deep);
+    stroke-width:3;
+    stroke-linecap:round;
+    animation:villiSway 2.6s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:bottom;
+  }
+  .villus-shape:nth-of-type(2){animation-delay:0.25s;}
+  .villus-shape:nth-of-type(3){animation-delay:0.5s;}
+  .villus-shape:nth-of-type(4){animation-delay:0.75s;}
+  @keyframes villiSway{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(5deg);}
+  }
+
+  /* Bile and gastric balance */
+  .gastric-wave-path{
+    fill:none;
+    stroke:var(--rose);
+    stroke-width:3;
+    stroke-dasharray:6 5;
+    animation:waveShift 1.8s linear infinite;
+  }
+  @keyframes waveShift{ to{stroke-dashoffset:-22;} }
+  .bile-drop{
+    fill:var(--rose-deep);
+    animation:dropFall 2.2s ease-in infinite;
+    transform-box:fill-box;
+    transform-origin:top;
+  }
+  @keyframes dropFall{
+    0%{transform:translateY(0); opacity:0;}
+    20%{opacity:1;}
+    100%{transform:translateY(20px); opacity:0;}
+  }
+
+  /* Mucosal barrier */
+  .barrier-wall{
+    fill:none;
+    stroke:var(--rose-deep);
+    stroke-width:5;
+    stroke-linecap:round;
+    animation:wallGlow 2.6s ease-in-out infinite;
+  }
+  @keyframes wallGlow{
+    0%,100%{filter:drop-shadow(0 0 2px rgba(47,158,143,0.3));}
+    50%{filter:drop-shadow(0 0 10px rgba(47,158,143,0.8));}
+  }
+  .irritant-dot{
+    fill:var(--berry);
+    opacity:0.75;
+    animation:driftBounce 2.4s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes driftBounce{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(24px);}
+  }
+  .recovery-pulse{
+    fill:var(--rose);
+    opacity:0.15;
+    animation:recoverPulse 2.6s ease-in-out infinite;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes recoverPulse{
+    0%,100%{transform:scale(0.9); opacity:0.12;}
+    50%{transform:scale(1.08); opacity:0.28;}
+  }
+
+  /* Blood health */
+  .marrow-shape{
+    fill:var(--blush-deep);
+    stroke:var(--rose-deep);
+    stroke-width:2.5;
+  }
+  .rbc-dot{
+    fill:var(--rose-deep);
+    filter:drop-shadow(0 0 3px rgba(28,122,114,0.6));
+  }
+  .platelet-dot{
+    fill:var(--gold);
+    filter:drop-shadow(0 0 3px rgba(201,151,74,0.8));
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
   }
@@ -832,11 +965,76 @@
 <p class="sub">Educational pathway models describing the biological systems being monitored.</p>
 </div>
 <div class="topic-grid">
-<div class="card topic-card"><div class="topic-icon">🧬</div><div><h3>Enzyme Hydrolysis</h3><p><b>Conceptual pathway</b><br>Food Macromolecules → Enzymatic Hydrolysis → Smaller Absorbable Molecules → Intestinal Uptake → Cellular Availability.<br><br>Goal: support efficient digestion and nutrient availability.</p></div></div>
-<div class="card topic-card"><div class="topic-icon">🌿</div><div><h3>Small Intestinal Villi</h3><p>Digested Nutrients → Villi Interface → Portal Circulation → Tissue Distribution. Focus on maintaining absorptive efficiency.</p></div></div>
-<div class="card topic-card"><div class="topic-icon">⚖️</div><div><h3>Bile and Gastric Balance</h3><p>Bile Release + Gastric Digestion → Lipid Processing → Nutrient Absorption. Physiological balance between digestive processes supports efficient fat handling.</p></div></div>
-<div class="card topic-card"><div class="topic-icon">🛡️</div><div><h3>Mucosal Barrier & Esophageal Health</h3><p>Barrier Integrity → Reduced Irritation → Tissue Recovery → Functional Stability. Educational model describing protective gastrointestinal physiology.</p></div></div>
-<div class="card topic-card"><div class="topic-icon">🩸</div><div><h3>Blood Health Improvement</h3><p><strong>Conceptual physiological pathway</strong><br>Nutrient Availability → Cellular Energy Production (ATP) → Mitochondrial Function → Cellular Maintenance → Bone Marrow Activity → Blood Cell Formation → Systemic Circulation.<br><br>During this cycle, one of the objectives is to support overall cellular energy systems, including ATP production, mitochondrial function and NAD<sup>+</sup>-dependent metabolic pathways as part of the broader physiological program. The intention is to support the biological environment involved in healthy blood cell production and maintenance, including red blood cells, platelets and normal immune cell function. Blood markers, including RBC indices, RDW, lymphocytes and monocytes, will continue to be reviewed alongside the overall clinical picture rather than in isolation.</p></div></div>
+<div class="card topic-card"><div class="topic-icon icon-glow">🧬</div><div><h3>Enzyme Hydrolysis</h3><p><b>Conceptual pathway</b><br>Food Macromolecules → Enzymatic Hydrolysis → Smaller Absorbable Molecules → Intestinal Uptake → Cellular Availability.<br><br>Goal: support efficient digestion and nutrient availability.</p>
+<svg class="mini-viz" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+  <ellipse class="macro-shape" cx="70" cy="60" rx="46" ry="34"></ellipse>
+  <path class="enzyme-blade" d="M118,44 L146,60 L118,76 Z"></path>
+  <path id="enzPath1" class="vessel-line" d="M230,40 C310,40 340,60 420,60"></path>
+  <path id="enzPath2" class="vessel-line" d="M230,60 C310,60 340,60 420,60"></path>
+  <path id="enzPath3" class="vessel-line" d="M230,80 C310,80 340,60 420,60"></path>
+  <circle class="enzyme-frag" cx="230" cy="40" r="8"></circle>
+  <circle class="enzyme-frag" cx="230" cy="60" r="8"></circle>
+  <circle class="enzyme-frag" cx="230" cy="80" r="8"></circle>
+  <circle class="nutrient-dot" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#enzPath1" href="#enzPath1"></mpath></animateMotion></circle>
+  <circle class="nutrient-dot" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.4s"><mpath xlink:href="#enzPath2" href="#enzPath2"></mpath></animateMotion></circle>
+  <circle class="nutrient-dot" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.8s"><mpath xlink:href="#enzPath3" href="#enzPath3"></mpath></animateMotion></circle>
+  <circle class="cell-target" cx="460" cy="60" r="42"></circle>
+  <text class="store-label store-label-small" x="460" y="64">CELL</text>
+</svg>
+</div></div>
+<div class="card topic-card"><div class="topic-icon icon-glow">🌿</div><div><h3>Small Intestinal Villi</h3><p>Digested Nutrients → Villi Interface → Portal Circulation → Tissue Distribution. Focus on maintaining absorptive efficiency.</p>
+<svg class="mini-viz" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+  <path class="villus-shape" d="M60,100 Q56,60 62,30"></path>
+  <path class="villus-shape" d="M90,100 Q86,55 94,26"></path>
+  <path class="villus-shape" d="M120,100 Q116,58 124,30"></path>
+  <path class="villus-shape" d="M150,100 Q146,55 156,28"></path>
+  <circle class="nutrient-dot" cx="62" cy="30" r="5"></circle>
+  <circle class="nutrient-dot" cx="94" cy="26" r="5"></circle>
+  <circle class="nutrient-dot" cx="124" cy="30" r="5"></circle>
+  <path id="villPath" class="vessel-line" d="M160,90 C240,112 320,60 460,60"></path>
+  <circle class="nutrient-dot" r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#villPath" href="#villPath"></mpath></animateMotion></circle>
+  <circle class="nutrient-dot" r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.9s"><mpath xlink:href="#villPath" href="#villPath"></mpath></animateMotion></circle>
+  <circle class="cell-target" cx="500" cy="60" r="40"></circle>
+  <text class="store-label store-label-small" x="500" y="64">TISSUE</text>
+</svg>
+</div></div>
+<div class="card topic-card"><div class="topic-icon icon-glow">⚖️</div><div><h3>Bile and Gastric Balance</h3><p>Bile Release + Gastric Digestion → Lipid Processing → Nutrient Absorption. Physiological balance between digestive processes supports efficient fat handling.</p>
+<svg class="mini-viz" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+  <path class="gastric-wave-path" d="M40,44 Q70,24 100,44 T160,44"></path>
+  <circle class="bile-drop" cx="120" cy="14" r="6"></circle>
+  <circle class="bile-drop" cx="120" cy="14" r="6" style="animation-delay:0.8s"></circle>
+  <path id="bilePath" class="vessel-line" d="M150,50 C240,88 320,80 460,60"></path>
+  <circle class="lipid-droplet" r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#bilePath" href="#bilePath"></mpath></animateMotion></circle>
+  <circle class="lipid-droplet" r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="1s"><mpath xlink:href="#bilePath" href="#bilePath"></mpath></animateMotion></circle>
+  <circle class="cell-target" cx="500" cy="60" r="40"></circle>
+  <text class="store-label store-label-small" x="500" y="64">ABSORB</text>
+</svg>
+</div></div>
+<div class="card topic-card"><div class="topic-icon icon-glow">🛡️</div><div><h3>Mucosal Barrier & Esophageal Health</h3><p>Barrier Integrity → Reduced Irritation → Tissue Recovery → Functional Stability. Educational model describing protective gastrointestinal physiology.</p>
+<svg class="mini-viz" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+  <circle class="recovery-pulse" cx="430" cy="60" r="70"></circle>
+  <line class="barrier-wall" x1="320" y1="10" x2="320" y2="110"></line>
+  <circle class="irritant-dot" cx="110" cy="40" r="7" style="animation-delay:0s"></circle>
+  <circle class="irritant-dot" cx="140" cy="80" r="6" style="animation-delay:0.5s"></circle>
+  <circle class="irritant-dot" cx="80" cy="62" r="5" style="animation-delay:1s"></circle>
+  <text class="store-label store-label-small" x="200" y="20">IRRITANTS</text>
+  <text class="store-label store-label-small" x="470" y="20">PROTECTED</text>
+</svg>
+</div></div>
+<div class="card topic-card"><div class="topic-icon icon-glow">🩸</div><div><h3>Blood Health Improvement</h3><p><strong>Conceptual physiological pathway</strong><br>Nutrient Availability → Cellular Energy Production (ATP) → Mitochondrial Function → Cellular Maintenance → Bone Marrow Activity → Blood Cell Formation → Systemic Circulation.<br><br>During this cycle, one of the objectives is to support overall cellular energy systems, including ATP production, mitochondrial function and NAD<sup>+</sup>-dependent metabolic pathways as part of the broader physiological program. The intention is to support the biological environment involved in healthy blood cell production and maintenance, including red blood cells, platelets and normal immune cell function. Blood markers, including RBC indices, RDW, lymphocytes and monocytes, will continue to be reviewed alongside the overall clinical picture rather than in isolation.</p>
+<svg class="mini-viz" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+  <ellipse class="marrow-shape" cx="80" cy="60" rx="50" ry="38"></ellipse>
+  <circle class="atp-spark" cx="60" cy="38" r="4" style="animation-delay:0s"></circle>
+  <circle class="atp-spark" cx="102" cy="82" r="4" style="animation-delay:0.6s"></circle>
+  <circle class="atp-spark" cx="100" cy="36" r="4" style="animation-delay:1.2s"></circle>
+  <path id="bloodPath" class="vessel-line" d="M130,60 C240,60 320,60 460,60"></path>
+  <circle class="rbc-dot" r="7"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#bloodPath" href="#bloodPath"></mpath></animateMotion></circle>
+  <circle class="rbc-dot" r="7"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.5s"><mpath xlink:href="#bloodPath" href="#bloodPath"></mpath></animateMotion></circle>
+  <circle class="platelet-dot" r="4"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1s"><mpath xlink:href="#bloodPath" href="#bloodPath"></mpath></animateMotion></circle>
+  <circle class="cell-target" cx="500" cy="60" r="40"></circle>
+  <text class="store-label store-label-small" x="500" y="64">FLOW</text>
+</svg>
+</div></div>
 <div class="card topic-card"><div class="topic-icon">🧠</div><div><h3>Nervous System & Vitality</h3><div class="flow">
             <span class="step">⚡ Cellular Energy</span><span class="arrow">➜</span>
             <span class="step">🎯 Daily Function</span>
