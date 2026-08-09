@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0030)https://orcasholibrary.online/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Orcasho — The Crux</title>
-<link rel="icon" type="image/png" href="/favicon.png?v=2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>Orcasho - The Crux</title>
+<link rel="icon" type="image/png" href="https://orcasholibrary.online/favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Orcasho - The Crux_files/css2" rel="stylesheet">
 <style>
   :root{
     --ink:#0C0E0D; --ink2:#161A18;
@@ -85,17 +85,17 @@
 
 <div class="wordmark"><span class="dot"></span>ORCASHO</div>
 <div class="badge">
-  <div class="n" id="cycleCount">2,336</div>
+  <div class="n bump" id="cycleCount">2,339</div>
   <div class="l">cycles logged</div>
 </div>
 
 <div class="wrap">
   <div class="eyebrow">The crux, in one shot</div>
   <div class="headline">Every cycle makes Orcasho <em>smarter</em> at keeping you stable.</div>
-  <div class="sub">Food, medication, hormones, travel, and daily life create noise. Orcasho's ionic engine adapts through the gut every 20 days — and every outcome loops back, sharpening the next prediction.</div>
+  <div class="sub">Food, medication, hormones, travel, and daily life create noise. Orcasho's ionic engine adapts through the gut every 20 days - and every outcome loops back, sharpening the next prediction.</div>
 
   <div class="stage-wrap">
-    <canvas id="stage"></canvas>
+    <canvas id="stage" width="2080" height="600"></canvas>
     <div class="tag tag-chaos">life's noise</div>
     <div class="tag tag-stable">stable, compounding</div>
     <div class="tag tag-engine">engine adapts<br>every 20 days</div>
@@ -233,8 +233,8 @@ let paused = false;
 // compounding state
 const LAP_DURATION = 5.6;     // seconds per lead lap at normal speed
 const DECAY_BASE = 0.93;      // each lap, remaining excess chaos multiplies by this
-const CHAOS_FLOOR = 0.22;     // chaos never fully disappears — it's alive, not dead
-let lapsCompleted = 0;        // continuous float, never resets — total laps since load
+const CHAOS_FLOOR = 0.22;     // chaos never fully disappears - it's alive, not dead
+let lapsCompleted = 0;        // continuous float, never resets - total laps since load
 let lastIntLap = 0;
 let baseCycleCount = 2336;
 
@@ -403,5 +403,6 @@ requestAnimationFrame(frame);
 
 document.body.addEventListener('click', ()=>{ paused = !paused; last = performance.now(); });
 </script>
-</body>
-</html>
+
+
+</body></html>
