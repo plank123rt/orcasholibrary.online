@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nerve Conduction Study — Visual Summary</title>
+  <link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F4F7F7;
+    --card:#FFFFFF;
+    --ink:#16232C;
+    --slate:#5B6B78;
+    --line:#DCE4E6;
+    --teal:#147A72;
+    --teal-soft:#E3F2EF;
+    --coral:#C43D3D;
+    --coral-soft:#FBE9E7;
+    --amber:#B57A0A;
+    --amber-soft:#FBF0DA;
+    --wave: rgba(20,122,114,0.35);
+    --maxw: 980px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .eyebrow{
+    text-transform:uppercase; font-size:12px; letter-spacing:0.14em; color:var(--slate); font-weight:600;
+  }
+  a{color:inherit;}
+
+  /* ---------- top identity strip ---------- */
+  .idstrip{
+    background:var(--ink); color:#EDF3F2; padding:14px 0; font-size:13px;
+  }
+  .idstrip .wrap{display:flex; flex-wrap:wrap; gap:6px 28px; justify-content:space-between; align-items:center;}
+  .idstrip b{color:#fff;}
+  .idstrip span{opacity:0.75;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 30px; position:relative; overflow:hidden;}
+  .hero .eyebrow{margin-bottom:14px;}
+  .hero h1{
+    font-size:clamp(30px,4.6vw,50px); line-height:1.08; max-width:15ch;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .9s cubic-bezier(.16,1,.3,1) .1s forwards;
+  }
+  .hero .sub{
+    margin-top:18px; max-width:60ch; font-size:17px; color:var(--slate);
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .9s cubic-bezier(.16,1,.3,1) .3s forwards;
+  }
+  @keyframes riseIn{to{opacity:1; transform:translateY(0);}}
+
+  .waveline{width:100%; height:64px; margin-top:38px; display:block;}
+  .waveline path{
+    fill:none; stroke:var(--wave); stroke-width:2;
+    stroke-dasharray:8 7;
+    animation:waveMove 6s linear infinite;
+  }
+  @keyframes waveMove{to{stroke-dashoffset:-300;}}
+
+  /* ---------- section shell ---------- */
+  section{padding:52px 0;}
+  .section-head{margin-bottom:28px;}
+  .section-head h2{font-size:clamp(22px,3vw,30px);}
+  .section-head p{color:var(--slate); margin-top:8px; max-width:64ch; font-size:15px;}
+
+  /* ---------- body map ---------- */
+  .bodymap-section{background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .bodymap-grid{display:grid; grid-template-columns:minmax(0,320px) 1fr; gap:36px; align-items:center;}
+  @media (max-width:760px){.bodymap-grid{grid-template-columns:1fr;}}
+
+  .figure-holder{position:relative; display:flex; justify-content:center;}
+  .figure-holder svg{width:100%; max-width:320px; height:auto;}
+
+  .nerveline{fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .nerveline.normal{stroke:var(--teal); stroke-width:4;}
+  .nerveline.flag{stroke:var(--coral); stroke-width:4.5;}
+  .nerveline.reflex{stroke:var(--amber); stroke-width:3.5; stroke-dasharray:3 6;}
+
+  .drawpath{
+    stroke-dasharray:600; stroke-dashoffset:600;
+    animation:drawIn 2.2s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  .drawpath.d2{animation-delay:.25s;}
+  .drawpath.d3{animation-delay:.5s;}
+  .drawpath.d4{animation-delay:.75s;}
+  @keyframes drawIn{to{stroke-dashoffset:0;}}
+
+  .pulsedot{transform-origin:center; animation:pulse 2.2s ease-in-out infinite;}
+  .pulsedot.p2{animation-delay:.5s;}
+  .pulsedot.p3{animation-delay:1s;}
+  @keyframes pulse{
+    0%,100%{opacity:.55; r:6;}
+    50%{opacity:1; r:9;}
+  }
+
+  .figure-caption{font-size:12px; color:var(--slate); text-align:center; margin-top:10px;}
+
+  .legend{display:flex; flex-direction:column; gap:14px;}
+  .legend-item{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:12px; border:1px solid var(--line); background:var(--paper);}
+  .legend-item .dot{width:12px; height:12px; border-radius:50%; margin-top:5px; flex:none;}
+  .legend-item.normal .dot{background:var(--teal);}
+  .legend-item.flag .dot{background:var(--coral);}
+  .legend-item.reflex .dot{background:var(--amber);}
+  .legend-item b{display:block; font-size:14.5px;}
+  .legend-item span{color:var(--slate); font-size:13.5px;}
+
+  /* ---------- why / wiring analogy ---------- */
+  .why-section{background:var(--paper);}
+  .why-intro{max-width:70ch; font-size:15.5px; color:var(--slate); margin-bottom:30px;}
+  .why-intro b{color:var(--ink);}
+
+  .lanes-compare{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:38px;}
+  @media (max-width:760px){.lanes-compare{grid-template-columns:1fr;}}
+  .lane-block{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 22px 20px;}
+  .lane-label{font-weight:600; font-size:14.5px; margin-bottom:14px;}
+  .lanes{display:flex; flex-direction:column; gap:7px; background:var(--paper); border-radius:10px; padding:14px;}
+  .lane{position:relative; height:13px; background:#fff; border:1px solid var(--line); border-radius:7px; overflow:hidden;}
+  .lane.closed{background:repeating-linear-gradient(45deg, var(--coral-soft), var(--coral-soft) 6px, #fff 6px, #fff 12px);}
+  .car{position:absolute; top:1px; left:-14px; width:11px; height:9px; border-radius:3px; background:var(--teal); animation:carMove 2.6s linear infinite;}
+  .lanes.affected .car{background:var(--coral); animation-duration:3.6s;}
+  .car.c2{animation-delay:.7s;}
+  .car.c3{animation-delay:1.4s;}
+  .car.c4{animation-delay:2.1s;}
+  @keyframes carMove{ 0%{left:-14px;} 100%{left:101%;} }
+  .cone{position:absolute; top:1.5px; left:50%; width:7px; height:7px; background:var(--amber); border-radius:2px; transform:translateX(-50%) rotate(45deg);}
+  .lane-caption{margin-top:12px; font-size:13px; color:var(--slate);}
+  .lane-caption b{color:var(--ink);}
+
+  .footdrop-wrap{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; margin-top:6px;}
+  @media (max-width:760px){.footdrop-wrap{grid-template-columns:1fr;}}
+  .footdrop-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px 22px; text-align:center;}
+  .footdrop-card svg{width:100%; max-width:220px; height:auto;}
+  .footdrop-card .fd-label{font-weight:600; font-size:14px; margin-top:6px;}
+  .footdrop-card .fd-note{font-size:12.5px; color:var(--slate); margin-top:4px;}
+
+  .cause-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:32px;}
+  @media (max-width:760px){.cause-grid{grid-template-columns:1fr;}}
+  .cause-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 24px;}
+  .cause-card .ci-num{
+    display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%;
+    background:var(--teal-soft); color:var(--teal); font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600; margin-bottom:12px;
+  }
+  .cause-card h4{font-size:15.5px; margin-bottom:8px;}
+  .cause-card p{font-size:13.8px; color:var(--slate); margin:0 0 8px;}
+  .cause-card p.sci{font-size:12.8px; color:#7A8B92; border-top:1px dashed var(--line); padding-top:8px; margin-top:10px;}
+  .cause-card p.sci b{color:var(--slate);}
+  .why-footnote{font-size:13px; color:var(--slate); font-style:italic; margin-top:22px; max-width:66ch;}
+
+  /* ---------- finding cards (the two flagged results) ---------- */
+  .findings-section .section-head{margin-bottom:34px;}
+  .finding-card{
+    background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
+    margin-bottom:24px; box-shadow:0 1px 2px rgba(20,30,35,0.04);
+  }
+  .finding-card .fhead{display:flex; flex-wrap:wrap; gap:10px 18px; align-items:baseline; justify-content:space-between; margin-bottom:6px;}
+  .finding-card .fhead h3{font-size:21px;}
+  .tag{
+    font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+    padding:4px 10px; border-radius:999px;
+  }
+  .tag.coral{background:var(--coral-soft); color:var(--coral);}
+  .tag.amber{background:var(--amber-soft); color:var(--amber);}
+  .finding-card > .fnote{color:var(--slate); font-size:14.5px; max-width:62ch; margin-bottom:22px;}
+
+  .sidebyside{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  @media (max-width:640px){.sidebyside{grid-template-columns:1fr;}}
+  .side-col{border-left:3px solid var(--line); padding-left:18px;}
+  .side-col h4{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--slate); margin-bottom:14px; font-weight:600;}
+
+  .metric{margin-bottom:20px;}
+  .metric-row{display:flex; justify-content:space-between; align-items:baseline; font-size:13.5px; color:var(--slate); margin-bottom:6px;}
+  .metric-value{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px; color:var(--ink);}
+  .metric-value.bad{color:var(--coral);}
+  .metric-value.warn{color:var(--amber);}
+
+  .gauge{position:relative; height:8px; border-radius:6px; background:var(--line); margin:8px 0 6px;}
+  .gauge .band{position:absolute; top:0; bottom:0; border-radius:6px;}
+  .gauge .band.ok{background:var(--teal-soft);}
+  .gauge .band.low{background:var(--coral-soft);}
+  .gauge .band.warnzone{background:var(--amber-soft);}
+  .gauge .marker{
+    position:absolute; top:-6px; width:18px; height:18px; border-radius:50%;
+    transform:translateX(-50%); border:3px solid #fff; box-shadow:0 1px 5px rgba(20,30,35,.3);
+    left:0%; transition:left 1.3s cubic-bezier(.16,1,.3,1);
+  }
+  .marker.bad{background:var(--coral);}
+  .marker.warn{background:var(--amber);}
+  .gauge-scale{display:flex; justify-content:space-between; font-size:10.5px; color:var(--slate); opacity:.75;}
+
+  .pill{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; padding:5px 11px; border-radius:999px; background:var(--teal-soft); color:var(--teal); font-weight:600;}
+  .pill::before{content:"✓"; font-size:11px;}
+
+  /* ---------- weakness meter ---------- */
+  .meter-section{background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .meter-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  @media (max-width:760px){.meter-grid{grid-template-columns:1fr;}}
+  .meter-card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 26px 22px;}
+  .meter-card h4{font-size:15px; margin-bottom:18px; text-align:center;}
+  .ring-wrap{position:relative; width:170px; height:170px; margin:0 auto 8px;}
+  .ring-wrap svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .ring-bg{fill:none; stroke:var(--line); stroke-width:12;}
+  .ring-fg{fill:none; stroke:var(--coral); stroke-width:12; stroke-linecap:round; stroke-dasharray:327; stroke-dashoffset:327; transition:stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1);}
+  .ring-number{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .ring-number .num{font-family:'IBM Plex Mono',monospace; font-size:30px; font-weight:600; color:var(--coral);}
+  .ring-number .lbl{font-size:11px; color:var(--slate); text-transform:uppercase; letter-spacing:.06em; margin-top:2px;}
+  .submeters{margin-top:14px; display:flex; flex-direction:column; gap:12px;}
+  .submeter .sm-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--slate); margin-bottom:4px;}
+  .sm-row b{color:var(--ink); font-family:'IBM Plex Mono',monospace;}
+  .sm-bar{height:7px; border-radius:5px; background:var(--line); overflow:hidden;}
+  .sm-fill{height:100%; border-radius:5px; width:0%; background:var(--coral); transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+  .meter-explain{font-size:12.5px; color:var(--slate); margin-top:16px; border-top:1px dashed var(--line); padding-top:12px;}
+  .meter-footnote{font-size:12.5px; color:var(--slate); font-style:italic; margin-top:22px; max-width:70ch;}
+  .meter-key{display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:22px; font-size:12.5px; color:var(--slate);}
+  .meter-key span{display:inline-flex; align-items:center; gap:6px;}
+  .meter-key i{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  /* ---------- normal checklist ---------- */
+  .checklist-section{background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .check-group{margin-bottom:30px;}
+  .check-group .eyebrow{margin-bottom:12px;}
+  .check-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px;}
+  .check-item{
+    display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; background:var(--paper); font-size:13.5px;
+    opacity:0; transform:translateY(8px);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  .check-item.in-view{opacity:1; transform:translateY(0);}
+  .check-item .tick{
+    flex:none; width:20px; height:20px; border-radius:50%; background:var(--teal-soft); color:var(--teal);
+    display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;
+  }
+  .check-item .ci-name{font-weight:600;}
+  .check-item .ci-val{display:block; color:var(--slate); font-family:'IBM Plex Mono',monospace; font-size:11.5px; margin-top:1px;}
+
+  /* ---------- future / trajectory section ---------- */
+  .future-section{background:var(--paper);}
+  .traj-wrap{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:30px 30px 20px; margin-top:10px;}
+  .traj-svg{width:100%; height:auto; display:block;}
+  .traj-path{fill:none; stroke-width:3; stroke-linecap:round; stroke-dasharray:400; stroke-dashoffset:400; animation:drawIn 2s cubic-bezier(.16,1,.3,1) forwards;}
+  .traj-path.best{stroke:var(--teal); animation-delay:.2s;}
+  .traj-path.watch{stroke:var(--amber); animation-delay:.5s;}
+  .traj-path.progress{stroke:var(--coral); animation-delay:.8s;}
+  .traj-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px;}
+  @media (max-width:760px){.traj-cards{grid-template-columns:1fr;}}
+  .traj-card{border-radius:14px; padding:18px 18px 16px; border:1px solid var(--line);}
+  .traj-card.best{background:var(--teal-soft);}
+  .traj-card.watch{background:var(--amber-soft);}
+  .traj-card.progress{background:var(--coral-soft);}
+  .traj-card .tc-tag{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; display:block;}
+  .traj-card.best .tc-tag{color:var(--teal);}
+  .traj-card.watch .tc-tag{color:var(--amber);}
+  .traj-card.progress .tc-tag{color:var(--coral);}
+  .traj-card p{font-size:13.3px; color:#3E4C54; margin:0;}
+  .future-footnote{font-size:12.5px; color:var(--slate); font-style:italic; margin-top:20px; max-width:70ch;}
+
+  /* ---------- meaning section ---------- */
+  .meaning-card{
+    background:linear-gradient(180deg,#14232B,#1B2E36); color:#EFF5F4; border-radius:20px; padding:38px 36px;
+  }
+  .meaning-card h2{color:#fff; font-size:24px; margin-bottom:16px;}
+  .meaning-card p{font-size:15.5px; color:#C9D6D4; max-width:66ch;}
+  .meaning-card .quote{
+    font-family:'Fraunces',serif; font-style:italic; font-size:17px; color:#fff; margin:18px 0 22px;
+    border-left:3px solid var(--teal); padding-left:16px; max-width:60ch;
+  }
+  .qlist{list-style:none; margin:18px 0 0; padding:0; display:grid; gap:10px;}
+  .qlist li{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px;
+    padding:12px 16px; font-size:14.5px; color:#E4EDEC;
+  }
+
+  /* ---------- physiotherapy document ---------- */
+  .physio-section{padding-top:8px;}
+  .physio-card{
+    display:flex; align-items:center; gap:18px;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:20px 22px; text-decoration:none; color:var(--ink);
+    transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    box-shadow:0 1px 2px rgba(22,35,44,0.04);
+  }
+  .physio-card:hover{
+    border-color:var(--teal); box-shadow:0 6px 18px rgba(20,122,114,0.14); transform:translateY(-1px);
+  }
+  .physio-icon{
+    flex:none; width:50px; height:50px; border-radius:12px;
+    background:var(--teal-soft); color:var(--teal);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .physio-body{display:flex; flex-direction:column; gap:4px; min-width:0; flex:1;}
+  .physio-name{font-weight:600; font-size:15.5px; color:var(--ink);}
+  .physio-url{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--slate); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .physio-arrow{
+    flex:none; width:36px; height:36px; border-radius:50%; background:var(--paper); color:var(--teal);
+    display:flex; align-items:center; justify-content:center; border:1px solid var(--line);
+  }
+
+  /* ---------- footer ---------- */
+  footer{padding:40px 0 60px; font-size:13px; color:var(--slate);}
+  .disclaimer{
+    background:var(--amber-soft); border:1px solid #EFD9A6; color:#6B4A0A; border-radius:12px;
+    padding:16px 18px; font-size:13.5px; margin-bottom:26px; max-width:70ch;
+  }
+  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px 24px; border-top:1px solid var(--line); padding-top:20px;}
+  .meta-grid div b{display:block; color:var(--ink); font-size:13px; margin-bottom:2px;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+<div class="idstrip">
+
+</div>
+<header class="hero">
+<div class="wrap"><img src="favicon.png" style="width:120px;height:120px;display:block;margin:0 auto 20px;border-radius:24px;"/><div class="eyebrow">Interpreted by</div><h1 style="max-width:none;text-align:center;font-size:clamp(44px,7vw,72px);">Orcasho R&amp;D</h1><p class="sub" style="text-align:center;max-width:800px;margin-left:auto;margin-right:auto;">Visual interpretation of the nerve conduction study.</p></div>
+<svg class="waveline" preserveaspectratio="none" viewbox="0 0 900 64">
+<path d="M0,32 L40,32 L55,10 L70,54 L85,32 L120,32 L135,18 L150,46 L165,32 L900,32"></path>
+</svg>
+</header>
+<section class="bodymap-section">
+<div class="wrap">
+<div class="section-head">
+<h2>Where the signal changes are</h2>
+<p>A front-facing view, the way you'd be examined. Your right side appears on the left of the image, and your left side on the right, like looking in a mirror.</p>
+</div>
+<div class="bodymap-grid">
+<div class="figure-holder">
+<svg viewbox="0 0 480 660" xmlns="http://www.w3.org/2000/svg">
+<!-- body outline -->
+<circle cx="240" cy="54" fill="none" r="30" stroke="#B9C6C9" stroke-width="3"></circle>
+<path d="M224,82 L224,102 L256,102 L256,82" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<path d="M182,102 C160,112 150,142 152,190 L156,300 C156,320 172,332 192,332 L288,332 C308,332 324,320 324,300 L328,190 C330,142 320,112 298,102" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<!-- arms outline -->
+<path d="M186,116 C154,150 138,200 132,252 C128,292 120,332 112,362" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<path d="M294,116 C326,150 342,200 348,252 C352,292 360,332 368,362" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<!-- legs outline -->
+<path d="M206,332 C198,384 195,424 195,462 C193,504 190,552 188,592" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<path d="M274,332 C282,384 285,424 285,462 C287,504 290,552 292,592" fill="none" stroke="#B9C6C9" stroke-width="3"></path>
+<!-- L / R orientation labels -->
+<text class="mono" fill="#8FA0A6" font-size="13" font-weight="600" x="96" y="130">R</text>
+<text class="mono" fill="#8FA0A6" font-size="13" font-weight="600" x="374" y="130">L</text>
+<!-- arm nerve signal, normal both sides -->
+<path class="nerveline normal drawpath" d="M192,122 C164,154 150,200 144,250 C140,288 132,326 124,356"></path>
+<path class="nerveline normal drawpath d2" d="M288,122 C316,154 330,200 336,250 C340,288 348,326 356,356"></path>
+<circle class="mono" cx="124" cy="356" fill="var(--teal)" r="4.5"></circle>
+<circle class="mono" cx="356" cy="356" fill="var(--teal)" r="4.5"></circle>
+<!-- spine / reflex arc, delayed both sides -->
+<path class="nerveline reflex drawpath d3" d="M240,104 L240,326"></path>
+<circle class="pulsedot" cx="240" cy="300" fill="var(--amber)" r="6"></circle>
+<!-- peroneal nerve, flagged both legs, signal fades as it travels down to the foot -->
+<path class="nerveline flag drawpath d4" d="M212,464 C206,502 202,546 199,588" stroke-opacity="0.9"></path>
+<path class="nerveline flag drawpath d4" d="M268,464 C274,502 278,546 281,588" stroke-opacity="0.9"></path>
+<circle class="pulsedot p2" cx="209" cy="466" fill="var(--coral)" r="6"></circle>
+<circle class="pulsedot p3" cx="271" cy="466" fill="var(--coral)" r="6"></circle>
+<circle class="pulsedot p2" cx="199" cy="586" fill="var(--coral)" opacity="0.55" r="4"></circle>
+<circle class="pulsedot p3" cx="281" cy="586" fill="var(--coral)" opacity="0.55" r="4"></circle>
+<!-- feet / hands markers -->
+<circle cx="112" cy="362" fill="#B9C6C9" r="3.5"></circle>
+<circle cx="368" cy="362" fill="#B9C6C9" r="3.5"></circle>
+</svg>
+</div>
+<div class="legend">
+<div class="legend-item flag">
+<span class="dot"></span>
+<div><b>Peroneal nerve: both shins, near the knee down to the top of the foot</b><span>Weaker and slower signal on both sides, fading out further down toward the foot. This is the main finding.</span></div>
+</div>
+<div class="legend-item reflex">
+<span class="dot"></span>
+<div><b>Reflex loop through the spinal cord: lower back, both sides</b><span>The H-reflex signal takes slightly longer to make the round trip.</span></div>
+</div>
+<div class="legend-item normal">
+<span class="dot"></span>
+<div><b>Arms, wrists, and the rest of the legs</b><span>Median, ulnar, radial, and tibial nerves all tested normal on both sides.</span></div>
+</div>
+</div>
+</div>
+<p class="figure-caption">Illustration for orientation only, not an anatomical scan. Dot size fading near the foot represents the drop in signal strength (amplitude), not an exact measurement.</p>
+</div>
+</section>
+<section class="why-section">
+<div class="wrap">
+<div class="section-head">
+<h2>Why a nerve signal changes like this</h2>
+<p>A short explainer on what's actually happening inside the nerve, in plain language first, then in the clinical terms your report uses.</p>
+</div>
+<p class="why-intro">Think of a motor nerve as a thick electrical cable made up of many individual wires bundled together, each one called an <b>axon</b>. Each axon carries the same instruction ("lift the foot") from the spine down to the muscle. A healthy nerve fires all, or nearly all, of its wires together, so the message arrives strong and on time. When your report says the peroneal nerve shows an <b>axonal</b> pattern with reduced amplitude and mild slowing, it means a portion of those individual wires are no longer conducting properly, so fewer signals reach the muscle (lower amplitude) and the overall average speed drops slightly (lower conduction velocity), even though the fastest remaining wires still start on time (which is why your onset latency, the DML, stayed normal).</p>
+<div style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--amber); background:var(--amber-soft); border-radius:10px; padding:14px 18px; margin:0 0 30px;">Conduction velocity = distance travelled ÷ time taken  —  a healthy peroneal nerve typically runs 40–50+ m/s</div>
+<div class="lanes-compare">
+<div class="lane-block">
+<div class="lane-label">A healthy motor nerve: all "lanes" open</div>
+<div class="lanes healthy">
+<div class="lane"><span class="car c1"></span></div>
+<div class="lane"><span class="car c2"></span></div>
+<div class="lane"><span class="car c3"></span></div>
+<div class="lane"><span class="car c4"></span></div>
+<div class="lane"><span class="car c2"></span></div>
+<div class="lane"><span class="car c3"></span></div>
+</div>
+<div class="lane-caption">Every fiber carries its share of the signal. <b>Result:</b> full strength, on-time arrival.</div>
+</div>
+<div class="lane-block">
+<div class="lane-label">Your peroneal nerve: several "lanes" not conducting</div>
+<div class="lanes affected">
+<div class="lane open"><span class="car c1"></span></div>
+<div class="lane closed"><span class="cone"></span></div>
+<div class="lane closed"><span class="cone"></span></div>
+<div class="lane open"><span class="car c3"></span></div>
+<div class="lane closed"><span class="cone"></span></div>
+<div class="lane open"><span class="car c2"></span></div>
+</div>
+<div class="lane-caption">Roughly half the fibers are still working. <b>Result:</b> a weaker signal that arrives a little later overall, but no full blockage.</div>
+</div>
+</div>
+<div class="footdrop-wrap">
+<div class="footdrop-card">
+<svg viewbox="0 0 200 150">
+<line stroke="#B9C6C9" stroke-linecap="round" stroke-width="7" x1="60" x2="60" y1="12" y2="102"></line>
+<g>
+<line stroke="var(--teal)" stroke-linecap="round" stroke-width="9" x1="60" x2="132" y1="102" y2="94"></line>
+</g>
+<circle cx="60" cy="102" fill="#B9C6C9" r="4"></circle>
+</svg>
+<div class="fd-label" style="color:var(--teal);">Normal foot control</div>
+<div class="fd-note">The peroneal nerve holds the front of the foot up while walking.</div>
+</div>
+<div class="footdrop-card">
+<svg viewbox="0 0 200 150">
+<line stroke="#B9C6C9" stroke-linecap="round" stroke-width="7" x1="60" x2="60" y1="12" y2="102"></line>
+<g>
+<animatetransform attributename="transform" dur="2.8s" repeatcount="indefinite" type="rotate" values="0 60 102; 22 60 102; 0 60 102"></animatetransform>
+<line stroke="var(--coral)" stroke-linecap="round" stroke-width="9" x1="60" x2="132" y1="102" y2="94"></line>
+</g>
+<circle cx="60" cy="102" fill="#B9C6C9" r="4"></circle>
+</svg>
+<div class="fd-label" style="color:var(--coral);">"Foot drop" pattern</div>
+<div class="fd-note">Illustrative only, this is what more advanced peroneal weakness can look like if the nerve loses more fibers over time. It is not a description of your current exam.</div>
+</div>
+</div>
+<div class="section-head" style="margin-top:44px;">
+<h2>What could actually be doing this? Possible reasons</h2>
+<p>The written report doesn't name a single cause, it flags the pattern and asks for clinical correlation. Here are the usual suspects behind a bilateral peroneal axonal pattern like this one, in plain terms and then in the scientific reasoning. This is background information, not a diagnosis of what's happening in this case.</p>
+</div>
+<div class="cause-grid">
+<div class="cause-card">
+<span class="ci-num">1</span>
+<h4>A pinch point near the knee (mechanical)</h4>
+<p>The peroneal nerve wraps around a bony bump just below the knee (the fibular head) with almost no cushioning over it. It's the single most "pinch-prone" nerve in the leg. Crossing the legs for long periods, squatting, sitting a certain way, tight bandages, or even recent weight loss reducing the natural padding there can all press on it.</p>
+<p class="sci"><b>Why it fits:</b> focal compression damages the axons right at the pressure point, which shows up as reduced amplitude and mild slowing below that point, matching what shows up on both sides here.</p>
+</div>
+<div class="cause-card">
+<span class="ci-num">2</span>
+<h4>Reduced blood flow to the nerve (vascular)</h4>
+<p>Nerves are living tissue and need their own tiny blood vessels to stay fed. This is not about the blood itself being "thick," it's about whether enough blood is reaching the nerve fibers moment to moment. If those small vessels narrow, from long-standing high blood sugar, cholesterol buildup, or occasionally inflammation of small vessels, the nerve fibers gradually lose function.</p>
+<p class="sci"><b>Why it fits:</b> the larger, faster-conducting axons tend to be the most sensitive to reduced blood supply, and losing them first produces exactly this mix, lower amplitude with only mild velocity slowing, rather than a severe uniform slowing.</p>
+</div>
+<div class="cause-card">
+<span class="ci-num">3</span>
+<h4>A body-wide metabolic factor</h4>
+<p>Conditions such as diabetes, thyroid imbalance, vitamin B12 deficiency, or long-term alcohol use can make nerves more fragile everywhere, so they get injured more easily from ordinary pressure that a healthy nerve would tolerate without any trouble.</p>
+<p class="sci"><b>Why it fits:</b> these processes typically affect the longest, most exposed nerves first, and the peroneal nerve, being long and running very close to the skin at the knee, is one of the earliest to show changes even when a metabolic cause is still mild.</p>
+</div>
+<div class="cause-card">
+<span class="ci-num">4</span>
+<h4>A nerve-root contribution (the "radiculo" in the report)</h4>
+<p>The word "radiculo" in the impression means the doctor also wants to rule out whether the nerve root as it exits the lower spine (commonly the L5 level) is contributing, since pressure there can send weakness down a very similar path.</p>
+<p class="sci"><b>Why it fits:</b> telling a pure peroneal nerve problem apart from an L5 nerve-root problem usually needs a hands-on exam of muscles that share the L5 root but are supplied by a different nerve, or imaging of the lower spine if there's any doubt.</p>
+</div>
+</div>
+<div class="section-head" style="margin-top:44px;">
+<h2>How the back pain and the leg finding could connect</h2>
+<p>Cause #4 above, the nerve-root contribution, is worth tracing out visually, because it's the one explanation that ties the back pain and the leg findings to a single spot in the spine.</p>
+</div>
+<div style="background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px 30px; margin-bottom:14px;">
+<svg role="img" style="max-width:560px; display:block; margin:0 auto;" viewbox="0 0 680 600" width="100%">
+<title>Lumbar nerve roots to peroneal and tibial nerves</title>
+<desc>L4, L5, and S1 nerve roots exit the lumbar spine, join into the sciatic nerve, then split into the tibial nerve and the peroneal nerve.</desc>
+<rect fill="var(--paper)" height="42" rx="8" stroke="var(--line)" stroke-width="1" width="120" x="270" y="20"></rect>
+<text dominant-baseline="central" fill="var(--ink)" font-family="Inter,sans-serif" font-size="13" text-anchor="middle" x="330" y="41">L4 vertebra</text>
+<rect fill="var(--paper)" height="42" rx="8" stroke="var(--line)" stroke-width="1" width="120" x="270" y="72"></rect>
+<text dominant-baseline="central" fill="var(--ink)" font-family="Inter,sans-serif" font-size="13" text-anchor="middle" x="330" y="93">L5 vertebra</text>
+<rect fill="var(--paper)" height="42" rx="8" stroke="var(--line)" stroke-width="1" width="120" x="270" y="124"></rect>
+<text dominant-baseline="central" fill="var(--ink)" font-family="Inter,sans-serif" font-size="13" text-anchor="middle" x="330" y="145">S1 vertebra</text>
+<path d="M390,41 C 440,41 458,58 458,86" fill="none" stroke="var(--slate)" stroke-width="1.5"></path>
+<path d="M390,93 C 440,93 458,100 458,116" fill="none" stroke="var(--slate)" stroke-width="1.5"></path>
+<path d="M390,145 C 428,145 448,150 458,158" fill="none" stroke="var(--slate)" stroke-width="1.5"></path>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="11.5" x="472" y="115">L4, L5, S1 roots</text>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="11.5" x="472" y="130">exit the spine here</text>
+<line stroke="var(--slate)" stroke-width="2" x1="458" x2="330" y1="158" y2="212"></line>
+<rect fill="var(--paper)" height="38" rx="8" stroke="var(--line)" stroke-width="1" width="120" x="270" y="212"></rect>
+<text dominant-baseline="central" fill="var(--ink)" font-family="Inter,sans-serif" font-size="13" text-anchor="middle" x="330" y="231">Sciatic nerve</text>
+<line stroke="var(--slate)" stroke-width="2" x1="330" x2="330" y1="250" y2="288"></line>
+<path d="M330,288 C 330,316 262,326 262,354" fill="none" stroke="var(--amber)" stroke-width="2.5"></path>
+<path d="M330,288 C 330,316 398,326 398,354" fill="none" stroke="var(--coral)" stroke-width="2.5"></path>
+<line stroke="var(--amber)" stroke-width="2.5" x1="262" x2="262" y1="354" y2="450"></line>
+<line stroke="var(--coral)" stroke-width="2.5" x1="398" x2="398" y1="354" y2="450"></line>
+<rect fill="var(--amber-soft)" height="46" rx="8" stroke="var(--amber)" stroke-width="1" width="140" x="192" y="450"></rect>
+<text dominant-baseline="central" fill="#6B4A0A" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" text-anchor="middle" x="262" y="469">Tibial nerve</text>
+<text dominant-baseline="central" fill="var(--amber)" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="262" y="485">Reflex delayed</text>
+<rect fill="var(--coral-soft)" height="46" rx="8" stroke="var(--coral)" stroke-width="1" width="150" x="332" y="450"></rect>
+<text dominant-baseline="central" fill="var(--coral)" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" text-anchor="middle" x="407" y="469">Peroneal nerve</text>
+<text dominant-baseline="central" fill="var(--coral)" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="407" y="485">Slower, weaker signal</text>
+<line stroke="var(--line)" stroke-dasharray="3 3" stroke-width="1" x1="330" x2="80" y1="48" y2="48"></line>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="42" y="52">Lower back</text>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="42" y="67">(back pain</text>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="42" y="82">originates here)</text>
+<text fill="var(--slate)" font-family="Inter,sans-serif" font-size="12" text-anchor="middle" x="330" y="540">Same lower-back segment feeds both the local back pain and the leg nerves</text>
+</svg>
+<p class="figure-caption" style="margin-top:14px;">L4, L5, and S1 nerve roots become the sciatic nerve, which splits into the tibial and peroneal nerves.</p>
+<p style="font-size:14.5px; color:var(--slate); max-width:64ch; margin:18px auto 0;">The L4, L5, and S1 roots shown above are the same roots that later become the peroneal and tibial nerves in the leg. One plausible chain of events: these roots exit the spine at the lower back through small bony openings; if something at that level, a bulging disc, canal narrowing, or joint swelling, presses on or irritates a root, it can do two things at once, irritate local pain fibers (felt as back pain) and slowly affect the motor fibers travelling down that root (showing up downstream as the reduced peroneal signal). That would also fit why the arm nerves, served by a different part of the spine, tested completely normal.</p>
+</div>
+<p class="why-footnote"></p>
+</div>
+</section>
+<section class="findings-section">
+<div class="wrap">
+<div class="section-head">
+<h2>The two findings, up close</h2>
+<p>Each bar shows your result against a typical adult reference range. The dot is your value, the further it sits from the shaded "normal" zone, the further off it is.</p>
+</div>
+<!-- PERONEAL CARD -->
+<div class="finding-card" data-reveal="">
+<div class="fhead">
+<h3>Peroneal (CPN) motor nerve: controls lifting the foot and toes</h3>
+<span class="tag coral">Reduced on both sides</span>
+</div>
+<p class="fnote">Recorded from the muscle on top of the foot (EDB) while stimulating at the ankle and knee. Both the strength of the signal (amplitude) and its travel speed (conduction velocity) are lower than typical, on the left and right.</p>
+<div class="sidebyside">
+<div class="side-col">
+<h4>Left leg</h4>
+<div class="metric">
+<div class="metric-row"><span>Signal strength (amplitude)</span><span class="metric-value bad">0.63 mV</span></div>
+<div class="gauge"><div class="band ok" style="left:33%; width:67%;"></div><div class="marker bad" data-target="10.5%"></div></div>
+<div class="gauge-scale"><span>0</span><span>typical: 2.0 mV and up</span><span>6 mV</span></div>
+</div>
+<div class="metric">
+<div class="metric-row"><span>Travel speed (conduction velocity)</span><span class="metric-value bad">29.8 m/s</span></div>
+<div class="gauge"><div class="band low" style="left:0%; width:59%;"></div><div class="band ok" style="left:59%; width:41%;"></div><div class="marker bad" data-target="42.6%"></div></div>
+<div class="gauge-scale"><span>0</span><span>typical: 41 m/s and up</span><span>70 m/s</span></div>
+</div>
+<span class="pill">Onset latency normal · 4.63 ms</span>
+</div>
+<div class="side-col">
+<h4>Right leg</h4>
+<div class="metric">
+<div class="metric-row"><span>Signal strength (amplitude)</span><span class="metric-value bad">0.26 mV</span></div>
+<div class="gauge"><div class="band ok" style="left:33%; width:67%;"></div><div class="marker bad" data-target="4.3%"></div></div>
+<div class="gauge-scale"><span>0</span><span>typical: 2.0 mV and up</span><span>6 mV</span></div>
+</div>
+<div class="metric">
+<div class="metric-row"><span>Travel speed (conduction velocity)</span><span class="metric-value bad">32.6 m/s</span></div>
+<div class="gauge"><div class="band low" style="left:0%; width:59%;"></div><div class="band ok" style="left:59%; width:41%;"></div><div class="marker bad" data-target="46.5%"></div></div>
+<div class="gauge-scale"><span>0</span><span>typical: 41 m/s and up</span><span>70 m/s</span></div>
+</div>
+<span class="pill">Onset latency normal · 4.75 ms</span>
+</div>
+</div>
+</div>
+<!-- H-REFLEX CARD -->
+<div class="finding-card" data-reveal="">
+<div class="fhead">
+<h3>H-reflex: the signal loop through the spinal cord and calf</h3>
+<span class="tag amber">Slightly delayed on both sides</span>
+</div>
+<p class="fnote">This checks how long a signal takes to travel up the leg, through the spinal cord, and back down to the calf muscle. Timing is a touch slow on both sides; the strength of the reflex itself is normal.</p>
+<div class="sidebyside">
+<div class="side-col">
+<h4>Left leg</h4>
+<div class="metric">
+<div class="metric-row"><span>Round-trip time (latency)</span><span class="metric-value warn">38.0 ms</span></div>
+<div class="gauge"><div class="band ok" style="left:0%; width:56%;"></div><div class="band warnzone" style="left:56%; width:44%;"></div><div class="marker warn" data-target="72%"></div></div>
+<div class="gauge-scale"><span>20</span><span>typical up to ~34 ms</span><span>45 ms</span></div>
+</div>
+<span class="pill">Reflex strength normal · 11.3 µV</span>
+</div>
+<div class="side-col">
+<h4>Right leg</h4>
+<div class="metric">
+<div class="metric-row"><span>Round-trip time (latency)</span><span class="metric-value warn">36.0 ms</span></div>
+<div class="gauge"><div class="band ok" style="left:0%; width:56%;"></div><div class="band warnzone" style="left:56%; width:44%;"></div><div class="marker warn" data-target="64%"></div></div>
+<div class="gauge-scale"><span>20</span><span>typical up to ~34 ms</span><span>45 ms</span></div>
+</div>
+<span class="pill">Reflex strength normal · 17.0 µV</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="meter-section">
+<div class="wrap">
+<div class="section-head">
+<h2>How weak, in one number</h2>
+<p>Only the two nerves flagged above are scored here on purpose, the ones that already came back normal don't need a weakness score. Each ring is a simple, illustrative composite of signal strength and travel speed compared with the lower edge of the typical adult range, it is not a validated clinical index, just a way to see the size of the gap at a glance.</p>
+</div>
+<div class="meter-key">
+<span><i style="background:var(--coral);"></i> Peroneal nerve, percent of expected working strength</span>
+<span><i style="background:var(--amber);"></i> H-reflex, percent slower than the typical upper limit</span>
+</div>
+<div class="meter-grid">
+<div class="meter-card" data-reveal="">
+<h4>Left leg peroneal nerve</h4>
+<div class="ring-wrap">
+<svg viewbox="0 0 120 120">
+<circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+<circle class="ring-fg" cx="60" cy="60" data-target="52" r="52"></circle>
+</svg>
+<div class="ring-number"><span class="num count-num" data-target="52">0</span><span class="lbl">out of 100</span></div>
+</div>
+<div class="submeters">
+<div class="submeter">
+<div class="sm-row"><span>Signal strength vs. minimum typical</span><b class="count-num" data-target="32">0</b></div>
+<div class="sm-bar"><div class="sm-fill" data-target="32%"></div></div>
+</div>
+<div class="submeter">
+<div class="sm-row"><span>Travel speed vs. minimum typical</span><b class="count-num" data-target="73">0</b></div>
+<div class="sm-bar"><div class="sm-fill" data-target="73%"></div></div>
+</div>
+</div>
+<p class="meter-explain">Reading this: at roughly half of expected working strength overall, driven mostly by a weak signal (32%) more than by slow travel speed (73%), a pattern that points toward fewer working fibers rather than damaged insulation on the ones still working.</p>
+</div>
+<div class="meter-card" data-reveal="">
+<h4>Right leg peroneal nerve</h4>
+<div class="ring-wrap">
+<svg viewbox="0 0 120 120">
+<circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+<circle class="ring-fg" cx="60" cy="60" data-target="46" r="52"></circle>
+</svg>
+<div class="ring-number"><span class="num count-num" data-target="46">0</span><span class="lbl">out of 100</span></div>
+</div>
+<div class="submeters">
+<div class="submeter">
+<div class="sm-row"><span>Signal strength vs. minimum typical</span><b class="count-num" data-target="13">0</b></div>
+<div class="sm-bar"><div class="sm-fill" data-target="13%"></div></div>
+</div>
+<div class="submeter">
+<div class="sm-row"><span>Travel speed vs. minimum typical</span><b class="count-num" data-target="79">0</b></div>
+<div class="sm-bar"><div class="sm-fill" data-target="79%"></div></div>
+</div>
+</div>
+<p class="meter-explain">Reading this: the right side is a little weaker than the left overall, again mostly because of a low signal strength (13%) rather than slow speed (79%), the same fewer-working-fibers pattern as the left leg, just a bit more pronounced.</p>
+</div>
+</div>
+<p class="meter-footnote"></p>
+</div>
+</section>
+<section class="checklist-section">
+<div class="wrap">
+<div class="section-head">
+<h2>Everything else checked out normal</h2>
+<p>Same test, different nerves. Each of these came back within typical range on both sides.</p>
+</div>
+<div class="check-group">
+<div class="eyebrow">Other motor nerves</div>
+<div class="check-grid">
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Median — left</span><span class="ci-val">51.1 m/s · 5.84 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Median — right</span><span class="ci-val">54.1 m/s · 8.07 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Ulnar — left</span><span class="ci-val">60.0 m/s · 8.93 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Ulnar — right</span><span class="ci-val">54.9 m/s · 8.09 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Radial — left</span><span class="ci-val">88.9 m/s · 4.18 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Radial — right</span><span class="ci-val">61.5 m/s · 4.43 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Tibial — left</span><span class="ci-val">44.7 m/s · 8.84 mV</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Tibial — right</span><span class="ci-val">42.2 m/s · 7.07 mV</span></div></div>
+</div>
+</div>
+<div class="check-group">
+<div class="eyebrow">F-waves — signal to the spinal cord and back</div>
+<div class="check-grid">
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Median — both sides</span><span class="ci-val">26.3 / 26.5 ms</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Ulnar — both sides</span><span class="ci-val">26.3 / 27.5 ms</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Peroneal — both sides</span><span class="ci-val">44.0 / 48.8 ms</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Tibial — both sides</span><span class="ci-val">50.3 / 52.5 ms</span></div></div>
+</div>
+</div>
+<div class="check-group">
+<div class="eyebrow">Sensory (feeling) nerves</div>
+<div class="check-grid">
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Median–ulnar, wrist — left</span><span class="ci-val">55.3 / 54.6 m/s</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Median–ulnar, wrist — right</span><span class="ci-val">54.2 / 54.6 m/s</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Radial sensory, both forearms</span><span class="ci-val">63.2 / 60.5 m/s</span></div></div>
+<div class="check-item" data-reveal=""><span class="tick">✓</span><div><span class="ci-name">Sural, both calves</span><span class="ci-val">53.1 / 51.0 m/s</span></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="future-section">
+<div class="wrap">
+<div class="section-head">
+<h2>What this could mean over time</h2>
+<p>Axonal nerve findings like this one don't have a single fixed outcome. What happens next depends heavily on the underlying cause and whether it's addressed. Here are three general directions a finding like this can take, </p>
+</div>
+<div class="traj-wrap">
+<svg class="traj-svg" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="110" fill="var(--ink)" r="7"></circle>
+<text fill="var(--slate)" font-family="IBM Plex Mono" font-size="12" x="14" y="140">Today</text>
+<path class="traj-path best" d="M46,108 C160,60 300,30 660,30"></path>
+<circle cx="660" cy="30" fill="var(--teal)" r="6"></circle>
+<text fill="var(--teal)" font-family="Inter" font-size="12" font-weight="600" x="560" y="18">Improves</text>
+<path class="traj-path watch" d="M46,112 C220,112 420,112 660,112"></path>
+<circle cx="660" cy="112" fill="var(--amber)" r="6"></circle>
+<text fill="var(--amber)" font-family="Inter" font-size="12" font-weight="600" x="548" y="100">Stays stable, monitored</text>
+<path class="traj-path progress" d="M46,116 C180,160 340,196 660,196"></path>
+<circle cx="660" cy="196" fill="var(--coral)" r="6"></circle>
+<text fill="var(--coral)" font-family="Inter" font-size="12" font-weight="600" x="500" y="212">Slowly progresses</text>
+</svg>
+<div class="traj-cards">
+<div class="traj-card best">
+<span class="tc-tag">If the cause is positional or mechanical</span>
+<p>A pinched nerve that's caught early and relieved (changing how you sit, sleep, or cross your legs) often recovers substantially over weeks to months, since injured axons can slowly regrow, roughly at the pace of about 1 millimeter a day.</p>
+</div>
+<div class="traj-card watch">
+<span class="tc-tag">If it's mild and the cause isn't fully clear yet</span>
+<p>The usual next step is watchful monitoring: a repeat nerve study in a few months to see if the numbers are holding steady, plus keeping an eye out for any new tripping, fatigue with walking, or a "foot slap" when walking.</p>
+</div>
+<div class="traj-card progress">
+<span class="tc-tag">If an underlying driver goes unmanaged</span>
+<p>If something like uncontrolled blood sugar or ongoing compression continues, axon loss can gradually increase, raising the risk of a fuller foot drop, an unsteady gait, and a higher chance of trips or falls, sometimes eventually needing a light ankle-foot brace to keep the foot up while walking.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="meaning-card">
+<div class="eyebrow" style="color:#8FA6A2;">In plain terms</div>
+<h2>What this points to</h2>
+<p class="quote">"Suggestive of bilateral CPN motor axonal radiculo neuropathy." </p>
+<p>The <b style="color:#fff;">peroneal nerve</b> runs down the outside of the knee and shin, and it's the one that lifts your foot and toes. On both legs, it's showing a smaller, slower signal than expected, a pattern that usually points to some nerve fibers not conducting as well as they should (an "axonal" pattern) rather than a problem with the wrist, hand, or arm nerves, which all tested normal. The <b style="color:#fff;">reflex loop through the spinal cord</b> is also a little slow on both sides, which is being looked at alongside the nerve finding. As the sections above walk through, this pattern can come from local pressure on the nerve near the knee, reduced blood flow to the nerve, a body-wide metabolic factor, or a nerve-root contribution.</p>
+</div>
+</div>
+</section>
+<footer>
+<div class="wrap">
+<div class="meta-grid">
+<div><b>Study</b>Nerve conduction, F-wave &amp; H-reflex</div>
+<div><b>Lab</b>Ecotown Diagnostics, Electro Neurophysiology</div>
+<div><b>Senior technician</b>R. Mani</div>
+<div><b>Source</b>Two-page written report + 26-trace waveform record</div>
+</div>
+</div>
+</footer>
+<section class="physio-section">
+<div class="wrap">
+<div class="section-head">
+<h2>Physiotherapy document</h2>
+<p>Related physiotherapy record for this patient, kept alongside the nerve conduction findings above.</p>
+</div>
+<a class="physio-card" href="https://orcasholibrary.online/Mrs.%20Sathyabama/" target="_blank" rel="noopener">
+<div class="physio-icon">
+<svg fill="none" height="26" viewbox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M14 2v6h6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+<path d="M8 13h8M8 17h8M8 9h2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+</svg>
+</div>
+<div class="physio-body">
+<span class="physio-name">Physiotherapy document — Mrs. Sathyabama</span>
+<span class="physio-url">orcasholibrary.online/Mrs.%20Sathyabama</span>
+</div>
+<div class="physio-arrow">
+<svg fill="none" height="18" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</a>
+</div>
+</section>
+<script>
+  // Animate gauge markers, weakness rings, count-up numbers, and sub-bars into position
+  // once each element scrolls into view.
+  function animateRevealTarget(target){
+    target.querySelectorAll('.marker[data-target]').forEach(m => {
+      m.style.left = m.dataset.target;
+    });
+    target.querySelectorAll('.ring-fg[data-target]').forEach(ring => {
+      const pct = parseFloat(ring.dataset.target);
+      const circumference = 327;
+      const offset = circumference * (1 - pct / 100);
+      ring.style.strokeDashoffset = offset;
+    });
+    target.querySelectorAll('.sm-fill[data-target]').forEach(bar => {
+      bar.style.width = bar.dataset.target;
+    });
+    target.querySelectorAll('.count-num[data-target]').forEach(numEl => {
+      const end = parseInt(numEl.dataset.target, 10);
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        numEl.textContent = Math.round(end * eased);
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  const revealTargets = document.querySelectorAll('[data-reveal], .check-item');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        animateRevealTarget(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  revealTargets.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
