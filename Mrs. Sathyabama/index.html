@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>6-Month NCS-Based Physiotherapy Protocol  Mrs. Sathyabama</title>
+  <link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<style>
+  :root{
+    --black:#131316; --ink2:#241d29;
+    --yellow:#F3D666; --amber:#F0AD79; --pink:#EC86BC; --pinkdark:#D9569B;
+    --bg:#faf8fb; --card:#ffffff; --ink:#201f24; --muted:#6c6a72; --line:#e8e3ea;
+    --danger:#c1395f; --good:#1f8a63; --info:#2f6fa8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; font-size:15.5px;}
+  .wrap{max-width:1040px; margin:0 auto; padding:28px 24px 90px;}
+
+  header.top{
+    background:linear-gradient(135deg,var(--black) 0%, var(--ink2) 45%, var(--pinkdark) 100%);
+    color:#fff; padding:30px 30px 26px; border-radius:16px; margin-bottom:26px;
+    position:relative; overflow:hidden;
+  }
+  header.top::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 85% -10%, rgba(243,214,102,.35), transparent 55%);
+    pointer-events:none;
+  }
+  .brandbar{display:flex; align-items:center; gap:14px; margin-bottom:14px;}
+  .brandbar img{width:46px; height:46px; border-radius:11px; flex:none;}
+  .brandbar .bname{font-size:13px; letter-spacing:.14em; text-transform:uppercase; opacity:.85;}
+  .brandbar .bname b{background:linear-gradient(90deg,var(--yellow),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:15px; letter-spacing:.06em;}
+  header.top h1{margin:2px 0 6px; font-size:25px; position:relative;}
+  header.top p.sub{margin:2px 0; font-size:13.5px; opacity:.9; position:relative;}
+  .durationbadge{
+    display:inline-block; margin-top:10px; padding:5px 14px; border-radius:20px; font-size:12.5px; font-weight:700;
+    background:linear-gradient(90deg,var(--yellow),var(--pink)); color:#231a1f; position:relative;
+  }
+  .patient-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px;
+    background:rgba(255,255,255,.10); padding:14px 16px; border-radius:10px; position:relative;
+  }
+  .patient-grid div{font-size:12.8px;}
+  .patient-grid b{display:block; font-size:10.7px; opacity:.78; text-transform:uppercase; letter-spacing:.05em;}
+
+  section{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:24px 26px; margin-bottom:20px;}
+  h2{color:var(--black); font-size:19px; margin-top:0; padding-bottom:8px; border-bottom:2px solid var(--line); display:flex; align-items:center; gap:10px;}
+  h2 .n{
+    background:linear-gradient(135deg,var(--yellow),var(--pink)); color:#241a20; width:28px; height:28px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; flex:none;
+  }
+  h3{color:var(--pinkdark); font-size:15.5px; margin:20px 0 8px;}
+  h4{color:var(--black); font-size:14px; margin:14px 0 6px;}
+  table{width:100%; border-collapse:collapse; margin:12px 0; font-size:13.3px;}
+  th,td{border:1px solid var(--line); padding:7px 9px; text-align:left;}
+  th{background:#f7eef3; color:var(--black);}
+  td.num{text-align:right; font-family:Consolas,monospace;}
+  .flag-low{color:var(--danger); font-weight:600;}
+  .flag-ok{color:var(--good); font-weight:600;}
+  .eq{background:#241d2908; border-left:4px solid var(--pinkdark); padding:10px 14px; margin:10px 0;
+      font-family:Consolas,'Courier New',monospace; font-size:13.6px; border-radius:0 8px 8px 0; overflow-x:auto;}
+  .box-why{background:#fff7e8; border:1px solid #f0dcae; border-radius:8px; padding:10px 14px; margin:8px 0; font-size:13.3px;}
+  .box-why b{color:#b5791a;}
+  .box-how{background:#eef5fb; border:1px solid #c9dcee; border-radius:8px; padding:10px 14px; margin:8px 0; font-size:13.3px;}
+  .box-how b{color:var(--info);}
+  .box-interp{background:#f4eefb; border:1px solid #ddc7ee; border-radius:8px; padding:10px 14px; margin:8px 0; font-size:13.3px;}
+  .box-interp b{color:#8146ab;}
+  .box-back{background:#fdeef4; border:1px solid #f3c2da; border-radius:8px; padding:10px 14px; margin:8px 0; font-size:13.3px;}
+  .box-back b{color:var(--pinkdark);}
+  .callout{background:#eef8f4; border:1px solid #bfe4d3; border-radius:8px; padding:12px 14px; margin:12px 0; font-size:13.3px;}
+  .callout.warn{background:#fdefe9; border-color:#f3c6ab;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .chip{display:inline-block; background:var(--pinkdark); color:#fff; font-size:10.8px; padding:2px 9px; border-radius:20px; margin-left:6px; font-weight:600;}
+  .chip.amber{background:#c07a1e;}
+  .chip.navy{background:var(--black);}
+  ol.steps li, ul.tight li{margin-bottom:6px;}
+  .instr{border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:12px 0; background:#fdfbfc;}
+  .instr .head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;}
+  .instr .head h4{margin:0; font-size:14.3px;}
+  .instr .meta{font-size:11.8px; color:var(--muted);}
+  .target{display:inline-block; font-size:11.3px; background:#f3e8ef; color:var(--pinkdark); border-radius:6px; padding:2px 8px; margin-top:4px;}
+
+  /* ---------- Animation 1: saltatory conduction comparison ---------- */
+  .conduction-demo{display:flex; flex-direction:column; gap:18px; margin:16px 0;}
+  .nerve-row{display:grid; grid-template-columns:150px 1fr; align-items:center; gap:14px;}
+  .nerve-label{font-size:13px; font-weight:600;}
+  .nerve-label small{display:block; font-weight:400; color:var(--muted); font-size:11px;}
+  .track{position:relative; height:64px; background:#f4eff3; border-radius:10px; overflow:hidden; border:1px solid var(--line);}
+  .axon-line{position:absolute; top:50%; left:20px; right:20px; height:4px; background:#c9b9c4; transform:translateY(-50%); border-radius:3px;}
+  .myelin{position:absolute; top:50%; height:16px; width:34px; background:#f4dcec; border:2px solid #e2a9cb; border-radius:8px; transform:translateY(-50%);}
+  .myelin.thin{background:#f6dede; border-color:#dba7a7; height:10px;}
+  .node{position:absolute; top:50%; width:6px; height:6px; background:var(--black); border-radius:50%; transform:translate(-50%,-50%);}
+  .signal{position:absolute; top:50%; width:14px; height:14px; background:var(--amber); border-radius:50%;
+    transform:translate(-50%,-50%); box-shadow:0 0 10px 3px rgba(240,173,121,.6); animation-timing-function:linear; animation-iteration-count:infinite;}
+  .signal.normal{animation-name:travelNormal; animation-duration:2.6s;}
+  .signal.affected{animation-name:travelAffected; animation-duration:5.2s; background:var(--danger); box-shadow:0 0 10px 3px rgba(193,57,95,.55);}
+  @keyframes travelNormal{from{left:20px;} to{left:calc(100% - 20px);}}
+  @keyframes travelAffected{from{left:20px;} to{left:calc(100% - 20px);}}
+  .cv-tag{position:absolute; bottom:4px; right:10px; font-size:11px; font-family:Consolas,monospace; color:var(--muted);}
+
+  /* ---------- Animation 2: gait/foot drop cycle ---------- */
+  .gait-wrap{display:flex; gap:24px; align-items:center; flex-wrap:wrap; justify-content:center; margin:14px 0;}
+  .gait-box{text-align:center;}
+  .gait-box svg{background:#f4eff3; border-radius:10px; border:1px solid var(--line);}
+  .foot{transform-origin:70px 78px;}
+  .foot.drop{animation:footDrop 1.6s ease-in-out infinite;}
+  .foot.corrected{animation:footLift 1.6s ease-in-out infinite;}
+  @keyframes footDrop{0%,60%{transform:rotate(0deg);} 75%{transform:rotate(18deg);} 100%{transform:rotate(0deg);}}
+  @keyframes footLift{0%,55%{transform:rotate(0deg);} 75%{transform:rotate(-14deg);} 100%{transform:rotate(0deg);}}
+  .gait-cap{font-size:12px; color:var(--muted); margin-top:6px; max-width:180px;}
+
+  /* ---------- Animation 3: spine-to-foot pathway (THE BACK CONNECTION) ---------- */
+  .spine-wrap{display:flex; gap:26px; flex-wrap:wrap; align-items:flex-start; justify-content:center; margin:16px 0;}
+  .spine-svg{background:#faf6f8; border:1px solid var(--line); border-radius:12px;}
+  .pain-pulse{animation:painPulse 2.2s ease-in-out infinite;}
+  @keyframes painPulse{0%{r:9; opacity:.85;} 70%{r:24; opacity:0;} 100%{r:24; opacity:0;}}
+  .nerve-signal{animation:nerveTravel 3.4s linear infinite;}
+  .nerve-path{stroke-dasharray:6 5; animation:dashFlow 1.4s linear infinite;}
+  @keyframes dashFlow{to{stroke-dashoffset:-22;}}
+  @keyframes nerveTravel{0%{offset-distance:0%;} 100%{offset-distance:100%;}}
+  .spine-legend{font-size:12.3px; max-width:300px;}
+  .spine-legend .row{display:flex; align-items:center; gap:8px; margin-bottom:7px;}
+  .dot{width:11px; height:11px; border-radius:50%; flex:none;}
+
+  /* ---------- Animation 4: Henneman size-principle recruitment ---------- */
+  .recruit-wrap{display:flex; align-items:flex-end; gap:10px; height:80px; margin:14px 4px 6px; padding:10px 6px 0;
+    background:#f4eff3; border:1px solid var(--line); border-radius:10px;}
+  .mu{border-radius:6px 6px 0 0; background:#ddd0da; animation:muFire 3.2s ease-in-out infinite;}
+  .mu1{width:10%; height:22px; animation-delay:0s;}
+  .mu2{width:10%; height:32px; animation-delay:.3s;}
+  .mu3{width:10%; height:42px; animation-delay:.6s;}
+  .mu4{width:10%; height:52px; animation-delay:.9s;}
+  .mu5{width:10%; height:64px; animation-delay:1.2s;}
+  @keyframes muFire{0%,18%{background:#ddd0da;} 26%,55%{background:linear-gradient(180deg,var(--yellow),var(--pinkdark)); box-shadow:0 0 8px 1px rgba(217,86,155,.5);} 70%,100%{background:#ddd0da;}}
+  .recruit-cap{font-size:11.6px; color:var(--muted); text-align:center; margin-top:4px;}
+
+  /* ---------- Animation 5: 24-week / 6-month timeline ---------- */
+  .timeline{position:relative; margin:26px 0 10px; padding-top:10px;}
+  .tl-track{height:10px; background:#efe5eb; border-radius:6px; overflow:hidden;}
+  .tl-fill{height:100%; width:0%; border-radius:6px; background:linear-gradient(90deg,var(--yellow),var(--amber),var(--pink)); animation:fillWeeks 9s ease-in-out infinite alternate;}
+  @keyframes fillWeeks{from{width:2%;} to{width:100%;}}
+  .tl-phases{display:grid; grid-template-columns:repeat(4,1fr); margin-top:10px; font-size:12px; text-align:center; gap:6px;}
+  .tl-phases div{padding:7px 4px; border-radius:6px; background:#f6eef2;}
+  .tl-months{display:flex; justify-content:space-between; font-size:10.6px; color:var(--muted); margin-top:4px; padding:0 2px;}
+
+  footer{font-size:12px; color:var(--muted); text-align:center; margin-top:30px;}
+  .disclaimer{border:1px solid #f3c6ab; background:#fdefe9; border-radius:10px; padding:16px 18px; font-size:13px; margin-top:26px;}
+  .disclaimer b{color:var(--danger);}
+  @media print{ body{background:#fff;} section{break-inside:avoid;} }
+  @media (max-width:720px){ .patient-grid{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} .tl-phases{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brandbar">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAYAAACLz2ctAABD/ElEQVR42rV9ebxlVXXmt/Y599431AjFUIBUQQEFiICKMghiREDSRGwD7RDHTlBjokm3U0i6fzFqxlZbYzu1JmgcQlAj4IATIsgkqICCjAUUxKIKqoqa3nt3OGev/uOce88++6w93Fd0/X4F9d4dzjl7r73Wt771EQDGIv4QUfW3+BkAqHxV+Eoev0yQX2x8e+P3ZL6Dq4v5/7DjUsE3T/RBz7O4vq/5MwmfMN/Fi3xIctyJ+VkCNX5XfIYbPxXvqa9DAJjrdzFz9XdRcjSpACqlGoLn3QSm+grk2yTHTXH5QcLTJBwRwjO+54YIkONotDfaLzjW/ZdvJMcRlES3ec32etRCRNGbW1+LwcL3wfhO58oxQ2s9sSBGC6AiglLK0j7WTZUXJ6LWaZMuWZ9A9iw5OU9sezMMod+bUxbUNFw8I7u1X/OaLkEJX4scwg6HNiMyzhGbn+Xqv5jwvvzrZwk7M3QpjE+LAFIpeG2N5zsRpoBJ74vQZMwAUYQpCWsQ9nx/yHS5Nn8Soa7ea3xoEvPqM81EaByExnuNBfOAI+F+mgpBvNdq/drwhQjQmqHzPLhGKiR8SZJAiea2fHJR5ZJx2lyPLv3MzR0yEEn7J7d+bf+Orc0xhY/dYIDcV+PqKd0fs18jbj83OcWCWisjmWbm9nOz8EEOPR4Je+u5uyZMsZ6GC4uZpGkAqnkOolIKiVLWqRD0gqVJ/KYlAvd5tFOMOahM0VgDsP8zFHSBYs2S//kmwUSwNKbLnFfmNhKzubQ4RWA8hOTAsw55njuxobg3iggqSQxhwAQ3R4HXOHjDsZsZMrNkH+gI829iqEmE1974vcWd5PFa/YLk35827pacmoAwNl52QawmFnYJoRIx31j4YFMn7DQ5FHX62fEkccJnK8Xac5M/Ulkglr6NndCTPWCJgpqYWo9kGzJyrp/3aFRf7cKiHHi2phNCwrubd0GuPSPf3rIhevVvkyQRzXFLAJNEOc4iV18q4SEWlkESNBIwg3s7LBTJ9atkMFVNjNVeUnYsMgWEAREOkC3sY2jUPkZ+SMGB769f5MZTS7jYtU8UMPvty7GHt2Uvjys9R1u2LAFMkkSAs01HnoOLSqI3jJgFDixI87SzCPipcT12OC7cFprGU7Of66a2gFGpGewzYK8gRQIMtg5ak2wiy8j5+UPzG8ghZg6bE1AQMbtmO7XKwRAQIU0SYbva/pft+sfis8XgotBnbPxiAvMQfkP0/Uh4ae+4Rp8pjXlmFx1l4t0QpbS39xznqLRhVJbVeFCZ2o9Nv15guk03O0Q5SA9YaS3jQ+N/kwOV8ASiYZs/9pxV9t4/eykRovbfGG1OTppo7x0WWfjYQen7qBl2UEWT7IoLyBT/VIYWLNiKSvvFk8a1ppEjFD5mH1gEietl4dkwbo5QkhEZiCGVbS1RRIIKL0DnGrlmaM0GazAm7BlaA6w5mtBGhFZt3aOD1F6sdotfdzawtyAbHgrN3DOd59DMSMecX/0aO3VagwZgG5fE8UiTmjyOQIssOCSt6zEc6NF/YFRS/HswyBp3M9XrYHq6A1KEfn+E+fkMQFa93umkSBOFPNeV88SCJmIvpeNh39i/5uz5TnIZSiGqwiLvYNJzsLVZQIGVzp9SQJ4XIc2m8yHdZnFncoyXJuKyQlknMRoPEZvm0wpN4lW+D6UUwIzhaAQAOPTQfXD6qYfi1OetxrHrD8TqA5ZidlojUSkW+ownts3hwYe24+d3bMb1N2/EHb98HGCNRCVIOwp5zovWOu5nK7XNXmjCSTE6Bb1jCvCJ9Wt5noOUUqwU1a4dLUawQovmT0kKB8XD5C55sOekcdskUegPhgCAc85ej4vf+BycdcZarNxvGlAEjLhQdnkZikwSIKHyb4rRrgFuveMxXPqVO3DZV+/E3NwQvW4XjMJsk2erWCSNXfAH3viyA4VFHdZYJSPGgsX1bn+P1hqUJIqJlMzIRkZA4qMAYTPtx0hPYzpWK1sEIEVgZoxGGU475TC87y9+C2e/+AggAfTuPoYZA6wK4SCgWLeSCufSUWOGUkB3tgv0Ovj1r7bgr/72Glz+9TuhlEInTZDr2hmTfD4KQBY7uYGcfIVfJ8VynIv18t3PUJryQgATJvK/3edkTBZHjNF28cK6t2aFGky9wmhUYLj3/cVZuOSdZyDtpRjuHEIzQ6kxxUPt0IyZucNcRVNYM6ZmO0A3wZe+/Av8ybu/he1PzWOq10WW6+a9UQ2/GeH4MwmYrbXxouPlhjFPBwXjs0QSs0Jpkgisa8hn8wteK0cvVotSE9tyK2/w6eXmxq8nijAc5Vi2rIcv/dOFOP8/H4fR1nnkOSNJEz92NZNuW+uhoXMNBmFq/yW46/bf4BWv+iIe2LCtEkIXhRV7cGOcvMk9YvZS2hyBy10HpMVgpGnqDooSRWuxyR+0/ZBuTegWYgqY51C2i1KEPM+xdGkP3/7663DamYdjYcs80k7Swl1j8pS5SEbVrAEQFBX0SyMezgymwnEDEbKhxvTKKTz66Hac8zuX4r4HnkSv20Ge64ZzF+8ILIas92FLnjh/04fTY5wgAsYCOKm542DghhdpSt0nzO95Selk7hNaxrWpPqnf/trr8JLz1mPhiXl0OqmlwYs/eZ5DJQm6vRToJkCSAqwBrYEhY7AwBGtGkigwdHkNVV5UYzTSmFk5gwfufwJnnP0ZbN0+jyRJKj7Rt7GLhSFkfFlYSN2cLUVGXmLNryGACS8e2BsRyQlSnuJxyNOnaaUznSSEwWCEj/79+fiTd52BhcfnkHaTJpNPhRklInRXTAMjYOPD23Dv/U9i6/YhmDPst+8U1q8/EGvXLgM6XQx3zBeCmCZgbawTEbKRxvR+s/jOFXfjd171eaRpapDWT2/Ny2Tp9U1L4/+sq/SgDY0gOpH1njgwYEzgK0ToyqfL53AsxhmJ+z77vglpSbW89JyjcfVVb8LgqXmoRIGQFOCYijvWOaM324XWOb525a/xuc//DLf+/DHs3LXQuOKypVM49eQ1eNNrn4OLXn4MVDqFwZ4+FOmSrlNgKjzoLNOY3n8Wb3vL5fjUP92KqV4HWc5B/m+x3N3TYdmeTkeloaGbGJAjgkN776U+HYsSw0f5nB0wkHYUbvnhxXjWCQdjuGeIRCUVscvQyLMcUytmcP/9T+EP/+Tr+NF1D5QkdYI0LasDUXi9o0xD6xwAcNZvHYFPfvQiHHXkcvR3zCNN0wpWAwTNjKRDeGrHACe84OPY8sRupImC5lghk/Fau6zSsfmOhIVJLdfeaOYKgwcsNOocvnbiD7UCSvKjB2+ZOUiWUBSD6L4iNUyvwijL8MoLT8Txz1uLwa5+VX7AzEAZz51aMYsbb9iAM17yf/Cj6x7AVK+LXq+LJKGy6EYjyxm5ZiQJodftYGqqi2uufRCnv/gfcdNND2Fq5VLkGo3gmyJCNsix35qVePObToLWug6HBji5Wo+3n9MFNqp9YnaE+Ngyj7G2DcHsTll11cdEhXNHuJWDB4t4th/bF8Run6ixt21wasLth8+1/xCYn89zjTRVeMvrTwSPMjSJeEaea3Rne3how068/NVfxhNb92B6qqBNitRyQedy8b1ZpjE91cWT2+bwn1/9r3howw50plPkZpkiMVSioHcv4I2vPhHLl89gOMoaWUIus8bwZe6wkIFpCGvFW0qkmq14ZEbY/ILYgiy3lmWomGTw9vmzSgKcOExOogRcKfyCP8RN8eeoM9Z8TPMVpQijUYbnPvsZeN5JByHb3UeSkJVTqJDrDG95++XYum0OU1NdjEa58zrVE5YmeTQqhPCJJ3fj4rf9W+mNqtaWD/sZ1h65Gme+YG2pBWksn3bMQDj4bVFzaiJmUSMGK+VcRtFh+9iRF8+C3Rz/ZGlA6ytZvqXGu4g9eNGX7G1V1jU+w83C10js4dJ6jQUoN/ncs45EsmSmDIvV18zzHN0Vs7jyil/jhz9+AL1eF1mm4SLrSVoXKjBhr9fFj65/EFdceQ+6y6eRZ4VDAl0S2KzAxDj7zMMbPiWLiM/eRGrRXU5QRCQIrAyUgiUB7LM81NIlIZJdyUnt8kfIeyy48RgUTKQKOAwU8gc5YITb55PK8BhAOO35hwCjvNBMXIfYFAg8GODTn7+t3DdX/YMpLOSMFhEBn/rnW6D7Q0uGS1w7zHDSc9YWWjfXrUoV/5OzYGrbe9YsMeJFeM3sLJwil2Ig22LJcqTq1wT6kJrAtJ1F3BYiblW6tcvMyK7Oaq0ytTQyOf4L//Ybm0SlZiqiHkcdcQAwLPPRSkeLGehO9/Dwhu24+dZHQDQmiX3J7eTEukWUI8HNt27EwxueQm+6V3nCVfnASOPQg5dgn5XTRWiO4DTxCIAQaRXY81q4UpBF7RjiSvyuKDekRdW4yxe0opa4NTFEW8U3BYzFRSHh1LTNMTk1QFgvcsuB0Vpj1b6z2G+faehR02xpBtBLcdd92zA3N0QnTdyllx6LYBbGd1KF+fkh7r5/K9BVRtSjiJLkmcaKZTNYte8SMOuydJEdrhcJGJQj9JffWyWBhA4L8oT40VHGrxBNf/r8TA5c0NR5XAFj8XRS6FTKNQpuxGkchdIGrlwxjamekRY1fosuDuPjm3Y4YAA3zblHM42zhsfX3LxlJ5AoS58TtAa63QSzsx1hVSliyymCbZAPKYufYE9FjNC5wWEX3PiwacVU00sKkZDcMgckXJIEMWEbQRAt6hy5zje3OC2h6L38Z5ooJKTKKnRq3XMlmE7kSlbnwnCpYpERTSJmUoqQKOXRE5PpIZkBYAcO4yDR7HwH+4k7imjDomwvyeM/ol3DT564omQoOdKxmUQgyYH90PSm7SYqQN1/A2aNC4NZOwWAnSIJr14Rt7TMPWNu9tWTPNVmWT+L0Q1TBNnjjnhFmScz6aF2BCFjrNp5bDLAdpcvshgokiMnFIEtOPgE8aQ0eYqsjANlJ3VKGeKhBo3CSplmamxsYjfYb3/ah5o5dGg54oBTs2sYy1cN1a7IqR8s7r6qoxCTlRy3tSK16JfJDIglKI2qK/aw/gy5AraZkUa2uiCK8CwpwDIyOEQPseQQGdwnj7UuR+Fe2SrF/KEJdBMbwujWuyT46u2Mmaa1tF9XYnWL0Iyoafstc8rcxHrmYnKIOnD4tEQCRSqjMne/GWrEP1kUCuGfHONcxTJjJuE+JqDtbVTBPnoxTmKAGg72qYkt0w/TPu6OWbalUM1aYAnQChqNLABOFrwkY8uDhU0UwU652ghxkBkrwmMCbcLUxrVMAJOzqXcsamURnLH1JJNtMnuhvKzJ7RgsR3zrJPqTo4IMfqFXTTBOaPdrIuFK5DlfNIFpYFFhu00jW98epw28C8buBSLnXvHkAMMgoMdGoSiiI4dWjBEQEvdJjvVSxDO7n6lqSeJ1Edky1o6OGmQKoNm7wiaBG98TMkculECBjXNIBbub7XJreReTo1ZuPFRRaslUCAOUSLA3aSOCbytkQ0YV5VOUdioQVJXXxwKOpEl1E1Hcp8l1TAPixSEJIOc3tREZl65Z492hphA+dijQ2dHDw4t6itxEaxxn6btyKXgNXGZoIvY1soihgg0NxCwIfSmM5XoRyzCBF8WJTmJaQ4c4Jj+dW42QQlkDTQxIZHGpdrKb0IOT2aLCKVIR+Uqo44nWxW2CdWCqGSTK0PgEaPJ4/PDQrmMlJJOwzFxp3Nrsqkobtk21bPL9d2etJ7NzbdrvDykd9oYew5iWhW6TYy9YSqkiV+sc1Gke4OZmVic8dJIowlzHajN2mFbXQo3fowzs1cz8rj/volvZuS3MNgIrX9elcGuAuIY4XP6ufYgluoWdCansMcnOVWPfXrjXjyewOjI3UHczM5wQQ+05r2RrLAHj0aTUgZToH+bfvItFYaeiqYWo1kSsIrQvRejjJntGZDlnul53Zteay4LhSh1wM/cOAaNIq8KTdGmU79bVqEDV2k6YalJ1wWHHwpTgudHfaxLHPhzqagsdeSgS4XfMIidMTIBWgC61kJlNyhI1FN+0UU5cpybWNKkfk8qittaLoci8guQl3dmBxeFwwNwHQzbk5KXclC3FJl3Qto7tsDSxFPBnB2YguGtQ2J3cGCxzInc0gkIaUpXXVQYmC/NYsbGK+qtUU9saf4kTN2UxiSMSDACQx6rFY3GKVCdhfTnmHAzgS+SJmYqxU3ZGCdjKkm6Zb3ZhtMU4Hz6fl2WFanq9miqzTEZetwWYJv/DrmsWuJAsHpAsx4UmWRNT05HDPyeCO9kkDmowu8b0sOfcswgWVC0MHL/Q5sNR6DOmGArOjCPMbusU2UVxNXJrxn/Zjgc3hKEWAEIpiNq2huHZAM1ncGExyQy3cWf76MTkmsTwovY3+3QZO0QrMquJZfG0BVM1lRzH4aqJ6t/JMgfxVcPsAN/SuyQa2EmjkBwZYI26z59neUOMoKi32CINWPbY5ZWKMXrkiEa4ylxp4sBCXdrQjnZxixe0DS6J/oySTS3Lm8uTBbElfczsb0Ibk0Pm8wydw7LtEoIxHtNk0TIqgnT3HRl2mzgutasmsFaFE8SquAd2GTT23IdEE0kdrhj+uDEFlYMdrPVRzXEV2hUPSB7eydpc4rY7GZop5pRFFs47RepGeDw34QYkH6Xi5Yy/3EwUlw4eOUfASM9gJB9pLqiX6lqquiZrJftPUTSUlP8coLHYt3byAIuY2JiPeXXJS9qOEMCfLs++ZlrWrZG9OK5y8dhegf5FcnFx3OInCeAE0Bna2TCCBiQ/8iLx1DdND5VYr3BxVGUGWTMUqXZBYMDT9me++HhYCvB/8gzgxYQW2Nu1uuYgmptArmXmpgPC0owIn5llr1cUim/Aq2nc7UWcMJmleHDTHLLzm2KmGEsjClUlfO3xyJPEts0uMM1i9snq2GLeFw6x+X7vNtpkmmD2FBq2i26o5Wc3hZPEbgbUOlUczJ2wD0CgEQW7QbfskZYCN8ZjpXkkVsKnqOVPmzxdKH4DJiCvTTCbYTltauGQK2YKXZu09gZSHBNKaALhpIBJnewQVc2JaKJ6+cZpYw+Byexw3UM9lWLixIJqJxeOFHjAMgpSOx9UR0eYnAeg4R5wM/fOi5N4bPZVU/ArQpody0HO7W4PX7VIZVdCI/scP1u7+swsRYQi4fDpS/qf2eUJhZIu5Rw2+Zqyd92sXuMoGqASAKaokyZWH5MRB9aqFZlo0jCWBWCpW4Q8p6lhI/S4G56qnRA2NC6Rh0OTKi3IKphwiYpgZYgiaTE/2VwXGrJHTfm/RxEJYRxncy1Tdu36XoK7bUUop5AczL0Hf1DcuRO/p2oQZGoj86+ysCILm0cBn48tI6mqaAtzIXTEqqJlyDTB5KK4XCaRnEOn5Sz3sHcdasBGDRQ26fjWWgStsYXsSNd2JQBRALOFfrfYbpuhUwoPrWF6weMcQEsTmgaIJEKEvJpaPgzKSMcaa1oq4sBiSr5/vWhi4ORfN1lhuHMr2eukxZDmZjpW45N29ouv/Ro7IhGWNmSpqD2G6I2LhbQXS05GMGE3jZ2OfGwOk9oR4VCTjxhGzBKPEneSNq5T4UFlNacw8yvrZyKr3p69EYtYjcQTqwOK6ALjcxbNKkfVOnkNWQklZgacfm8n7ZhJFxQwCSES1qElmcsUrKSRKFqYQyUceNcmUbTGITMdq0wBI8MRIiLR4x7/h8zbID/5HtfVh4Tp8j4zLl2BneFCjtwN1Txx7MBydlkxOcoLrf4jjX4RIcolVHcf+3iwKA159FgldOOCJCEiIrWL4whtLQp9DiAHOGdwDtCYb9Su8B9J4ujE25MM3zIfj72YMGBpGBOBAInOTuUBCe3IhBRiDpOW8ZEPOYLhf5RinIIZibDqG8berkRtsCqEomH5DHK6pQDkonj3BlprUYXhVFWHUgxaInA+9pL9CNBHYbFTeIUBPrw4cWk5PBE2293as8SATSMhhcvY0a+T90pDVdqTJ60wsDUsCX43BekkGnuiBiUyJoXH6VjxdxaTJdSkXrjUtDSuCSE31p1siI0rOyhGTMJpdRwR8COE85dIwoAsRhTI4fyTU60GM2uZmwOXnSaMvepbaorU2joSogylybX/js0ytE+/SHX/4UbvNcldDMMpQnJJAQF0UmaWt5FVqG7DpacmOzxxnGp77e1WSVwVWbIFB1wprqodUqOIVumxwRryaC4f3+iLfsROpgi8nqOuzR2nSJUeKU3CRwZYs7YGlDEne6Gkv2OB7+YaRDGT0yf1z+LjyloRhJYmjWeU639dxI6SF3qyWl23yuUIvOJg6x3zL3wmMHg0zEcqKRhq5eWRswjMrpi025F5aVwjzMfj6Acbtcjj6Au5aN/ALPRGKM9BOlNIcTjSvIyJBRxApt40WGqrDyUWr/DkqIydjsbiAK+rIblMDbULAKUzyC1XUDViwbCiEuxaFpIWuxnrbh2VRujP0ICsPA1sOMzScZvvlEnlsKfuVDokdRzzBQBkcGIXV3Jtgt2t0Zrlg7KMh9AJTfTwk4LlUIq/3DCWTfNndypgCtwRByC4g0rUXO6dqfnqPMF66UOjyRjuksmQzeGIyEgA5og9JeVi/dDoVoWA1mjweOyKh7CX9OQoQZGFOobuCVeOWf6bIWxcxmSL+G+zQo29h2XSKrmaiK4cnzJFn41khHFZbLsDd0yxAjuAiXv6ObwMh6/EAJ6+jIjQjlx16IEz7YYl0ONP+6aY+YvM8WeW3XXEiNCHDZPEZiTE4OYgmEWEgu2T/eGcjZgzNTNi2OYe2eLxJHor5HmzV0ODY9stmWsXwwWHCmyp8WTKfessNC+XkU/8wAYOqH5J2/uIbB/68GhlUo0EBM7HwmdoQpHpiSl9ZIchU0XcuZEHaFA/7HLYKIDr2hSvX6M5PKoQh0suR1FySnx1Qmyb4FCfS4rXVqJqFgSXFmvOOKj6KcqIc6MgvVGrq6mKSnCrI0SoW5SvS7KRC6gLPGhmSMu0S2hcRBtmuDVaM4QWBWA4pDQWUUhG5vqRWRUXOsvxUzX9ql1OC0ecP4Y6HsuRqIPaNMR4UKCGUCEHIRYMkaLgkJmzEYR9PcP71uzeLRY6DnBwfV2i4RsGJCWuUqRSYq89asetKTSwmiE1+HGqXuaoiIZbPP0d9tuLTBGMoGx+mMuEAKNBkSl85BzpMAHRbaIYAFoX5DdrWPUohWA2+kH5QpSR4ywl7Nh8MjMLvV0J50pIi6FbnOsjDMxW/hEFJDC4DjzSyqox6k/ZpSUIvl57IVwVyy8ShPsYa8GyR1/Rr7lJw0zoZrQFwbykrslvLgWxFsY6A4dd3FtsvLmVVcSQG7pT26nkmO9f7Cw5ErtsqcW1VAthDanlGMNXVM2RWMIPeVnEi6K5YlUIXl5jQS4xGetQiSNFaHhhs0zMZxapa4Um9xPOHqcA18fivJSQowG4c625BQ0pQke6qDkTGQc6y3DUqQg55m0N5KIopWY4PnEkoxez3wUhMlCIJiNFysBkGdraKOKckyPtrDKZOYrMZ93EgFwehKZM+LrFmswrO31ud75gbPMTWdtRQ2FKSkUqUyWHD8/jzgi+EJqvoIVbl2HT07J5NDKnILlCap7gOLObiyTH6Tav1XAIynT88r4YXCUouCMh7qIqFyvZ2MCx8KnyOuOJTcEzPHljJ/Pqobyi1t41xNX6maUcT3f3hFBuo2qrfEfXeo8X3EZz7TFP7qaRrlJM291z9byTsaU/3YtLYhiNhkFjj5TE2DLC98zt3zVLa+pICFBCgHEZQCMmEKqLjqup4SBl5EbZ5LE43pJPkS2WnqTqjODWamTW37L7BEZVKLArzBM41UQIZcrEwGUTBFcpWHnx/7FTAD02kxyx2cJBIWGZG+2Lx+E3IwdxjAtDNTLMgUiPqHM9ros/2Ok27b5rx7klJo2mZAadK2Kk6og1kWNoDt8jN2Kd0JutNoLd8+O8nZWZm9oINRdIXLfLqEyw6dmzxAJYsXJJQMfLV1I+lfbjGgNqDaFDKol8jlQcDiFZrY0AfTOj3L+nqIalUqNf3+Ce2kqlNk4z8/Vd2DAmU5AohF/gdSxCxBoHuzYZLSaomk1d39yYiB5jwCoyUsZtYc7siJ155879YKaCbZaaEmkP5WrpNXZi3wmyOKv5gIJpZ3dSsjO/mW17SF7DbX5IubxPCniocf2cHWEcqRF6TLf2qD4ydg5J7YmSueklEdxIQBib5YBxkYVO4jiNu9K6mQ1dCjw3JjP5MZq3GoNDVTQ2r0thKrFq/xHPw9o6U2J7zVdSE98R1ZqFIxNKySvlkpdE7bEQrc20m+xQK47OQSEQTrhZ2J1zVZVWDY1hyKQwYj1Tz0EZ472xlg1u6CSYxTbRtkhEGVKr6q29pryI1TDzZaUpUIobh4gRLvBmp6Phrs8nTzivyd6TdHZYPtHk2EZ2LYXZv7B0QEzHQK7RDbWcsHlNeIh6I/w2doCq3MA4vtG9hp7kKA4RwpLdob06Ei1lyjJdpsh0/aMGkti95yPjFkR+k+btCsqO1s8xTSIETchGGKzSTAZBPGHtbXPtHG5QSXJzjiriUickxPGN5N1iT72MI69x0ra7zjxwO5lH+LnBD/tpGOGyLNGZhFAGm6012Y2yHZdniAM0AqyX82sbP6jKC+aSirHrM5okk49Li6jCrarvUOV5sfE7atE28XR0LE0So83Ck6qE6Ie1RXaHXPJUsqcx08zjKuAZ7SwVRz0Bs2OlY3s/uz1FW0uJlo2o4v9QdlYAEVjndY8YATi2mTpfA0dqBWTMwTgNRkgJ6VuOiIbbM3WPM5TocTeGjo+SuKtCKHqugJp45ocT9clFSySdGnJC1egTS4vQEGyG5NgYz4C6b5+ZGhUDuoPaw54GxYbWZbM/jPvmpUFa1DBtNjaW7UM7v9PXfCo0BY89kSI3mLKrhJVfrYVqN+SWW23PiQTvluHvsCDGUyYiZry1KGUrDuJxRkxJFk+UjsXBRW+lYxnEN5XCx1lN3BP7QIYNZ2INrad9W1RjUpey8e2cr6FLLSMq5DjEbsAkQ+ZFniwSjUzyLg6crUZOnq41I4nVaBRUdd4W6iURTaiL0qtG5d4All0f7Z4eYptZl7FkOWLgUDCMuAkHcTtp0YytUd0teXWPfYopRwpx+i7UgIjruDO2yUPFVsKXGybQqg3h6ML8dstwcu0t104OsxGPBlmYM+6oM0KNS5rtPig424gDvrH9rP7U/6jeudxo0Sv1+SAh9MLGaWf4Rn2GKwdk35mc4NgxLJviXJlWqmilBdnwhKXNCsVO5cYhLHASrJvDCqv3UGRxD0tOETu6OhpbCXcCKTtrfgjhfqgSl8bhvG2CmYwQMuNtRyFmTg/HpPt7RTWi1QchuEgtYsggogtnwNCimi0NKBRTkRB6Y3YWYAPGqC5zOTVgj8sN0iHEommOCV6yk9uN0740oavYEGuyvABuxIJdyCOmEymJ+IeiHokDlE4YULsJ7IiAvIH/GnhQ/LyUgRJqkWEWQhUYsCaiayjQrguO5fnYMVmNo78jFEOStHuwzIxINLcSVaPkPD/3XCLx0mzWEJijo+w62jaZHdZ8Ye8qPNFnvC7UVCSNFaX6d+zYKrL+3ziA8r02cqZ1efLZSPEqJYhanRE8M4ct2MPsdlx4IlePPL+T+/xNwhfI2TAkueQ2Xcl+TURxCpytTWMxahJPB4XaVzqDY0SGxrMiE2wz+QaRxO6jwKGDUB10IwLD9QjXaoNNjlJ6QvIbQXiJE5pIaKRv8A9wCFnSduqsguiSCxMux2aHLSLXSxWHmpJLWFKIMNPe9WapTh+baQxU8XN2eSSxrOtFIZN4NNdM5MrzNbag7GNNZqoU+TSZr5UeOzv686IoL4q0RW7z7qsvrAvTOQIzmC25iIUM4DjMEoMTpdATRZ9cT0zY9COMZARFykhQkFt/SPk67Doc5Dr75e+0Mby6SlR1NwHwJ0E0rQwRAYEYhexeTNare5JZBj4mQZnZrxSD98jSVCw5FhQlkO7sCiPjhnwYgqMfmWHO2+aKAxwnrLKu28+2ebka7MtNgl3t29gaVqisoT2l96wBrdlB8foaEjW9cK/3bHRMIMd4h6hUhsB14hIl6ntvtGdrz/mVa0XaExnDwhfi2xtLZZDifucwooWGgWtbVLvmKkGAqEjIRc5CAVAT7HNLO5GHIbA0aKmhxs4I64LWIaUEirdtFWSBYLmpqO18lajbHDcbShpwebgu9THZ9GE7JZ9imoK3k0hlT9qvgCnyBC2iI0trweytY5OCGYuRaYJLYQhPHqaIxS6/RZHRp7bmBGvt29RVLgeKRc+evN0hmOXiLea9WNdFVpnZvXtUHI5yeMHMi76XmDQeeNEMRd+zbdyKBpUaoFIDVcVCPO5VOSHCjLgjIsPDpjo6oYp/aM0i/mVmcfVFnGwD3ZbetAvMw6vchlcMuc1Kew1iCjpU3Tk6puiGBV4slMa/eBAbix1lisGdpktEheXVRpo+GExj7cSLOle+ki0uQy5UhQTGoUAGKYJK2kC8xsNNo+8sFxO6ybLHMsTxrlIMhDCB1+D9ViW7l6aDQfAXkVOAMA37X5N6teTQcKH1G79jkI2Qa23WadberwamqTOBDpfLFuyDsCTpNUHkuBUcEzQzRnne0kyu4nB32oZfEcT/licQpUk6l3ErMU+1c/RsDWcLGoNiboT8nUFiT0kMtyQx9k6BJWDb7p3YMz+PpFMWBRqUTJZlOPLgNUiSBLnWbea/0enAKgjidtJozjlUkuDw/Q9GlmUl78jl0BdGkqSYn1vAjj27PG1z28/imiMaGmghC1lsKxBprBZNvJemOlOtgSQsp+WQh94k140I9b9RQZOnRWDbuYrMjCRJsHVuB7bsegpdlTRuUZHCwnCA4w49EoftdxCyPK+9VoF3bvWvpjYmy7Ica/Y5EM885HAsDAZlPmDJgTOjA4Un53fjybmdSJQK9nPhlhaUIhTNSJY7SZ8Ce2prL9pbH6S1f6pxXu1OTVYBpKvpl1xRSJZTzQHTy4J2iRVBFk6/nJGbqgSD0RD3bnkMXeoUEzfHkqMII51j3+5y/M4xpxYCqxRc43JCdcOJSsDM+E/HnIL9essxyrPG3GDWQLfTw32bH8HCoI9UJY1xWG4HAwGt5+oeaGtLdxMqFtgQDna/9akFabacszeMxdxjAjKY4uIebcBOEZm6rhQJEnS2v0vUj+/7eXGwyqq0Yp4vQ2nCfH8eb33RK7Dv0uXI8hyKwoXZrQo6UhhlOfZZuhx//KILMT/ol/NIiuvRuP5EJbjuvl+Uj6ycW8pCZSI7dL3vLpuUTkxZZ4jnjI2DyMVdKnym2QNVfdHAuAyVmGYPobjDJH62LivyfnjvbXhy1w50VFoX6XFBDCws9HHUgWvxvvP/AKMsQ0LWRHOukljEKmCCQqIUsjzD+1/6+1i/+lD0h4Mi5Ic68aGTpnhqzw58767bivaBjtTo9khdv54JxSDCvGZMLUho/yRusr1aqom7yMCBPNGme/I3qu/jiYWvaVQocCAQMFlA4XH2Oh08vG0Trr77p1jam0Ge5UZaPpCoBNt37sBbT3k5/vDM38XCcAACkCgFs5CfuV1YkFACIqA/GOCPX3QR3nzKy7B9904kSVqPBQMhzzSWdGfxvbt+ige2PIpu2ikOR3yp/6KOcDh/pRaecO5MCIS4G2uOf5Mopd5Xx2QMjsrrotd5uHIiqq/dP4v4jAKEpn+0PE3wM6CIoHWO3+zaht977rnQrGs8q+tFyyjHBSe+EIP+CNc/eDvyPEeaJEhUAqKSwSKFRJVJAAwMsxFy1rjkrNfj785/K+Z0v1SVCnWyQOHApGmKd1z+v7Fx2+NI07QiqQOD2jFpxzEiOFGiX7jIvafR+wGvE5qoJHlfFYYjdmACGeZyZNKB3yBQ8OE5iGp812535mIAnSTFo9s2Y83K1Tj98OMx15+HqhAJQZUt2wb9If7TMafh5MOeiUe2bsIjT21GlufI8xy51sh1Xv2stcZpa4/DZ/7Le/GW0y7ArsFccYdKNUxolmvss2Q5vnzzd/Gxay9DtzPWfn4KWNJPMatMkQyu34mLNb+hK1uVQGmaNhs6N/owsyB0poBIo0l9QiXhjJBAuro7NTUxs32A3J+lUgPlWmO/2RW48U8/gwOX7Yv+aIzTihAZl6nymc6xfGoWg9EIN2y4Ez+49zbcvfVhPLF7O0gp7Du9DMftvxbnHH0KXrDmOExN9bCrP4ckSWDWHpJSYGb0ul1s270Tp33kYmza+SSSJDHMb7sHo6t/ans/ZHmgMchlGdWFUq7E65Psf8oJXp4klUIABRwo9lemvQin2eInDUgJs3lwbk/7XkOxmFQl6A+HeOlxp+Gq3/8H7BnMN/k9XR/IXGsQA7PpFLpJB0PO0V/oQ3UTdNMOOkzIOMfuwQKgChxpAmNSNc21dHoWF3zm3fjWr25Ar9tFrnP4ZpjH5CjFu2H+row+azTJNXyvm89XYED7JRMHcqg5+GL/EOTZb/B44sIskki1317QwiHppinuffwRbJ3biQuf/WIsDPplvaqqAdS4ZoOLMN7caAFZngGpQq41hqMhFvIhBnkGpRRUaWpJmXl/xdetWLICf/rVD+OLt16NqW63CAkanVxjWrCHsRq8h9rXkTqmKZsPo1L0rmPs2JkCKEg90YSLYQkXhUYL0gR6My7pgSJAeO2gMzppilsevgs7F+ZwwXFnINc5RnlWeL3jZkq6jn4kiSpM9DiPMFFQRFBjZ6SMdoyfPdc5ep0uls0swTv//aP46I8vKzWfngCT+fiB8Jo2Np5cBE5E/grF31/M3jgEcLLWP+REDnvf5NDPUZHndLPT+2rdWSmEN264Ew9u/w3OXX8yVkwtxUI+aNRxKNXs1kqGteCxh6uoykHMNUODsc/S5Zgb9PH7X/kgPnvTFeh1u9BaB80qRZhD8jALrtdjnDmK2IFJIZj0XAYGtGLCFCsS7PCGI77Ex31TPNZwB9vt7ijsxIaFOUjQHw7wrNXr8NGL3okXH/FcLMwvYH64ACiqHBToMmyoxiMduHIwmBmaGEopzKQ9TKkurnn4dvy3b3wEv/rNg4XZZW1ENuLxFYlrzR6N589Qj5ve7G7J5lIJYicvx3stJyT0QK7fxT8oexc4vAD+zYp5r7/HXVoKoUoUfu/Ec/GOF1yE5xx2DAjAfL+P4WgITTZxUAicIkIHKaa7PXBKuPPxB/Gxay7Dl35xNTQzpro9ZDpvmjP2b5S/9/7izrf7dXc/abE1HPsUAByxs6axlzVgSBj9Tdm9xpInHtswuXcX0oShxUqUgtYaoyzDTG8aLz3mVLzs6NPx/IOPwTP22Q8z09OFNhzlQEcBRNDDDAvZEP+x80nc9PBd+Pe7rsUPH/wZ+sMBOp0OaBwGjDnY1ubyIjzgWEUSrUSMaRUcgA2xDe4ha0D5QSSVyhF8FaJPR9zpgbVgYYGK1OjGL+owUYJM50UeH4DlM0uxfr9nYM3K1ThgyT5Y3p0BiLArm8fmHVvx8PZNeHD7b7Bjbnfx+TRBqhJorcU20MSCGaSaio3XXpNrfkwgODFWTMaH/oACOQWwMciEvfyfz75LQ2N4AhMhizY5XiPvQxN5inN8pgaAKiMZozyDzv291FSi0EnSMhmVxU5RLk1NniLPdoaa9SxmRgWsNsjM0Sn4JLCrk2HvybR1lAZs2G0jW3+smk1Z5UXgt8VjwNCJ5SDLZWqjxkGyTM5YpInIGC3QPPsFW6Nbw0I5Akd7MbYn6kBesp49x2oyQYKx1yxo7JDQuSwlpWnCi1HfzV4rTXMS6zG5TD17EwpcVISvWJpKDOM227KW8SxodeDitHuMSQ2JEHudLnnNCuUnWzMfluYAVBFjZDZ8EHBj6/vTJOFm5ZVZ/j8BmIRj3AVPJtju140kPBQZLYoKzVzk0RU/Ewi5zicCwr4wVWj0THRTNZdjQXWHqGZRfpxgOveiFdOnaM3ru0DIAbWxtLgL5lrIGlAYumxJ9+LwXCy1wxYiN1t1FHzcYDgM4rAC/Acwj/FcDRMhDPlkaQMEZ6IluA6tMcZnWVkRBwLSJEVcuhVDbn0qYMCJqDJuTNuLcSRiaSIpicJjgifh38JBc+yFBqkEiwijPANrxolr1uNlJ5yBE55xBJbRFEYd4PG5p3DNHbfgyjuuw9ywX/JuGcKhO3vR2zcXAtRieoSdYNTg0QjMGmnSwT++8r/jqNWH41u/ug4fvvpL6HQ60GVFHoe0j3ebwsITg/1c1FY8/+c+hGko/G2bC7DbR50kiwNeGqHthylSGOUZls8sxd9d8Id41fPOxvKZpUCvU2QypwSwxptOPBf3bN2IS678FK76+fXodTrISxPt2iB2DOcgDzsqCURLNrgJ4JsatXBalFJ44VHPxvrDj8fGLRsLUhtikay40xRq3u+NVrkdTr/Zjy/FDMlEGjegtbkpgL9fvr+6JCYq0YzsKlLIdY6VvaX45ts/jNOOfjbybIin5nbiZ7++F7/Z/gRmZ2dx/EHrcMR+B+PIg9fgird/GK/9xF/gK7d9vxF7bXSOp8KrHWOv1tzNsmERs9S4CSXurKMhLcFgMypexonZHOZdtAbZPT+HfDiHuWHfuC41yOvxUWmkIJRTnpjZwQC4lYnM5ZLReSE88zcmWlM9P8sCnZq2giOTRFlYaBtkx1EqJAp/E3sUC6w141NvugSnHX48+nv24LoNd+KSb3wSdzx6fzVgep/ZZXjbWRfikpf9Vwz3zOGzr/0z3Lf1Mdy+8V6kSWoIWRE6y1kjH2VQiYIqK9LIIKBHo1EDUzIzdNleIyGF0bjDAoAkSdApi9nNITJJKeDD8rsoUeioBIpUQdkASLopkkQh7XWQqELTZ1kOUoRe2iljx7VoqLLuZJANi0QJArqdDhKoEnKEqRc3U0GNnl92ZZA9o9Qu7JSgiiR4498pFv1stJwQO4XHxDcsRBHs5v8h1Cc3xS3CYqMsw9lHPx+/e+KLMFA5bnvsfrzsY+/C7Q/fh06SotftotftYmd/Dz541T/jkn/9OLoqwfSyJfifL/+DqvGPZobWGp00xXA0QgqFow86DCtmlmJcl6yZ0R8OkCiFw1YdhPUHrcXymaUYDIcYZiMQAaPRCP3hAFO9Hg5bdRDW7X8IuipFfzhsdGVRRBiMRhhmI6zZr3jfqtnlGJafLw6XLg6QLsJ5udbYZ2YZjl69Fitnl6E/drZKqU5UguFoiMFwiFWzK3D0QYfh4BX7YzgcVZV35ECsUsdXu5RVLIkapzQSebFjiDaSkunSuo2G23E2T7TYCZAFlesYeu0bnmyTqmaK0GtecF5RTLQwxJ9//RMY5iPM9KYwzDOM1UBSFgz94zX/hotOOwenrn0mTjv4WBy+30F46MlN+Pir/jvOPOmFuOLGq/Gdu27Gp179bhy2/EDc/vj9OP8T78JgOIQiwp+c9Wq85nln45D9D0R3qocnt23Hj399G/76e/+Cx3dvxZp9V+Mtp78c5z/vTKyeXgE9yrF1sBtf+fn38fff+gKgCKlK0R8NcMq6Z+ID51+ME9atx5TqYseuXbhr+6P4P9+7DFffdRPSblqncQF451mvxjvPfx06ucK8HuD//uRK/O23LkWSJFCq8P6PO+hwXHL+m3Dyumdi5cwyzO+Zx4Y9W3DpdVfiCzd8C900hW9opBuf+ztY+EKtMK2W7cAJ4cUxhEj3IjQbcQqo5cb7FoFtHEhAViZzHn/QOlCa4MHNm/CzR+6BSlTV0Gf8zVoXafYA8J07bsDphz4TK2ZmceKhR+GhJzfhuEOOwLMOOQo71z+BVz//XByx7lhgzxwOzw6BzjWUUviXt74frzzpXKA/RK5z7FmYxxGrDsZRrzkF1z/8S3z5lu/iPb/9erztZW8FntqMrbt2YOmyJVg1tQofXPMODAdD/K/vfQmcMFYvW4WvvuVvccj+B2J+5y48sbAbS7pTOO/U87GyO4vv/OpGqLQwydn8brz8lLNwwMwq9Od3I53tYEk+gw9e8EfYsu1JfO6mb4KI8ILDj8eVb/8Q9l25L5Dn2Dm/BwfuswqHHHgwzlx3Io476DC8+/KPo9vpODjF0jYJfJ3TcWBZsznLbLlN2LuK+9I6xjJ56EwqVIkdGcABymD8Wa1zLFmyDEtmZgEAW3ZuwyAfIVWJPAinfJRHN2+C1hrpVBcrp5cCKEomR9u24qQ1R2PLzm141z+9H0ma4nmHrEd/OMAbTv5tvPKEl2C+vxu3PnwPPviNz2HTzq04ZN/98aYXvwKDEl/1+wu47IdfxqU/uQoPbP0Nlk3N4NOveS9OOuJZeMUpZ+Gj11yGUZbh5LXHYvWylZgbzuMN//IBfP3n1+KQlfvjv5xyNo46cG3hXOU5kBD0KMOK7izef/Vn8a83XI0TnnEUPvK7b8cBK1P83unn4XM3fRNLpmfwyTe+F/suWYZN2zbhr676Z/zkgTtwwJKVeN/vXIyT1z8L7zrndbjxvjtxxZ3XY6rbLdO/qKGhpOaUMcyOk4QeJ89zm8LiAHWXVp8MzL/xcmAWsgxXccHp+TZNewH4szzDaDgEMo2l6RQSUsU5JlWecjuKQ9hnybJiEqYCBsgqvJpO97Djqe14+SffizsevR9AAeBJKbzq+WeDswybtmzBRZ/8M2zdtQMAcM/mR/CDu2/FTG8KnU4HH/rBV/D4jq0Fhumk6KoUv3jsPpx87HPRzRW6SYpRlqGPDMlsD/lTu/Cq55yNTOe44aFf4iNXf7mI5CQKeZYj0zm6s0vwnZ/+CH/5tU8DinDv5o04b/3JeMM5F2LpbHGATj/seDzz4HXIlcL7rvgnfPYnV4AU4R79MF5z6V/i5nd/Bs/Y9yD8wZkX4MpfXg/NtRUyJwOwI3wqcaChJm02kW8K91in2X6GeY20ziaIC4uxFZyGcJoY7WRLkbviQEI0FQmiu+b3YOOWTTjmgDVYv3oN1u1/CB7Y8hg6KSEf91g2QlnMjLNOPBXoKOzZsRt3Pbqh+N4EoKkZ3PLQ9bjj0fsxMzUNZkZ/NMBsdxqHrDoANDuFGzbeha27dmCmN4Wcc1BZwDTIRkiUwuM7tuIlJ5yK3zvxJTjp0KNw5Jp14FGGwc6dSJWCShKkaYIbHrgTV//sRpx3whm48IzfxoVnnIPHNm/C1XfciL/67j9j885tUKSQzQ+BbgePLmyDIsJsbxrzgz52UeHl6j0DAMCxB69Dwh08sXMrfnDfbaXnXWDITdufwE0P341XHbQGhx6wGrNTM5gf9ovqPDuBoCxjZUsvVsfYFQ+XTClHhAul9kGlYKpaRNvvlBx5InPuRrMyiqzCDOecS7Y5Mjf7rlBouSvu/AkoSbB06TK857dfD10WhXfSwvFIVIJummIwGuKFR5yAlxz5HHAC3Pn4BvzqsQfrpc6Bgc4rzZrlWdGlIEmKAvJMg8qUKzKqAXNdYMThaIQ3nHwevv+Oj+KNL30lZnsz+JfrrsLNG+9GOjUN6iQVj7dnfg4XffrP8O7LP4IfP3Arntj6JJ6xdBXefN5r8NU/+jt0VREuVJ0E0Iy0rA/OWRdloERAoqCz4n7UVAqkCrSQFc2N7IM9bvsGriIpdsN1bjkbxnhaciRpuLznyjtuFzwxuTiV+v3EVYdU2QTb4khS6g0bn2RB05EfZzA8uYVcbHySKPzbL36Ie7c+ijzL8drnnou/vvBtRT+/wQCD4QD94QDz/T5edOxJ+MJ//UvwYATFCh/+0WVlJATI+xmgiqo2E6CnKsHuhTk8vn0rdH+IFx99EtbufxDm+gsYDIcFFcKMnkqxdGYWf37B74Nyha/+5Js49gOvwZu/+Hf47h03I10yi1E2wq65PRiNMiztTWNusIAPffdL+K0PvBnP/qvX4XM//Tb6C3vw7FWH49gD16KvR0hne0Wf6EEBFcbJCdn8CMg0kmU9AMAvH7oPoz1z2GfVvnjFSS9CnufoDwdYGPRx+IGH4PSjTwQGI9zz8AbMj9u9RbYM8GUtBaN93Iz++JxUm5JJ/W66FfNjC3DauYGWIJqzOUIZvO7oiUaapNg5vxtvufRv8O0//jC6Uz2857zX46zDn4tv/vpG/MeuJzBNHZz8jGNxwUkvwvSSGUwlU/jA1z6NK2+7FtO9HhYGAzAz8lxjND+sNJxmjYQSDPUIX77luzjrxNOwqrMKV7z9Q/jIt76Ix3ZswaH7H4Q3vfAC/MNVn8f1D9yOlVNLMUKGjDU6SHDCuuPwhjPPx8LOHVg1tRwvPuYk/GLjfXjhMc/B2865CP/3e1/DnY89iN3DeewY7kHCjEEHGEJDgZDND5Hnut2pj4E8y5DnOaa6Xfz43p/j9s0P4vnrjsN7XvwaINO4/pFf4uAl++KSs1+P/ZbvA1aET/343ysNwGz6vtRa7PZ42TZhTAKt0hjK5PConUwHB2LBLPBC5qLY/3a65uwSOnJSMiRo3lxrTPW6uP6+X+D8T74Ln33j/8CRK1bj5GOfjZOPfy4wzICkwDoY9LGr38cHfnAp/ubbn0MnTYtoBQHLli9FMj2LJTMzDROU6xydToov3vZdvPDE5+ONp70MJ6w+Al+4+P1gnYG6PWD5Snz62q9jT38e92/eiBccfzIuOvFF+K2/fQ4O6C3D7s4IqVJYtXwlrvkfX8TFn3gvNi5sxbmnXoBz152MnQs7QQwsW7Yc6EzhG7d8G/dsehjdpIOZTg/JkiWYmZ1umLGZpTNIVi7H9IYEWjNGeYZ3XPZhfOOtf4/Vqw7Eh177LgxHfXRVByAFHo7w51d+Ctc/eAe6nY5Rd8wtjBfMYLE2lS0saOeiV9Fmw7mJyTU06oLDIRs7vy1EWsqjWmwRp1a7YRLeo8va3Q1b/gNfuvlqPDm3A6qjMNyxG3Pzc9g62Il7N23A5bddg3d8+UP4+s+uQbfTqTRdnms88+DDwYMBbnnol7j2vp9DGS1xx+04rvjZtfiPJzZhRXcaeYexe7SABx7ZgC98/9/w9duvxcKwj5s23o11Kw9AkgOUEr7y0+/j4s//DVYvX4WlS5dg45aN+Mot38Udj96P4VPbwNDodbsY9UfYuG0zLr3uG3jP5R/HKM/Q7XZw3KHrMLdjO35866245ZFfo5OkyPKite/ybg+/2PhrfPOXN6CTpnh06+O44o7r0JvuojtiZIMhNu/cipsfuQvvvPxjuPQnV6HX6YA9SE6qkSYKF/uzJ9fRFix5mhQ1vWcwKEkSJopPu5JoFR+RuZjUK5+5TpTCMBtVbdSWT89idnoWI51h++6dBa8GVAkI409r5qIHS/nFaZoK1y2uPMoggAj7L1sJpRS27d6JUTYCCOiknSpGvGrpcgyzDLsW5sb5Ylg5uwy75ncjL4ltrTUoIayYWopOkmL3YA4Lg6LsMynrjEdl0RMUkKr6vrI8q/rYJpQUTb1LRwgAZnpTWD6zBAvDQVUIZT73pClxJJRVkJgHGQuh/JnszAxKlOKifZi/r94kuV8uwtIXCSaQN/fMzgtURMjLZE4u063SpKxCYxa7jarSO9WawZBTtMbJCDnrUjAYaZIiLX/HzFXL3lFeCE4nSSuclWU5kiSpWnokKilafei8+DlJ0FFp+V1GJjeVSRelBIxzBseerEmUjb3sLM+Rlx59J+mAxk2UENE1y7Fvk3TQmjQm3ApGsAYRERdtxFzpUXEZsZMkQz6dRdYk5LuHapY5QgMQGdwYc7ymLwWPBeE3px/ZB88bMXAdaKpraNiTBu+0XA0Sua4habS5a3R2C1TuwV8nZAtjQTWBOEnVRMLi/F2EZNmb7KqBjS/AjhXesDbwpeJjkQcmGGddxAHc27VxJthikjLZsMCHniXPcygGO6bzTNZw3KZcXO9lYcIrC04LT9D73XV/hOZwgVDrM7YzeyL74/haOXHrueSNDz1XbX4nM6zOiaRoT2iTukeH2kuJE9QjTsQ4YqXGWSTuyltu9WZ3jhJwiAOLHHxzAdoTK8h7tVBhptnuu060bHtmrj7MLJzGdk4bizlvdv88hpy4CVGg2sN/GivBVhjUcyCkgqqWULJfdM3PRevGwMSnupKxbB47lkZZNZOX0xFjvB5dIdaYUsjJoaCH7dIlrg0yKXYXZiSB07QPiZ3uyYIQE7m1kit7SIpE2ILjGqYlz3Xh1rxjjtDCix/rGiiC11wLYKEFtcDt+acVsWO3SfgOkSsUiE5yiJdL8Mihfwn+WeOLdXrcAk6ePDk4u58uZh4yi9hNnhnnGrdAXmPvUB/OWLE0OJKcUE7ndYewWgDLuovmRSbrRMoNsy3dopx4b2ZluBozsicMyY0dpiiY4FxsCmvQOF1rxci56SEyjKC8ADoQeWjI8a/Qfbtn0rnzAdzjoSmAE9kIfXKjS1hjYHWe5+165gA+8BlnbukIuwRaKoRq0jexUy1sBpWixo1Su20t+x0EdjoQFByhTU6wTIhJiHNRvTHC67vvyTS9pBo44JZQRY9poz9iSwDHQgiO6cbMXgRm1yPUXBJ5fNB2XWq8BxyeekEeQ8F2rhvV2Ty+lDFp88nyWFtRI6oLvWwnJGYyL1FTc7FlIdhpOWLsGnuOqTyy0A8kqEq4Giu4INRRREjSxJkw+nRgp73h1BbTmNHFzUmF9zHf7+t8RV595T6wcSMX2FvY5d+EmO5YzZkxROQghEI6uFm/nGe52KBTSbepzX4lEypn9sL0Wt3YKEHSMuRR+ouhiTnQd5oCnQdseBHTvEjyRFqUlvGwFHQSKIgHiR3rHiDJWu8mgQFhqWzXY30IyHPtnQTlZoKIyrgmnNqQXN5woK4v2Pgw2INYnuIkJc3Cp/lcvQEtoXS1J7GHSrEjrh3TCs2ljWJaD7u0eWiviGzOM6aTarzyLcwuL95iEgFKJcWIAo6MBXNN7hEjcjP8ffYWa9pjQ4QxC+Ls8+JIzBWrrT0NoOO7jjXXKuT8RLmUHiXjOyyuQ6WZq8ykpwWyKaWgxuNKPV6er3Xv4lOy4irrYtvKcoR2tEG/qFVNje54D7zEuZBNHuq/F7mJocaSPheujfJYrPFu8BlUk/o6z50md699hvE4AjOHkD1CENNP0CnU0ryQKoGh7pUS6mHtNn2uBRW8Tg4fLgQOh/RoTG3sycGVjT9Yi91oCpJXlnNS8nv2AJ7/b05r1cFpnLNGFMyalTBd0DNFoCUEtesMFoNdfA4EB8hd8cw4KgN9NzJxp3/hGns7CdMLPazPjkO4zOzFeb4//w8HRKsv+2eO4AAAAABJRU5ErkJggg==" alt="Orcasho logo">
+      <div class="bname">Orcasho<br><b>Clinical Neuro-Rehab Series</b></div>
+    </div>
+    <h1>6-Month Neurophysiology-Based Physiotherapy Programme</h1>
+    <p class="sub">Deep-dive expansion of the 12-week protocol  built directly from the Nerve Conduction Study (NCS), F-Wave &amp; H-Reflex Report, Ecotown Diagnostics, Division of Electro Neurophysiology</p>
+    <span class="durationbadge">24-WEEK / 6-MONTH PROGRAMME  extendable to 12 months</span>
+    <div class="patient-grid">
+      <div><b>Patient</b>Mrs. Sathyabama</div>
+      <div><b>Age / Sex</b>53 Years / Female</div>
+      <div><b>Study date</b>10-08-2026</div>
+      <div><b>Referring physician</b>Dr. Satish</div>
+      <div><b>Reporting neurologist</b>Dr. H. Santosh, MD, DM (Neuro)</div>
+      <div><b>Clinical query</b>C/o ? SPN (suspected peripheral neuropathy)</div>
+      <div><b>Electrodiagnostic impression</b>Bilateral CPN motor axonal radiculoneuropathy</div>
+      <div><b>Co-existing complaint (per history)</b>Chronic low back pain</div>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>What the electrodiagnostic data actually show</h2>
+    <p>The neurologist's written impression is <b>"bilateral CPN (common peroneal nerve) motor axonal radiculoneuropathy,"</b> with normal F-waves, bilaterally <b>prolonged H-reflex latency with preserved amplitude</b>, and normal sensory conduction everywhere tested. This 6-month plan is built from the numbers below, not just the summary line  every phase in §6 references back to a specific value here.</p>
+
+    <h3>1.1 Motor conduction  Common Peroneal Nerve (CPN), recorded from Extensor Digitorum Brevis (EDB)</h3>
+    <table>
+      <tr><th>Side</th><th>Site</th><th>Latency (ms)</th><th>Amplitude (mV)</th><th>Distance (mm)</th><th>CV (m/s)</th><th>Expected normal*</th></tr>
+      <tr><td>Left</td><td>Ankle</td><td class="num">4.63</td><td class="num flag-low">0.63</td><td class="num"></td><td class="num"></td><td>Amp &gt; 2.0 mV</td></tr>
+      <tr><td>Left</td><td>Knee (popliteal)</td><td class="num">16.38</td><td class="num flag-low">0.25</td><td class="num">350</td><td class="num flag-low">29.79</td><td>CV &gt; 44 m/s</td></tr>
+      <tr><td>Right</td><td>Ankle</td><td class="num">4.75</td><td class="num flag-low">0.26</td><td class="num"></td><td class="num"></td><td>Amp &gt; 2.0 mV</td></tr>
+      <tr><td>Right</td><td>Knee (popliteal)</td><td class="num">15.50</td><td class="num flag-low">0.22</td><td class="num">350</td><td class="num flag-low">32.56</td><td>CV &gt; 44 m/s</td></tr>
+    </table>
+    <p style="font-size:12px;color:var(--muted)">*Typical laboratory reference ranges; your lab's own normative values take precedence. No limb temperature was logged on this report  see §1.4.</p>
+
+    <h3>1.2 Everything else that was tested  and was normal</h3>
+    <table>
+      <tr><th>System tested</th><th>Nerves</th><th>Result</th></tr>
+      <tr><td>Motor</td><td>Median, Ulnar, Radial, Posterior Tibial (both sides)</td><td class="flag-ok">Normal DML, amplitude, CV</td></tr>
+      <tr><td>Sensory</td><td>Median, Ulnar, Superficial Peroneal, Sural (both sides)</td><td class="flag-ok">Normal latency, SNAP amplitude, CV</td></tr>
+      <tr><td>F-wave</td><td>Median, Ulnar, Peroneal, Tibial (both sides)</td><td class="flag-ok">Normal</td></tr>
+      <tr><td>H-reflex</td><td>Tibial → Soleus (both sides)</td><td>Latency <b>prolonged</b> (L 38.0 ms, R 36.0 ms) but amplitude normal</td></tr>
+    </table>
+
+    <h3>1.3 Reading the pattern together</h3>
+    <div class="callout">
+      <b>The pattern is not a simple ankle-level peroneal nerve entrapment.</b> A pure fibular-head compression would usually be one-sided and would spare the H-reflex. Here the abnormality is <b>bilateral</b>, is <b>largely axonal</b> (amplitude ↓ more than velocity), and sits alongside a <b>bilateral H-reflex delay</b> (which reflects the S1 afferent–efferent arc through the tibial nerve/soleus  a different nerve entirely). Sensory fibres in both legs are completely normal. This combination  motor-predominant, bilateral, axonal, with a proximal reflex-arc abnormality but preserved sensation  is exactly why the neurologist labelled it a <b>radiculoneuropathy</b> rather than an isolated mononeuropathy: the lesion behaves as though it sits at or near the <b>nerve root level (L4–S1 myotomes)</b>, i.e. at the spine, not just at the leg.
+    </div>
+
+    <h3>1.4 One honest caveat</h3>
+    <div class="callout warn">
+      The "Temp (°C)" field on every motor page was left blank. Peripheral nerve conduction velocity falls by roughly <b>1.5–2.4 m/s for every 1 °C drop</b> in limb surface temperature. Because both CPN velocities (29.8 and 32.6 m/s) are meaningfully below the ~44 m/s a cool limb alone could explain, a real conduction abnormality is still highly likely  but the treating neurologist should confirm limb temperature was controlled before the axonal/demyelinating split is finalised. This document treats the report's own conclusion (axonal radiculoneuropathy) as the working diagnosis.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>The physiology behind the numbers</h2>
+    <p>Every physiotherapy instruction in §6 is anchored to one of the mechanisms below.</p>
+
+    <h3>2.1 How a healthy motor axon conducts  and why myelin matters</h3>
+    <p>The resting/action potential of the axon membrane is governed by the <b>Goldman–Hodgkin–Katz equation</b>:</p>
+    <div class="eq">V_m = (RT/F) · ln[ (P_K[K⁺]_o + P_Na[Na⁺]_o + P_Cl[Cl⁻]_i) / (P_K[K⁺]_i + P_Na[Na⁺]_i + P_Cl[Cl⁻]_o) ]</div>
+    <p>Depolarisation only regenerates at the <b>nodes of Ranvier</b> (myelin insulates between nodes), so the impulse "jumps" node-to-node  <b>saltatory conduction</b>. Conduction velocity scales approximately with:</p>
+    <div class="eq">θ (conduction velocity) ∝ D / √(R_m · C_m)     [D = internodal distance / fibre diameter]</div>
+    <p>measured directly in the lab as:</p>
+    <div class="eq">CV = Distance (mm) / [Proximal latency − Distal latency] (ms)</div>
+    <p>Applying this to the patient's left CPN data: <b>CV = 350 mm / (16.38 − 4.63 ms) = 350/11.75 = 29.8 m/s</b>  matching the report exactly, roughly 30–35% slower than the ~44 m/s expected for this segment.</p>
+
+    <h3>2.2 The causal cascade  from root insult to clinical weakness and back pain</h3>
+    <ol class="steps">
+      <li><b>Insult at/near the lumbosacral root or proximal course</b> (mechanical/discogenic, compressive, ischaemic or metabolic) → focal segmental stress on motor axons serving L4–S1 myotomes, and irritation of the sinuvertebral/dorsal-ramus afferents that produce local back pain.</li>
+      <li><b>Segmental demyelination</b> at the stressed segment → internodal capacitance rises → each node-to-node jump takes longer → <span class="eq" style="display:inline;padding:2px 6px;">CV ↓</span> (this alone explains the slowed 29.8–32.6 m/s velocities).</li>
+      <li>If sustained, the axon distal to the lesion undergoes <b>Wallerian degeneration</b>  axoplasm/myelin distal to the injury fragment and are cleared by Schwann cells/macrophages, typically evident on NCS within 5–7 days of onset. The number of surviving, functioning motor axons falls.</li>
+      <li>CMAP amplitude is a direct read-out of how many motor axons are still firing into the muscle:
+        <div class="eq">CMAP amplitude ∝ Σ (functioning motor units) × (average unit twitch force)</div>
+        Fewer functioning axons → lower CMAP (0.63/0.26 mV vs the &gt;2 mV expected) → the "axonal" half of the diagnosis.</li>
+      <li><b>Fewer motor units reaching tibialis anterior, EDL, EDB</b> → reduced dorsiflexion/toe extension force → clinical foot-drop tendency and slap-foot gait.</li>
+      <li>Unopposed, intact plantarflexors (gastro-soleus, tibial nerve  confirmed normal) continue pulling the ankle into plantarflexion at rest → risk of secondary <b>Achilles/gastrocnemius contracture</b>.</li>
+      <li>The <b>H-reflex</b> tests the Ia-afferent → spinal synapse → alpha-motor-efferent arc (an electrical ankle-jerk). Latency is prolonged (38.0/36.0 ms) but amplitude is normal  the motor unit count in that arc is preserved, but conduction time through it is delayed. Because this arc runs through the tibial nerve (normal on direct testing), the delay most plausibly originates more proximally  at the <b>S1 nerve root</b>  reinforcing the "radiculo-" component.</li>
+      <li><b>Reflex protective guarding of the lumbar paraspinals</b>, altered pelvic tilt to offload the irritated root, and compensatory hip-hike/circumduction during the swing phase of gait (to clear the dropping foot) together increase asymmetric loading on the lumbar facets and discs  this is the mechanical loop by which a foot-drop pattern can itself keep aggravating the very low back pain that is already present. Addressing only the ankle, or only the back, in isolation leaves this loop running.</li>
+    </ol>
+
+    <h3>2.3 Why physiotherapy can act on each of these steps</h3>
+    <div class="grid2">
+      <div class="box-why"><b>Step 2 (demyelination/CV):</b> Neurodynamic (nerve-gliding) technique reduces mechanical tension/compression at the presumed root/entrapment site, supports local microcirculation, and creates a mechanical environment more favourable to remyelination.</div>
+      <div class="box-why"><b>Step 3–4 (axon loss/CMAP):</b> Neuromuscular electrical stimulation (NMES) recruits the motor units that remain, slows disuse atrophy while regeneration occurs, and provides sensory feedback assisting cortical/spinal reorganisation.</div>
+      <div class="box-why"><b>Step 5 (voluntary weakness):</b> Task-specific resistance training obeys <b>Henneman's Size Principle</b>  low-threshold motor units are recruited first, larger ones as load increases  so graded loading systematically re-trains the surviving motor pool.</div>
+      <div class="box-why"><b>Step 6 (contracture risk):</b> Static/dynamic stretching and night positioning keep the gastro-soleus–Achilles complex at resting length while dorsiflexors are weak.</div>
+      <div class="box-why"><b>Step 8 (back-leg-foot loop):</b> Lumbar mechanical unloading, core stabilisation and gait-pattern correction interrupt the compensatory loading loop, so the spine stops paying the price for the ankle's weakness and vice-versa.</div>
+    </div>
+
+    <h3>2.4 Peripheral nerve regeneration  the timescale that actually justifies 6 months (and why 12 weeks alone was too short)</h3>
+    <p>Once an axon is disrupted, regrowth (assuming the axon tube/endoneurium is intact  an axonotmesis-type injury, not a full transection) proceeds at roughly:</p>
+    <div class="eq">Regeneration rate ≈ 1–3 mm/day (the classical "~1 mm/day" Sunderland estimate)</div>
+    <p>This patient's suspected lesion sits at the <b>lumbosacral root</b>, and the target muscle (EDB, on the dorsum of the foot) is roughly <b>700–850 mm</b> away along the nerve's course (root → lumbosacral plexus → sciatic → common peroneal → deep peroneal → EDB). Applying the regeneration equation:</p>
+    <div class="eq">Time to reinnervate ≈ Distance / Rate = 750 mm / (1 to 3 mm/day) ≈ 250 to 750 days  (≈ 8 to 25 months)</div>
+    <p>Even at the <b>fastest</b> plausible biological rate, meaningful reinnervation of the distal foot muscles takes <b>roughly 8 months</b>  which is precisely why a 12-week programme could only ever address symptoms and compensation, never the nerve itself. A <b>6-month (24-week)</b> programme is the minimum realistic window to (a) see early objective change in CMAP amplitude/CV on a mid-programme NCS, and (b) convert whatever reinnervation has occurred into usable strength. If week-24 re-testing shows only partial change, this document explicitly recommends continuing into a 7th–12th month maintenance/advanced phase (§8) rather than discharging the patient.</p>
+
+    <h3>2.5 Saltatory conduction  visualised (normal vs. this patient's CPN)</h3>
+    <div class="conduction-demo">
+      <div class="nerve-row">
+        <div class="nerve-label">Normal motor axon<small>e.g. this patient's Tibial nerve  CV ≈ 43 m/s</small></div>
+        <div class="track">
+          <div class="axon-line"></div>
+          <div class="myelin" style="left:10%;"></div><div class="node" style="left:calc(10% + 34px);"></div>
+          <div class="myelin" style="left:28%;"></div><div class="node" style="left:calc(28% + 34px);"></div>
+          <div class="myelin" style="left:46%;"></div><div class="node" style="left:calc(46% + 34px);"></div>
+          <div class="myelin" style="left:64%;"></div><div class="node" style="left:calc(64% + 34px);"></div>
+          <div class="myelin" style="left:82%;"></div>
+          <div class="signal normal"></div>
+          <div class="cv-tag">CV ≈ 43 m/s  fast, even node spacing</div>
+        </div>
+      </div>
+      <div class="nerve-row">
+        <div class="nerve-label">This patient's CPN<small>Demyelination + axon loss  CV ≈ 30 m/s</small></div>
+        <div class="track">
+          <div class="axon-line"></div>
+          <div class="myelin thin" style="left:8%; width:44px;"></div><div class="node" style="left:calc(8% + 44px);"></div>
+          <div class="myelin thin" style="left:32%; width:50px;"></div><div class="node" style="left:calc(32% + 50px);"></div>
+          <div class="myelin thin" style="left:58%; width:42px;"></div><div class="node" style="left:calc(58% + 42px);"></div>
+          <div class="myelin thin" style="left:80%; width:46px;"></div>
+          <div class="signal affected"></div>
+          <div class="cv-tag">CV ≈ 30 m/s  thinner myelin, irregular spacing, slower jump</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">Animation for illustration: the dot's travel time across each track is scaled to the patient's own measured conduction velocities, not exact microphysiology.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>The back connection  one root, three complaints</h2>
+    <p>The referring history notes co-existing <b>low back pain</b> alongside the "? SPN" query. The electrodiagnostic pattern in §1.3  bilateral, axonal, motor-predominant, with a delayed proximal H-reflex arc  localises to the same anatomical neighbourhood that low back pain of a lumbosacral origin comes from. This section makes that link explicit, because a programme that treats "the foot" and "the back" as two separate problems will under-treat both.</p>
+
+    <div class="spine-wrap">
+      <svg class="spine-svg" width="230" height="430" viewBox="0 0 230 430" xmlns="http://www.w3.org/2000/svg">
+        <!-- spine -->
+        <rect x="105" y="10" width="20" height="14" rx="4" fill="#b9b3bd"/>
+        <g fill="#8b8590">
+          <rect x="103" y="28" width="24" height="15" rx="4"/>
+          <rect x="103" y="46" width="24" height="15" rx="4"/>
+          <rect x="103" y="64" width="24" height="15" rx="4"/>
+          <rect x="102" y="82" width="26" height="16" rx="4"/>
+          <rect x="101" y="101" width="28" height="17" rx="4"/>
+        </g>
+        <!-- lumbar L1-L3 -->
+        <g fill="#e2a9cb">
+          <rect x="100" y="121" width="30" height="18" rx="4"/>
+          <rect x="99" y="142" width="32" height="18" rx="4"/>
+        </g>
+        <!-- L4, L5, S1, S2 highlighted (affected zone) -->
+        <g>
+          <rect x="98" y="163" width="34" height="19" rx="4" fill="var(--pinkdark)"/>
+          <text x="136" y="177" font-size="10" fill="var(--pinkdark)" font-weight="700">L4</text>
+          <rect x="97" y="185" width="36" height="19" rx="4" fill="var(--pinkdark)"/>
+          <text x="137" y="199" font-size="10" fill="var(--pinkdark)" font-weight="700">L5</text>
+          <rect x="96" y="207" width="38" height="20" rx="5" fill="#c1395f"/>
+          <text x="137" y="221" font-size="10" fill="#c1395f" font-weight="700">S1</text>
+          <rect x="98" y="230" width="34" height="16" rx="4" fill="#c1395f" opacity=".75"/>
+          <text x="136" y="242" font-size="10" fill="#c1395f" font-weight="700">S2</text>
+        </g>
+        <!-- pain pulse marker at L4-S1 -->
+        <circle cx="96" cy="196" r="9" fill="none" stroke="#c1395f" stroke-width="2" class="pain-pulse"/>
+        <circle cx="96" cy="196" r="4" fill="#c1395f"/>
+
+        <!-- pelvis -->
+        <ellipse cx="115" cy="258" rx="46" ry="20" fill="#d9d2da"/>
+
+        <!-- nerve pathway: root -> sciatic -> tibial/peroneal split -> foot -->
+        <path id="nervepath" class="nerve-path" d="M118,200 C150,215 158,240 150,270 C140,305 135,345 132,375 C130,392 128,405 150,412"
+              fill="none" stroke="var(--amber)" stroke-width="3"/>
+        <path d="M150,270 C160,300 168,330 178,352 C185,368 182,382 172,392"
+              fill="none" stroke="#c1395f" stroke-width="3" stroke-dasharray="5 4"/>
+        <!-- leg outline -->
+        <line x1="120" y1="275" x2="112" y2="360" stroke="#b9b3bd" stroke-width="10" stroke-linecap="round"/>
+        <line x1="112" y1="360" x2="118" y2="405" stroke="#b9b3bd" stroke-width="9" stroke-linecap="round"/>
+        <line x1="150" y1="275" x2="170" y2="358" stroke="#b9b3bd" stroke-width="10" stroke-linecap="round"/>
+        <line x1="170" y1="358" x2="160" y2="405" stroke="#b9b3bd" stroke-width="9" stroke-linecap="round"/>
+        <!-- foot / fibular head marker -->
+        <circle cx="176" cy="356" r="5" fill="#c1395f"/>
+        <text x="184" y="360" font-size="9.5" fill="#c1395f">fibular head</text>
+        <line x1="160" y1="405" x2="184" y2="405" stroke="var(--good)" stroke-width="7" stroke-linecap="round"/>
+        <text x="150" y="424" font-size="9.5" fill="var(--muted)">EDB / foot dorsum</text>
+
+        <!-- travelling signal along nerve path -->
+        <circle r="6" fill="var(--amber)">
+          <animateMotion dur="3.6s" repeatCount="indefinite" path="M118,200 C150,215 158,240 150,270 C160,300 168,330 178,352 C185,368 182,382 172,392"/>
+        </circle>
+      </svg>
+      <div class="spine-legend">
+        <h4 style="margin-top:0;">Reading the diagram</h4>
+        <div class="row"><span class="dot" style="background:#c1395f;"></span><b>L4–S1 / S2</b>  the suspected root-level irritation zone. This is <i>both</i> the source of the back pain and the origin of the CPN's motor axons, which is why they show up together on the electrodiagnostic report.</div>
+        <div class="row"><span class="dot" style="background:var(--amber);"></span> Traveling dot  the nerve signal's path from the root, through the sciatic trunk, into the common peroneal division, around the <b>fibular head</b>, and down to the <b>EDB</b> on the foot  the exact pathway the NCS electrically tested.</div>
+        <div class="row"><span class="dot" style="background:var(--good);"></span> EDB / dorsiflexor territory  where the weakness and foot-drop tendency are ultimately felt, even though the lesion is presumed to sit far more proximally, at the spine.</div>
+        <p style="font-size:11.8px;color:var(--muted);margin-top:8px;">Schematic for patient/physiotherapist education  not an anatomically exact dermatome map.</p>
+      </div>
+    </div>
+
+    <div class="box-back">
+      <b>Why the back must be treated as part of this programme, not separately:</b> If only the ankle/foot is exercised, the lumbar segment that is generating both the root irritation and the back pain continues to be mechanically stressed by (a) the underlying disc/root pathology itself and (b) the compensatory gait and postural changes the foot drop produces (§2.2, step 8). Conversely, if only the back is treated, the peripheral consequences already established in the leg (contracture risk, disuse atrophy of the motor units that remain) continue unchecked. This is why §6 below opens every phase with a lumbar-spine component before progressing distally.
+    </div>
+
+    <div class="callout">
+      Expected clinical findings to confirm on physical exam before finalising loads: manual muscle testing of tibialis anterior, EDL, EDB, peroneus longus/brevis bilaterally; ankle dorsiflexion ROM; lumbar active ROM and pain pattern (flexion vs extension bias); straight-leg raise / slump test; dermatomal sensation L4–S1; presence/degree of foot drop during gait; Achilles length; ankle/knee reflexes.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Clinical translation  what this means functionally, and the compensation loop</h2>
+    <div class="gait-wrap">
+      <div class="gait-box">
+        <svg width="150" height="120" viewBox="0 0 150 120">
+          <line x1="75" y1="10" x2="75" y2="60" stroke="#5b6b76" stroke-width="6" stroke-linecap="round"/>
+          <line x1="75" y1="60" x2="70" y2="78" stroke="#5b6b76" stroke-width="6" stroke-linecap="round"/>
+          <g class="foot drop"><line x1="70" y1="78" x2="98" y2="78" stroke="var(--danger)" stroke-width="7" stroke-linecap="round"/></g>
+          <circle cx="75" cy="6" r="8" fill="#5b6b76"/>
+        </svg>
+        <div class="gait-cap"><b>Uncompensated swing phase</b><br>Weak tibialis anterior/EDL/EDB → toes drop → foot-slap / high-stepping (steppage) gait, tripping risk, and a compensatory hip-hike that loads the lumbar spine asymmetrically.</div>
+      </div>
+      <div class="gait-box">
+        <svg width="150" height="120" viewBox="0 0 150 120">
+          <line x1="75" y1="10" x2="75" y2="60" stroke="#5b6b76" stroke-width="6" stroke-linecap="round"/>
+          <line x1="75" y1="60" x2="70" y2="78" stroke="#5b6b76" stroke-width="6" stroke-linecap="round"/>
+          <g class="foot corrected"><line x1="70" y1="78" x2="98" y2="78" stroke="var(--good)" stroke-width="7" stroke-linecap="round"/></g>
+          <circle cx="75" cy="6" r="8" fill="#5b6b76"/>
+        </svg>
+        <div class="gait-cap"><b>NMES-timed / AFO-assisted swing</b><br>Dorsiflexion cued during swing → toe clearance restored → normalised step length, reduced fall risk, and a symmetrical pelvis that stops overloading the lumbar spine.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Programme architecture  four 6-week phases across 24 weeks</h2>
+    <p>Frequency: <b>3 supervised sessions/week + daily home programme</b> throughout. Formal re-screen (MMT, lumbar and ankle ROM, gait video) every 6 weeks at each phase boundary. Repeat NCS is requested at <b>week 12</b> (interim check) and <b>week 24</b> (programme-end objective comparison against §1.1 baselines).</p>
+    <div class="timeline">
+      <div class="tl-track"><div class="tl-fill"></div></div>
+      <div class="tl-phases">
+        <div><b>Phase 1</b><br>Weeks 1–6<br>Unload &amp; activate</div>
+        <div><b>Phase 2</b><br>Weeks 7–12<br>Strengthen &amp; stabilise</div>
+        <div><b>Phase 3</b><br>Weeks 13–18<br>Integrate &amp; reload</div>
+        <div><b>Phase 4</b><br>Weeks 19–24<br>Endure &amp; re-test</div>
+      </div>
+      <div class="tl-months"><span>Month 1</span><span>Month 2</span><span>Month 3</span><span>Month 4</span><span>Month 5</span><span>Month 6</span></div>
+    </div>
+
+    <h3>How to read each instruction below</h3>
+    <p style="font-size:13.3px;">Every instruction carries four boxes: <b style="color:#b5791a;">Why</b> (the physiological rationale, tied back to §2), <b style="color:var(--info);">How</b> (exact technique/dosage for the physiotherapist to execute), <b style="color:#8146ab;">Interpretation</b> (what a good response should look like at re-check, and what a poor response implies), and, where relevant, <b style="color:var(--pinkdark);">Back–leg–foot link</b> (how that specific exercise closes the loop described in §2.2/§3).</p>
+
+    <!-- ===================== PHASE 1 ===================== -->
+    <h3 style="margin-top:28px;">PHASE 1  Weeks 1–6: Protect the joint, unload the root, activate every surviving motor unit</h3>
+    <p><b>Goal:</b> settle root irritability and back pain, prevent ankle contracture and falls, and give every surviving CPN motor unit maximal activation input, without provoking either the spine or the peripheral nerve.</p>
+
+    <div class="instr">
+      <div class="head"><h4>5.1 Lumbar mechanical assessment &amp; directional-preference exercise</h4><span class="meta">Assess once; then 8–10 reps, hourly during flare, 4–6×/day baseline</span></div>
+      <div class="box-how"><b>How:</b> Perform a MacKenzie-style repeated-movement assessment (repeated lumbar extension in lying, then repeated flexion in sitting) to find whether symptoms <i>centralise</i> (move proximally, toward the spine) or <i>peripheralise</i> (move distally, toward the leg) with a given direction. Prescribe repeated low-load movement in whichever direction centralises symptoms; avoid the direction that peripheralises them.</div>
+      <div class="box-why"><b>Why:</b> Reducing mechanical loading in the direction that peripheralises symptoms lowers compressive/inflammatory stress on the same L4–S1 root that is producing the abnormal CPN motor conduction (§1.3, §2.2 step 1)  this is the single highest-yield early intervention because it addresses the presumed source, not just the downstream nerve.</div>
+      <div class="box-interp"><b>Interpretation:</b> Centralisation within the first 1–2 weeks predicts a good short-term prognosis and supports a purely mechanical (rather than purely inflammatory/structural) root irritation. If no centralisation occurs by week 3, or if leg symptoms/weakness worsen with any direction, flag to Dr. Satish for imaging review before progressing load.</div>
+      <div class="target">Targets: L4–S1 segment mechanics  the presumed common source of the back pain and the CPN pattern</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.2 Ankle-Foot Orthosis (AFO) fitting  worn during all ambulation</h4><span class="meta">Daily, all day</span></div>
+      <div class="box-how"><b>How:</b> Fit a light, hinged or posterior-leaf-spring AFO bilaterally, holding the ankle at neutral (0° dorsiflexion) during gait.</div>
+      <div class="box-why"><b>Why:</b> With CMAP amplitudes of only 0.63 mV (L) / 0.26 mV (R) versus a healthy &gt;2 mV, voluntary dorsiflexion force is markedly reduced. An AFO mechanically substitutes for the lost force during swing phase, preventing foot-slap/trip/fall risk (§4), and prevents the ankle resting in plantarflexion between sessions  directly countering §2.2 step 6 (Achilles contracture).</div>
+      <div class="box-interp"><b>Interpretation:</b> Success = no foot-slap or trips reported at week-6 review, and no loss of passive dorsiflexion ROM compared with baseline. Skin breakdown or a widening base of gait despite the AFO suggests the device needs re-fitting or that weakness has progressed  escalate.</div>
+      <div class="target">Targets: functional compensation for CPN motor deficit; Achilles length preservation</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.3 Neuromuscular Electrical Stimulation (NMES) to tibialis anterior / peroneus longus</h4><span class="meta">15–20 min, 5×/week</span></div>
+      <div class="box-how"><b>How:</b> Surface electrodes over the tibialis anterior motor point; pulsed biphasic current, 35–50 Hz, pulse width 250–350 µs, on:off ratio 1:3 to 1:2, intensity to visible/palpable contraction (not maximal tolerable pain), 10–15 contractions/session, ramping intensity weekly as tolerated.</div>
+      <div class="box-why"><b>Why (with the governing equation):</b> The current needed to depolarise a motor axon to threshold follows the Weiss–Lapicque strength–duration relationship:
+        <div class="eq">I(t) = I_rh · (1 + τ_c / t)</div>
+        where I_rh is rheobase and τ_c is chronaxie. Larger, healthier motor axons have shorter chronaxie, so NMES preferentially recruits the motor units that remain most excitable  exactly the population most likely to be re-innervating or spared. Repeated activation reduces disuse atrophy while the nerve itself is not yet contributing enough voluntary drive, and the paired sensory afferent volley re-enters the spinal cord, supporting central (spinal/cortical) re-mapping.</div>
+      <div class="box-interp"><b>Interpretation:</b> A rising palpable/visible contraction strength week-on-week at a stable stimulus intensity is a good early sign of motor unit recruitment. A contraction that stays flat or requires ever-higher intensity to achieve the same twitch by week 6 should be cross-checked against the week-12 interim NCS.</div>
+      <div class="target">Targets: tibialis anterior / EDL motor units (CPN distribution)</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.4 Neurodynamic ("nerve gliding") mobilisation  peroneal &amp; sciatic tract</h4><span class="meta">2 sets × 10 gentle oscillations, 4–5×/week</span></div>
+      <div class="box-how"><b>How:</b> Slump-sit or supine straight-leg-raise base position; alternate ankle dorsiflexion/inversion with knee extension in a slow "sliding" (not tensioning) technique  never into pain, never held static at end-range in Phase 1.</div>
+      <div class="box-why"><b>Why:</b> Given the bilateral, root-level pattern (§1.3), the presumed site of irritation is proximal (near the L4–S1 exit or along the peroneal division of the sciatic trunk, see the pathway in §3). Gentle nerve sliding improves intraneural/perineural blood flow and reduces adhesions/mechanical tethering without adding tensile load to a nerve that is already electrically compromised  supporting remyelination (§2.2 step 2) rather than provoking further injury.</div>
+      <div class="box-interp"><b>Interpretation:</b> Symptoms should not travel further down the leg during or after the glide. If tingling/pain spreads distally (peripheralises), the technique is too aggressive  reduce range and revisit weekly.</div>
+      <div class="target">Targets: mechanical interface of the L4–S1 roots / common peroneal nerve  the pathway diagrammed in §3</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.5 Sustained gastrocnemius–soleus (Achilles) stretch</h4><span class="meta">3 × 30–45 sec each side, daily; + night resting splint if tolerated</span></div>
+      <div class="box-how"><b>How:</b> Standing wall calf stretch, knee straight (gastrocnemius) then knee bent (soleus); or seated towel-assisted stretch if standing balance is unsafe.</div>
+      <div class="box-why"><b>Why:</b> The tibial nerve and its plantarflexors are electrically normal and therefore unopposed. Stretching maintains the muscle–tendon unit at functional length  because the H-reflex data (§2.2 step 7) shows the tibial/S1 arc is intact, this protects healthy tissue from being shortened by a weak antagonist, not treating a nerve problem here.</div>
+      <div class="box-interp"><b>Interpretation:</b> Passive dorsiflexion ROM should stay within 5° of baseline throughout. Progressive loss of ROM despite compliant stretching signals the need for serial night splinting rather than more stretching alone.</div>
+      <div class="target">Targets: gastrocnemius–soleus–Achilles complex (tibial nerve territory, intentionally spared)</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.6 Isometric &amp; assisted-active dorsiflexion / toe extension</h4><span class="meta">3 × 10 reps, 5×/week, both ankles</span></div>
+      <div class="box-how"><b>How:</b> Seated, therapist or elastic band assists the ankle into dorsiflexion while the patient attempts to hold/initiate the movement actively; progress from fully-assisted to minimally-assisted as strength returns.</div>
+      <div class="box-why"><b>Why:</b> This directly drives voluntary recruitment of the surviving CPN motor units, per Henneman's Size Principle (animated in §6)  low-threshold units fire first at low effort, so early-phase work at low resistance is the correct way to begin re-education without fatiguing an already-reduced motor pool.</div>
+      <div class="box-interp"><b>Interpretation:</b> Any measurable active dorsiflexion excursion that was previously trace/absent is clinically meaningful, even if force is still low  record it on the MMT grade scale at every session.</div>
+      <div class="target">Targets: tibialis anterior, EDL, EDB  voluntary drive</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.7 Deep core &amp; lumbar segmental control (TrA / multifidus bracing)</h4><span class="meta">3 × 10 × 6-sec holds, daily; progress to bird-dog by week 4</span></div>
+      <div class="box-how"><b>How:</b> Hook-lying, teach a gentle abdominal-hollowing ("draw the navel in") co-contraction with the pelvic floor and transversus abdominis while breathing normally; progress to supported bird-dog (opposite arm/leg lift) once the brace can be held without back pain.</div>
+      <div class="box-why"><b>Why:</b> Deep segmental muscles (TrA, multifidus) provide intersegmental stiffness that reduces shear load at the irritated L4–S1 segment during every subsequent leg exercise in this programme. Without this foundation, every later strengthening or gait drill risks re-loading the same root that is already compromised.</div>
+      <div class="box-interp"><b>Interpretation:</b> Ability to hold a 10-second brace with normal breathing and no back pain by week 4 is the minimum criterion to progress into Phase 2 loaded exercise.</div>
+      <div class="box-back"><b>Back–leg–foot link:</b> This is the anchor exercise of the whole programme  every leg-strengthening and gait drill from Phase 2 onward assumes this brace is available as a background stabiliser, which is precisely how §2.2 step 8's compensation loop gets broken rather than perpetuated.</div>
+      <div class="target">Targets: lumbar segmental stability, protecting the L4–S1 root during all leg work</div>
+    </div>
+
+    <!-- ===================== PHASE 2 ===================== -->
+    <h3 style="margin-top:28px;">PHASE 2  Weeks 7–12: Progressive strengthening, lumbar stabilisation, and load re-introduction</h3>
+    <p><b>Goal:</b> convert activated motor units into functional strength, progress core stability into dynamic control, and begin light nerve tensioning once symptoms have settled.</p>
+
+    <div class="instr">
+      <div class="head"><h4>5.8 Progressive resisted dorsiflexion (elastic band / ankle weight)</h4><span class="meta">3 × 12–15 reps, 4×/week; progress load every 2 weeks if MMT improves ≥ 1 grade</span></div>
+      <div class="box-how"><b>How:</b> Seated or long-sitting, resistance band looped over forefoot anchored distally; pull ankle into dorsiflexion against resistance through full available range, controlled 2-sec concentric / 3-sec eccentric tempo.</div>
+      <div class="box-why"><b>Why:</b> As motor unit pool size (CMAP amplitude) increases through reinnervation/hypertrophy, higher loads now recruit progressively larger, higher-threshold units (Size Principle again, see the recruitment animation below)  this is how strength training converts "activation" into functional torque.</div>
+      <div class="recruit-wrap">
+        <div class="mu mu1"></div><div class="mu mu2"></div><div class="mu mu3"></div><div class="mu mu4"></div><div class="mu mu5"></div>
+      </div>
+      <div class="recruit-cap">Henneman's Size Principle: small, fatigue-resistant motor units (left) fire first at low effort; larger, higher-force units (right) join in only as load/effort rises  this is why Phase 1 used low resistance and Phase 2 progressively increases it.</div>
+      <div class="box-interp"><b>Interpretation:</b> An MMT grade improvement of ≥1 by week 12 in either dorsiflexor group is the pre-agreed threshold to continue progressive loading unchanged. Failure to reach this threshold is an escalation trigger (§7).</div>
+      <div class="target">Targets: tibialis anterior / EDL  force generation</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.9 Functional Electrical Stimulation (FES) during treadmill/overground gait</h4><span class="meta">10–15 min/session, 3×/week</span></div>
+      <div class="box-how"><b>How:</b> Foot-switch or tilt-sensor-triggered FES unit stimulates dorsiflexors precisely during the swing phase of gait, replacing the static AFO for supervised sessions once tolerated.</div>
+      <div class="box-why"><b>Why:</b> Timed, task-specific stimulation reinforces the correct temporal pattern of muscle activation for gait  a form of motor learning/re-patterning a static brace cannot provide  while exercising the exact functionally deficient movement (swing-phase dorsiflexion).</div>
+      <div class="box-interp"><b>Interpretation:</b> Progressive reduction in the FES trigger threshold needed to produce a visible step improvement suggests increasing voluntary contribution; if FES-assisted gait shows no change in step symmetry by week 12, review AFO fit and re-screen MMT before continuing unchanged.</div>
+      <div class="target">Targets: temporal motor control, CPN-innervated dorsiflexors</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.10 Single-leg balance &amp; proprioceptive training</h4><span class="meta">3 × 30–60 sec holds per leg, progressing surface difficulty, 4×/week</span></div>
+      <div class="box-how"><b>How:</b> Progress: double-leg stance eyes open → eyes closed → single-leg stance → foam/wobble board, always with stable support nearby.</div>
+      <div class="box-why"><b>Why:</b> With CPN motor units reduced, ankle proprioceptive/stabilising strategy is compromised distally; balance training drives central compensation (hip strategy, visual/vestibular input) to reduce fall risk while distal recovery is still in progress.</div>
+      <div class="box-interp"><b>Interpretation:</b> Increasing single-leg stance time on a firm surface by ≥50% from week 7 to week 12 indicates good central compensation is being built; no progress suggests balance work should be supervised more closely and surface difficulty regressed.</div>
+      <div class="target">Targets: fall-risk reduction, central postural compensation</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.11 Continue neurodynamic glides  progress to gentle tensioning</h4><span class="meta">2–3 sets × 10, 4×/week</span></div>
+      <div class="box-how"><b>How:</b> Once symptoms/irritability have settled (no worsening of paraesthesia or pain from Phase 1), introduce light tensioning (holding brief end-range positions for 2–3 sec) rather than pure sliding, following standard neurodynamic progression principles.</div>
+      <div class="box-why"><b>Why:</b> Light tensioning further improves neural mobility at the presumed root/nerve interface once the tissue is less irritable, building on the sliding work of Phase 1.</div>
+      <div class="box-interp"><b>Interpretation:</b> No increase in back or leg symptoms 24 hours after introducing tension confirms readiness; any flare means reverting to sliding-only technique for another 2 weeks before re-attempting.</div>
+      <div class="target">Targets: L4–S1 root / CPN mechanical interface</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.12 Dynamic lumbar-pelvic stabilisation progression</h4><span class="meta">3 × 10–12 reps each drill, 4×/week</span></div>
+      <div class="box-how"><b>How:</b> Progress from Phase-1 bird-dog into glute bridges (double- then single-leg), side-plank holds (regressed to knees if needed), and dead-bug pattern, all performed with the brace from 5.7 maintained throughout.</div>
+      <div class="box-why"><b>Why:</b> Bridging and side-plank work specifically recruit gluteus medius/maximus and the lateral trunk, which share load with the lumbar spine during single-leg stance and gait  directly reducing the compensatory hip-hike/circumduction pattern identified in §4 that would otherwise keep overloading the L4–S1 segment.</div>
+      <div class="box-interp"><b>Interpretation:</b> Ability to hold a single-leg bridge for 20 seconds without pelvic drop or back pain by week 12 indicates the hip/trunk is now sharing load appropriately; persistent pelvic drop (a positive Trendelenburg pattern) should be specifically re-targeted before progressing to Phase 3 gait retraining.</div>
+      <div class="box-back"><b>Back–leg–foot link:</b> This is the direct bridge (literally and functionally) between the core work of Phase 1 and the gait retraining of Phase 3  it teaches the hip and trunk to compensate for ankle weakness in a controlled, low lumbar-load way, rather than the spine absorbing that compensation by default.</div>
+      <div class="target">Targets: gluteal/lateral trunk load-sharing, lumbar protection during gait</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.13 Week-12 interim re-assessment</h4><span class="meta">End of Phase 2</span></div>
+      <p>Repeat: MMT (tibialis anterior, EDL, EDB, peroneals), ankle ROM, lumbar ROM/pain pattern, functional gait assessment, and request an <b>interim CPN motor NCS</b> from the referring neurologist.</p>
+      <div class="box-interp"><b>Interpretation:</b> Given the regeneration math in §2.4, week 12 is too early to expect the CPN CMAP amplitude to have normalised, but a small, real rise (e.g. left CPN ankle amplitude moving from 0.63 mV toward 0.9–1.2 mV) is a meaningful positive signal that reinnervation is underway and the programme should continue unchanged into Phase 3. A flat or falling amplitude at week 12 is the trigger to loop back to Dr. Satish/Dr. Santosh for consideration of lumbosacral MRI before continuing.</div>
+    </div>
+
+    <!-- ===================== PHASE 3 ===================== -->
+    <h3 style="margin-top:28px;">PHASE 3  Weeks 13–18: Functional integration, gait retraining with lumbo-pelvic control</h3>
+    <p><b>Goal:</b> re-integrate strength and stability gains into complex, real-world gait and functional tasks, while continuing to protect the lumbar segment.</p>
+
+    <div class="instr">
+      <div class="head"><h4>5.14 Task-specific gait retraining (uneven surfaces, stairs, dual-task)</h4><span class="meta">15–20 min, 3×/week</span></div>
+      <div class="box-how"><b>How:</b> Progress from level indoor walking to uneven outdoor surfaces, stair ascent/descent with rail support, and dual-task walking (e.g. carrying an object, counting backwards) to stress-test automaticity.</div>
+      <div class="box-why"><b>Why:</b> Strength and isolated motor control (Phases 1–2) must be re-integrated into complex, real-world gait demands to transfer clinic gains into safe community ambulation, and to confirm the lumbo-pelvic control built in 5.12 holds up under distraction and terrain challenge.</div>
+      <div class="box-interp"><b>Interpretation:</b> Maintained step symmetry and no reported back pain flare during dual-task walking by week 18 indicates the compensation strategy is now automatic and protective, not effortful and provocative.</div>
+      <div class="target">Targets: functional carry-over, fall-risk in daily life</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.15 Functional lifting mechanics &amp; hip-hinge training</h4><span class="meta">3 × 8–10 reps, 3×/week, bodyweight then light load</span></div>
+      <div class="box-how"><b>How:</b> Teach the hip-hinge pattern (bending at the hips with a neutral spine, not the lumbar spine) for all functional bending/lifting tasks the patient performs daily (e.g. picking up items, gardening, kitchen work); progress from bodyweight to a light kettlebell/basket once the pattern is consistent.</div>
+      <div class="box-why"><b>Why:</b> Daily bending is a major, repeated source of lumbar loading. Converting the movement strategy from a lumbar-flexion-dominant pattern to a hip-dominant pattern removes a large, avoidable contributor to ongoing root irritation  directly addressing the back-pain component of the presenting complaint, not just the leg.</div>
+      <div class="box-interp"><b>Interpretation:</b> Patient demonstrating the hinge pattern automatically (without cueing) during a simulated daily task by week 18 is the target; persistent lumbar-flexion-dominant lifting despite cueing should prompt a home/workplace ergonomic review.</div>
+      <div class="target">Targets: reducing repetitive lumbar flexion load in daily activity</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.16 Advanced neurodynamic &amp; combined-movement testing</h4><span class="meta">2 sets × 10, 3×/week</span></div>
+      <div class="box-how"><b>How:</b> Progress neurodynamic sequences to combined movements (e.g. slump + cervical flexion + ankle dorsiflexion) if tolerated, matching the patient's functional postures (sitting to standing, stair climbing).</div>
+      <div class="box-why"><b>Why:</b> By this stage, tissue irritability should be low enough to test the nerve's mobility in the actual postures that provoke symptoms in daily life, giving a more functionally relevant readout than isolated straight-leg-raise testing alone.</div>
+      <div class="box-interp"><b>Interpretation:</b> A negative (symptom-free) combined slump test by week 18 is a good prognostic sign for continued root recovery; a still-positive test at this stage should be reported at the week-24 review alongside the repeat NCS.</div>
+      <div class="target">Targets: functional neural mobility across the L4–S1/CPN pathway</div>
+    </div>
+
+    <!-- ===================== PHASE 4 ===================== -->
+    <h3 style="margin-top:28px;">PHASE 4  Weeks 19–24: Endurance, full functional return, and final objective re-assessment</h3>
+    <p><b>Goal:</b> build fatigue resistance in the newly-recruited motor pool, confirm safe independence from compensatory devices where earned, and objectively re-measure nerve status against the original baseline.</p>
+
+    <div class="instr">
+      <div class="head"><h4>5.17 Endurance dosing  repeated sit-to-stand, stair ascent/descent, treadmill</h4><span class="meta">3 × 10–15 reps or 10–15 min continuous, 3×/week</span></div>
+      <div class="box-how"><b>How:</b> Progress duration/repetitions weekly as tolerated; monitor for compensatory pattern breakdown (foot-slap returning, hip-hike returning, back pain onset) as the fatigue signal to stop that session's set.</div>
+      <div class="box-why"><b>Why:</b> Motor unit re-innervation increases the number of available units, but each may still fatigue faster than normal; endurance dosing specifically trains fatigue resistance of the newly-recruited pool rather than just peak force.</div>
+      <div class="box-interp"><b>Interpretation:</b> Ability to sustain 15 minutes of continuous gait without compensatory pattern breakdown by week 24 is the functional endurance target.</div>
+      <div class="target">Targets: fatigue resistance of CPN-innervated muscles</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.18 Wean AFO for indoor/level surfaces only if MMT ≥ 4/5 and no foot-slap observed</h4><span class="meta">Reassess weekly</span></div>
+      <div class="box-why"><b>Why:</b> Bracing should be removed only when voluntary dorsiflexor force is objectively sufficient to clear the foot in swing without compensatory hip-hiking or circumduction  removing it earlier risks falls and a return of the lumbar-loading compensation loop (§2.2 step 8); keeping it indefinitely once strength returns risks unnecessary disuse.</div>
+      <div class="box-interp"><b>Interpretation:</b> A successful indoor wean with no gait deviation on video analysis is the criterion to progress to outdoor/uneven-surface weaning; any deviation means continuing the AFO for those surfaces regardless of MMT grade.</div>
+      <div class="target">Targets: safe transition from compensation to true recovery</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.19 Advanced balance, agility &amp; return-to-activity retraining</h4><span class="meta">15–20 min, 3×/week</span></div>
+      <div class="box-how"><b>How:</b> Introduce direction changes, step-overs, uneven terrain walks, and any specific activities the patient wants to return to (household, social, occupational), matched to her actual daily demands.</div>
+      <div class="box-why"><b>Why:</b> Return-to-function is the true endpoint of rehabilitation  clinic-based strength and balance gains must be proven under the specific demands the patient will face after discharge from supervised sessions.</div>
+      <div class="box-interp"><b>Interpretation:</b> Independent, confident performance of the patient's own priority activities by week 24 is the functional discharge criterion, alongside the objective NCS comparison below.</div>
+      <div class="target">Targets: patient-specific functional goals</div>
+    </div>
+
+    <div class="instr">
+      <div class="head"><h4>5.20 Week-24 final re-assessment</h4><span class="meta">End of 6-month programme</span></div>
+      <p>Repeat: MMT (tibialis anterior, EDL, EDB, peroneals), ankle ROM, lumbar ROM/pain pattern, combined neurodynamic testing, functional gait assessment, and request a <b>repeat CPN motor NCS and H-reflex</b> from the referring neurologist for objective comparison against the week-0 baselines in §1.1 and the week-12 interim study.</p>
+      <div class="box-interp"><b>Interpretation:</b> Given the §2.4 regeneration math (≈8–25 months for full-distance reinnervation from a root-level lesion), a realistic "good outcome" at 6 months is: (a) clear, measurable CMAP amplitude improvement even if not yet normalised, (b) MMT improved by ≥1–2 grades in both dorsiflexor groups, (c) resolved or substantially improved back pain with a negative/near-negative neurodynamic test, and (d) safe, AFO-free indoor ambulation. Meeting most but not all of these criteria supports moving into the extended maintenance phase (§8) rather than either premature discharge or escalation. Meeting none of them, or any objective worsening on NCS, is the trigger for lumbosacral spine imaging and neurosurgical/spine-specialist referral.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>Precautions &amp; escalation criteria</h2>
+    <ul class="tight">
+      <li><b>Red flags  stop and refer back immediately</b> if new/worsening saddle numbness, bladder/bowel symptoms, or rapidly progressive bilateral leg weakness appear at any point (cauda equina screen)  this must be actively screened at every visit given the root-level, bilateral pattern and the co-existing back pain.</li>
+      <li>Do not push neurodynamic techniques into reproduction of radicular pain, tingling, or numbness  glide, don't tension, until irritability settles (Phase 1 rule; re-apply if any flare recurs in later phases).</li>
+      <li>Do not progress lumbar loading (5.12, 5.15) if directional-preference testing (5.1) has not yet identified a clear centralising direction.</li>
+      <li>Monitor skin under the AFO weekly for pressure areas.</li>
+      <li>If MMT does not improve by at least one grade in dorsiflexors by week 12, flag to the referring neurologist  this may indicate the axonal component is more severe than the amplitude data alone suggested, or that a structural (disc/root compression) cause needs imaging.</li>
+      <li>Falls-risk precautions (supervised gait, appropriate footwear, clear walking surfaces) apply for the entire 24 weeks given bilateral involvement.</li>
+      <li>Any objective worsening (falling CMAP amplitude, slowing CV, or new denervation potentials) on the week-12 or week-24 repeat NCS overrides the phase-based progression above  pause loading progression and refer back immediately.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">7</span>If 6 months is not enough  extending into a 12-month maintenance/advanced phase</h2>
+    <p>Because a root-level lesion can plausibly take up to ~25 months to fully reinnervate the distal foot muscles (§2.4), it is entirely realistic that week-24 re-testing shows real but incomplete recovery. Rather than treating 24 weeks as a hard stop, this document recommends the following extension logic:</p>
+    <div class="grid2">
+      <div class="callout"><b>Months 7–9 (Weeks 25–36):</b> Continue Phase-4-level strengthening/endurance/gait work at a reduced supervised frequency (1–2×/week) with a fuller home programme; repeat NCS at month 9 if amplitude was still rising at month 6.</div>
+      <div class="callout"><b>Months 10–12 (Weeks 37–52):</b> Maintenance dosing (2–3×/week home programme, monthly clinical review), progressing toward full AFO independence and unrestricted activity if trends remain positive; final NCS and MMT comparison at month 12 to close the loop against the original §1.1 baseline.</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">This extension pathway is offered as a planning framework; the treating physiotherapist and referring physicians should confirm the need for it based on the actual week-12 and week-24 findings rather than adopting it by default.</p>
+  </section>
+
+  <div class="disclaimer">
+    <b>Clinical disclaimer:</b> This document translates the numeric findings of the supplied NCS/F-wave/H-reflex report  together with the referring history of co-existing low back pain  into physiological reasoning and a structured 6-month physiotherapy framework for education and planning purposes. It is not a substitute for a hands-on physical/neurological/spinal examination, and every load, technique, and progression above must be verified and individualised by the treating physiotherapist in direct consultation with the referring physician (Dr. Satish) and reporting neurologist (Dr. H. Santosh) before implementation. Manual muscle testing, lumbar and ankle range of motion, neurodynamic testing, gait analysis, and a full lumbosacral clinical screen were not available in the source report and must be performed prior to starting Phase 1. The regeneration-distance calculation in §2.4 is illustrative (based on population-level nerve regrowth rates) and not a guarantee of this patient's individual recovery timeline.
+  </div>
+
+  <footer></footer>
+</div>
+</body>
+</html>
