@@ -73,11 +73,49 @@
   .chip.amber{background:#c07a1e;}
   .chip.navy{background:var(--black);}
   ol.steps li, ul.tight li{margin-bottom:6px;}
-  .instr{border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:12px 0; background:#fdfbfc;}
+  .instr{
+    border:1px solid var(--line); border-left:3px solid transparent; border-radius:10px; padding:14px 16px; margin:12px 0;
+    background:#fdfbfc; position:relative; overflow:hidden;
+    opacity:0; transform:translateY(14px);
+    animation:instrIn .6s cubic-bezier(.2,.7,.3,1) forwards;
+    transition:box-shadow .3s ease, transform .3s ease, border-left-color .3s ease, background .3s ease;
+  }
+  .instr:hover{
+    box-shadow:0 8px 22px -10px rgba(217,86,155,.35);
+    transform:translateY(-3px);
+    border-left-color:var(--pinkdark);
+    background:#ffffff;
+  }
+  .instr::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:linear-gradient(180deg,var(--yellow),var(--pink)); opacity:0; transition:opacity .3s ease;
+  }
+  .instr:hover::before{opacity:1;}
+  @keyframes instrIn{ to{opacity:1; transform:translateY(0);} }
+  /* stagger entrance within each phase block */
+  .instr:nth-of-type(6n+1){animation-delay:.02s;}
+  .instr:nth-of-type(6n+2){animation-delay:.08s;}
+  .instr:nth-of-type(6n+3){animation-delay:.14s;}
+  .instr:nth-of-type(6n+4){animation-delay:.2s;}
+  .instr:nth-of-type(6n+5){animation-delay:.26s;}
+  .instr:nth-of-type(6n+6){animation-delay:.32s;}
   .instr .head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;}
-  .instr .head h4{margin:0; font-size:14.3px;}
+  .instr .head h4{margin:0; font-size:14.3px; transition:color .25s ease;}
+  .instr:hover .head h4{color:var(--pinkdark);}
   .instr .meta{font-size:11.8px; color:var(--muted);}
-  .target{display:inline-block; font-size:11.3px; background:#f3e8ef; color:var(--pinkdark); border-radius:6px; padding:2px 8px; margin-top:4px;}
+  .target{
+    display:inline-block; font-size:11.3px; background:#f3e8ef; color:var(--pinkdark); border-radius:6px;
+    padding:2px 8px; margin-top:4px; transition:background .25s ease, color .25s ease, transform .25s ease;
+  }
+  .instr:hover .target{background:linear-gradient(90deg,var(--yellow),var(--pink)); color:#241a20; transform:translateX(2px);}
+
+  /* phase section headers get an animated underline sweep */
+  h3{position:relative;}
+  h3::after{
+    content:""; position:absolute; left:0; bottom:-4px; height:2px; width:0;
+    background:linear-gradient(90deg,var(--yellow),var(--pink)); transition:width .5s ease;
+  }
+  section:hover h3::after{width:64px;}
 
   /* ---------- Animation 1: saltatory conduction comparison ---------- */
   .conduction-demo{display:flex; flex-direction:column; gap:18px; margin:16px 0;}
@@ -247,7 +285,7 @@
     <div class="eq">Regeneration rate ≈ 1–3 mm/day (the classical "~1 mm/day" Sunderland estimate)</div>
     <p>This patient's suspected lesion sits at the <b>lumbosacral root</b>, and the target muscle (EDB, on the dorsum of the foot) is roughly <b>700–850 mm</b> away along the nerve's course (root → lumbosacral plexus → sciatic → common peroneal → deep peroneal → EDB). Applying the regeneration equation:</p>
     <div class="eq">Time to reinnervate ≈ Distance / Rate = 750 mm / (1 to 3 mm/day) ≈ 250 to 750 days  (≈ 8 to 25 months)</div>
-    <p>Even at the <b>fastest</b> plausible biological rate, meaningful reinnervation of the distal foot muscles takes <b>roughly 8 months</b>  which is precisely why a 12-week programme could only ever address symptoms and compensation, never the nerve itself. A <b>6-month (24-week)</b> programme is the minimum realistic window to (a) see early objective change in CMAP amplitude/CV on a mid-programme NCS, and (b) convert whatever reinnervation has occurred into usable strength. If week-24 re-testing shows only partial change, this document explicitly recommends continuing into a 7th–12th month maintenance/advanced phase (§8) rather than discharging the patient.</p>
+    <p>Even at the <b>fastest</b> plausible biological rate, meaningful reinnervation of the distal foot muscles takes <b>roughly 8 months</b>  which is precisely why a 12-week programme could only ever address symptoms and compensation, never the nerve itself. A <b>6-month (24-week)</b> programme is the minimum realistic window to (a) see early objective change in CMAP amplitude/CV on a mid-programme NCS, and (b) convert whatever reinnervation has occurred into usable strength. If week-24 re-testing shows only partial change, this document explicitly recommends continuing into a 7th–12th month maintenance/advanced phase (§6) rather than discharging the patient.</p>
 
     <h3>2.5 Saltatory conduction  visualised (normal vs. this patient's CPN)</h3>
     <div class="conduction-demo">
@@ -473,7 +511,7 @@
         <div class="mu mu1"></div><div class="mu mu2"></div><div class="mu mu3"></div><div class="mu mu4"></div><div class="mu mu5"></div>
       </div>
       <div class="recruit-cap">Henneman's Size Principle: small, fatigue-resistant motor units (left) fire first at low effort; larger, higher-force units (right) join in only as load/effort rises  this is why Phase 1 used low resistance and Phase 2 progressively increases it.</div>
-      <div class="box-interp"><b>Interpretation:</b> An MMT grade improvement of ≥1 by week 12 in either dorsiflexor group is the pre-agreed threshold to continue progressive loading unchanged. Failure to reach this threshold is an escalation trigger (§7).</div>
+      <div class="box-interp"><b>Interpretation:</b> An MMT grade improvement of ≥1 by week 12 in either dorsiflexor group is the pre-agreed threshold to continue progressive loading unchanged. Failure to reach this threshold is an escalation trigger  flag to the referring neurologist.</div>
       <div class="target">Targets: tibialis anterior / EDL  force generation</div>
     </div>
 
@@ -513,7 +551,7 @@
     <div class="instr">
       <div class="head"><h4>5.13 Week-12 interim re-assessment</h4><span class="meta">End of Phase 2</span></div>
       <p>Repeat: MMT (tibialis anterior, EDL, EDB, peroneals), ankle ROM, lumbar ROM/pain pattern, functional gait assessment, and request an <b>interim CPN motor NCS</b> from the referring neurologist.</p>
-      <div class="box-interp"><b>Interpretation:</b> Given the regeneration math in §2.4, week 12 is too early to expect the CPN CMAP amplitude to have normalised, but a small, real rise (e.g. left CPN ankle amplitude moving from 0.63 mV toward 0.9–1.2 mV) is a meaningful positive signal that reinnervation is underway and the programme should continue unchanged into Phase 3. A flat or falling amplitude at week 12 is the trigger to loop back to Dr. Satish/Dr. Santosh for consideration of lumbosacral MRI before continuing.</div>
+      <div class="box-interp"><b>Interpretation:</b> Given the regeneration math in §2.4, week 12 is too early to expect the CPN CMAP amplitude to have normalised, but a small, real rise (e.g. left CPN ankle amplitude moving from 0.63 mV toward 0.9–1.2 mV) is a meaningful positive signal that reinnervation is underway and the programme should continue unchanged into Phase 3.</div>
     </div>
 
     <!-- ===================== PHASE 3 ===================== -->
@@ -571,28 +609,10 @@
       <div class="target">Targets: patient-specific functional goals</div>
     </div>
 
-    <div class="instr">
-      <div class="head"><h4>5.20 Week-24 final re-assessment</h4><span class="meta">End of 6-month programme</span></div>
-      <p>Repeat: MMT (tibialis anterior, EDL, EDB, peroneals), ankle ROM, lumbar ROM/pain pattern, combined neurodynamic testing, functional gait assessment, and request a <b>repeat CPN motor NCS and H-reflex</b> from the referring neurologist for objective comparison against the week-0 baselines in §1.1 and the week-12 interim study.</p>
-      <div class="box-interp"><b>Interpretation:</b> Given the §2.4 regeneration math (≈8–25 months for full-distance reinnervation from a root-level lesion), a realistic "good outcome" at 6 months is: (a) clear, measurable CMAP amplitude improvement even if not yet normalised, (b) MMT improved by ≥1–2 grades in both dorsiflexor groups, (c) resolved or substantially improved back pain with a negative/near-negative neurodynamic test, and (d) safe, AFO-free indoor ambulation. Meeting most but not all of these criteria supports moving into the extended maintenance phase (§8) rather than either premature discharge or escalation. Meeting none of them, or any objective worsening on NCS, is the trigger for lumbosacral spine imaging and neurosurgical/spine-specialist referral.</div>
-    </div>
   </section>
 
   <section>
-    <h2><span class="n">6</span>Precautions &amp; escalation criteria</h2>
-    <ul class="tight">
-      <li><b>Red flags  stop and refer back immediately</b> if new/worsening saddle numbness, bladder/bowel symptoms, or rapidly progressive bilateral leg weakness appear at any point (cauda equina screen)  this must be actively screened at every visit given the root-level, bilateral pattern and the co-existing back pain.</li>
-      <li>Do not push neurodynamic techniques into reproduction of radicular pain, tingling, or numbness  glide, don't tension, until irritability settles (Phase 1 rule; re-apply if any flare recurs in later phases).</li>
-      <li>Do not progress lumbar loading (5.12, 5.15) if directional-preference testing (5.1) has not yet identified a clear centralising direction.</li>
-      <li>Monitor skin under the AFO weekly for pressure areas.</li>
-      <li>If MMT does not improve by at least one grade in dorsiflexors by week 12, flag to the referring neurologist  this may indicate the axonal component is more severe than the amplitude data alone suggested, or that a structural (disc/root compression) cause needs imaging.</li>
-      <li>Falls-risk precautions (supervised gait, appropriate footwear, clear walking surfaces) apply for the entire 24 weeks given bilateral involvement.</li>
-      <li>Any objective worsening (falling CMAP amplitude, slowing CV, or new denervation potentials) on the week-12 or week-24 repeat NCS overrides the phase-based progression above  pause loading progression and refer back immediately.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2><span class="n">7</span>If 6 months is not enough  extending into a 12-month maintenance/advanced phase</h2>
+    <h2><span class="n">6</span>If 6 months is not enough  extending into a 12-month maintenance/advanced phase</h2>
     <p>Because a root-level lesion can plausibly take up to ~25 months to fully reinnervate the distal foot muscles (§2.4), it is entirely realistic that week-24 re-testing shows real but incomplete recovery. Rather than treating 24 weeks as a hard stop, this document recommends the following extension logic:</p>
     <div class="grid2">
       <div class="callout"><b>Months 7–9 (Weeks 25–36):</b> Continue Phase-4-level strengthening/endurance/gait work at a reduced supervised frequency (1–2×/week) with a fuller home programme; repeat NCS at month 9 if amplitude was still rising at month 6.</div>
@@ -600,10 +620,6 @@
     </div>
     <p style="font-size:13px;color:var(--muted)">This extension pathway is offered as a planning framework; the treating physiotherapist and referring physicians should confirm the need for it based on the actual week-12 and week-24 findings rather than adopting it by default.</p>
   </section>
-
-  <div class="disclaimer">
-    <b>Clinical disclaimer:</b> This document translates the numeric findings of the supplied NCS/F-wave/H-reflex report  together with the referring history of co-existing low back pain  into physiological reasoning and a structured 6-month physiotherapy framework for education and planning purposes. It is not a substitute for a hands-on physical/neurological/spinal examination, and every load, technique, and progression above must be verified and individualised by the treating physiotherapist in direct consultation with the referring physician (Dr. Satish) and reporting neurologist (Dr. H. Santosh) before implementation. Manual muscle testing, lumbar and ankle range of motion, neurodynamic testing, gait analysis, and a full lumbosacral clinical screen were not available in the source report and must be performed prior to starting Phase 1. The regeneration-distance calculation in §2.4 is illustrative (based on population-level nerve regrowth rates) and not a guarantee of this patient's individual recovery timeline.
-  </div>
 
   <footer></footer>
 </div>
