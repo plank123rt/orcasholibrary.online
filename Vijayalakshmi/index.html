@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calm Skin Companion · Diet Guide for Urticaria</title>
+  <link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EE;
+    --cream-deep:#F1E9D8;
+    --paper:#FFFDF8;
+    --forest:#2B4438;
+    --forest-deep:#16241C;
+    --sage:#6E8F73;
+    --sage-light:#A9C4AA;
+    --mint:#DCEBD8;
+    --mint-deep:#BFDCC0;
+    --berry:#9C4F5E;
+    --berry-deep:#7A3A47;
+    --berry-light:#F3DEE1;
+    --gold:#C99A3C;
+    --gold-light:#F1DCA8;
+    --ink:#22301F;
+    --shadow: 0 12px 32px rgba(22,36,28,0.10);
+    --shadow-sm: 0 4px 14px rgba(22,36,28,0.08);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    color:var(--forest-deep);
+    margin:0 0 0.4em 0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0 0 1em 0;}
+  a{color:var(--berry-deep);}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:0.72rem;
+    color:var(--gold);
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1.5px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  .container{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ===== STICKY NAV ===== */
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,246,238,0.86);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(43,68,56,0.08);
+    transform:translateY(-100%);
+    transition:transform 0.4s ease;
+  }
+  .topnav.show{transform:translateY(0);}
+  .topnav-inner{
+    max-width:920px;margin:0 auto;padding:12px 24px;
+    display:flex; align-items:center; gap:22px;
+    overflow-x:auto; scrollbar-width:none;
+  }
+  .topnav-inner::-webkit-scrollbar{display:none;}
+  .topnav-brand{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1rem;
+    color:var(--forest); white-space:nowrap; flex-shrink:0;
+  }
+  .topnav a{
+    font-size:0.82rem; text-decoration:none; color:var(--forest);
+    white-space:nowrap; opacity:0.65; transition:opacity 0.2s;
+    padding-bottom:2px; border-bottom:2px solid transparent;
+  }
+  .topnav a:hover, .topnav a.active{opacity:1; border-bottom-color:var(--gold);}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:72px 24px 56px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 20% -10%, var(--mint) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 10%, var(--gold-light) 0%, transparent 45%),
+      var(--cream);
+  }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(50px);
+    opacity:0.45; z-index:0; animation:float 16s ease-in-out infinite;
+  }
+  .blob1{width:280px;height:280px; background:var(--mint-deep); top:-80px; left:-60px;}
+  .blob2{width:220px;height:220px; background:var(--gold-light); bottom:-60px; right:-40px; animation-delay:4s;}
+  @keyframes float{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(20px,-24px) scale(1.08);}
+  }
+
+  .hero-content{position:relative; z-index:2; max-width:680px; margin:0 auto;}
+
+  .hero-visual{margin:8px auto 20px; display:block;}
+  .skin-base{fill:var(--mint);}
+  .hive{fill:var(--berry); opacity:0.9; transform-origin:center; transform-box:fill-box; animation:settle 6s ease-in-out infinite;}
+  .h1{animation-delay:0s;} .h2{animation-delay:0.7s;} .h3{animation-delay:1.4s;} .h4{animation-delay:2.1s;} .h5{animation-delay:2.8s;}
+  @keyframes settle{
+    0%{transform:scale(1); fill:var(--berry); opacity:0.9;}
+    35%{transform:scale(1.18); fill:var(--berry); opacity:0.95;}
+    70%{transform:scale(0.55); fill:var(--mint-deep); opacity:0.5;}
+    100%{transform:scale(1); fill:var(--berry); opacity:0.9;}
+  }
+
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    font-weight:600;
+    line-height:1.08;
+  }
+  .hero h1 em{font-style:italic; color:var(--berry-deep); font-weight:500;}
+  .hero p.lede{font-size:1.08rem; color:#42513f; max-width:520px; margin:14px auto 26px;}
+
+  .patient-card{
+    display:inline-flex; flex-wrap:wrap; justify-content:center; gap:10px;
+    background:var(--paper); border:1px solid rgba(43,68,56,0.10);
+    border-radius:999px; padding:10px 20px; box-shadow:var(--shadow-sm);
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--forest);
+  }
+  .patient-card span{opacity:0.55; margin-right:4px;}
+  .patient-card b{color:var(--berry-deep); font-weight:600;}
+  .divider{margin:0 6px; opacity:0.35;}
+
+  /* ===== SECTION SHELL ===== */
+  section{padding:64px 0;}
+  section.alt{background:var(--paper);}
+  .section-head{max-width:640px; margin:0 auto 40px;}
+  .section-head.left{margin-left:0;}
+  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:600;}
+  .section-head p{color:#4b5a48; font-size:1.02rem;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== SAFETY CALLOUT ===== */
+  .callout{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--berry-light); border:1px solid rgba(156,79,94,0.25);
+    border-radius:var(--radius-sm); padding:18px 20px; margin:0 auto 44px;
+    max-width:820px;
+  }
+  .callout .ic{font-size:1.4rem; line-height:1;}
+  .callout strong{color:var(--berry-deep);}
+  .callout p{margin:0; font-size:0.94rem; color:#4a2a30;}
+
+  .note-box{
+    background:var(--mint); border-radius:var(--radius-sm);
+    padding:18px 22px; font-size:0.94rem; color:#26392c;
+    border:1px solid rgba(110,143,115,0.3);
+  }
+  .note-box strong{color:var(--forest-deep);}
+
+  /* ===== HISTAMINE BUCKET DIAGRAM ===== */
+  .bucket-section{display:flex; justify-content:center; margin-bottom:36px;}
+  .bucket-wrap{max-width:340px; width:100%; text-align:center;}
+  .inflow-row{display:flex; justify-content:space-between; gap:10px; margin-bottom:6px;}
+  .inflow-row div{width:48%; font-size:0.76rem; font-weight:700; color:var(--forest); line-height:1.35;}
+  .inflow-row .arrow{display:block; font-size:1rem; margin-bottom:2px;}
+  .bucket{
+    position:relative; height:170px; width:150px; margin:6px auto 10px;
+    border:3px solid var(--forest); border-top:none;
+    border-radius:0 0 22px 22px; overflow:hidden;
+    background:rgba(255,255,255,0.5);
+  }
+  .threshold-line{
+    position:absolute; left:-3px; right:-3px; top:38%;
+    border-top:2px dashed var(--berry-deep); z-index:3;
+  }
+  .threshold-label{
+    position:absolute; left:calc(100% + 8px); top:38%; transform:translateY(-50%);
+    font-family:'IBM Plex Mono', monospace; font-size:0.66rem; white-space:nowrap; color:var(--berry-deep); font-weight:700;
+  }
+  .bucket-fill{
+    position:absolute; left:0; right:0; bottom:0;
+    animation:fillcycle 9s ease-in-out infinite;
+  }
+  @keyframes fillcycle{
+    0%{height:28%; background:var(--mint-deep);}
+    40%{height:70%; background:var(--gold);}
+    62%{height:90%; background:var(--berry);}
+    82%{height:52%; background:var(--gold);}
+    100%{height:28%; background:var(--mint-deep);}
+  }
+  .outflow{
+    font-size:0.76rem; font-weight:700; color:var(--forest); margin-top:8px; line-height:1.35;
+  }
+  .outflow .arrow{display:block; font-size:1rem; margin-bottom:2px;}
+
+  /* ===== EQUATION ===== */
+  .equation-row{
+    display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+    gap:12px; margin:8px auto 14px; max-width:760px;
+  }
+  .eq-chip{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:var(--paper); border:1px solid rgba(43,68,56,0.12);
+    border-radius:14px; padding:12px 14px; min-width:118px; box-shadow:var(--shadow-sm);
+  }
+  .eq-chip .eq-ic{font-size:1.4rem;}
+  .eq-chip .eq-label{font-size:0.72rem; text-align:center; color:#3c4a39; font-weight:600; line-height:1.25;}
+  .eq-op{font-family:'IBM Plex Mono', monospace; font-size:1.5rem; color:var(--gold); font-weight:700;}
+
+  .diary-note{
+    margin-top:6px; text-align:center; font-size:0.92rem; color:#4b5a48;
+    max-width:600px; margin-left:auto; margin-right:auto;
+  }
+
+  /* ===== ALLY CARDS ===== */
+  .ally-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px;}
+  .ally-card{
+    background:var(--paper); border:1px solid rgba(43,68,56,0.08);
+    border-radius:var(--radius-sm); padding:22px 20px; text-align:center;
+    box-shadow:var(--shadow-sm); transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .ally-card:hover{transform:translateY(-5px); box-shadow:var(--shadow);}
+  .ally-ic{font-size:2rem; display:inline-block; margin-bottom:10px; animation:pulse-ally 3s ease-in-out infinite;}
+  @keyframes pulse-ally{0%,100%{transform:scale(1);} 50%{transform:scale(1.16);}}
+  .ally-card h4{font-size:1rem; margin-bottom:6px;}
+  .ally-card p{font-size:0.87rem; color:#4b5a48; margin:0;}
+
+  .leaf-divider{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    padding:8px 0 0; opacity:0.5;
+  }
+  .leaf-divider span{width:60px; height:1px; background:var(--sage);}
+
+  /* ===== HISTAMINE METER + MECH CHIP ===== */
+  .h-meter{display:inline-flex; gap:4px; align-items:center; margin-left:auto;}
+  .h-meter .dot{width:8px; height:8px; border-radius:50%; background:#dedbd0;}
+  .h-meter[data-level="1"] .dot:nth-child(1){background:var(--sage);}
+  .h-meter[data-level="2"] .dot:nth-child(1),
+  .h-meter[data-level="2"] .dot:nth-child(2){background:var(--gold);}
+  .h-meter[data-level="3"] .dot{background:var(--berry);}
+  .meter-legend{
+    display:flex; justify-content:center; gap:24px; flex-wrap:wrap;
+    font-size:0.8rem; color:#4b5a48; margin:-10px auto 34px; font-family:'IBM Plex Mono',monospace;
+  }
+  .meter-legend .lg{display:flex; align-items:center; gap:6px;}
+
+  .mech-chip{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.64rem;
+    text-transform:uppercase; letter-spacing:0.03em; padding:3px 9px; border-radius:999px;
+    font-weight:700; white-space:nowrap; margin-bottom:10px;
+  }
+  .mech-chip.bad{background:var(--berry-light); color:var(--berry-deep);}
+  .mech-chip.good{background:var(--mint-deep); color:#1f3d24;}
+
+  /* ===== FOOD CARD GRID ===== */
+  .food-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .food-card{
+    border-radius:var(--radius-sm); padding:20px 20px 18px;
+    border:1px solid transparent; transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .food-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-sm);}
+  .food-card.avoid{background:var(--berry-light); border-color:rgba(156,79,94,0.2);}
+  .food-card.eat{background:var(--mint); border-color:rgba(110,143,115,0.25);}
+  .food-card-head{display:flex; align-items:center; gap:10px; margin-bottom:4px;}
+  .food-card-head .emoji{font-size:1.5rem;}
+  .food-card-head h3{font-size:1.02rem; margin:0; flex:1;}
+  .food-card .examples{font-size:0.9rem; font-weight:600; color:var(--forest-deep); margin-bottom:6px;}
+  .food-card .why{font-size:0.85rem; color:#4a5548; margin:0 0 10px;}
+  .food-card.avoid .why{color:#5a3339;}
+
+  .eq-line{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; line-height:1.5;
+    display:flex; flex-wrap:wrap; align-items:center; gap:5px;
+    background:rgba(255,255,255,0.55); border-radius:8px; padding:8px 10px;
+    margin:0 !important;
+  }
+  .food-card.eat .eq-line{background:rgba(255,255,255,0.6);}
+  .eq-line .eq-step{white-space:nowrap;}
+  .eq-line .eq-arrow{opacity:0.55; margin:0 1px;}
+  .food-card.avoid .eq-line .eq-step:last-child{color:var(--berry-deep); font-weight:700;}
+  .food-card.eat .eq-line .eq-step:last-child{color:#1f5c2a; font-weight:700;}
+
+  /* ===== MEAL PLAN TABS ===== */
+  .tabs{display:flex; gap:10px; justify-content:center; margin-bottom:28px; flex-wrap:wrap;}
+  .tab-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.82rem; font-weight:600;
+    background:var(--paper); border:1px solid rgba(43,68,56,0.15);
+    padding:9px 20px; border-radius:999px; cursor:pointer; color:var(--forest);
+    transition:all 0.25s ease;
+  }
+  .tab-btn.active{background:var(--forest); color:var(--cream); border-color:var(--forest);}
+  .tab-btn:hover:not(.active){border-color:var(--sage);}
+
+  .day-panel{display:none;}
+  .day-panel.active{display:block; animation:fadein 0.5s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .meal-row{
+    display:grid; grid-template-columns:110px 1fr; gap:18px;
+    padding:16px 0; border-bottom:1px solid rgba(43,68,56,0.08);
+    align-items:start;
+  }
+  .meal-row:last-child{border-bottom:none;}
+  .meal-time{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--berry-deep);
+    font-weight:600; padding-top:2px;
+  }
+  .meal-title{font-weight:700; color:var(--forest-deep); margin-bottom:4px; display:flex; gap:8px; align-items:center;}
+  .meal-desc{font-size:0.92rem; color:#3c4a39; margin:0;}
+  .meal-desc .veg, .meal-desc .nonveg{display:block; margin-top:4px; font-size:0.9rem;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.64rem; text-transform:uppercase;
+    letter-spacing:0.06em; padding:2px 8px; border-radius:999px; font-weight:700;
+  }
+  .tag.veg{background:var(--mint-deep); color:#1f3d24;}
+  .tag.nonveg{background:var(--gold-light); color:#5a4318;}
+
+  /* ===== TIMELINE ===== */
+  .timeline{position:relative; max-width:640px; margin:0 auto; padding-left:6px;}
+  .timeline::before{
+    content:""; position:absolute; left:29px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--sage-light), var(--berry-light));
+  }
+  .t-item{
+    position:relative; display:flex; gap:20px; padding:0 0 30px 0; opacity:0; transform:translateX(-14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .t-item.in{opacity:1; transform:translateX(0);}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{
+    width:60px; height:60px; border-radius:50%; background:var(--paper);
+    border:2px solid var(--sage-light); display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem; flex-shrink:0; box-shadow:var(--shadow-sm); z-index:1;
+  }
+  .t-body{padding-top:8px;}
+  .t-time{font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--berry-deep); font-weight:700;}
+  .t-title{font-weight:700; color:var(--forest-deep); margin:2px 0 2px;}
+  .t-desc{font-size:0.88rem; color:#4b5a48; margin:0;}
+
+  /* ===== LIFESTYLE CHECKLIST ===== */
+  .life-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .life-card{
+    background:var(--paper); border:1px solid rgba(43,68,56,0.08);
+    border-radius:var(--radius-sm); padding:18px 20px; display:flex; gap:14px;
+    box-shadow:var(--shadow-sm);
+  }
+  .life-card .ic{font-size:1.4rem;}
+  .life-card h4{font-size:0.98rem; margin-bottom:4px;}
+  .life-card p{font-size:0.88rem; color:#4b5a48; margin:0;}
+
+  /* ===== SOURCES ===== */
+  .sources{columns:2; column-gap:32px;}
+  .sources li{margin-bottom:10px; font-size:0.88rem; color:#4b5a48; break-inside:avoid;}
+  .sources li b{color:var(--forest-deep); display:block; font-size:0.88rem;}
+
+  footer{
+    background:var(--forest-deep); color:#cfd9cf; padding:44px 24px 30px; text-align:center;
+  }
+  footer .container{max-width:680px;}
+  footer p{font-size:0.86rem; line-height:1.7; color:#b9c6b9;}
+  footer .sign{font-family:'Fraunces', serif; font-style:italic; color:var(--gold-light); font-size:1rem; margin-top:16px;}
+
+  @media (max-width:760px){
+    .food-grid{grid-template-columns:1fr;}
+    .life-grid{grid-template-columns:1fr;}
+    .ally-grid{grid-template-columns:1fr;}
+    .sources{columns:1;}
+    .meal-row{grid-template-columns:80px 1fr;}
+    .topnav-inner{gap:16px;}
+    .threshold-label{font-size:0.6rem;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand">🌿 Calm Skin</span>
+    <a href="#why">Why It Works</a>
+    <a href="#avoid">Foods to Ease Off</a>
+    <a href="#eat">Foods to Welcome</a>
+    <a href="#mealplan">Meal Plan</a>
+    <a href="#timing">Daily Rhythm</a>
+    <a href="#lifestyle">Lifestyle</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Nutrition Companion</div>
+    <svg class="hero-visual" viewBox="0 0 300 220" width="220" height="160" aria-hidden="true">
+      <circle class="skin-base" cx="150" cy="110" r="95"/>
+      <circle class="hive h1" cx="105" cy="80" r="16"/>
+      <circle class="hive h2" cx="190" cy="75" r="12"/>
+      <circle class="hive h3" cx="165" cy="145" r="18"/>
+      <circle class="hive h4" cx="100" cy="140" r="11"/>
+      <circle class="hive h5" cx="205" cy="120" r="14"/>
+    </svg>
+    <h1>Calm skin, <em>one meal</em> at a time</h1>
+    <p class="lede">A food guide that explains the biology behind hives, so every recommendation comes with its reasoning, not just a rule to follow blindly.</p>
+    <div class="patient-card">
+      <span>Patient</span><b>Vijayalakshmi</b><span class="divider">·</span>
+      <span>Age</span><b>37</b><span class="divider">·</span>
+      <span>Diagnosis</span><b>Acute Urticaria</b>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- WHY IT WORKS -->
+  <section id="why">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">The Biology</div>
+        <h2>Why food changes anything at all</h2>
+        <p>Hives happen when mast cells in your skin release histamine, the chemical behind the itching, redness, and swelling. Histamine builds up from two directions at once: what your body produces on its own, and what you eat. Once the total crosses your personal itch threshold, symptoms appear. Lower the food side of that equation, and there is simply less histamine for your skin to react to.</p>
+      </div>
+
+      <div class="bucket-section reveal">
+        <div class="bucket-wrap">
+          <div class="inflow-row">
+            <div><span class="arrow">↓</span>Body's own histamine (mast cell release)</div>
+            <div><span class="arrow">↓</span>Histamine from food you eat</div>
+          </div>
+          <div class="bucket">
+            <div class="threshold-line"></div>
+            <div class="threshold-label">itch threshold</div>
+            <div class="bucket-fill"></div>
+          </div>
+          <div class="outflow"><span class="arrow">↑</span>Cleared out by the DAO enzyme, helped along by vitamin C and fresh food</div>
+        </div>
+      </div>
+
+      <div class="equation-row reveal">
+        <div class="eq-chip"><span class="eq-ic">🧫</span><span class="eq-label">Body's own<br>histamine</span></div>
+        <span class="eq-op">+</span>
+        <div class="eq-chip"><span class="eq-ic">🍽️</span><span class="eq-label">Histamine<br>from food</span></div>
+        <span class="eq-op">−</span>
+        <div class="eq-chip"><span class="eq-ic">🧬</span><span class="eq-label">Cleared by<br>the DAO enzyme</span></div>
+        <span class="eq-op">=</span>
+        <div class="eq-chip"><span class="eq-ic">🌡️</span><span class="eq-label">Your total<br>histamine load</span></div>
+      </div>
+      <p class="diary-note">Symptoms tend to appear once that total crosses your personal itch threshold. Diet mainly works on the middle term, the food you eat, since that's the one you actually control every day.</p>
+
+      <div class="section-head reveal" style="margin-top:56px;">
+        <div class="eyebrow">Your Dietary Allies</div>
+        <h2>Three ways food fights back</h2>
+        <p>These aren't just "good for you" foods in the abstract. Each one changes a specific part of the equation above.</p>
+      </div>
+      <div class="ally-grid">
+        <div class="ally-card reveal">
+          <span class="ally-ic">🛡️</span>
+          <h4>Quercetin narrows the tap</h4>
+          <p>Found in apples, onions, and capers. It stabilizes mast cell membranes so your own body releases less histamine into the bucket in the first place.</p>
+        </div>
+        <div class="ally-card reveal">
+          <span class="ally-ic">🧬</span>
+          <h4>Vitamin C widens the drain</h4>
+          <p>Found in amla, guava, and bell peppers. It speeds up the DAO enzyme that clears histamine, so the bucket empties faster than it fills.</p>
+        </div>
+        <div class="ally-card reveal">
+          <span class="ally-ic">🌊</span>
+          <h4>Omega-3 raises the rim</h4>
+          <p>Found in flaxseed, walnuts, and fresh fish. It dampens the broader inflammatory response, so it takes more histamine to reach your threshold at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOODS TO AVOID -->
+  <section id="avoid" class="alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Ease Off These</div>
+        <h2>Foods that fill the bucket faster</h2>
+        <p>Each of these acts on a different part of the equation above, either adding histamine directly, prompting your own cells to release more, or blocking the enzyme that clears it.</p>
+      </div>
+
+      <div class="meter-legend reveal">
+        <div class="lg"><span class="h-meter" data-level="3"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span> High histamine load</div>
+      </div>
+
+      <div class="food-grid">
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🧀</span><h3>Aged & Fermented Dairy</h3></div>
+          <span class="mech-chip bad">🔺 Fills the bucket</span>
+          <p class="examples">Aged cheddar, parmesan, gouda, blue cheese, buttermilk, live-culture yogurt</p>
+          <p class="why">Fermentation multiplies histamine the longer these age, so a small serving carries more than you'd expect.</p>
+          <p class="eq-line"><span class="eq-step">Ageing time</span><span class="eq-arrow">→</span><span class="eq-step">bacterial histidine decarboxylase</span><span class="eq-arrow">→</span><span class="eq-step">histamine ↑↑</span><span class="eq-arrow">→</span><span class="eq-step">bucket fills</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🥓</span><h3>Cured & Processed Meats or Fish</h3></div>
+          <span class="mech-chip bad">🔺 Fills the bucket</span>
+          <p class="examples">Salami, sausages, ham, bacon, smoked or canned fish, tuna, mackerel</p>
+          <p class="why">Curing and long storage let bacteria produce histamine well before it ever reaches your plate.</p>
+          <p class="eq-line"><span class="eq-step">Curing / storage</span><span class="eq-arrow">→</span><span class="eq-step">bacterial histidine decarboxylase</span><span class="eq-arrow">→</span><span class="eq-step">histamine ↑↑</span><span class="eq-arrow">→</span><span class="eq-step">bucket fills</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🍷</span><h3>Alcohol & Fermented Drinks</h3></div>
+          <span class="mech-chip bad">🚫 Blocks the drain</span>
+          <p class="examples">Beer, wine, champagne, toddy</p>
+          <p class="why">Alcohol jams the DAO enzyme that would otherwise clear histamine, so even a small amount lingers longer than usual.</p>
+          <p class="eq-line"><span class="eq-step">Alcohol</span><span class="eq-arrow">→</span><span class="eq-step">DAO enzyme blocked</span><span class="eq-arrow">→</span><span class="eq-step">clearance ↓</span><span class="eq-arrow">→</span><span class="eq-step">drain blocked</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🍅</span><h3>Select Fruits & Vegetables</h3></div>
+          <span class="mech-chip bad">⚡ Opens the tap wider</span>
+          <p class="examples">Citrus fruits, strawberries, tomatoes, spinach, brinjal (eggplant), avocado</p>
+          <p class="why">Otherwise healthy foods, but these are known to prompt your own mast cells to release extra histamine.</p>
+          <p class="eq-line"><span class="eq-step">Natural compounds</span><span class="eq-arrow">→</span><span class="eq-step">mast cell membrane triggered</span><span class="eq-arrow">→</span><span class="eq-step">histamine released</span><span class="eq-arrow">→</span><span class="eq-step">tap opens</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🥫</span><h3>Additives & Packaged Foods</h3></div>
+          <span class="mech-chip bad">⚡ Opens the tap wider</span>
+          <p class="examples">Artificial colours, sulfites, benzoates, MSG (ajinomoto), instant noodles, packaged sauces</p>
+          <p class="why">Certain preservatives act as pseudoallergens, nudging mast cells to fire without a true allergy behind it.</p>
+          <p class="eq-line"><span class="eq-step">Preservative (sulfite/benzoate)</span><span class="eq-arrow">→</span><span class="eq-step">pseudoallergen response</span><span class="eq-arrow">→</span><span class="eq-step">histamine released</span><span class="eq-arrow">→</span><span class="eq-step">tap opens</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🍲</span><h3>Leftovers & Slow Reheats</h3></div>
+          <span class="mech-chip bad">🔺 Fills the bucket</span>
+          <p class="examples">Buffet-style food, curries kept warm for hours, dishes reheated more than once</p>
+          <p class="why">Histamine keeps climbing the longer cooked protein sits, even in the fridge, so freshly made always beats reheated.</p>
+          <p class="eq-line"><span class="eq-step">Time sitting/reheated</span><span class="eq-arrow">→</span><span class="eq-step">bacterial histidine decarboxylase</span><span class="eq-arrow">→</span><span class="eq-step">histamine ↑ (compounds hourly)</span><span class="eq-arrow">→</span><span class="eq-step">bucket fills</span></p>
+        </div>
+        <div class="food-card avoid reveal">
+          <div class="food-card-head"><span class="emoji">🦐</span><h3>Watch Individually</h3></div>
+          <span class="mech-chip bad">🔺 Fills the bucket</span>
+          <p class="examples">Chocolate, pickles or achar, soy sauce, vinegar-based condiments, shellfish (prawns, crab)</p>
+          <p class="why">Often high in histamine, though exactly how much it affects you personally varies quite a bit.</p>
+          <p class="eq-line"><span class="eq-step">Direct histamine + release trigger</span><span class="eq-arrow">→</span><span class="eq-step">histamine ↑</span><span class="eq-arrow">→</span><span class="eq-step">bucket fills (individual)</span></p>
+        </div>
+      </div>
+
+      <p class="diary-note">Trigger foods are individual. If something on this list has genuinely never bothered you, there's no need to cut it pre-emptively. A simple two-week food-and-flare diary will tell you far more about your own pattern than any general list can.</p>
+    </div>
+  </section>
+
+  <!-- FOODS TO WELCOME -->
+  <section id="eat">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Welcome These</div>
+        <h2>Foods that keep the bucket low</h2>
+        <p>Fresh, low-histamine choices, plus foods that actively work the other three levers: narrowing the tap, widening the drain, or raising the rim.</p>
+      </div>
+
+      <div class="meter-legend reveal">
+        <div class="lg"><span class="h-meter" data-level="1"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span> Low histamine, freshly prepared</div>
+      </div>
+
+      <div class="food-grid">
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🍎</span><h3>Fresh Fruits</h3></div>
+          <span class="mech-chip good">🛡️ Narrows the tap</span>
+          <p class="examples">Apple, pear, watermelon, pomegranate, ripe mango, papaya</p>
+          <p class="why">Low in histamine themselves, and apples in particular bring quercetin, which calms mast cells before they release anything.</p>
+          <p class="eq-line"><span class="eq-step">Quercetin</span><span class="eq-arrow">→</span><span class="eq-step">mast cell membrane stabilised</span><span class="eq-arrow">→</span><span class="eq-step">histamine release ↓</span><span class="eq-arrow">→</span><span class="eq-step">tap narrows</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🥦</span><h3>Fresh Vegetables</h3></div>
+          <span class="mech-chip good">➖ Keeps the bucket low</span>
+          <p class="examples">Broccoli, carrot, cabbage, cucumber, bottle gourd, snake gourd, pumpkin, bell pepper</p>
+          <p class="why">Naturally low in histamine, especially when cooked fresh rather than stored.</p>
+          <p class="eq-line"><span class="eq-step">Low native histamine</span><span class="eq-arrow">→</span><span class="eq-step">minimal food-side input</span><span class="eq-arrow">→</span><span class="eq-step">bucket stays low</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🧅</span><h3>Quercetin & Vitamin C Stars</h3></div>
+          <span class="mech-chip good">🧬 Widens the drain</span>
+          <p class="examples">Onion, garlic, amla (Indian gooseberry), guava, bell peppers</p>
+          <p class="why">Vitamin C speeds up the DAO enzyme, helping histamine clear out faster than it builds up.</p>
+          <p class="eq-line"><span class="eq-step">Vitamin C</span><span class="eq-arrow">→</span><span class="eq-step">DAO enzyme activity ↑</span><span class="eq-arrow">→</span><span class="eq-step">histamine clearance ↑</span><span class="eq-arrow">→</span><span class="eq-step">drain widens</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🌾</span><h3>Whole Grains</h3></div>
+          <span class="mech-chip good">➖ Keeps the bucket low</span>
+          <p class="examples">Rice, ragi (finger millet), oats, quinoa, fresh rotis</p>
+          <p class="why">Steady carbohydrates that add essentially nothing to your histamine load.</p>
+          <p class="eq-line"><span class="eq-step">Negligible histamine content</span><span class="eq-arrow">→</span><span class="eq-step">no meaningful input</span><span class="eq-arrow">→</span><span class="eq-step">bucket stays low</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🥛</span><h3>Fresh Dairy</h3></div>
+          <span class="mech-chip good">➖ Keeps the bucket low</span>
+          <p class="examples">Fresh paneer, fresh milk, fresh cream, in moderation</p>
+          <p class="why">It's age and fermentation that raise histamine in dairy. Fresh versions stay low.</p>
+          <p class="eq-line"><span class="eq-step">No fermentation time</span><span class="eq-arrow">→</span><span class="eq-step">histidine not yet converted</span><span class="eq-arrow">→</span><span class="eq-step">bucket stays low</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🌱</span><h3>Plant Proteins</h3></div>
+          <span class="mech-chip good">➖ Keeps the bucket low</span>
+          <p class="examples">Moong dal, masoor dal, chana, tofu, tender coconut</p>
+          <p class="why">Freshly cooked dals are gentle on digestion and naturally low in histamine.</p>
+          <p class="eq-line"><span class="eq-step">Freshly cooked</span><span class="eq-arrow">→</span><span class="eq-step">minimal histidine conversion</span><span class="eq-arrow">→</span><span class="eq-step">bucket stays low</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🍗</span><h3>Animal Proteins, Fresh Only</h3></div>
+          <span class="mech-chip good">➖ Low, only while fresh</span>
+          <p class="examples">Freshly cooked chicken, freshly caught white fish like pomfret or sole, cooked the same day</p>
+          <p class="why">The same fish can be low-histamine fresh and high-histamine a day later. Freshness is what actually matters.</p>
+          <p class="eq-line"><span class="eq-step">Cooked same day</span><span class="eq-arrow">→</span><span class="eq-step">histidine decarboxylation hasn't started</span><span class="eq-arrow">→</span><span class="eq-step">bucket stays low</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🌰</span><h3>Omega-3 Sources</h3></div>
+          <span class="mech-chip good">🌊 Raises the rim</span>
+          <p class="examples">Flaxseed (alsi), walnuts, chia seeds, fresh sardines in moderation</p>
+          <p class="why">These fats dampen the broader inflammatory signal, so it takes more histamine to reach your threshold.</p>
+          <p class="eq-line"><span class="eq-step">Omega-3</span><span class="eq-arrow">→</span><span class="eq-step">inflammatory mediators ↓</span><span class="eq-arrow">→</span><span class="eq-step">itch threshold ↑</span><span class="eq-arrow">→</span><span class="eq-step">rim raises</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">🫒</span><h3>Gentle Fats</h3></div>
+          <span class="mech-chip good">🌊 Raises the rim</span>
+          <p class="examples">Coconut oil, cold-pressed olive oil, ghee in moderation</p>
+          <p class="why">Less inflammatory than heavily refined oils, which supports the same calming effect.</p>
+          <p class="eq-line"><span class="eq-step">Unrefined fat</span><span class="eq-arrow">→</span><span class="eq-step">inflammatory signalling ↓</span><span class="eq-arrow">→</span><span class="eq-step">itch threshold ↑</span><span class="eq-arrow">→</span><span class="eq-step">rim raises</span></p>
+        </div>
+        <div class="food-card eat reveal">
+          <div class="food-card-head"><span class="emoji">💧</span><h3>Hydration</h3></div>
+          <span class="mech-chip good">🧹 Supports clearance</span>
+          <p class="examples">Plain water, coconut water, chamomile or fennel tea</p>
+          <p class="why">Good hydration supports your body's clearance systems and your skin's own repair work.</p>
+          <p class="eq-line"><span class="eq-step">Fluids ↑</span><span class="eq-arrow">→</span><span class="eq-step">renal/lymphatic clearance ↑</span><span class="eq-arrow">→</span><span class="eq-step">clearance supported</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEAL PLAN -->
+  <section id="mealplan" class="alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Putting It Together</div>
+        <h2>A simple 3-day meal plan</h2>
+        <p>Built around Indian home cooking, with a vegetarian and non-vegetarian option at every main meal. Meals are spaced evenly and kept fresh rather than stored, for exactly the reasons above: fresh food starts low on the histamine scale, and even spacing avoids piling several heavy meals close together.</p>
+      </div>
+
+      <div class="tabs reveal">
+        <button class="tab-btn active" data-day="1">Day 1</button>
+        <button class="tab-btn" data-day="2">Day 2</button>
+        <button class="tab-btn" data-day="3">Day 3</button>
+      </div>
+
+      <div class="day-panel active" id="day-1">
+        <div class="meal-row"><div class="meal-time">7:30 AM</div><div><div class="meal-title">Breakfast</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Vegetable dalia with grated carrot and coconut</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Fresh chicken keema (mince), lightly cooked, with a soft roti</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">11:00 AM</div><div><div class="meal-title">Mid-morning</div><p class="meal-desc">An apple or a bowl of watermelon cubes</p></div></div>
+        <div class="meal-row"><div class="meal-time">1:00 PM</div><div><div class="meal-title">Lunch</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Steamed rice, moong dal, lauki (bottle gourd) sabzi, cucumber salad</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Coconut-milk chicken curry with rice, skipping the tomato-heavy base</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">4:30 PM</div><div><div class="meal-title">Evening snack</div><p class="meal-desc">Roasted makhana (fox nuts) with a fennel or chamomile tea</p></div></div>
+        <div class="meal-row"><div class="meal-time">7:30 PM</div><div><div class="meal-title">Dinner</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Ragi roti with bottle gourd sabzi and a small bowl of dal</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Grilled fresh pomfret with sauteed vegetables</span></p></div></div>
+      </div>
+
+      <div class="day-panel" id="day-2">
+        <div class="meal-row"><div class="meal-time">7:30 AM</div><div><div class="meal-title">Breakfast</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Vegetable upma with peas and carrot, a side of papaya</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Shredded fresh chicken breast, lightly sauteed, with a soft dosa</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">11:00 AM</div><div><div class="meal-title">Mid-morning</div><p class="meal-desc">A bowl of pomegranate or a pear</p></div></div>
+        <div class="meal-row"><div class="meal-time">1:00 PM</div><div><div class="meal-title">Lunch</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Chapati, chana masala made without tomato puree, cabbage poriyal</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Freshly cooked chicken stir-fry with bell peppers and rice</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">4:30 PM</div><div><div class="meal-title">Evening snack</div><p class="meal-desc">A bowl of watermelon or a handful of walnuts</p></div></div>
+        <div class="meal-row"><div class="meal-time">7:30 PM</div><div><div class="meal-title">Dinner</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Khichdi with rice, moong dal, and pumpkin</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Steamed or grilled sole fish with sauteed cabbage</span></p></div></div>
+      </div>
+
+      <div class="day-panel" id="day-3">
+        <div class="meal-row"><div class="meal-time">7:30 AM</div><div><div class="meal-title">Breakfast</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Oats porridge with grated apple and a few walnuts</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Grilled fresh fish (pomfret or sole), cooked same day, with a soft appam</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">11:00 AM</div><div><div class="meal-title">Mid-morning</div><p class="meal-desc">A guava or a bowl of fresh papaya</p></div></div>
+        <div class="meal-row"><div class="meal-time">1:00 PM</div><div><div class="meal-title">Lunch</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Rice, masoor dal, snake gourd curry, carrot salad</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Freshly cooked chicken curry with coconut base and rice</span></p></div></div>
+        <div class="meal-row"><div class="meal-time">4:30 PM</div><div><div class="meal-title">Evening snack</div><p class="meal-desc">Herbal tea with roasted chana or a handful of walnuts</p></div></div>
+        <div class="meal-row"><div class="meal-time">7:30 PM</div><div><div class="meal-title">Dinner</div><p class="meal-desc"><span class="veg"><span class="tag veg">Veg</span> Light vegetable and rice pulao with a fresh cucumber raita</span><span class="nonveg"><span class="tag nonveg">Non-veg</span> Grilled fresh fish with steamed vegetables</span></p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY RHYTHM -->
+  <section id="timing">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">At a Glance</div>
+        <h2>Your daily rhythm</h2>
+        <p>The same gentle spacing, every day: a light start, a proper lunch, a light finish. Even spacing keeps your histamine load steady, rather than swinging high after one heavy, fermented, or reheated meal.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item"><div class="t-dot">🌅</div><div class="t-body"><div class="t-time">7:00 AM</div><div class="t-title">Wake and hydrate</div><p class="t-desc">A glass of water first thing supports skin repair through the day.</p></div></div>
+        <div class="t-item"><div class="t-dot">🍽️</div><div class="t-body"><div class="t-time">7:30 AM</div><div class="t-title">Light breakfast</div><p class="t-desc">Low-histamine and fresh, to set a calm tone for the day.</p></div></div>
+        <div class="t-item"><div class="t-dot">🥗</div><div class="t-body"><div class="t-time">1:00 PM</div><div class="t-title">Lunch</div><p class="t-desc">The main meal of the day, fresh, home-cooked, and balanced.</p></div></div>
+        <div class="t-item"><div class="t-dot">🍵</div><div class="t-body"><div class="t-time">4:30 PM</div><div class="t-title">Light snack</div><p class="t-desc">Fresh fruit or herbal tea keeps things steady into the evening.</p></div></div>
+        <div class="t-item"><div class="t-dot">🍲</div><div class="t-body"><div class="t-time">7:30 PM</div><div class="t-title">Light dinner</div><p class="t-desc">Kept simple, nothing heavy, spicy, or fermented this late in the day.</p></div></div>
+        <div class="t-item"><div class="t-dot">🌙</div><div class="t-body"><div class="t-time">9:30 PM</div><div class="t-title">Wind down</div><p class="t-desc">Cool, loose clothing and a calm room help the night's rest do its work.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE -->
+  <section id="lifestyle" class="alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Beyond the Plate</div>
+        <h2>A few habits that help just as much</h2>
+      </div>
+      <div class="life-grid">
+        <div class="life-card reveal"><span class="ic">🌡️</span><div><h4>Keep skin cool</h4><p>Avoid very hot showers, tight synthetic clothing, and overheating. Heat is one of the most common everyday hive triggers.</p></div></div>
+        <div class="life-card reveal"><span class="ic">😌</span><div><h4>Manage stress gently</h4><p>Stress hormones can rev up mast cells. A short walk or a few minutes of slow breathing genuinely helps.</p></div></div>
+        <div class="life-card reveal"><span class="ic">☀️</span><div><h4>Be sun-sensible</h4><p>While your skin is reactive, use a gentle sunscreen and avoid peak midday sun.</p></div></div>
+        <div class="life-card reveal"><span class="ic">💊</span><div><h4>Watch other medicines</h4><p>Painkillers like aspirin or ibuprofen can worsen hives in some people. Check with your doctor before adding anything new.</p></div></div>
+        <div class="life-card reveal"><span class="ic">🚿</span><div><h4>Pat, don't rub</h4><p>After bathing, pat skin dry gently and moisturise within a few minutes to lock in hydration.</p></div></div>
+        <div class="life-card reveal"><span class="ic">📓</span><div><h4>Keep a simple diary</h4><p>Note what you ate and how your skin felt that evening. Patterns usually show up within two weeks.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Where This Comes From</div>
+        <h2>References</h2>
+      </div>
+      <ul class="sources reveal">
+        <li><b>Healthline</b>Chronic Hives (Idiopathic Urticaria) Diet, foods to eat and avoid</li>
+        <li><b>WebMD</b>Can a Low-Histamine Diet Help With Chronic Hives</li>
+        <li><b>World Allergy Organization</b>Dietary Modifications for Chronic Urticaria</li>
+        <li><b>ScienceDirect</b>Nutrition and Urticaria, a clinical review</li>
+        <li><b>PMC / NCBI</b>Quercetin and Its Anti-Allergic Immune Response</li>
+        <li><b>Healwithfood</b>Diet for Preventing Hives, quercetin, vitamin C, and omega-3 fats</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p class="sign">Wishing Vijayalakshmi a calm and comfortable recovery. 🌿</p>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal, .t-item');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el => io.observe(el));
+
+  const topnav = document.getElementById('topnav');
+  const hero = document.querySelector('.hero');
+  const navShowIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => { topnav.classList.toggle('show', !e.isIntersecting); });
+  }, {threshold:0});
+  navShowIO.observe(hero);
+
+  const navLinks = document.querySelectorAll('.topnav a');
+  const sections = document.querySelectorAll('main section[id]');
+  const spyIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.topnav a[href="#'+e.target.id+'"]');
+        if(link) link.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-40% 0px -50% 0px'});
+  sections.forEach(s => spyIO.observe(s));
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('day-'+btn.dataset.day).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
