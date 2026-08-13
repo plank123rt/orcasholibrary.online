@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orcasho Scientific Solutions, Infant Feeding &amp; Toddler Nutrition Reference</title>
+  <link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --ink:#16211F;
+  --ink-soft:#4B5B57;
+  --paper:#F4F7F5;
+  --card:#FFFFFF;
+  --line:#DAE3DF;
+  --brand:#1F6F5C;
+  --brand-dark:#133F35;
+  --breast:#B85C71;
+  --breast-soft:#F5E1E6;
+  --breast-line:#E3B7C2;
+  --cow:#3E6690;
+  --cow-soft:#DEE7F1;
+  --cow-line:#AFC5DB;
+  --amber:#A97327;
+  --amber-soft:#F1E4C9;
+  --amber-line:#D9C08A;
+  --radius:14px;
+  --maxw:920px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{overflow-x:hidden;width:100%;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+}
+
+h1,h2,h3,h4{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  color:var(--brand-dark);
+  margin:0 0 0.4em 0;
+  letter-spacing:-0.01em;
+}
+p{margin:0 0 1em 0;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+
+/* ===== Top brand bar ===== */
+.brandbar{
+  background:var(--brand-dark);
+  color:#EAF3EF;
+  padding:10px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.brandbar .wordmark{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.brandbar .wordmark .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#7FD9BC;
+  display:inline-block;
+}
+.brandbar .tagline{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.08em;
+  color:#B7D6CB;
+  text-transform:uppercase;
+}
+
+/* ===== Hero ===== */
+.hero{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:56px 24px 34px;
+}
+.hero .eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:21px;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:none;
+  color:var(--brand);
+  margin-bottom:16px;
+  line-height:1.4;
+}
+.hero h1{
+  font-size:clamp(28px,4.6vw,44px);
+  line-height:1.08;
+  max-width:14ch;
+}
+.hero .sub{
+  font-size:17px;
+  color:var(--ink-soft);
+  max-width:56ch;
+  margin-top:14px;
+}
+.hero .metaline{
+  margin-top:26px;
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--ink-soft);
+  border-top:1px solid var(--line);
+  padding-top:16px;
+}
+.hero .metaline span b{color:var(--ink);}
+
+/* ===== Section shell ===== */
+section.block{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:46px 24px;
+  border-top:1px solid var(--line);
+}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:8px;
+}
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--brand);
+  border:1px solid var(--brand);
+  border-radius:20px;
+  padding:2px 10px;
+  white-space:nowrap;
+}
+.sec-head h2{font-size:26px;margin:0;}
+.sec-intro{color:var(--ink-soft);max-width:64ch;margin-top:10px;}
+
+/* ===== Phase card ===== */
+.phase{
+  margin-top:34px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px 22px 22px;
+}
+.phase-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:6px;
+}
+.phase-title{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:19px;
+  color:var(--brand-dark);
+}
+.phase-weeks{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  background:var(--brand);
+  color:#fff;
+  padding:4px 10px;
+  border-radius:20px;
+}
+.phase-note{
+  font-size:13.5px;
+  color:var(--ink-soft);
+  margin-bottom:18px;
+}
+
+/* clock row */
+.clockrow{
+  display:flex;
+  align-items:flex-start;
+  gap:0;
+  overflow-x:auto;
+  padding:8px 2px 10px;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+.swipe-hint{display:none;}
+.clockrow.no-scroll{
+  overflow-x:visible;
+  flex-wrap:wrap;
+  row-gap:22px;
+}
+.clockitem{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  flex:0 0 auto;
+  width:104px;
+}
+.clockface{
+  width:82px;height:82px;
+  border-radius:50%;
+  background:#fff;
+  border:2px solid var(--line);
+  position:relative;
+  box-shadow:0 1px 0 rgba(0,0,0,0.02);
+}
+.clockface.type-breast{border-color:var(--breast-line);}
+.clockface.type-cow{border-color:var(--cow-line);}
+.tick{
+  position:absolute;
+  width:2px;height:6px;
+  background:#C7D2CD;
+  left:50%;top:2px;
+  transform-origin:1px 39px;
+  margin-left:-1px;
+}
+.hand{
+  position:absolute;
+  left:50%;top:50%;
+  background:var(--ink);
+  transform-origin:0% 100%;
+  border-radius:2px;
+}
+.hand.hour{width:3px;height:22px;margin-left:-1.5px;margin-top:-22px;background:var(--brand-dark);}
+.hand.minute{width:2px;height:30px;margin-left:-1px;margin-top:-30px;background:var(--ink-soft);}
+.hand-anim{transition:transform 1.1s cubic-bezier(.4,1.6,.4,1);}
+.pin{
+  position:absolute;left:50%;top:50%;
+  width:6px;height:6px;margin-left:-3px;margin-top:-3px;
+  border-radius:50%;background:var(--brand-dark);
+}
+.clocklabel{
+  margin-top:9px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  font-weight:600;
+}
+.clocktype{
+  margin-top:2px;
+  font-size:10.5px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:10px;
+}
+.clocktype.type-breast{background:var(--breast-soft);color:var(--breast);}
+.clocktype.type-cow{background:var(--cow-soft);color:var(--cow);}
+.gap{
+  flex:0 0 auto;
+  width:56px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding-top:32px;
+  color:var(--ink-soft);
+}
+.gap .line{width:100%;height:1px;background:var(--line);position:relative;}
+.gap .arrow{
+  position:absolute;right:-1px;top:-3px;
+  width:0;height:0;
+  border-top:3px solid transparent;
+  border-bottom:3px solid transparent;
+  border-left:5px solid var(--line);
+}
+.gap .glabel{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  margin-top:6px;
+  white-space:nowrap;
+}
+.gap.assumed .glabel{color:var(--amber);}
+.gap.assumed .line{background:var(--amber-line);}
+
+/* ribbon timeline */
+.ribbon{
+  margin-top:22px;
+  position:relative;
+  height:34px;
+  background:linear-gradient(90deg,#fff,#fff);
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+.ribbon .track{
+  position:absolute;left:14px;right:14px;top:50%;
+  height:2px;background:var(--line);
+  transform:translateY(-50%);
+}
+.ribbon .mark{
+  position:absolute;top:50%;
+  width:11px;height:11px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.06);
+}
+.ribbon .mark.type-breast{background:var(--breast);}
+.ribbon .mark.type-cow{background:var(--cow);}
+.ribbon .caps{
+  display:flex;justify-content:space-between;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--ink-soft);
+  margin-top:4px;padding:0 12px;
+}
+
+.legend{
+  display:flex;gap:18px;flex-wrap:wrap;
+  margin-top:26px;
+  font-size:13px;color:var(--ink-soft);
+}
+.legend span{display:inline-flex;align-items:center;gap:7px;}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.legend i.b{background:var(--breast);}
+.legend i.c{background:var(--cow);}
+.legend i.a{background:var(--amber);}
+
+/* assumption callout */
+.callout{
+  margin-top:22px;
+  border:1px solid var(--amber-line);
+  background:var(--amber-soft);
+  border-radius:10px;
+  padding:14px 16px;
+  font-size:13.5px;
+  color:#5C4212;
+}
+.callout b{color:var(--amber-dark,#7A5417);}
+
+/* ===== comparison table ===== */
+.tablewrap{overflow-x:auto;margin-top:18px;border:1px solid var(--line);border-radius:12px;}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:640px;
+  background:#fff;
+}
+th,td{
+  padding:11px 14px;
+  text-align:left;
+  border-bottom:1px solid var(--line);
+  font-size:13.8px;
+  vertical-align:top;
+}
+thead th{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#F0F4F2;
+  color:var(--ink-soft);
+}
+tbody tr:last-child td{border-bottom:none;}
+td.factor{font-weight:600;color:var(--brand-dark);width:19%;}
+td.hm{background:var(--breast-soft);}
+td.cm{background:var(--cow-soft);}
+th.hmh{color:var(--breast);}
+th.cmh{color:var(--cow);}
+
+/* fat layer diagram */
+.fatdiagram{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:22px;
+}
+@media (max-width:600px){.fatdiagram{grid-template-columns:1fr;}}
+.fatcard{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  background:#fff;
+}
+.fatcard h4{font-size:14.5px;margin-bottom:10px;}
+.fatcard.hm h4{color:var(--breast);}
+.fatcard.cm h4{color:var(--cow);}
+.globule{
+  height:70px;
+  border-radius:10px;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:12px;
+  background:#F6F8F7;
+  border:1px solid var(--line);
+}
+.globule .dot{position:absolute;border-radius:50%;}
+.fatcard.hm .dot{background:radial-gradient(circle at 35% 35%,#E7A6B6,var(--breast));border:1.5px solid #fff;}
+.fatcard.cm .dot{background:radial-gradient(circle at 35% 35%,#8FAECB,var(--cow));border:1px solid #fff;}
+.fatcard ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink-soft);}
+.fatcard li{margin-bottom:5px;}
+
+/* nutrient cards */
+.nutrigrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:20px;
+}
+@media (max-width:680px){.nutrigrid{grid-template-columns:1fr;}}
+.nutricard{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:18px;
+  background:#fff;
+}
+.nutricard .figure{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:30px;
+  color:var(--brand-dark);
+  line-height:1;
+}
+.nutricard .unit{font-size:14px;color:var(--ink-soft);margin-left:4px;}
+.nutricard .label{
+  margin-top:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--brand);
+}
+.nutricard p{font-size:12.8px;color:var(--ink-soft);margin-top:10px;margin-bottom:0;}
+
+/* food chips */
+.foodgroup{margin-top:22px;}
+.foodgroup h4{font-size:14.5px;margin-bottom:10px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:20px;
+  padding:6px 13px;
+  font-size:13px;
+  display:flex;align-items:center;gap:6px;
+}
+.chip b{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--brand);}
+.chip.veg{border-color:#BFDCC8;}
+.chip.nonveg{border-color:#E3C3B0;}
+.chip .tag{font-size:9px;padding:1px 5px;border-radius:6px;text-transform:uppercase;letter-spacing:0.04em;}
+.chip.veg .tag{background:#E2F1E7;color:#2E7D4F;}
+.chip.nonveg .tag{background:#F6E5D8;color:#A9591F;}
+
+@keyframes foodbob{
+  0%,100%{ transform:translateY(0) rotate(0deg); }
+  50%{ transform:translateY(-5px) rotate(-6deg); }
+}
+@keyframes foodpop{
+  0%{ transform:scale(0.4); opacity:0; }
+  60%{ transform:scale(1.15); opacity:1; }
+  100%{ transform:scale(1); opacity:1; }
+}
+.chip .emoji{
+  display:inline-block;
+  font-size:16px;
+  animation:foodbob 2.6s ease-in-out infinite, foodpop 0.5s ease-out;
+  transform-origin:50% 80%;
+}
+.chip:nth-child(2n) .emoji{animation-delay:.25s, 0s;}
+.chip:nth-child(3n) .emoji{animation-delay:.5s, .05s;}
+.chip:nth-child(4n) .emoji{animation-delay:.75s, .1s;}
+.chip:nth-child(5n) .emoji{animation-delay:1s, .15s;}
+.chip:hover .emoji{animation:foodbob 0.6s ease-in-out infinite;}
+
+.emoji-hero{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:22px 0 4px;
+  font-size:36px;
+  line-height:1;
+}
+.emoji-hero span{
+  display:inline-block;
+  animation:foodbob 3.1s ease-in-out infinite;
+}
+.emoji-hero span:nth-child(1){animation-delay:0s;}
+.emoji-hero span:nth-child(2){animation-delay:.35s;}
+.emoji-hero span:nth-child(3){animation-delay:.7s;}
+.emoji-hero span:nth-child(4){animation-delay:1.05s;}
+.emoji-hero span:nth-child(5){animation-delay:1.4s;}
+.emoji-hero span:nth-child(6){animation-delay:1.75s;}
+.emoji-hero span:nth-child(7){animation-delay:2.1s;}
+
+.dayrow .mealemoji{
+  display:inline-block;
+  margin-right:6px;
+  animation:foodbob 2.6s ease-in-out infinite;
+}
+
+/* day plan */
+.dayplan{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.dayrow{
+  display:flex;gap:14px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  align-items:flex-start;
+  background:#fff;
+}
+.dayrow:last-child{border-bottom:none;}
+.dayrow .time{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--brand);
+  width:74px;flex:0 0 auto;padding-top:2px;
+}
+.dayrow .meal{font-size:13.8px;}
+.dayrow .meal b{color:var(--ink);}
+
+/* ===== digestion / mechanism flow ===== */
+.digestflow{margin-top:20px;display:flex;flex-direction:column;gap:0;max-width:520px;}
+.dstep{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;}
+.dstep .dicon{width:34px;height:34px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;}
+.dstep .dtext{font-size:13.3px;color:var(--ink);}
+.dstep .dtext b{color:var(--brand-dark);}
+.darrow{align-self:center;width:2px;height:18px;background:var(--line);position:relative;}
+.darrow::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--line);}
+.dfork{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:2px;}
+@media (max-width:600px){.dfork{grid-template-columns:1fr;}}
+.dbranch{display:flex;flex-direction:column;gap:0;}
+.dbranch-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;text-align:center;padding:6px 0 9px;}
+.dbranch.lct .dbranch-label{color:var(--cow);}
+.dbranch.mct .dbranch-label{color:var(--brand);}
+.dbranch .dstep{border-radius:10px;padding:10px 12px;font-size:12.3px;}
+.dbranch.lct .dstep{border-color:var(--cow-line);}
+.dbranch.mct .dstep{border-color:var(--brand);}
+.dbranch .darrow{height:14px;}
+
+.eqnbox{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;text-align:center;color:var(--ink-soft);}
+.eqnbox .mono{color:var(--brand-dark);font-size:13.8px;}
+
+/* recipe cards */
+.recipegrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media (max-width:680px){.recipegrid{grid-template-columns:1fr;}}
+.recipecard{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff;}
+.recipecard h5{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--brand-dark);margin:0 0 4px 0;}
+.recipecard .rmeta{font-family:'IBM Plex Mono',monospace;font-size:10.3px;text-transform:uppercase;letter-spacing:0.05em;color:var(--brand);margin-bottom:10px;}
+.recipecard .ringr{font-size:12.6px;color:var(--ink-soft);margin:0 0 10px 0;padding-left:16px;}
+.recipecard .ringr li{margin-bottom:3px;}
+.recipecard .rsteps{font-size:12.6px;color:var(--ink);margin:0;padding-left:16px;}
+.recipecard .rsteps li{margin-bottom:4px;}
+.recipecard .rwhy{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:11.8px;color:var(--ink-soft);}
+.recipecard .rwhy b{color:var(--brand);}
+
+/* notes section */
+.notecard{
+  border-radius:12px;
+  padding:18px 18px;
+  margin-top:16px;
+  border:1px solid;
+}
+.notecard.tonic{background:var(--breast-soft);border-color:var(--breast-line);}
+.notecard.caution{background:var(--cow-soft);border-color:var(--cow-line);}
+.notecard.assume{background:var(--amber-soft);border-color:var(--amber-line);}
+.notecard.info{background:#EAF3EE;border-color:#BFDCC8;}
+.notecard h4{font-size:14px;margin-bottom:6px;}
+.notecard.tonic h4{color:var(--breast);}
+.notecard.caution h4{color:var(--cow);}
+.notecard.assume h4{color:var(--amber);}
+.notecard.info h4{color:var(--brand);}
+.notecard p{font-size:13.5px;color:var(--ink);margin:0;}
+
+/* references */
+.refs{margin-top:16px;}
+.refs ol{padding-left:20px;margin:0;}
+.refs li{
+  font-size:12.8px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+  line-height:1.5;
+}
+.refs a{color:var(--brand);text-decoration:none;border-bottom:1px dotted var(--brand);}
+
+footer{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:30px 24px 50px;
+  font-size:12px;
+  color:var(--ink-soft);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* ===== Mobile ===== */
+@media (max-width:700px){
+  .brandbar{padding:9px 16px;}
+  .brandbar .wordmark{font-size:11.5px;}
+  .brandbar .tagline{font-size:10px;}
+
+  .hero{padding:38px 18px 26px;}
+  .hero .eyebrow{font-size:15px;line-height:1.45;}
+  .hero .sub{font-size:15.5px;}
+  .hero .metaline{gap:14px 20px;}
+
+  section.block{padding:34px 18px;}
+  .sec-head{gap:10px;}
+  .sec-head h2{font-size:22px;}
+
+  .phase{padding:20px 16px 18px;}
+  .phase-title{font-size:17px;}
+
+  .tablewrap{overflow-x:visible;border:none;border-radius:0;}
+  table{min-width:0;width:100%;}
+  thead{
+    position:absolute;
+    width:1px;height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+    white-space:nowrap;
+  }
+  tbody tr{
+    display:block;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  tbody tr td{
+    display:block;
+    width:auto !important;
+    border-bottom:1px solid var(--line);
+  }
+  tbody tr td:last-child{border-bottom:none;}
+  td.factor{
+    background:#F0F4F2;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  td.hm::before,
+  td.cm::before{
+    content:attr(data-label);
+    display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-weight:700;
+    margin-bottom:5px;
+  }
+  td.hm::before{color:var(--breast);}
+  td.cm::before{color:var(--cow);}
+
+  .swipe-hint{
+    display:block;
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin:-4px 0 14px;
+  }
+
+  .nutricard .figure{font-size:26px;}
+  .dayrow{padding:11px 14px;gap:10px;}
+  .dayrow .time{width:64px;font-size:11px;}
+
+  footer{padding:24px 18px 40px;flex-direction:column;gap:6px;}
+}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wordmark"><span class="dot"></span>Orcasho Scientific Solutions</div>
+  <div class="tagline">Clinical Nutrition Reference · Bengaluru</div>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">Prepared for a family under paediatric care · By Dt. Navya Bharti, Orcasho Scientific Solutions</div>
+  <h1>Infant Feeding &amp; Toddler Nutrition Plan</h1>
+  <div class="eyebrow" style="margin-top:6px;">Made for Mother: Haritha and Daughter: Anvi</div>
+  <p class="sub">A phased breast milk / cow's milk feeding schedule as advised by your physician, a full compositional comparison of the two milks, and an evidence-based nutrition plan for a toddler around 1.5 years old, with Indian food choices to meet it.</p>
+  <div class="metaline">
+    <span>Document type <b>Feeding &amp; nutrition reference</b></span>
+    <span>Schedule span <b>10 weeks, in 3 phases</b></span>
+    <span>Prepared <b>17 July 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= SECTION 1: SCHEDULE ================= -->
+<section class="block" id="schedule">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>The feeding schedule</h2>
+  </div>
+  <p class="sec-intro">As advised by your physician, breastfeeding and cow's milk are alternated on a fixed clock, and the frequency is gradually stepped down over three phases (six feeds a day, down to four, down to two). Tap through each phase below.</p>
+
+  <div class="legend">
+    <span><i class="b"></i> Breastfeed</span>
+    <span><i class="c"></i> Cow's milk</span>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Phase 1 (Weeks 1–3)</div>
+      <div class="phase-weeks">3 weeks · 6 feeds / day</div>
+    </div>
+    <div class="phase-note">Starts 7:00 AM. Gaps of 2h → 3h → 3h → 3h → 1h.</div>
+    <div class="clockrow no-scroll" id="p1clocks"></div>
+    <div class="ribbon" id="p1ribbon"></div>
+    <div class="ribbon caps"><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span></div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Phase 2 (Weeks 4–6)</div>
+      <div class="phase-weeks">3 weeks · 4 feeds / day</div>
+    </div>
+    <div class="phase-note">Breastfeeding narrows to two windows a day.</div>
+    <div class="clockrow no-scroll" id="p2clocks"></div>
+    <div class="ribbon" id="p2ribbon"></div>
+    <div class="ribbon caps"><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span></div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Phase 3 (Weeks 7–10)</div>
+      <div class="phase-weeks">4 weeks · 2 feeds / day</div>
+    </div>
+    <div class="phase-note">Down to a single breastfeed and a single cow's milk feed, the final step of the taper.</div>
+    <div class="clockrow" id="p3clocks"></div>
+    <div class="ribbon" id="p3ribbon"></div>
+    <div class="ribbon caps"><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span></div>
+  </div>
+
+  </section>
+
+<!-- ================= SECTION 2: MILK COMPARISON ================= -->
+<section class="block" id="comparison">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>Breast milk vs. cow's milk, in full</h2>
+  </div>
+  <p class="sec-intro">Both are "milk," but they're built for different animals growing at different rates. Here's where they actually diverge (protein structure, fat architecture, enzymes, and the living immune components cow's milk simply doesn't have).</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Factor</th><th class="hmh">Breast milk</th><th class="cmh">Cow's milk</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="factor">Protein, total</td>
+          <td class="hm" data-label="Breast milk">~0.9–1.2 g/100 ml (deliberately low, because a human infant's growth rate is slow)</td>
+          <td class="cm" data-label="Cow's milk">~3.2–3.5 g/100 ml, roughly 3× higher, built for a calf that must double its birth weight in weeks</td>
+        </tr>
+        <tr>
+          <td class="factor">Casein : whey ratio</td>
+          <td class="hm" data-label="Breast milk">~40:60 in mature milk (up to 90:10 in early feeds), whey-dominant</td>
+          <td class="cm" data-label="Cow's milk">~80:20, casein-dominant, forms a dense, hard curd that's tougher on an infant gut</td>
+        </tr>
+        <tr>
+          <td class="factor">Key whey proteins</td>
+          <td class="hm" data-label="Breast milk">Alpha-lactalbumin (high) and lactoferrin as the dominant whey proteins, supporting mineral binding and antimicrobial defence</td>
+          <td class="cm" data-label="Cow's milk">Beta-lactoglobulin dominates (a protein absent from breast milk entirely and a common allergy trigger); lactoferrin only a minor trace</td>
+        </tr>
+        <tr>
+          <td class="factor">Immunoglobulins</td>
+          <td class="hm" data-label="Breast milk">Secretory IgA is the major class, coating the infant's gut lining and blocking pathogens locally</td>
+          <td class="cm" data-label="Cow's milk">IgG dominates instead, at roughly 10× the concentration, built for a calf's immune needs, not a human infant's gut</td>
+        </tr>
+        <tr>
+          <td class="factor">Carbohydrate</td>
+          <td class="hm" data-label="Breast milk">Lactose ~7 g/100 ml, the highest of almost any mammal's milk, and ~40% of total calories</td>
+          <td class="cm" data-label="Cow's milk">Lactose ~4.6–4.7 g/100 ml, noticeably lower</td>
+        </tr>
+        <tr>
+          <td class="factor">Human milk oligosaccharides (HMOs)</td>
+          <td class="hm" data-label="Breast milk">200+ unique complex sugars that feed beneficial gut bacteria and physically block pathogens from attaching to the gut wall</td>
+          <td class="cm" data-label="Cow's milk">Essentially absent, this entire prebiotic category doesn't transfer across species</td>
+        </tr>
+        <tr>
+          <td class="factor">Digestive enzymes</td>
+          <td class="hm" data-label="Breast milk">Active proteases, amylase and a bile-salt-stimulated lipase travel in the milk itself, pre-digesting protein and fat before the infant's own enzymes are fully developed</td>
+          <td class="cm" data-label="Cow's milk">Processed/pasteurised cow's milk carries none of these active enzymes</td>
+        </tr>
+        <tr>
+          <td class="factor">Lysozyme (antibacterial enzyme)</td>
+          <td class="hm" data-label="Breast milk">Present at roughly 3,000× the concentration found in cow's milk</td>
+          <td class="cm" data-label="Cow's milk">Only trace amounts</td>
+        </tr>
+        <tr>
+          <td class="factor">Fat structure</td>
+          <td class="hm" data-label="Breast milk">Fat globules are wrapped in a bioactive triple-layer membrane (the "MFGM") rich in phospholipids and cholesterol, aiding digestion and neural development</td>
+          <td class="cm" data-label="Cow's milk">Larger globules with a thinner, less bioactive membrane; homogenisation in processed milk breaks this structure further</td>
+        </tr>
+        <tr>
+          <td class="factor">Fat composition</td>
+          <td class="hm" data-label="Breast milk">Naturally rich in DHA and ARA, long-chain fats used directly in brain and retina development</td>
+          <td class="cm" data-label="Cow's milk">Essentially none, infant formulas have to be fortified with DHA/ARA to compensate for this exact gap</td>
+        </tr>
+        <tr>
+          <td class="factor">Foremilk–hindmilk gradient</td>
+          <td class="hm" data-label="Breast milk">Fat content climbs through a single feed (thin, thirst-quenching foremilk gives way to fat-rich hindmilk), self-regulating the infant's intake</td>
+          <td class="cm" data-label="Cow's milk">Fixed composition, bottle to bottle, no equivalent gradient</td>
+        </tr>
+        <tr>
+          <td class="factor">Minerals (Ca, P, Na, K)</td>
+          <td class="hm" data-label="Breast milk">Lower absolute amounts, but highly bioavailable and matched to an infant's immature kidney function</td>
+          <td class="cm" data-label="Cow's milk">3–4× higher mineral and protein load. This "renal solute load" is exactly why it's not recommended as a primary infant drink before 12 months</td>
+        </tr>
+        <tr>
+          <td class="factor">Iron</td>
+          <td class="hm" data-label="Breast milk">Low in quantity, but ~50% absorbed thanks to lactoferrin-bound iron and low competing minerals</td>
+          <td class="cm" data-label="Cow's milk">Also low, and poorly absorbed; can also cause micro-bleeding in an infant gut, worsening iron status</td>
+        </tr>
+        <tr>
+          <td class="factor">Composition over time</td>
+          <td class="hm" data-label="Breast milk">A living fluid (colostrum, transitional and mature milk all differ), with composition shifting within and across feeds to track the infant's changing needs</td>
+          <td class="cm" data-label="Cow's milk">Static, the same composition regardless of the drinking child's age or needs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:36px;font-size:18px;">The fat layer, side by side</h3>
+  <p class="sec-intro" style="margin-top:0;">A visual sense of why the fat in these two milks behaves so differently once it reaches an infant's gut.</p>
+  <div class="fatdiagram">
+    <div class="fatcard hm">
+      <h4>Breast milk fat globule</h4>
+      <div class="globule" id="hmGlobule"></div>
+      <ul>
+        <li>Smaller globules, more surface area for enzymes to act on</li>
+        <li>Wrapped in the milk fat globule membrane (MFGM), rich in phospholipids and cholesterol</li>
+        <li>Bile-salt-stimulated lipase travels along with the fat, digesting it in the infant's gut</li>
+        <li>Carries DHA/ARA for brain and retina growth</li>
+      </ul>
+    </div>
+    <div class="fatcard cm">
+      <h4>Cow's milk fat globule</h4>
+      <div class="globule" id="cmGlobule"></div>
+      <ul>
+        <li>Larger, more uniform globules</li>
+        <li>Thinner membrane, largely stripped away by homogenisation in processed milk</li>
+        <li>No accompanying lipase, relies entirely on the infant's own, still-immature enzymes</li>
+        <li>No native DHA/ARA</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION 3: NUTRITION 1.5Y ================= -->
+<section class="block" id="nutrition">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>What a ~1.5-year-old needs</h2>
+  </div>
+  <p class="sec-intro">Figures below follow the <b>ICMR-NIN 2020</b> Recommended Dietary Allowances for the 1–3 year age band (reference body weight 12.9 kg), cross-checked against international paediatric nutrition data. Treat these as a target range to plan meals around, not a daily pass/fail test (appetite varies day to day at this age).</p>
+
+  <div class="nutrigrid">
+    <div class="nutricard">
+      <div class="figure">12.5<span class="unit">g / day</span></div>
+      <div class="label">Protein (RDA)</div>
+      <p>≈0.97 g/kg body weight/day. Indian cereal-heavy diets should lean toward the higher end (ICMR footnote: ~1 g/kg where protein quality is lower).</p>
+    </div>
+    <div class="nutricard">
+      <div class="figure">500<span class="unit">mg / day</span></div>
+      <div class="label">Calcium (RDA)</div>
+      <p>Roughly two cups (~480 ml) of milk covers just over half of this on its own. The rest should come from food, not more milk.</p>
+    </div>
+    <div class="nutricard">
+      <div class="figure">40–48<span class="unit">g / day</span></div>
+      <div class="label">Fat (estimated)</div>
+      <p>ICMR doesn't set a gram figure for toddlers directly; this is 35–40% of the ~1,070–1,110 kcal/day ICMR energy RDA, per international (ESPGHAN) toddler fat guidance.</p>
+    </div>
+  </div>
+  <p style="font-size:12.8px;color:var(--ink-soft);margin-top:14px;">Worth watching alongside these three: <b>iron</b> and <b>zinc</b>. National survey data shows a majority of Indian toddlers run short on both, largely because milk is calorie- and calcium-rich but iron-poor (one more reason not to let milk crowd out solid meals at this age).</p>
+
+  <h3 style="margin-top:34px;font-size:18px;">Indian foods to meet it</h3>
+  <p class="sec-intro" style="margin-top:0;">Vegetarian and non-vegetarian options included, pick what fits your household.</p>
+
+  <div class="emoji-hero">
+    <span>🌾</span><span>🧀</span><span>🥚</span><span>🥛</span><span>🐟</span><span>🧈</span><span>🥑</span>
+  </div>
+
+  <div class="foodgroup">
+    <h4 style="color:var(--brand);">For protein</h4>
+    <div class="chips">
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🧀</span> Paneer <b>~18g/100g</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🫘</span> Moong dal <b>~24g/100g dry</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥣</span> Curd / dahi <b>~3.5g/100g</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥛</span> Whole milk</div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🥚</span> Egg <b>~6g/egg</b></div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🍗</span> Chicken, well-cooked &amp; shredded</div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🐟</span> Fish (rohu, sardine, soft-boned)</div>
+    </div>
+  </div>
+
+  <div class="foodgroup">
+    <h4 style="color:var(--brand);">For calcium</h4>
+    <div class="chips">
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🌾</span> Ragi (finger millet) <b>~344mg/100g</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🌱</span> Til / sesame <b>~975mg/100g</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🧀</span> Paneer <b>~208mg/100g</b></div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥛</span> Curd &amp; milk</div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥬</span> Methi / spinach, cooked soft</div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🐟</span> Small soft-boned fish</div>
+    </div>
+  </div>
+
+  <div class="foodgroup">
+    <h4 style="color:var(--brand);">For healthy fat</h4>
+    <div class="chips">
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🧈</span> Ghee, stirred into dal/rice</div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥛</span> Full-fat milk &amp; curd</div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🌰</span> Soaked almond/walnut paste</div>
+      <div class="chip veg"><span class="tag">veg</span> <span class="emoji">🥑</span> Avocado, mashed</div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🥚</span> Egg yolk</div>
+      <div class="chip nonveg"><span class="tag">non-veg</span> <span class="emoji">🐟</span> Oily fish (sardine, mackerel) for DHA</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:34px;font-size:18px;">One illustrative day</h3>
+  <p class="sec-intro" style="margin-top:0;">A sample layout, not a prescription, swap freely within each slot.</p>
+  <div class="dayplan">
+    <div class="dayrow"><div class="time">7:30 AM</div><div class="meal"><span class="mealemoji">🥣</span><b>Ragi porridge</b> with a spoon of ghee and mashed banana</div></div>
+    <div class="dayrow"><div class="time">10:00 AM</div><div class="meal"><span class="mealemoji">🥛</span><b>Milk</b>, plain or with a few soaked almonds blended in</div></div>
+    <div class="dayrow"><div class="time">12:30 PM</div><div class="meal"><span class="mealemoji">🍚</span><b>Dal-rice-ghee khichdi</b> with a small cube of paneer or shredded egg</div></div>
+    <div class="dayrow"><div class="time">4:00 PM</div><div class="meal"><span class="mealemoji">🍲</span><b>Curd</b> with soft fruit, or a piece of well-cooked fish/chicken</div></div>
+    <div class="dayrow"><div class="time">7:00 PM</div><div class="meal"><span class="mealemoji">🫓</span><b>Roti soaked in dal</b> or vegetable, with a spoon of ghee, and a final milk feed before bed</div></div>
+  </div>
+</section>
+
+<!-- ================= SECTION 4: 8-WEEK COMPLEMENTARY PLAN ================= -->
+<section class="block" id="complementary-plan">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>An 8-week complementary feeding plan</h2>
+  </div>
+  <p class="sec-intro">This runs alongside the milk taper in Section 01, not instead of it. Its job is narrow: cover the two things breast milk and cow's milk are structurally weakest on, iron and zinc, and add enough calorie density that a small stomach can meet rising energy needs. Fat stays in the plan on purpose, here's why, and then the eight weeks themselves.</p>
+
+  <div class="notecard info reveal">
+    <h4>Why fat isn't the thing being cut</h4>
+    <p>The AAP's toddler nutrition guidance is direct: fat and cholesterol should not be restricted before age two. Diets that trim fat in this age group have been linked to slower growth, and can quietly under-deliver the fat-soluble vitamins and fatty acids a toddler's nervous system is still being built from.</p>
+  </div>
+
+  <h3 style="margin-top:32px;font-size:18px;">Why fat has to be present for digestion to actually finish</h3>
+  <p class="sec-intro" style="margin-top:0;">Vitamins A, D, E and K are fat-soluble. They need dietary fat physically present in the gut at mealtime to be absorbed, being present in the food alone isn't enough. Here's the mechanism, step by step.</p>
+
+  <div class="eqnbox">
+    <span class="mono">Triglyceride + 3 H₂O --(lipase)--> Glycerol + 3 Fatty acids</span><br>
+    <span style="font-size:11.5px;">the core hydrolysis reaction that has to run before any fat, or the vitamins travelling with it, can cross the gut wall</span>
+  </div>
+
+  <div class="digestflow">
+    <div class="dstep reveal"><div class="dicon">👄</div><div class="dtext"><b>Mouth</b> (lingual lipase makes the first pass at the fat)</div></div>
+    <div class="darrow"></div>
+    <div class="dstep reveal"><div class="dicon">🫃</div><div class="dtext"><b>Stomach</b> (gastric lipase continues the breakdown; churning disperses fat into smaller droplets)</div></div>
+    <div class="darrow"></div>
+    <div class="dstep reveal"><div class="dicon">🟡</div><div class="dtext"><b>Duodenum</b> (bile salts emulsify those droplets into a suspension pancreatic lipase can actually reach)</div></div>
+    <div class="darrow"></div>
+    <div class="dstep reveal"><div class="dicon">🧫</div><div class="dtext"><b>Micelles form</b> (fatty acids and vitamins A/D/E/K bundle together inside these carriers to cross into the gut lining)</div></div>
+  </div>
+  <p class="sec-intro" style="margin-top:14px;">This is exactly why "no fat" is never a neutral choice at this age: without enough fat in a meal to form those micelles, the vitamin-absorption step upstream simply doesn't run, however much vitamin A or D is technically present in the vegetable.</p>
+
+  <h3 style="margin-top:34px;font-size:18px;">The eight weeks, in four fortnights</h3>
+  <p class="sec-intro" style="margin-top:0;">Each block keeps the same core, a grain, a dal, a vegetable, a spoon of ghee or full-fat curd, and widens texture and protein source as it goes. Introduce genuinely new ingredients one at a time, about three days apart, so any reaction is easy to trace back.</p>
+
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Weeks 1–2 (Foundation textures)</div>
+      <div class="phase-weeks">Smooth to soft-mashed</div>
+    </div>
+    <div class="phase-note">Two solid meals a day, slotted between milk feeds. The goal here is comfort with a spoon, and with ghee/curd as an everyday habit rather than a special addition.</div>
+    <div class="recipegrid">
+      <div class="recipecard">
+        <h5>Ragi-ghee porridge</h5>
+        <div class="rmeta">Iron · energy · vitamin carrier</div>
+        <ul class="ringr">
+          <li>2 tbsp roasted ragi flour</li>
+          <li>1 cup water or milk</li>
+          <li>1 tsp ghee</li>
+          <li>½ ripe banana, mashed</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Whisk ragi flour into cold water until lump-free</li>
+          <li>Cook on low heat 6–8 min, stirring, until thick</li>
+          <li>Stir in ghee off the heat; fold in mashed banana</li>
+        </ol>
+        <div class="rwhy"><b>Why the ghee stays:</b> ragi's iron and the banana's vitamin A both need this fat present to be absorbed a few steps downstream.</div>
+      </div>
+      <div class="recipecard">
+        <h5>Moong dal-rice khichdi</h5>
+        <div class="rmeta">Protein · gentle on digestion</div>
+        <ul class="ringr">
+          <li>2 tbsp split moong dal</li>
+          <li>2 tbsp rice</li>
+          <li>1 tsp ghee</li>
+          <li>Pinch turmeric</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Wash and pressure-cook dal and rice with turmeric, 3–4 whistles</li>
+          <li>Mash to a soft, spoonable consistency</li>
+          <li>Stir in ghee just before serving</li>
+        </ol>
+        <div class="rwhy"><b>Why this pairing works:</b> dal's plant protein and rice's carbohydrate together form a more complete amino-acid profile than either gives alone.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Weeks 3–4 (Iron &amp; zinc push)</div>
+      <div class="phase-weeks">Soft-mashed, more variety</div>
+    </div>
+    <div class="phase-note">This is the fortnight built around the exact gap Section 03 flags: milk is calcium-rich but iron-poor. Egg yolk, dal variety and leafy greens carry the load here.</div>
+    <div class="recipegrid">
+      <div class="recipecard">
+        <h5>Dal-egg khichdi</h5>
+        <div class="rmeta">Iron · zinc · choline</div>
+        <ul class="ringr">
+          <li>2 tbsp moong or masoor dal</li>
+          <li>2 tbsp rice</li>
+          <li>1 whole egg, hard-boiled</li>
+          <li>1 tsp ghee</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Cook dal-rice khichdi as before</li>
+          <li>Mash the boiled egg (yolk and white) into the hot khichdi</li>
+          <li>Finish with ghee</li>
+        </ol>
+        <div class="rwhy"><b>Why egg here:</b> yolk is one of the few weaning foods carrying meaningful iron, zinc and choline together, and its own fat helps absorb them.</div>
+      </div>
+      <div class="recipecard">
+        <h5>Palak-paneer bhurji</h5>
+        <div class="rmeta">Iron · calcium · fat</div>
+        <ul class="ringr">
+          <li>Small bunch spinach, finely chopped</li>
+          <li>2 tbsp paneer, crumbled</li>
+          <li>1 tsp ghee</li>
+          <li>Pinch cumin powder</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Sauté spinach in ghee until fully wilted and soft</li>
+          <li>Add crumbled paneer, cook 2 min</li>
+          <li>Mash to age-appropriate texture</li>
+        </ol>
+        <div class="rwhy"><b>Why cook it in fat, not steam it plain:</b> spinach's non-heme iron absorbs poorly on its own; the paneer's fat and its own small protein contribution both help.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Weeks 5–6 (Textures widen)</div>
+      <div class="phase-weeks">Soft finger foods</div>
+    </div>
+    <div class="phase-note">Self-feeding practice begins here. Everything below is soft enough to gum, cut into finger-sized pieces, and supervised at every meal.</div>
+    <div class="recipegrid">
+      <div class="recipecard">
+        <h5>Soft fish cutlets</h5>
+        <div class="rmeta">Protein · omega-3 fat · zinc</div>
+        <ul class="ringr">
+          <li>50g rohu or sardine, deboned, steamed</li>
+          <li>1 tbsp mashed potato (binder)</li>
+          <li>1 tsp ghee, for pan-cooking</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Flake the steamed fish carefully, checking for bones</li>
+          <li>Mix with mashed potato into a soft patty</li>
+          <li>Pan-cook gently in ghee until warmed through and lightly set</li>
+        </ol>
+        <div class="rwhy"><b>Why oily fish specifically:</b> it's one of the only weaning foods carrying its own DHA, the same fat breast milk was supplying by default up to now.</div>
+      </div>
+      <div class="recipecard">
+        <h5>Idli fingers with ghee-sambar dip</h5>
+        <div class="rmeta">Fermented grain · self-feeding practice</div>
+        <ul class="ringr">
+          <li>1 soft steamed idli, cut into finger strips</li>
+          <li>2 tbsp thin dal sambar</li>
+          <li>½ tsp ghee, tempered in</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Steam idli as usual; cool slightly, slice into strips</li>
+          <li>Warm the sambar, stir in ghee</li>
+          <li>Let the child dip and self-feed, supervised</li>
+        </ol>
+        <div class="rwhy"><b>Why fermented batter:</b> fermentation partially pre-digests the grain-lentil batter, easing the load on a still-maturing gut.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase reveal">
+    <div class="phase-top">
+      <div class="phase-title">Weeks 7–8 (Family-plate transition)</div>
+      <div class="phase-weeks">Most textures, minus hazards</div>
+    </div>
+    <div class="phase-note">By now most meals can be a scaled-down version of the family plate, still no added salt, no honey, and nothing round/hard/sticky that's a choking risk.</div>
+    <div class="recipegrid">
+      <div class="recipecard">
+        <h5>Mini dal-veg roti rolls</h5>
+        <div class="rmeta">Fibre · protein · fat</div>
+        <ul class="ringr">
+          <li>1 soft roti, warmed</li>
+          <li>2 tbsp mashed dal-vegetable mix</li>
+          <li>½ tsp ghee, brushed on</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Brush the roti with ghee</li>
+          <li>Spread the dal-vegetable mash across it</li>
+          <li>Roll tightly and slice into thick, easy-to-hold rounds</li>
+        </ol>
+        <div class="rwhy"><b>Why this counts as progress:</b> it's the same nutrients as week one's khichdi, in a shape that builds independent eating.</div>
+      </div>
+      <div class="recipecard">
+        <h5>Tempered curd rice</h5>
+        <div class="rmeta">Probiotic · calcium · fat</div>
+        <ul class="ringr">
+          <li>3 tbsp cooked rice, mashed soft</li>
+          <li>2 tbsp full-fat curd</li>
+          <li>½ tsp ghee, mustard seed &amp; curry leaf tempering</li>
+          <li>1 tbsp grated carrot</li>
+        </ul>
+        <ol class="rsteps">
+          <li>Mash warm rice with curd until smooth</li>
+          <li>Temper mustard seeds and curry leaves in ghee, cool slightly</li>
+          <li>Stir tempering and grated carrot through the curd-rice</li>
+        </ol>
+        <div class="rwhy"><b>Why curd over plain milk here:</b> its live cultures support a gut microbiome that's still being established, on top of the same fat and calcium.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:34px;font-size:18px;">One illustrative day, weeks 7–8</h3>
+  <p class="sec-intro" style="margin-top:0;">Shown alongside Phase 3 of the milk schedule (Section 01), two milk feeds a day, solids filling the rest.</p>
+  <div class="dayplan">
+    <div class="dayrow"><div class="time">7:30 AM</div><div class="meal"><span class="mealemoji">🥣</span><b>Ragi-ghee porridge</b> with mashed banana</div></div>
+    <div class="dayrow"><div class="time">10:00 AM</div><div class="meal"><span class="mealemoji">🍌</span>Soft fruit or a few soaked-almond crumbs stirred into curd</div></div>
+    <div class="dayrow"><div class="time">12:30 PM</div><div class="meal"><span class="mealemoji">🌯</span><b>Mini dal-veg roti roll</b>, cut into holdable rounds</div></div>
+    <div class="dayrow"><div class="time">4:00 PM</div><div class="meal"><span class="mealemoji">🤱</span><b>Breastfeed</b> (per the Phase 3 schedule)</div></div>
+    <div class="dayrow"><div class="time">6:00 PM</div><div class="meal"><span class="mealemoji">🥛</span><b>Cow's milk</b> feed, plus a small bowl of <b>tempered curd rice</b></div></div>
+  </div>
+</section>
+
+<!-- ================= SECTION 5: WHEN FAT RESTRICTION IS MEDICALLY NECESSARY ================= -->
+<section class="block" id="fat-restriction-clinical">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>When fat restriction is actually medically necessary</h2>
+  </div>
+  <p class="sec-intro">Everything in Section 04 assumes a healthy toddler, where fat is never the thing to cut. There is a separate, narrow set of diagnosed conditions where a physician does deliberately restrict long-chain fat. This section explains that mechanism so it's understood correctly, it is not a template to self-apply.</p>
+
+  <div class="foodgroup">
+    <h4 style="color:var(--brand);">The two situations this actually applies to</h4>
+    <div class="chips">
+      <div class="chip nonveg"><span class="tag">clinical</span> Chylothorax, post-cardiac surgery or congenital</div>
+      <div class="chip nonveg"><span class="tag">clinical</span> Primary intestinal lymphangiectasia / other chylous leaks</div>
+      <div class="chip nonveg"><span class="tag">clinical</span> Fatty-acid oxidation disorders (e.g. LCHAD deficiency)</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:32px;font-size:18px;">Why the substitute is MCT, not "no fat"</h3>
+  <p class="sec-intro" style="margin-top:0;">Long-chain fat (LCT) is absorbed into the lymphatic system as chylomicrons, which is precisely the problem in a chyle leak, more LCT means more lymph flow through the injured vessel. Medium-chain fat (MCT) takes a different route entirely, straight into the portal vein and liver, bypassing the lymphatics. That's the whole rationale, and it only works because MCT still delivers fat calories.</p>
+
+  <div class="dfork">
+    <div class="dbranch lct">
+      <div class="dbranch-label">Long-chain fat (LCT)</div>
+      <div class="dstep reveal"><div class="dtext">Packaged into <b>chylomicrons</b> in the gut wall</div></div>
+      <div class="darrow"></div>
+      <div class="dstep reveal"><div class="dtext">Enters the <b>lymphatic system</b> → thoracic duct</div></div>
+      <div class="darrow"></div>
+      <div class="dstep reveal"><div class="dtext">Adds to <b>lymph/chyle flow</b>, worsening a leak</div></div>
+    </div>
+    <div class="dbranch mct">
+      <div class="dbranch-label">Medium-chain fat (MCT)</div>
+      <div class="dstep reveal"><div class="dtext">Absorbed <b>directly</b> by the gut wall, no packaging step</div></div>
+      <div class="darrow"></div>
+      <div class="dstep reveal"><div class="dtext">Goes straight into the <b>portal vein</b></div></div>
+      <div class="darrow"></div>
+      <div class="dstep reveal"><div class="dtext">Reaches the <b>liver</b>, lymphatics bypassed entirely</div></div>
+    </div>
+  </div>
+
+  <div class="notecard caution reveal" style="margin-top:24px;">
+    <h4>This still isn't a zero-fat diet</h4>
+    <p>In practice, MCT oil or a specialised formula still supplies real fat calories, and clinicians usually keep a small amount of LCT in the diet specifically to prevent essential-fatty-acid deficiency. One documented approach even centrifuges breast milk to remove most of its long-chain fat while keeping its immune and hormonal components, then adds MCT oil back in, so the infant still gets breast milk, just re-engineered around the one fat fraction that's the actual problem.</p>
+  </div>
+
+  <div class="tablewrap" style="margin-top:22px;">
+    <table>
+      <thead>
+        <tr><th>Factor</th><th class="hmh">Standard toddler diet</th><th class="cmh">Physician-directed low-LCT / MCT diet</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="factor">Who decides</td>
+          <td class="hm" data-label="Standard">Parents, guided by general paediatric nutrition norms</td>
+          <td class="cm" data-label="Restricted">Cardiologist, GI specialist or metabolic team; executed by a registered dietitian</td>
+        </tr>
+        <tr>
+          <td class="factor">Fat source</td>
+          <td class="hm" data-label="Standard">Ghee, whole milk, nuts, oily fish, mostly long-chain</td>
+          <td class="cm" data-label="Restricted">Prescription MCT oil or specialised formula (e.g. a low-LCT, MCT-rich formula), with a controlled trace of LCT</td>
+        </tr>
+        <tr>
+          <td class="factor">Duration</td>
+          <td class="hm" data-label="Standard">Ongoing, lifelong pattern</td>
+          <td class="cm" data-label="Restricted">Typically weeks, until the leak resolves or the metabolic condition's long-term plan is set, then fat is gradually reintroduced</td>
+        </tr>
+        <tr>
+          <td class="factor">Monitoring</td>
+          <td class="hm" data-label="Standard">Routine growth checks</td>
+          <td class="cm" data-label="Restricted">Frequent weight/growth tracking, fat-soluble vitamin levels, and for chyle leaks, chyle output itself</td>
+        </tr>
+        <tr>
+          <td class="factor">Risk if attempted without this supervision</td>
+          <td class="hm" data-label="Standard">Not applicable</td>
+          <td class="cm" data-label="Restricted">Growth faltering, essential-fatty-acid and fat-soluble vitamin deficiency, without the clinical benefit the restriction exists for</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notecard assume reveal" style="margin-top:20px;">
+    <h4>Deliberately not a set of numbers</h4>
+    <p>Actual gram or millilitre targets, formula choice, and how long to stay on it are set per child by the treating team, based on labs and (for chyle leaks) measured chyle output. This section explains the mechanism so it's understood, it is not sized to any individual child and shouldn't be used as one.</p>
+  </div>
+</section>
+
+<!-- ================= SECTION 6: NOTES ================= -->
+<section class="block" id="notes">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2>Notes</h2>
+  </div>
+
+  <div class="notecard tonic">
+    <h4>Tonic reminder</h4>
+    <p>Give the tonic your physician / your own household has prescribed at least <b>3 times a week</b>. Anytime is fine.</p>
+  </div>
+
+  </section>
+
+<!-- ================= REFERENCES ================= -->
+<section class="block" id="refs">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <h2>References</h2>
+  </div>
+  <div class="refs">
+    <ol>
+      <li>ICMR–National Institute of Nutrition. <i>Nutrient Requirements for Indians: Recommended Dietary Allowances (RDA) and Estimated Average Requirements (EAR), 2020.</i> Summary tables, <a href="https://www.nin.res.in/rdabook/brief_note.pdf" target="_blank">nin.res.in</a>.</li>
+      <li>American Academy of Pediatrics / USDA Dietary Guidelines for Americans 2020–2025, guidance on introducing whole cow's milk at 12 months. Summarised via <a href="https://downloads.aap.org/AAP/PDF/HealthyBeverageQuickReferenceGuideDownload.pdf" target="_blank">AAP Healthy Beverage Quick Reference Guide</a>.</li>
+      <li>Human milk vs. cow-milk-based infant formula proteins: structure, digestion and physiological impacts. <i>Frontiers/PMC</i>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12399412/" target="_blank">PMC12399412</a>.</li>
+      <li>Human Milk Proteins, overview of casein:whey ratio, immunoglobulin classes and lactoferrin content. <i>ScienceDirect Topics.</i></li>
+      <li>Breastmilk composition (enzymes, fat globule membrane, foremilk/hindmilk dynamics). <i>GIFA (Geneva Infant Feeding Association)</i>, <a href="https://www.gifa.org/en/breastmilk-composition/" target="_blank">gifa.org</a>.</li>
+      <li>Components of human breast milk: from macronutrient to microbiome. <i>Clinical and Experimental Pediatrics</i>, <a href="https://www.e-cep.org/journal/view.php?doi=10.3345/cep.2020.00059" target="_blank">e-cep.org</a>.</li>
+      <li>A comparison between human milk and cow's milk, casein:whey ratios and digestibility. <i>Viva! Health</i>, <a href="https://viva.org.uk/health/a-comparison-between-human-milk-and-cows-milk/" target="_blank">viva.org.uk</a>.</li>
+      <li>Daily nutrient requirements and reference intakes in toddlers (1–3 years), international cross-check for fat as % energy. <i>Nutrients (MDPI) / PMC</i>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8540900/" target="_blank">PMC8540900</a>.</li>
+      <li>WHO Guideline for complementary feeding of infants and young children 6–23 months of age, role of breast milk and complementary foods through the second year. <i>NCBI Bookshelf</i>, <a href="https://www.ncbi.nlm.nih.gov/books/NBK596423/" target="_blank">NBK596423</a>.</li>
+      <li>Nutrition in Toddlers, the AAP position that fat and cholesterol should not be restricted before age two, and the growth risks of low-fat toddler diets. <i>American Family Physician</i>, <a href="https://www.aafp.org/afp/2006/1101/p1527" target="_blank">aafp.org</a>.</li>
+      <li>Fat diet, minimal LCT plus MCT (paediatric), clinical specification for physician-directed, dietitian-supervised low-long-chain-fat diets. <i>Agency for Clinical Innovation, NSW Health</i>, <a href="https://aci.health.nsw.gov.au/projects/diet-specifications/paediatric/therapeutic/fat-minimal-lct-plus-mct" target="_blank">aci.health.nsw.gov.au</a>.</li>
+      <li>Nutritional therapy for infants with primary intestinal lymphangiectasia, case reports on low-LCT, MCT-supplemented feeding. <i>PMC</i>, <a href="https://ncbi.nlm.nih.gov/pmc/articles/PMC5758182" target="_blank">PMC5758182</a>.</li>
+      <li>Chylothorax after congenital heart surgery in newborns and infants, risk factors and efficacy of the MCT diet. <i>PMC</i>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3009966/" target="_blank">PMC3009966</a>.</li>
+      <li>Nutrition with skimmed breast milk in an infant with LCHAD deficiency, case description of centrifuged breast milk plus MCT oil. <i>PMC</i>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12056594/" target="_blank">PMC12056594</a>.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <span>Orcasho Scientific Solutions · Bengaluru</span>
+</footer>
+
+<script>
+// ---------- Clock rendering ----------
+function timeToAngles(h, m){
+  const hourAngle = ((h % 12) + m/60) * 30;
+  const minAngle = m * 6;
+  return {hourAngle, minAngle};
+}
+
+function buildClock(container, hh, mm, type, label, sublabel){
+  const item = document.createElement('div');
+  item.className = 'clockitem';
+
+  const face = document.createElement('div');
+  face.className = 'clockface type-' + type;
+
+  // ticks
+  for(let i=0;i<12;i++){
+    const t = document.createElement('div');
+    t.className='tick';
+    t.style.transform = 'rotate(' + (i*30) + 'deg)';
+    face.appendChild(t);
+  }
+  const hourHand = document.createElement('div');
+  hourHand.className='hand hour hand-anim';
+  hourHand.style.transform = 'rotate(0deg)';
+  const minHand = document.createElement('div');
+  minHand.className='hand minute hand-anim';
+  minHand.style.transform = 'rotate(0deg)';
+  const pin = document.createElement('div');
+  pin.className='pin';
+
+  face.appendChild(hourHand);
+  face.appendChild(minHand);
+  face.appendChild(pin);
+
+  const lab = document.createElement('div');
+  lab.className='clocklabel';
+  lab.textContent = label;
+
+  const sub = document.createElement('div');
+  sub.className='clocktype type-' + type;
+  sub.textContent = sublabel;
+
+  item.appendChild(face);
+  item.appendChild(lab);
+  item.appendChild(sub);
+  container.appendChild(item);
+
+  const angles = timeToAngles(hh, mm);
+  // animate in after slight delay, staggered
+  const delay = 150 + Array.from(container.children).indexOf(item) * 180;
+  setTimeout(()=>{
+    hourHand.style.transform = 'rotate(' + angles.hourAngle + 'deg)';
+    minHand.style.transform = 'rotate(' + angles.minAngle + 'deg)';
+  }, delay);
+}
+
+function buildGap(container, hours, assumed){
+  const g = document.createElement('div');
+  g.className = 'gap' + (assumed ? ' assumed' : '');
+  const line = document.createElement('div');
+  line.className='line';
+  const arrow = document.createElement('div');
+  arrow.className='arrow';
+  line.appendChild(arrow);
+  const glabel = document.createElement('div');
+  glabel.className='glabel';
+  glabel.textContent = hours + 'h gap';
+  g.appendChild(line);
+  g.appendChild(glabel);
+  container.appendChild(g);
+}
+
+function buildRibbon(container, feeds){
+  container.innerHTML='';
+  const track = document.createElement('div');
+  track.className='track';
+  container.appendChild(track);
+  feeds.forEach(f=>{
+    const totalMin = f.h*60 + f.m;
+    const pct = (totalMin/1440)*100;
+    const mark = document.createElement('div');
+    mark.className='mark type-' + f.type;
+    mark.style.left = 'calc(14px + ' + pct + '% * (100% - 28px) / 100%)';
+    mark.title = f.label;
+    container.appendChild(mark);
+  });
+}
+
+// Phase 1: 7:00 B, 9:00 C, 12:00 B, 15:00 C, 18:00 B(assumed gap before), 19:00 C
+(function(){
+  const row = document.getElementById('p1clocks');
+  const feeds = [
+    {h:7,m:0,type:'breast',label:'7:00 AM'},
+    {h:9,m:0,type:'cow',label:'9:00 AM'},
+    {h:12,m:0,type:'breast',label:'12:00 PM'},
+    {h:15,m:0,type:'cow',label:'3:00 PM'},
+    {h:18,m:0,type:'breast',label:'6:00 PM'},
+    {h:19,m:0,type:'cow',label:'7:00 PM'}
+  ];
+  const gaps = [2,3,3,3,1];
+  const gapAssumed = [false,false,false,false,false];
+  feeds.forEach((f,i)=>{
+    buildClock(row, f.h, f.m, f.type, f.label, f.type==='breast'?'Breastfeed':"Cow's milk");
+    if(i < feeds.length-1){ buildGap(row, gaps[i], gapAssumed[i]); }
+  });
+  buildRibbon(document.getElementById('p1ribbon'), feeds);
+})();
+
+// Phase 2: 10:00 B, 12:00 C, 15:00 B(assumed from "3am"), 18:00 C
+(function(){
+  const row = document.getElementById('p2clocks');
+  const feeds = [
+    {h:10,m:0,type:'breast',label:'10:00 AM'},
+    {h:12,m:0,type:'cow',label:'12:00 PM'},
+    {h:15,m:0,type:'breast',label:'3:00 PM'},
+    {h:18,m:0,type:'cow',label:'6:00 PM'}
+  ];
+  const gaps = [2,3,3];
+  const gapAssumed = [false,false,false];
+  feeds.forEach((f,i)=>{
+    buildClock(row, f.h, f.m, f.type, f.label, f.type==='breast'?'Breastfeed':"Cow's milk");
+    if(i < feeds.length-1){ buildGap(row, gaps[i], gapAssumed[i]); }
+  });
+  buildRibbon(document.getElementById('p2ribbon'), feeds);
+})();
+
+// Phase 3: 16:00 B, 18:00 C
+(function(){
+  const row = document.getElementById('p3clocks');
+  const feeds = [
+    {h:16,m:0,type:'breast',label:'4:00 PM'},
+    {h:18,m:0,type:'cow',label:'6:00 PM'}
+  ];
+  const gaps = [2];
+  feeds.forEach((f,i)=>{
+    buildClock(row, f.h, f.m, f.type, f.label, f.type==='breast'?'Breastfeed':"Cow's milk");
+    if(i < feeds.length-1){ buildGap(row, gaps[i], false); }
+  });
+  buildRibbon(document.getElementById('p3ribbon'), feeds);
+})();
+
+// ---------- fat globule mini diagrams ----------
+function scatterDots(container, count, minSize, maxSize){
+  for(let i=0;i<count;i++){
+    const d = document.createElement('div');
+    d.className='dot';
+    const size = minSize + Math.random()*(maxSize-minSize);
+    d.style.width = size+'px';
+    d.style.height = size+'px';
+    d.style.left = (Math.random()*88)+'%';
+    d.style.top = (Math.random()*70)+'%';
+    container.appendChild(d);
+  }
+}
+scatterDots(document.getElementById('hmGlobule'), 22, 5, 11);
+scatterDots(document.getElementById('cmGlobule'), 12, 10, 20);
+
+// ---------- reveal on scroll ----------
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
