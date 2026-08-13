@@ -151,21 +151,62 @@
     margin-top:16px; text-align:center;
   }
 
-  /* ---------- CONSEQUENCE CARDS ---------- */
-  .grid3{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px;
+  /* ---------- CAUSAL FLOWCHART ---------- */
+  .flow{
+    position:relative;
+    margin:30px 0 8px;
+    padding-left:40px;
   }
-  .card{
+  .flow::before{
+    content:"";
+    position:absolute; left:13px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .flow-progress{
+    position:absolute; left:13px; top:6px; width:2px; height:0;
+    background:var(--grad);
+    transition:height 1.8s cubic-bezier(.4,0,.2,1);
+    z-index:1;
+  }
+  .flow-step{
+    position:relative;
+    padding-bottom:34px;
+    opacity:0;
+    transform:translateX(-14px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .flow-step:last-child{padding-bottom:0;}
+  .flow-step.active{opacity:1; transform:translateX(0);}
+  .flow-step::before{
+    content:"";
+    position:absolute; left:-40px; top:3px;
+    width:20px; height:20px; border-radius:50%;
     background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:22px 20px;
+    border:2px solid var(--line);
+    transition:border-color .5s ease, background .5s ease, box-shadow .5s ease;
+    z-index:2;
   }
-  .card .num{
-    font-family:var(--mono); color:var(--pink); font-size:13px; margin-bottom:12px; display:block;
+  .flow-step.active::before{
+    border-color:transparent;
+    background:var(--grad);
+    box-shadow:0 0 16px rgba(238,111,174,0.35);
   }
-  .card h4{margin:0 0 8px; font-size:16px; font-family:var(--sans); font-weight:600; color:var(--text);}
-  .card p{font-size:14px; margin:0; color:var(--text-dim);}
+  .flow-badge{
+    font-family:var(--mono); color:var(--pink); font-size:12px; margin-bottom:8px; display:block;
+    letter-spacing:.08em;
+  }
+  .flow-step h4{margin:0 0 6px; font-size:16px; font-family:var(--sans); font-weight:600; color:var(--text);}
+  .flow-step p{font-size:14px; margin:0; color:var(--text-dim); max-width:520px;}
+  .flow-endpoint::before{
+    background:var(--surface-2);
+    border-color:var(--text-faint);
+  }
+  .flow-endpoint.active::before{
+    background:var(--grad);
+    border-color:transparent;
+  }
+  .flow-endpoint h4{font-family:var(--serif); font-weight:600; font-size:18px;}
+  .flow-result p{color:var(--text-dim);}
 
   /* ---------- CALLOUT ---------- */
   .callout{
@@ -267,7 +308,7 @@
 
   @media (max-width: 720px){
     .wrap{padding:0 20px;}
-    .grid3{grid-template-columns:1fr;}
+    .flow{padding-left:32px;}
     .recipe{grid-template-columns:1fr;}
     .recipe-visual{height:160px; margin-bottom:8px;}
     .pill{width:70px; height:160px; border-radius:35px;}
@@ -286,7 +327,7 @@
   @media (max-width: 480px){
     .brandmark img, footer .brand-foot img{width:28px; height:28px;}
     .eq .eq-line{font-size:12.5px;}
-    .card{padding:18px 16px;}
+    .flow-step p{max-width:none;}
   }
 </style>
 </head>
@@ -369,26 +410,39 @@
       <figcaption>Schematic: one Na⁺/K⁺-ATPase cycle across the cell membrane. Not to scale.</figcaption>
     </figure>
 
-    <p class="lead-text" style="margin-top:6px;">When sweating or low intake depletes these ions, the pump runs short of substrate:</p>
+    <p class="lead-text" style="margin-top:6px;">When sweating or low intake depletes these ions, the pump runs short of substrate, and the effect moves through the system in sequence:</p>
 
-    <div class="grid3">
-      <div class="card">
-        <span class="num">01</span>
+    <div class="flow" id="flowchart">
+      <div class="flow-progress" id="flowProgress"></div>
+
+      <div class="flow-step flow-endpoint">
+        <h4>Electrolyte depletion</h4>
+        <p>Sweating, heat, or low fluid and salt intake reduces Na⁺, K⁺ and Cl⁻ available to the cell.</p>
+      </div>
+
+      <div class="flow-step">
+        <span class="flow-badge">01</span>
         <h4>Membrane potential drifts</h4>
         <p>Fewer ions to move means the voltage difference the pump maintains across the membrane becomes harder to hold steady.</p>
       </div>
-      <div class="card">
-        <span class="num">02</span>
+
+      <div class="flow-step">
+        <span class="flow-badge">02</span>
         <h4>ATP generation is impaired</h4>
         <p>Cellular energy production is itself sensitive to the ionic environment it operates in, so output falls alongside the imbalance.</p>
       </div>
-      <div class="card">
-        <span class="num">03</span>
+
+      <div class="flow-step">
+        <span class="flow-badge">03</span>
         <h4>Neuromuscular signalling slows</h4>
         <p>Nerve firing and muscle contraction both rely on the same ion gradients, so signalling efficiency drops.</p>
       </div>
+
+      <div class="flow-step flow-endpoint flow-result">
+        <h4>Fatigue, weakness, low energy</h4>
+        <p>Together, this is what is felt on a hot day or after heavy exertion.</p>
+      </div>
     </div>
-    <p style="margin-top:20px;">Together, this is what is felt as fatigue, weakness, and low energy on a hot day or after heavy exertion.</p>
   </div>
 </section>
 
@@ -463,6 +517,31 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); } });
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const flow = document.getElementById('flowchart');
+  const progress = document.getElementById('flowProgress');
+  if(flow){
+    const steps = flow.querySelectorAll('.flow-step');
+    let played = false;
+    const playFlow = () => {
+      if(played) return;
+      played = true;
+      if(reduceMotion){
+        steps.forEach(s => s.classList.add('active'));
+        progress.style.height = '100%';
+        return;
+      }
+      steps.forEach((step, i) => {
+        setTimeout(() => step.classList.add('active'), i * 420);
+      });
+      progress.style.height = '100%';
+    };
+    const flowObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) playFlow(); });
+    }, {threshold:0.25});
+    flowObserver.observe(flow);
+  }
 </script>
 
 </body>
