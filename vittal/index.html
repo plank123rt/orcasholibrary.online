@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Vittal's HbA1c Recovery Kitchen — 12 Week South Indian Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#123626;
+    --bg-panel:#1c4733;
+    --bg-panel-2:#245640;
+    --cream:#FBF3E2;
+    --cream-dim:#EDE2C9;
+    --turmeric:#E8A33D;
+    --turmeric-deep:#C97F1D;
+    --chili:#D2531A;
+    --chili-deep:#A83E10;
+    --tamarind:#8C5A3C;
+    --curry-leaf:#7FAE68;
+    --ink:#1D2C22;
+    --ink-soft:#3C4A3F;
+    --font-display:'Baloo 2', sans-serif;
+    --font-body:'Work Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-deep);
+    background-image:
+      radial-gradient(circle at 10% 15%, rgba(232,163,61,0.07), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(210,83,26,0.08), transparent 45%);
+    color:var(--cream);
+    font-family:var(--font-body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:var(--font-display); margin:0 0 .4em 0; letter-spacing:.2px; }
+  p{margin:.4em 0;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  a{color:var(--turmeric);}
+
+  /* ---------- kolam dot decoration ---------- */
+  .kolam-row{ display:flex; justify-content:center; gap:10px; padding:14px 0 4px; opacity:.55;}
+  .kolam-row span{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--turmeric);
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  .kolam-row span:nth-child(odd){ background:var(--chili); animation-delay:.4s; }
+  .kolam-row span:nth-child(3n){ background:var(--curry-leaf); animation-delay:.8s; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.5;} 50%{ transform:scale(1.6); opacity:1;} }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:56px 0 30px; text-align:center; position:relative; }
+  .hero .eyebrow{
+    display:inline-block; font-family:var(--font-mono); font-size:.78rem;
+    letter-spacing:2px; text-transform:uppercase; color:var(--curry-leaf);
+    border:1px solid rgba(127,174,104,.4); padding:5px 14px; border-radius:30px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.4rem); color:var(--cream);
+    text-shadow:0 2px 0 rgba(0,0,0,.15);
+  }
+  .hero h1 span{ color:var(--turmeric); }
+  .hero p.lede{
+    max-width:640px; margin:14px auto 0; color:var(--cream-dim); font-size:1.05rem;
+  }
+  .hero .plate{
+    width:150px; height:150px; margin:26px auto 0; position:relative;
+  }
+  .hero .plate svg{ width:100%; height:100%; animation:spin 40s linear infinite; }
+  @keyframes spin{ from{transform:rotate(0);} to{transform:rotate(360deg);} }
+  .hero .plate .center{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:2.6rem;
+  }
+
+  /* ---------- nav tabs ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,54,38,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(232,163,61,.25);
+    padding:10px 0;
+  }
+  nav.tabs .wrap{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  nav.tabs .wrap::-webkit-scrollbar{display:none;}
+  nav.tabs a{
+    flex:0 0 auto; text-decoration:none;
+    background:transparent; border:1px solid rgba(251,243,226,.18);
+    color:var(--cream-dim); font-family:var(--font-body); font-weight:600;
+    font-size:.92rem; padding:9px 18px; border-radius:30px; cursor:pointer;
+    transition:all .25s ease; white-space:nowrap; display:inline-block;
+  }
+  nav.tabs a:hover, nav.tabs a.active{
+    background:var(--turmeric); color:var(--ink); border-color:var(--turmeric);
+    box-shadow:0 4px 14px rgba(232,163,61,.35);
+  }
+
+  main{ padding:40px 0 80px; }
+  .tab-panel{ scroll-margin-top:70px; }
+  section.jump-section{ scroll-margin-top:70px; }
+
+  .reveal{ animation:fadeUpIn .6s ease both; }
+  @keyframes fadeUpIn{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+  section.block{ margin-bottom:52px; }
+  section.block h2{
+    font-size:1.7rem; color:var(--turmeric); display:flex; align-items:center; gap:10px;
+  }
+  section.block .sub{ color:var(--cream-dim); max-width:700px; }
+
+  /* card */
+  .card{
+    background:var(--bg-panel); border:1px solid rgba(232,163,61,.18);
+    border-radius:var(--radius); padding:22px 24px;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,.25); border-color:rgba(232,163,61,.5); }
+
+  .equation{
+    font-family:var(--font-mono); font-size:.86rem; color:var(--cream);
+    background:rgba(0,0,0,.22); border-left:3px solid var(--chili);
+    padding:12px 16px; border-radius:8px; margin:12px 0; overflow-x:auto;
+  }
+  .equation .arrow{ color:var(--turmeric); font-weight:600; }
+
+  /* ---------- overview grid ---------- */
+  .principle-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px; margin-top:20px; }
+  .principle-grid .card h3{ font-size:1.05rem; color:var(--cream); display:flex; gap:8px; align-items:center;}
+  .principle-grid .card p{ color:var(--cream-dim); font-size:.92rem; }
+
+  /* ---------- journey / phases ---------- */
+  .rangoli-track{ display:flex; justify-content:space-between; align-items:center; margin:26px 0 10px; position:relative; }
+  .rangoli-track::before{
+    content:""; position:absolute; left:5%; right:5%; top:50%; height:2px;
+    background:linear-gradient(90deg, var(--curry-leaf), var(--turmeric), var(--chili));
+    z-index:0;
+  }
+  .rangoli-track .dot{
+    position:relative; z-index:1; width:16px; height:16px; border-radius:50%;
+    background:var(--bg-deep); border:2px solid var(--turmeric);
+  }
+  .rangoli-track .dot.week-active{ background:var(--turmeric); }
+  .phase-card{ margin-bottom:22px; }
+  .phase-card .tag{
+    font-family:var(--font-mono); font-size:.75rem; color:var(--curry-leaf);
+    text-transform:uppercase; letter-spacing:1.5px;
+  }
+  .phase-card h3{ color:var(--cream); font-size:1.3rem; margin-top:2px;}
+  .phase-card .goals{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px;}
+  .phase-card .goals span{
+    background:rgba(127,174,104,.15); border:1px solid rgba(127,174,104,.4);
+    color:var(--curry-leaf); font-size:.8rem; padding:4px 10px; border-radius:20px;
+  }
+  table.menu{ width:100%; border-collapse:collapse; font-size:.9rem; margin-top:10px;}
+  table.menu th, table.menu td{ text-align:left; padding:8px 10px; border-bottom:1px solid rgba(251,243,226,.12); }
+  table.menu th{ color:var(--turmeric); font-family:var(--font-mono); font-weight:500; font-size:.78rem; text-transform:uppercase; }
+
+  /* ---------- recipes ---------- */
+  .filters{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 26px; }
+  .filters button{
+    background:var(--bg-panel-2); border:1px solid rgba(251,243,226,.15); color:var(--cream-dim);
+    font-family:var(--font-body); font-size:.85rem; font-weight:600; padding:7px 14px;
+    border-radius:20px; cursor:pointer; transition:.2s;
+  }
+  .filters button.active, .filters button:hover{ background:var(--chili); color:var(--cream); border-color:var(--chili); }
+
+  .recipe-grid{ display:grid; grid-template-columns:1fr; gap:22px; max-width:760px; margin:0 auto; }
+  .recipe-card{
+    background:var(--bg-panel); border:1px solid rgba(232,163,61,.18); border-radius:var(--radius);
+    overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .recipe-card:hover{ transform:translateY(-4px); box-shadow:0 14px 26px rgba(0,0,0,.25); }
+  .recipe-head{ padding:20px 20px 14px; display:flex; gap:14px; align-items:flex-start;}
+  .recipe-emoji{
+    font-size:2rem; width:52px; height:52px; flex:0 0 auto; border-radius:50%;
+    background:radial-gradient(circle, var(--turmeric) 0%, var(--turmeric-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .recipe-head h3{ font-size:1.08rem; color:var(--cream); margin:0 0 4px; }
+  .recipe-meta{ display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{ font-size:.7rem; font-family:var(--font-mono); padding:2px 9px; border-radius:12px; text-transform:uppercase; letter-spacing:.5px;}
+  .pill.veg{ background:rgba(127,174,104,.2); color:var(--curry-leaf); border:1px solid rgba(127,174,104,.5);}
+  .pill.fish{ background:rgba(90,140,200,.18); color:#8FC1E8; border:1px solid rgba(143,193,232,.5);}
+  .pill.chicken{ background:rgba(210,83,26,.18); color:var(--chili); border:1px solid rgba(210,83,26,.5);}
+  .pill.meal{ background:rgba(232,163,61,.15); color:var(--turmeric); border:1px solid rgba(232,163,61,.4);}
+
+  .recipe-body{ padding:0 20px 22px; }
+  .recipe-body h4{ font-size:.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--turmeric); margin:16px 0 8px; }
+  .ing-list{ list-style:none; margin:0; padding:0; }
+  .ing-list li{ padding:7px 0; border-bottom:1px dashed rgba(251,243,226,.12); font-size:.9rem; }
+  .ing-list li .qty{ color:var(--turmeric); font-family:var(--font-mono); font-size:.82rem; margin-right:6px;}
+  .ing-list li .why{ display:block; color:var(--cream-dim); font-size:.82rem; margin-top:2px; }
+  .method-list{ margin:0; padding-left:18px; font-size:.9rem; color:var(--cream-dim); }
+  .method-list li{ margin-bottom:6px; }
+  .science-note{ font-size:.88rem; color:var(--cream-dim); background:rgba(0,0,0,.15); padding:10px 14px; border-radius:10px; margin-top:10px;}
+
+  /* ---------- wisdom ---------- */
+  .wisdom-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; margin-top:18px;}
+
+  footer{ text-align:center; padding:34px 20px 50px; color:var(--cream-dim); font-size:.85rem; }
+  footer .name{ color:var(--turmeric); font-family:var(--font-display); font-size:1.1rem; }
+
+  @media(max-width:600px){
+    .hero{ padding:40px 0 20px; }
+    section.block h2{ font-size:1.4rem; }
+    .card{ padding:18px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Personal Nutrition Plan · South Indian</span>
+    <h1>Mr. Vittal's <span>HbA1c</span> Recovery Kitchen</h1>
+    <p class="lede">A 12 week, spice-forward South Indian food plan built to gently bring blood sugar and HbA1c down, one well-chosen ingredient at a time.</p>
+    <div class="plate">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#E8A33D" stroke-width="1.5" stroke-dasharray="4 6"/>
+        <circle cx="50" cy="50" r="36" fill="none" stroke="#D2531A" stroke-width="1" stroke-dasharray="2 5"/>
+        <circle cx="50" cy="50" r="26" fill="none" stroke="#7FAE68" stroke-width="1" stroke-dasharray="3 4"/>
+      </svg>
+      <div class="center">🍛</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <a href="#overview">Overview</a>
+    <a href="#journey">12-Week Journey</a>
+    <a href="#recipes">Recipe Library</a>
+    <a href="#wisdom">Kitchen Wisdom</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- OVERVIEW -->
+  <section id="overview" class="tab-panel">
+    <section class="block reveal">
+      <h2>🩸 What HbA1c actually measures</h2>
+      <p class="sub">HbA1c reflects how much glucose has quietly attached itself to hemoglobin inside red blood cells, over roughly the last 8–12 weeks (a red blood cell's lifespan). This plan is built around that exact window.</p>
+      <div class="equation">
+        Hemoglobin (Hb) + Glucose <span class="arrow">→ (slow, non-enzymatic glycation)</span> HbA1c<br>
+        Rate of glycation <span class="arrow">∝</span> average blood glucose over ~90–120 days<br>
+        <span class="arrow">↓</span> average daily glucose swings <span class="arrow">→</span> <span class="arrow">↓</span> HbA1c over the next 8–12 weeks
+      </div>
+      <p class="sub">Which is why every recipe below is chosen for one job: keeping the glucose curve after a meal low and slow, meal after meal, for twelve weeks straight.</p>
+    </section>
+
+    <section class="block reveal">
+      <h2>🌿 The five levers this plan pulls</h2>
+      <div class="principle-grid">
+        <div class="card">
+          <h3>🌾 Low-GI grains</h3>
+          <p>Ragi, barnyard millet, red and brown rice replace polished white rice. Their fibre and resistant starch slow starch breakdown, so glucose enters the blood gradually instead of in a spike.</p>
+        </div>
+        <div class="card">
+          <h3>🫘 Fibre & pulses</h3>
+          <p>Moong, methi and vegetables add soluble fibre that forms a gel in the gut, physically slowing how fast sugar from the same meal can be absorbed.</p>
+        </div>
+        <div class="card">
+          <h3>🐟 Lean protein</h3>
+          <p>Fish and chicken breast barely move blood glucose at all, and they keep Mr. Vittal full longer, which means fewer snack-driven spikes between meals.</p>
+        </div>
+        <div class="card">
+          <h3>🌶️ Functional spices</h3>
+          <p>Turmeric, curry leaf, cinnamon and fenugreek are used at real, everyday-cooking doses. They're a supporting cast, not a substitute for the medicine or the meal plan.</p>
+        </div>
+        <div class="card">
+          <h3>🫗 Portion & oil control</h3>
+          <p>Oil is measured in teaspoons, not ladles, and carbohydrate portions are fixed per plate, so no single ingredient (however healthy) is allowed to overload a meal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <h2>⚖️ How every plate is balanced</h2>
+      <p class="sub">Every lunch and dinner in this plan follows the same simple ratio, so nothing is ever too much or too little:</p>
+      <div class="equation">
+        Plate <span class="arrow">=</span> ½ non-starchy vegetable + ¼ low-GI grain/millet + ¼ protein (dal, fish, or chicken)<br>
+        + 1 tsp oil/ghee for cooking + spices to taste <span class="arrow">→</span> balanced glycemic load per meal
+      </div>
+    </section>
+  </section>
+
+  <div style="height:1px; margin:44px 0; background:linear-gradient(90deg, transparent, rgba(232,163,61,.35), transparent);"></div>
+
+  <!-- JOURNEY -->
+  <section id="journey" class="tab-panel">
+    <section class="block reveal">
+      <h2>🗓️ The 12-week arc</h2>
+      <p class="sub">Three phases of four weeks each. The recipes stay the same throughout, rotated freely; what changes is portion discipline, consistency, and how closely Mr. Vittal (and his glucometer) track the response.</p>
+      <div class="rangoli-track">
+        <span class="dot week-active"></span><span class="dot week-active"></span><span class="dot week-active"></span><span class="dot week-active"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </section>
+
+    <div class="card phase-card reveal">
+      <span class="tag">Phase 1 · Weeks 1–4</span>
+      <h3>Foundation & Swap</h3>
+      <div class="goals">
+        <span>Replace white rice with millet/red rice at one meal a day</span>
+        <span>Fix portions with a standard plate</span>
+        <span>Cut added sugar entirely</span>
+        <span>Daily 20-min walk after the largest meal</span>
+      </div>
+      <table class="menu">
+        <tr><th>Meal</th><th>Sample dish</th></tr>
+        <tr><td>Breakfast</td><td>Ragi Dosa with Methi-Coconut Chutney</td></tr>
+        <tr><td>Lunch</td><td>Drumstick Sambar + Barnyard Millet + Beetroot-Carrot Poriyal</td></tr>
+        <tr><td>Evening</td><td>Cinnamon-Fenugreek Buttermilk</td></tr>
+        <tr><td>Dinner</td><td>Palak Paruppu + small red rice</td></tr>
+      </table>
+    </div>
+
+    <div class="card phase-card reveal">
+      <span class="tag">Phase 2 · Weeks 5–8</span>
+      <h3>Optimisation & Rhythm</h3>
+      <div class="goals">
+        <span>Millet/low-GI grain at both main meals</span>
+        <span>Fish or chicken 3–4 times a week</span>
+        <span>Check fasting glucose weekly</span>
+        <span>Add light resistance exercise twice a week</span>
+      </div>
+      <table class="menu">
+        <tr><th>Meal</th><th>Sample dish</th></tr>
+        <tr><td>Breakfast</td><td>Oats-Moong Dal Idli with Tomato-Garlic Chutney</td></tr>
+        <tr><td>Lunch</td><td>Vanjaram Fish Curry + Red Rice + Sprouted Moong Kosambari</td></tr>
+        <tr><td>Evening</td><td>Amla-Curry Leaf Rasam (as a warm sipper)</td></tr>
+        <tr><td>Dinner</td><td>Pepper Chicken Varuval + Mixed Vegetable Kootu</td></tr>
+      </table>
+    </div>
+
+    <div class="card phase-card reveal">
+      <span class="tag">Phase 3 · Weeks 9–12</span>
+      <h3>Consolidation & Retest</h3>
+      <div class="goals">
+        <span>Habits should now feel automatic, not effortful</span>
+        <span>Rotate all 15 recipes freely across the week</span>
+        <span>Book the HbA1c retest for week 12</span>
+        <span>Review results with the doctor before changing anything further</span>
+      </div>
+      <table class="menu">
+        <tr><th>Meal</th><th>Sample dish</th></tr>
+        <tr><td>Breakfast</td><td>Vegetable Foxtail Millet Upma</td></tr>
+        <tr><td>Lunch</td><td>Chettinad Grilled Fish + Brown Rice + Poriyal</td></tr>
+        <tr><td>Evening</td><td>Moong Dal Cheela</td></tr>
+        <tr><td>Dinner</td><td>Chicken Chukka + Quinoa Pulao + Rasam</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <div style="height:1px; margin:44px 0; background:linear-gradient(90deg, transparent, rgba(232,163,61,.35), transparent);"></div>
+
+  <!-- RECIPES -->
+  <section id="recipes" class="tab-panel">
+    <section class="block reveal">
+      <h2>📖 The 15-recipe library</h2>
+      <p class="sub">Tap any recipe to open the full ingredient list, method, and the mechanism behind why it helps. Filter by course or by veg/fish/chicken.</p>
+      <div class="filters" id="filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="breakfast">Breakfast</button>
+        <button data-filter="lunch">Lunch/Dinner</button>
+        <button data-filter="snack">Snack/Side</button>
+        <button data-filter="veg">Veg</button>
+        <button data-filter="fish">Fish</button>
+        <button data-filter="chicken">Chicken</button>
+      </div>
+      <div class="recipe-grid" id="recipeGrid"></div>
+    </section>
+  </section>
+
+  <div style="height:1px; margin:44px 0; background:linear-gradient(90deg, transparent, rgba(232,163,61,.35), transparent);"></div>
+
+  <!-- WISDOM -->
+  <section id="wisdom" class="tab-panel">
+    <section class="block reveal">
+      <h2>🧂 Kitchen wisdom for every day</h2>
+      <div class="wisdom-grid">
+        <div class="card">
+          <h3>🛢️ Oil</h3>
+          <p>Max 3–4 teaspoons of gingelly (sesame) oil or ghee per person per day, measured, not poured. Fat helps absorb turmeric's curcumin but excess fat slows digestion and blunts the benefit.</p>
+        </div>
+        <div class="card">
+          <h3>⏱️ Timing</h3>
+          <p>Three fixed meals, one small evening snack, no meal skipped. Skipping meals often causes a bigger glucose swing at the next one.</p>
+        </div>
+        <div class="card">
+          <h3>💧 Hydration</h3>
+          <p>2.5–3 litres of water a day, buttermilk counted separately. Well hydrated kidneys handle glucose excretion more efficiently.</p>
+        </div>
+        <div class="card">
+          <h3>🍚 Rice portion</h3>
+          <p>One level cup of cooked rice/millet per main meal, always paired with dal or vegetable, never eaten alone.</p>
+        </div>
+        <div class="card">
+          <h3>🚶 Movement</h3>
+          <p>A 15–20 minute walk within 30 minutes of the largest meal measurably blunts the after-meal glucose spike.</p>
+        </div>
+        <div class="card">
+          <h3>🩺 Monitoring</h3>
+          <p>Fasting glucose weekly, HbA1c at week 12. Any medication changes go through the doctor, not this plan.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+</main>
+
+<footer>
+  <div class="kolam-row"><span></span><span></span><span></span><span></span><span></span></div>
+  <p>Prepared for <span class="name">Mr. Vittal</span></p>
+  <p>A general nutrition guide built around common South Indian ingredients. Please review it with his doctor or dietitian so it lines up with his medications and lab trends.</p>
+</footer>
+
+<script>
+// (nav links are plain anchor jumps — #overview, #journey, #recipes, #wisdom — no JS needed for them either)
+
+// (scroll-reveal is now pure CSS — see .reveal / @keyframes fadeUpIn — no JS needed for content to appear)
+
+// ---------------- recipe data ----------------
+const recipes = [
+{
+  name:"Ragi Dosa with Methi-Coconut Chutney", emoji:"🥞", tags:["veg","breakfast"],
+  serves:"2", time:"20 min",
+  ingredients:[
+    {q:"1 cup", n:"ragi (finger millet) flour", w:"Low glycemic index (~54) and rich in polyphenols; releases glucose far more slowly than refined flour."},
+    {q:"2 tbsp", n:"whole wheat/oat flour (binder)", w:"Adds body without raising the glycemic load much."},
+    {q:"1", n:"small onion, finely chopped", w:"Quercetin in onion is linked to modestly improved insulin secretion."},
+    {q:"1 tsp", n:"cumin seeds", w:"Aids digestion; negligible effect on blood sugar."},
+    {q:"1 tsp", n:"gingelly oil (for roasting)", w:"Measured fat keeps the dosa from sticking without adding excess calories."},
+    {q:"2 tbsp", n:"grated fresh coconut (for chutney)", w:"Medium-chain fat with a low glycemic impact, used in a small, portioned amount."},
+    {q:"1 tbsp", n:"fenugreek (methi) leaves, soaked", w:"Soluble fibre (galactomannan) forms a gel in the gut that slows carbohydrate absorption."}
+  ],
+  method:[
+    "Whisk ragi flour, wheat flour, chopped onion, cumin and a pinch of salt with water into a thin, pourable batter.",
+    "Rest for 15 minutes so the flour hydrates fully.",
+    "Heat a griddle, spread the batter thin, drizzle ¼ tsp oil around the edge, cook till crisp on both sides.",
+    "Blend coconut, soaked methi leaves, green chilli and salt with a little water for the chutney."
+  ],
+  mechanism:"Ragi's fibre matrix + methi's galactomannan (in the chutney) → slower gastric emptying → ↓ post-breakfast glucose spike → lower average glucose feeding into next HbA1c cycle",
+  science:"A fibre-forward breakfast sets the glucose tone for the rest of the day; several studies link a low-GI first meal to a flatter glucose curve at lunch too (the 'second-meal effect')."
+},
+{
+  name:"Oats-Moong Dal Idli with Tomato-Garlic Chutney", emoji:"🍚", tags:["veg","breakfast"],
+  serves:"2", time:"8 hr soak + 25 min",
+  ingredients:[
+    {q:"1 cup", n:"rolled oats, ground coarse", w:"Beta-glucan fibre in oats slows glucose absorption and modestly lowers LDL cholesterol."},
+    {q:"½ cup", n:"split moong dal", w:"A low-GI legume; its protein and fibre blunt the glucose response of the oats around it."},
+    {q:"¼ cup", n:"curd (unsweetened)", w:"Mild fermentation aid; probiotics support a gut microbiome profile linked to better glycemic control."},
+    {q:"2", n:"ripe tomatoes (for chutney)", w:"Lycopene and low intrinsic sugar make tomato a safe volume-filler."},
+    {q:"3 cloves", n:"garlic (for chutney)", w:"Allicin compounds are associated with modest improvements in lipid and glucose markers."},
+    {q:"1 tsp", n:"mustard seeds (tempering)", w:"Adds flavour with negligible carbohydrate contribution."}
+  ],
+  method:[
+    "Soak moong dal 4 hours; grind with oats and curd into a thick batter, ferment 4 hours.",
+    "Steam in idli moulds for 10–12 minutes.",
+    "For chutney: sauté tomato and garlic lightly, blend with chilli and salt, temper with mustard seeds."
+  ],
+  mechanism:"Oat beta-glucan + moong dal protein → increased digesta viscosity → ↓ rate of glucose diffusion into the bloodstream → flatter glucose curve",
+  science:"Pairing a grain with a legume is one of the most reliable ways to lower a meal's overall glycemic load without changing the flavour much."
+},
+{
+  name:"Vegetable Foxtail Millet Upma", emoji:"🥣", tags:["veg","breakfast"],
+  serves:"2", time:"25 min",
+  ingredients:[
+    {q:"1 cup", n:"foxtail millet", w:"Low GI, high in resistant starch that reaches the colon undigested, feeding beneficial gut bacteria instead of spiking blood glucose."},
+    {q:"1", n:"carrot, diced", w:"Adds fibre and beta-carotene; kept to a small dice so its natural sugars stay a minor part of the plate."},
+    {q:"¼ cup", n:"green peas", w:"Plant protein and fibre that further slow the meal's glucose release."},
+    {q:"8–10", n:"curry leaves", w:"Traditionally used compounds in curry leaf have shown modest blood-sugar-lowering effects in early studies."},
+    {q:"1 tsp", n:"mustard seeds + 1 dried red chilli", w:"Tempering for flavour, negligible glycemic contribution."},
+    {q:"1 tsp", n:"oil", w:"Measured fat for tempering only."}
+  ],
+  method:[
+    "Dry roast foxtail millet lightly, then cook with 2.5 cups water till fluffy, like rice.",
+    "Temper mustard seeds, curry leaves and chilli in oil, add vegetables and sauté 3–4 minutes.",
+    "Fold in the cooked millet, season, and rest 2 minutes covered before serving."
+  ],
+  mechanism:"Resistant starch in millet → escapes small-intestine digestion → fermented in colon → shorter, gentler rise in blood glucose than white rice upma",
+  science:"Swapping semolina/rice upma for millet upma is one of the simplest single changes in this whole plan, and one of the most impactful for morning glucose."
+},
+{
+  name:"Moong Dal Cheela with Mint Chutney", emoji:"🫓", tags:["veg","breakfast"],
+  serves:"2", time:"6 hr soak + 20 min",
+  ingredients:[
+    {q:"1 cup", n:"split yellow moong dal, soaked", w:"High-protein, low-GI pulse; the protein in the batter slows carbohydrate absorption from within the same bite."},
+    {q:"1", n:"green chilli + 1 inch ginger", w:"Flavour without added sugar or refined carbohydrate."},
+    {q:"2 tbsp", n:"grated bottle gourd or carrot (optional)", w:"Adds volume and fibre while keeping the batter's glycemic load low."},
+    {q:"1 tsp", n:"oil per cheela", w:"Just enough to cook without sticking."},
+    {q:"handful", n:"mint + coriander (chutney)", w:"Antioxidant-rich, essentially zero impact on glucose, used for flavour."}
+  ],
+  method:[
+    "Grind soaked moong dal with ginger, chilli and a little water into a smooth, thick batter.",
+    "Fold in grated vegetable if using.",
+    "Pour a ladle onto a hot, lightly oiled griddle, spread thin, cook both sides till golden.",
+    "Blend mint, coriander, a little curd, salt and lemon for the chutney."
+  ],
+  mechanism:"High dal-protein ratio → slower gastric emptying → ↓ amplitude of the post-breakfast glucose peak",
+  science:"At roughly 20g of protein per serving, this is the highest-protein breakfast in the plan, useful on days Mr. Vittal wants to feel fuller for longer."
+},
+{
+  name:"Vanjaram (Seer Fish) Curry with Red Rice", emoji:"🐟", tags:["fish","lunch"],
+  serves:"2", time:"35 min",
+  ingredients:[
+    {q:"250 g", n:"seer fish (vanjaram), cubed", w:"Lean protein rich in omega-3 (EPA/DHA), which reduces inflammation and is linked to improved insulin sensitivity."},
+    {q:"1", n:"onion, 2 tomatoes", w:"Base of the curry; tomato's lycopene and onion's quercetin add antioxidants without much sugar."},
+    {q:"1 tsp", n:"turmeric powder", w:"Curcumin may help activate AMPK, a cellular pathway that increases glucose uptake into muscle (GLUT4 translocation)."},
+    {q:"½ tsp", n:"black pepper, crushed", w:"Piperine increases curcumin's bioavailability roughly twenty-fold."},
+    {q:"1 tbsp", n:"tamarind pulp", w:"Sour flavour without needing any sugar to balance it."},
+    {q:"1 cup", n:"cooked red rice (for serving)", w:"Higher fibre and lower GI than polished white rice; the bran layer slows starch digestion."},
+    {q:"1 tbsp", n:"gingelly oil", w:"Just enough fat to cook the masala and help absorb the fat-soluble curcumin."}
+  ],
+  method:[
+    "Sauté onion till translucent, add tomato, turmeric, chilli powder and cook down to a thick masala.",
+    "Add tamarind water and bring to a simmer.",
+    "Slide in the fish cubes, cover and simmer gently for 8–10 minutes without stirring hard (to keep the fish whole).",
+    "Finish with crushed pepper and curry leaves. Serve with red rice."
+  ],
+  mechanism:"Omega-3 fatty acids → reduced inflammatory signalling in fat and muscle tissue → improved insulin receptor response → better glucose clearance after the meal",
+  science:"Oily fish twice a week is one of the more consistently supported dietary patterns for improving insulin sensitivity over a 12-week window."
+},
+{
+  name:"Pepper Chicken Varuval with Brown Rice", emoji:"🍗", tags:["chicken","lunch"],
+  serves:"2", time:"35 min",
+  ingredients:[
+    {q:"300 g", n:"chicken breast or thigh (skinless), cubed", w:"Lean protein with essentially zero effect on blood glucose; helps preserve muscle, which is the body's largest site of glucose disposal."},
+    {q:"1.5 tsp", n:"crushed black pepper", w:"Gives the dish its character while adding piperine, which may modestly aid metabolic markers."},
+    {q:"8–10", n:"curry leaves", w:"Adds the traditional South Indian aroma; associated in some studies with mild glucose-lowering effects."},
+    {q:"4 cloves", n:"garlic, 1 inch ginger", w:"Allicin and gingerol contribute anti-inflammatory compounds."},
+    {q:"1", n:"onion, sliced", w:"Base aromatics, moderate quantity to keep total carbohydrate low."},
+    {q:"1 tbsp", n:"oil", w:"Just enough to dry-roast the chicken without deep frying."},
+    {q:"1 cup", n:"cooked brown rice", w:"Retains the bran and germ, giving more fibre and a lower GI than white rice."}
+  ],
+  method:[
+    "Marinate chicken with half the pepper, salt and a little turmeric for 20 minutes.",
+    "Sauté onion, ginger, garlic and curry leaves till fragrant.",
+    "Add chicken, cook covered on medium heat till done, then uncover and dry-roast to a light char.",
+    "Finish with the remaining crushed pepper. Serve with brown rice and a vegetable side."
+  ],
+  mechanism:"Lean protein + minimal carbohydrate in the dish itself → near-flat direct glucose contribution → protein's satiety effect reduces total daily carbohydrate intake",
+  science:"Meals anchored around lean protein rather than starch tend to produce a noticeably smaller area-under-the-curve glucose response over 2 hours."
+},
+{
+  name:"Drumstick Sambar with Barnyard Millet", emoji:"🍲", tags:["veg","lunch"],
+  serves:"2", time:"35 min",
+  ingredients:[
+    {q:"½ cup", n:"toor dal", w:"Low-GI legume providing plant protein and soluble fibre."},
+    {q:"2", n:"drumsticks (moringa pods), chopped", w:"Contains chlorogenic acid and isothiocyanates, compounds studied for improving insulin sensitivity and antioxidant status."},
+    {q:"1", n:"small onion, 1 tomato", w:"Base flavour, kept modest to control total carbohydrate."},
+    {q:"1 tbsp", n:"sambar powder (no added sugar)", w:"A spice blend, typically coriander, chilli, fenugreek — negligible carbohydrate."},
+    {q:"1 tsp", n:"fenugreek seeds", w:"Soluble fibre that slows gastric emptying and blunts the post-meal glucose rise."},
+    {q:"1 tbsp", n:"tamarind pulp", w:"Provides sourness without sugar."},
+    {q:"1 cup", n:"cooked barnyard millet (for serving)", w:"One of the lowest-GI millets available, with a high fibre-to-carbohydrate ratio."}
+  ],
+  method:[
+    "Pressure-cook toor dal till soft and mash lightly.",
+    "Simmer drumstick and onion in tamarind water till the vegetable softens.",
+    "Add the mashed dal, sambar powder and salt, simmer 10 minutes.",
+    "Temper mustard seeds, dried chilli and fenugreek seeds in oil and pour over. Serve with barnyard millet."
+  ],
+  mechanism:"Moringa's chlorogenic acid → may slow hepatic glucose release → smoother baseline blood glucose between meals",
+  science:"Drumstick is one of the most well-studied traditional South Indian vegetables for supportive glucose metabolism, though it works alongside diet and medication, not instead of them."
+},
+{
+  name:"Palak Paruppu (Spinach Dal)", emoji:"🥬", tags:["veg","lunch"],
+  serves:"2", time:"25 min",
+  ingredients:[
+    {q:"1 cup", n:"chopped spinach (palak)", w:"High fibre, low calorie, and a good source of magnesium, a mineral linked to better insulin sensitivity."},
+    {q:"½ cup", n:"moong or toor dal", w:"Adds plant protein that slows the dish's overall digestion."},
+    {q:"1", n:"tomato, 1 small onion", w:"Base masala, kept light."},
+    {q:"½ tsp", n:"turmeric", w:"Curcumin for its anti-inflammatory, insulin-sensitising properties."},
+    {q:"2", n:"garlic cloves, crushed", w:"Allicin, added at the tempering stage for both flavour and its mild metabolic benefits."},
+    {q:"1 tsp", n:"oil for tempering", w:"Just enough to bloom the mustard seeds and garlic."}
+  ],
+  method:[
+    "Cook dal with turmeric till soft.",
+    "In a separate pan, sauté onion, tomato and garlic, add chopped spinach and cook till wilted.",
+    "Combine with the cooked dal, simmer 5 minutes, temper with mustard seeds and cumin."
+  ],
+  mechanism:"Magnesium (spinach) is a required cofactor for insulin receptor enzyme activity → adequate magnesium supports normal insulin signalling",
+  science:"This is one of the lightest dishes in the plan by calories, useful as a dinner option on days lunch was heavier."
+},
+{
+  name:"Mixed Vegetable Kootu", emoji:"🥦", tags:["veg","lunch"],
+  serves:"2", time:"30 min",
+  ingredients:[
+    {q:"1 cup", n:"mixed vegetables (chow chow, carrot, beans)", w:"Variety of fibre types, keeps total carbohydrate low relative to volume."},
+    {q:"¼ cup", n:"moong dal", w:"Adds protein and thickens the dish without needing rice flour or coconut in excess."},
+    {q:"2 tbsp", n:"grated coconut (ground with cumin)", w:"Small, portioned amount of fat for flavour and mouthfeel."},
+    {q:"1 tsp", n:"cumin seeds", w:"Ground with the coconut for the traditional kootu flavour base."},
+    {q:"1 tsp", n:"oil for tempering", w:"Measured fat only."}
+  ],
+  method:[
+    "Cook vegetables and moong dal together till soft.",
+    "Grind coconut and cumin into a coarse paste, stir in.",
+    "Simmer 5 minutes, temper with mustard seeds and curry leaves."
+  ],
+  mechanism:"High vegetable-to-grain ratio → lower overall glycemic load per plate → smaller post-meal glucose excursion",
+  science:"A good rotation dish when Mr. Vittal wants variety without adding another grain-heavy item to the day."
+},
+{
+  name:"Chettinad-style Grilled Fish (Meen Varuval, baked)", emoji:"🔥", tags:["fish","lunch"],
+  serves:"2", time:"30 min + marinate",
+  ingredients:[
+    {q:"2 fillets", n:"pomfret or seer fish", w:"Lean, omega-3 rich protein with negligible carbohydrate."},
+    {q:"1 tsp", n:"turmeric + 1 tsp chilli powder", w:"Curcumin for its insulin-sensitising, anti-inflammatory role."},
+    {q:"1 tbsp", n:"crushed Chettinad spice mix (fennel, pepper, star anise)", w:"Flavour depth without needing sugar or excess salt."},
+    {q:"1 tbsp", n:"lemon juice", w:"Acid tenderises the fish and adds brightness with zero carbohydrate."},
+    {q:"1 tsp", n:"oil for grilling/baking", w:"A light brushing is enough since baking replaces deep frying."}
+  ],
+  method:[
+    "Marinate fish with turmeric, chilli, spice mix, lemon juice and salt for 30 minutes.",
+    "Bake at 200°C for 15–18 minutes, or grill on a stovetop tawa with minimal oil, turning once.",
+    "Serve hot with a wedge of lemon and a side salad."
+  ],
+  mechanism:"Baking/grilling instead of deep-frying → avoids added oil-based calories → keeps the meal's fat load supportive rather than excessive",
+  science:"Cooking method matters as much as ingredient choice here: the same fish, deep-fried, adds a meaningful calorie and fat load that can work against weight and glucose goals."
+},
+{
+  name:"Chicken Chukka with Quinoa Pulao", emoji:"🍛", tags:["chicken","lunch"],
+  serves:"2", time:"40 min",
+  ingredients:[
+    {q:"300 g", n:"chicken, boneless, cubed", w:"Lean protein, minimal glucose impact, supports satiety."},
+    {q:"1", n:"onion, 8–10 curry leaves", w:"Aromatics for the dry roast style of chukka."},
+    {q:"1 tbsp", n:"chukka masala (coriander, chilli, fennel, pepper)", w:"Spice-forward flavour that doesn't rely on sugar or cream."},
+    {q:"1 tbsp", n:"oil", w:"Enough for a proper dry-roast finish without deep frying."},
+    {q:"1 cup", n:"quinoa (for pulao)", w:"A complete plant protein with a lower GI than white rice, good grain rotation option."},
+    {q:"1", n:"small carrot + peas (for pulao)", w:"Adds fibre and colour to the quinoa pulao."}
+  ],
+  method:[
+    "Cook chicken with chukka masala and a splash of water till tender, then uncover and dry-roast with onion and curry leaves till coated and slightly charred.",
+    "Separately, rinse quinoa well, cook with vegetables and whole spices like a light pulao.",
+    "Serve chicken chukka over or beside the quinoa pulao."
+  ],
+  mechanism:"Quinoa's complete amino acid profile + fibre → slower digestion than plain white rice → gentler glucose rise even though it's still a grain",
+  science:"Useful for weeks when Mr. Vittal wants a change from millet and rice but still needs a low-GI base."
+},
+{
+  name:"Beetroot-Carrot Poriyal", emoji:"🥕", tags:["veg","snack"],
+  serves:"2", time:"20 min",
+  ingredients:[
+    {q:"1", n:"beetroot, grated", w:"Contains dietary nitrates that support vascular health; used in a controlled portion since it has a moderate GI on its own."},
+    {q:"1", n:"carrot, grated", w:"Beta-carotene and fibre; paired with beetroot in a 1:1 ratio to balance the plate's total sugar."},
+    {q:"2 tbsp", n:"grated coconut", w:"Small, portioned fat and texture, not a major contributor to the dish's carbohydrate."},
+    {q:"1 tsp", n:"mustard seeds + urad dal (tempering)", w:"Flavour base, negligible carbohydrate contribution."},
+    {q:"1 tsp", n:"oil", w:"Measured for tempering only."}
+  ],
+  method:[
+    "Temper mustard seeds and urad dal in oil till the dal turns golden.",
+    "Add grated beetroot and carrot, a splash of water, cover and cook till just tender (retain some bite).",
+    "Finish with grated coconut and salt."
+  ],
+  mechanism:"Combining beetroot with lower-sugar carrot and fibre-rich coconut → dilutes beetroot's individual glycemic impact across the dish",
+  science:"Kept as a side, not a main, specifically because beetroot alone in large portions can raise glucose faster than most other vegetables in this plan."
+},
+{
+  name:"Sprouted Moong & Cucumber Kosambari", emoji:"🥗", tags:["veg","snack"],
+  serves:"2", time:"10 min + sprouting time",
+  ingredients:[
+    {q:"1 cup", n:"sprouted moong beans", w:"Sprouting increases available fibre and slightly lowers the starch content compared to the dry bean, making it even gentler on blood glucose."},
+    {q:"1", n:"cucumber, diced", w:"Very low glycemic impact, mostly water and fibre, ideal as a bulking ingredient."},
+    {q:"1", n:"carrot, grated (small amount)", w:"Adds colour and a little sweetness without much sugar."},
+    {q:"1 tbsp", n:"lemon juice", w:"Brightens the salad; zero carbohydrate."},
+    {q:"1 tsp", n:"oil for tempering mustard seeds", w:"A very light tempering, typical of a kosambari."}
+  ],
+  method:[
+    "Toss sprouted moong, cucumber and carrot together.",
+    "Temper mustard seeds and a pinch of asafoetida in a teaspoon of oil, pour over.",
+    "Finish with lemon juice, salt and chopped coriander."
+  ],
+  mechanism:"Raw, high-fibre, high-water-content salad → adds volume and satiety with almost no glycemic load of its own",
+  science:"A good pre-meal starter: eating fibre and protein before the main carbohydrate portion of a meal is shown to blunt the glucose spike that follows."
+},
+{
+  name:"Amla-Curry Leaf Rasam", emoji:"🍵", tags:["veg","snack"],
+  serves:"2", time:"20 min",
+  ingredients:[
+    {q:"2", n:"amla (Indian gooseberry), chopped, or 1 tbsp amla juice", w:"Very high in vitamin C and contains chromium, a mineral that acts as a cofactor helping insulin bind to its receptor."},
+    {q:"1 tsp", n:"tamarind pulp", w:"Traditional souring agent, no added sugar needed."},
+    {q:"1 tsp", n:"rasam powder (pepper, cumin, coriander)", w:"Warming spice blend, negligible carbohydrate."},
+    {q:"8–10", n:"curry leaves", w:"Adds the signature aroma along with its mild supportive compounds."},
+    {q:"1", n:"tomato", w:"Adds body and gentle acidity to the broth."}
+  ],
+  method:[
+    "Simmer tamarind water with tomato, rasam powder and amla until the amla softens.",
+    "Add a little cooked, mashed toor dal for body if a thicker rasam is preferred.",
+    "Temper mustard seeds, cumin and curry leaves in a teaspoon of ghee, pour over, and serve hot."
+  ],
+  mechanism:"Vitamin C (amla) → supports collagen and antioxidant status; chromium → cofactor for insulin receptor function → potentially smoother glucose uptake into cells",
+  science:"Served as a warm sipper between meals rather than a full course, so it adds nourishment without adding to plate size."
+},
+{
+  name:"Cinnamon-Fenugreek Buttermilk (Masala Chaas)", emoji:"🥛", tags:["veg","snack"],
+  serves:"2", time:"5 min",
+  ingredients:[
+    {q:"1 cup", n:"fresh curd, unsweetened", w:"Probiotic content supports a gut microbiome profile that several studies associate with better glycemic control."},
+    {q:"1 cup", n:"water", w:"Dilutes the curd into a light, low-calorie drink."},
+    {q:"¼ tsp", n:"cinnamon powder", w:"Polyphenols in cinnamon may mimic some insulin activity and slightly slow gastric emptying."},
+    {q:"¼ tsp", n:"roasted fenugreek powder", w:"A small dose of the same soluble fibre compound (galactomannan) used in the dosa chutney, here in drink form."},
+    {q:"pinch", n:"roasted cumin powder + rock salt", w:"Traditional flavouring, aids digestion, no sugar."}
+  ],
+  method:[
+    "Whisk curd and water together until smooth and frothy.",
+    "Stir in cinnamon, fenugreek powder, cumin and salt.",
+    "Serve chilled, ideally 30–45 minutes after the main meal."
+  ],
+  mechanism:"Cinnamon polyphenols + fenugreek fibre → mild, complementary slowing of gastric emptying → smoother tail-end of the post-meal glucose curve",
+  science:"A good replacement for a sugary evening drink or dessert; it satisfies a craving for something after the meal without adding to the glucose load."
+}
+];
+
+// ---------------- render recipes ----------------
+const grid = document.getElementById('recipeGrid');
+
+function pillClass(tag){
+  if(tag==="veg") return "veg";
+  if(tag==="fish") return "fish";
+  if(tag==="chicken") return "chicken";
+  return "meal";
+}
+function pillLabel(tag){
+  const map = {veg:"Veg", fish:"Fish", chicken:"Chicken", breakfast:"Breakfast", lunch:"Lunch/Dinner", snack:"Snack/Side"};
+  return map[tag] || tag;
+}
+
+recipes.forEach((r, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'recipe-card reveal';
+  card.dataset.tags = r.tags.join(',');
+
+  const ingHtml = r.ingredients.map(i=>`
+    <li><span class="qty">${i.q}</span>${i.n}<span class="why">${i.w}</span></li>
+  `).join('');
+
+  const methodHtml = r.method.map(m=>`<li>${m}</li>`).join('');
+  const pillsHtml = r.tags.map(t=>`<span class="pill ${pillClass(t)}">${pillLabel(t)}</span>`).join('');
+
+  card.innerHTML = `
+    <div class="recipe-head" data-idx="${idx}">
+      <div class="recipe-emoji">${r.emoji}</div>
+      <div>
+        <h3>${r.name}</h3>
+        <div class="recipe-meta">${pillsHtml}<span class="pill meal">⏱ ${r.time}</span><span class="pill meal">Serves ${r.serves}</span></div>
+      </div>
+    </div>
+    <div class="recipe-body">
+      <h4>Ingredients &amp; why each one is here</h4>
+      <ul class="ing-list">${ingHtml}</ul>
+      <h4>Method</h4>
+      <ol class="method-list">${methodHtml}</ol>
+      <h4>The mechanism</h4>
+      <div class="equation">${r.mechanism}</div>
+      <div class="science-note">${r.science}</div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// ---------------- filters ----------------
+document.querySelectorAll('#filters button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.recipe-card').forEach(card=>{
+      const tags = card.dataset.tags.split(',');
+      card.style.display = (f==='all' || tags.includes(f)) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
