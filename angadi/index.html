@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>ಅಂಗಡಿ ಅವರ 12 ವಾರಗಳ ಆರೋಗ್ಯ ಪಯಣ | ಉತ್ತರ ಕರ್ನಾಟಕ ಆಹಾರ ಕ್ರಮ</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-deep:#212c56;
+    --indigo-deeper:#161c3a;
+    --maroon-pallu:#7c1f3d;
+    --maroon-soft:#9c3155;
+    --jowar-gold:#d9a441;
+    --jowar-light:#f0cd7d;
+    --soil-black:#161310;
+    --temple-white:#f7f1e4;
+    --leaf-green:#4c7a52;
+    --leaf-soft:#e5efe2;
+    --ink:#2a2318;
+    --card:#fffdf7;
+    --shadow: 0 10px 30px rgba(22,19,16,0.14);
+    --radius: 18px;
+    --serif-en: 'Poppins', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--temple-white);
+    color:var(--ink);
+    font-family:'Noto Sans Kannada','Poppins',sans-serif;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo Tamma 2','Noto Sans Kannada',sans-serif;
+    font-weight:700;
+    color:var(--indigo-deeper);
+    margin:0;
+  }
+  .eng{font-family:var(--serif-en);}
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
+  .section-pad{padding:70px 0;}
+
+  /* ===== Temple / Ilkal border motif, signature element ===== */
+  .temple-border{width:100%;height:34px;overflow:hidden;}
+  .temple-border svg{width:100%;height:100%;}
+  .temple-border .tooth{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.2s ease forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+
+  /* ===== Hero ===== */
+  header.hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(217,164,65,0.35), transparent 55%),
+      linear-gradient(160deg, var(--indigo-deep) 0%, var(--indigo-deeper) 65%, var(--maroon-pallu) 130%);
+    color:var(--temple-white);
+    padding:56px 0 0 0;
+    overflow:hidden;
+  }
+  .hero-inner{position:relative;z-index:2;text-align:center;padding-bottom:56px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;letter-spacing:.14em;
+    background:rgba(247,241,228,0.12);
+    border:1px solid rgba(247,241,228,0.35);
+    padding:7px 16px;border-radius:99px;
+    color:var(--jowar-light);
+    margin-bottom:22px;
+    animation:fadeDown .9s ease both;
+  }
+  .hero h1{
+    font-size:clamp(30px,6vw,52px);
+    color:var(--temple-white);
+    line-height:1.28;
+    animation:fadeDown 1s .1s ease both;
+  }
+  .hero h1 span{color:var(--jowar-gold);}
+  .hero p.sub{
+    max-width:640px;margin:22px auto 0;
+    font-size:clamp(15px,2.4vw,18px);
+    color:rgba(247,241,228,0.85);
+    animation:fadeDown 1s .2s ease both;
+  }
+  .hero-name-card{
+    margin:34px auto 0;
+    display:inline-flex;flex-wrap:wrap;gap:14px 30px;
+    justify-content:center;align-items:center;
+    background:rgba(247,241,228,0.08);
+    border:1px solid rgba(247,241,228,0.25);
+    backdrop-filter:blur(6px);
+    padding:18px 28px;border-radius:16px;
+    animation:fadeUp 1s .3s ease both;
+  }
+  .hero-name-card .item{text-align:left;}
+  .hero-name-card .label{font-size:11px;letter-spacing:.1em;color:var(--jowar-light);text-transform:uppercase;font-family:var(--serif-en);}
+  .hero-name-card .val{font-size:17px;font-weight:600;font-family:var(--serif-en);color:var(--temple-white);}
+  .hero-name-card .val.kn{font-family:'Noto Sans Kannada';}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  .grain{position:absolute;border-radius:50%;background:var(--jowar-gold);opacity:.55;animation:float 9s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-22px) rotate(180deg);}}
+
+  /* ===== nav ===== */
+  nav.tabbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,241,228,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(22,19,16,0.08);
+  }
+  .tabbar-inner{display:flex;gap:4px;overflow-x:auto;padding:10px 14px;max-width:1100px;margin:0 auto;scrollbar-width:none;}
+  .tabbar-inner::-webkit-scrollbar{display:none;}
+  .tabbtn{
+    flex:0 0 auto;font-family:'Noto Sans Kannada';font-size:14px;font-weight:600;
+    background:transparent;border:none;color:var(--ink);
+    padding:9px 15px;border-radius:99px;cursor:pointer;white-space:nowrap;
+    transition:.25s;
+  }
+  .tabbtn.active{background:var(--indigo-deep);color:var(--temple-white);}
+  .tabbtn:hover{background:rgba(33,44,86,0.12);}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  .kicker{font-family:var(--serif-en);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon-pallu);font-weight:600;margin-bottom:8px;display:block;}
+  .section-title{font-size:clamp(24px,4vw,34px);margin-bottom:10px;}
+  .section-desc{max-width:680px;color:#5a5142;font-size:15.5px;}
+
+  /* ===== patient card ===== */
+  .patient-card{
+    display:flex;flex-wrap:wrap;gap:22px;
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:28px 30px;margin-top:34px;border:1px solid rgba(124,31,61,0.08);
+  }
+  .patient-avatar{
+    width:76px;height:76px;border-radius:50%;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--jowar-gold),var(--maroon-pallu));
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif-en);font-weight:700;font-size:26px;color:#fff;
+  }
+  .patient-meta h3{font-family:var(--serif-en);font-size:20px;}
+  .patient-meta .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .tag{
+    font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:99px;
+    background:var(--leaf-soft);color:var(--leaf-green);
+  }
+  .tag.mar{background:#fbe6ea;color:var(--maroon-pallu);}
+  .tag.gold{background:#fbf0d9;color:#8a640f;}
+
+  /* ===== guideline grid ===== */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px;}
+  @media(max-width:800px){.grid3{grid-template-columns:1fr;}}
+  .guide-card{
+    background:var(--card);border-radius:16px;padding:22px 22px 24px;box-shadow:var(--shadow);
+    border-top:4px solid var(--jowar-gold);transition:transform .35s ease;
+  }
+  .guide-card:hover{transform:translateY(-6px);}
+  .guide-card .ic{font-size:26px;margin-bottom:10px;}
+  .guide-card h4{font-family:'Noto Sans Kannada';font-size:16.5px;font-weight:700;margin-bottom:8px;color:var(--indigo-deeper);}
+  .guide-card p{font-size:14px;color:#5a5142;margin:0;}
+  .guide-card.avoid{border-top-color:var(--maroon-pallu);}
+  .guide-card.walk{border-top-color:var(--leaf-green);}
+
+  /* ===== daily routine timeline ===== */
+  .routine-list{margin-top:30px;border-left:3px solid var(--jowar-gold);padding-left:0;}
+  .rline{position:relative;padding:14px 0 14px 30px;border-bottom:1px dashed rgba(22,19,16,0.12);}
+  .rline:last-child{border-bottom:none;}
+  .rline::before{
+    content:'';position:absolute;left:-9px;top:20px;width:15px;height:15px;border-radius:50%;
+    background:var(--card);border:3px solid var(--maroon-pallu);
+  }
+  .rline .time{font-family:var(--serif-en);font-weight:600;font-size:13px;color:var(--maroon-pallu);}
+  .rline .what{font-size:15px;font-weight:600;margin-top:2px;}
+
+  /* ===== progress braid ===== */
+  .braid-wrap{margin:30px 0 10px;}
+  .braid-label{display:flex;justify-content:space-between;font-size:13px;font-family:var(--serif-en);font-weight:600;color:var(--indigo-deeper);margin-bottom:8px;}
+  .braid-track{height:16px;border-radius:99px;background:#e9e0c9;overflow:hidden;position:relative;box-shadow:inset 0 1px 4px rgba(0,0,0,0.15);}
+  .braid-fill{height:100%;width:0%;border-radius:99px;
+    background:repeating-linear-gradient(45deg,var(--maroon-pallu) 0 10px,var(--jowar-gold) 10px 20px);
+    transition:width .6s ease;}
+  .braid-hint{font-size:12.5px;color:#7a715e;margin-top:6px;}
+
+  /* ===== week cards (always expanded) ===== */
+  .week-list{margin-top:30px;display:flex;flex-direction:column;gap:14px;}
+  .week-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(22,19,16,0.06);}
+  .week-head{
+    display:flex;align-items:center;gap:16px;padding:18px 22px;
+  }
+  .week-num{
+    flex:0 0 auto;width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--indigo-deep);color:var(--jowar-light);font-family:var(--serif-en);font-weight:700;font-size:16px;
+  }
+  .week-head .titles{flex:1;}
+  .week-head .titles .phase{font-size:11.5px;letter-spacing:.08em;color:var(--maroon-pallu);font-weight:700;text-transform:uppercase;font-family:var(--serif-en);}
+  .week-head .titles h4{font-size:16.5px;margin-top:2px;color:var(--indigo-deeper);}
+  .week-check{flex:0 0 auto;width:22px;height:22px;border-radius:6px;border:2px solid var(--jowar-gold);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;transition:.2s;}
+  .week-check.done{background:var(--leaf-green);border-color:var(--leaf-green);color:#fff;}
+  .week-body{border-top:1px solid rgba(22,19,16,0.08);}
+  .week-body-inner{padding:20px 22px 24px;display:grid;grid-template-columns:1.3fr 1fr;gap:22px;}
+  @media(max-width:720px){.week-body-inner{grid-template-columns:1fr;}}
+  .meal-table{width:100%;border-collapse:collapse;font-size:13.8px;}
+  .meal-table td{padding:8px 6px;vertical-align:top;border-bottom:1px solid rgba(22,19,16,0.08);}
+  .meal-table td.mtime{width:88px;font-weight:700;color:var(--maroon-pallu);font-family:var(--serif-en);font-size:12.5px;}
+  .week-side{background:var(--leaf-soft);border-radius:12px;padding:16px 18px;}
+  .week-side h5{font-size:13.5px;font-weight:700;color:var(--leaf-green);margin-bottom:8px;}
+  .week-side ul{margin:0;padding-left:18px;font-size:13.6px;}
+  .week-side li{margin-bottom:5px;}
+  .week-focus{font-size:13.8px;color:#5a5142;margin:10px 0 14px;}
+
+  /* ===== recipes ===== */
+  .recipe-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px;}
+  .filter-chip{
+    font-size:13px;font-weight:600;padding:7px 15px;border-radius:99px;cursor:pointer;
+    background:#fff;border:1.5px solid rgba(124,31,61,0.25);color:var(--maroon-pallu);transition:.2s;
+  }
+  .filter-chip.active{background:var(--maroon-pallu);color:#fff;border-color:var(--maroon-pallu);}
+  .recipe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px;}
+  @media(max-width:820px){.recipe-grid{grid-template-columns:1fr;}}
+  .recipe-card{
+    background:var(--card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease;border:1px solid rgba(22,19,16,0.06);
+  }
+  .recipe-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(22,19,16,0.16);}
+  .recipe-top{
+    display:flex;align-items:center;gap:14px;padding:18px 20px;
+    background:linear-gradient(135deg,var(--jowar-light),var(--maroon-soft));
+  }
+  .recipe-top .ricon{font-size:34px;flex:0 0 auto;}
+  .recipe-top .rtag{font-size:11px;font-family:var(--serif-en);font-weight:600;letter-spacing:.06em;color:var(--indigo-deeper);text-transform:uppercase;}
+  .recipe-top h4{font-size:17px;margin-top:3px;color:var(--indigo-deeper);}
+  .recipe-info{padding:16px 20px 20px;}
+  .recipe-info .benefit{background:var(--leaf-soft);color:var(--leaf-green);padding:10px 14px;border-radius:10px;font-size:13.4px;margin-bottom:14px;}
+  .recipe-info h6{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--maroon-pallu);font-family:var(--serif-en);margin:12px 0 6px;}
+  .recipe-info ul,.recipe-info ol{padding-left:19px;font-size:13.8px;margin:0;}
+  .recipe-info li{margin-bottom:5px;}
+
+  /* ===== yoga ===== */
+  .yoga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
+  @media(max-width:880px){.yoga-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.yoga-grid{grid-template-columns:1fr;}}
+  .yoga-card{background:var(--card);border-radius:16px;padding:22px 18px;text-align:center;box-shadow:var(--shadow);}
+  .yoga-ic{
+    width:58px;height:58px;border-radius:50%;margin:0 auto 12px;
+    background:radial-gradient(circle,var(--jowar-light),var(--jowar-gold));
+    display:flex;align-items:center;justify-content:center;font-size:26px;
+    animation:breathe 3.6s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
+  .yoga-card h4{font-size:15.5px;margin-bottom:6px;}
+  .yoga-card .eng-name{font-family:var(--serif-en);font-size:11.5px;color:var(--maroon-pallu);font-weight:600;margin-bottom:8px;display:block;}
+  .yoga-card p{font-size:13px;color:#6b6252;margin:0;}
+  .yoga-note{
+    margin-top:26px;background:#fbf0d9;border-left:4px solid var(--jowar-gold);
+    padding:16px 20px;border-radius:10px;font-size:14px;color:#5c4917;
+  }
+
+  .walk-card{background:var(--card);border-radius:16px;padding:24px;margin-top:26px;box-shadow:var(--shadow);}
+  .walk-week-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;}
+  .wk-pill{font-family:var(--serif-en);font-size:12px;font-weight:600;padding:6px 10px;border-radius:8px;background:var(--leaf-soft);color:var(--leaf-green);}
+
+  /* ===== footer ===== */
+  footer{background:var(--soil-black);color:rgba(247,241,228,0.82);padding:50px 0 30px;margin-top:40px;}
+  .disclaimer{
+    background:rgba(247,241,228,0.06);border:1px solid rgba(247,241,228,0.18);
+    border-radius:14px;padding:22px 24px;font-size:13.6px;line-height:1.75;
+  }
+  .disclaimer b{color:var(--jowar-gold);}
+  footer .fmeta{margin-top:22px;font-size:12.5px;color:rgba(247,241,228,0.55);text-align:center;font-family:var(--serif-en);}
+
+  @media(max-width:600px){
+    .section-pad{padding:46px 0;}
+    .patient-card{padding:22px;}
+    .grid3{gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="grain" style="width:14px;height:14px;top:18%;left:8%;"></div>
+  <div class="grain" style="width:10px;height:10px;top:65%;left:88%;animation-delay:2s;"></div>
+  <div class="grain" style="width:8px;height:8px;top:30%;left:80%;animation-delay:4s;"></div>
+  <div class="grain" style="width:12px;height:12px;top:75%;left:15%;animation-delay:1s;"></div>
+  <div class="hero-inner wrap">
+    <span class="eyebrow eng">12-WEEK WELLNESS PLAN · NORTH KARNATAKA CUISINE</span>
+    <h1>ಶ್ರೀ ಅಂಗಡಿ ಅವರ <span>ಆರೋಗ್ಯ ಪಯಣ</span><br>ಕೊಲೆಸ್ಟ್ರಾಲ್ · ಮಧುಮೇಹ · ತೂಕ ನಿಯಂತ್ರಣ</h1>
+    <p class="sub">ಉತ್ತರ ಕರ್ನಾಟಕದ (ರಾಣಿ ಬೆನ್ನೂರು ಭಾಗದ) ಸಾಂಪ್ರದಾಯಿಕ ಸಸ್ಯಾಹಾರ ಅಡುಗೆಯನ್ನೇ ಆಧಾರವಾಗಿಟ್ಟುಕೊಂಡು ರೂಪಿಸಿದ, 12 ವಾರಗಳ ಆಹಾರ ಮತ್ತು ಯೋಗ ಕ್ರಮ.</p>
+    <div class="hero-name-card">
+      <div class="item">
+        <div class="label eng">Name</div>
+        <div class="val eng">Mr. Angadi</div>
+      </div>
+      <div class="item">
+        <div class="label eng">Age</div>
+        <div class="val eng">65 ವರ್ಷ</div>
+      </div>
+      <div class="item">
+        <div class="label eng">Goal</div>
+        <div class="val kn">ಸಕ್ಕರೆ · ಕೊಲೆಸ್ಟ್ರಾಲ್ · ತೂಕ</div>
+      </div>
+      <div class="item">
+        <div class="label eng">Diet</div>
+        <div class="val kn">ಶುದ್ಧ ಸಸ್ಯಾಹಾರ</div>
+      </div>
+    </div>
+  </div>
+  <div class="temple-border" aria-hidden="true">
+    <svg viewBox="0 0 600 34" preserveAspectRatio="none">
+      <polyline class="tooth" points="0,34 25,4 50,34 75,4 100,34 125,4 150,34 175,4 200,34 225,4 250,34 275,4 300,34 325,4 350,34 375,4 400,34 425,4 450,34 475,4 500,34 525,4 550,34 575,4 600,34"
+        fill="none" stroke="#d9a441" stroke-width="3"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ================= NAV ================= -->
+<nav class="tabbar">
+  <div class="tabbar-inner">
+    <button class="tabbtn active" data-target="patient">ಪರಿಚಯ</button>
+    <button class="tabbtn" data-target="guidelines">ಮಾರ್ಗಸೂಚಿ</button>
+    <button class="tabbtn" data-target="routine">ದಿನಚರಿ</button>
+    <button class="tabbtn" data-target="plan">12 ವಾರ ಯೋಜನೆ</button>
+    <button class="tabbtn" data-target="recipes">ಪಾಕವಿಧಾನಗಳು</button>
+    <button class="tabbtn" data-target="yoga">ಯೋಗ &amp; ವ್ಯಾಯಾಮ</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ================= PATIENT / INTRO ================= -->
+  <section id="patient" class="section-pad reveal">
+    <span class="kicker eng">Overview</span>
+    <h2 class="section-title">ಅಂಗಡಿ ಅವರ ಆರೋಗ್ಯ ಚಿತ್ರಣ</h2>
+    <p class="section-desc">65ರ ವಯಸ್ಸಿನ ಶ್ರೀ ಅಂಗಡಿ ಅವರಿಗಾಗಿ, ಅವರು ಬೆಳೆದ ಉತ್ತರ ಕರ್ನಾಟಕದ ರುಚಿ ಮತ್ತು ಪದ್ಧತಿಯನ್ನೇ ಉಳಿಸಿಕೊಂಡು, ರಕ್ತದ ಕೊಲೆಸ್ಟ್ರಾಲ್ ಮತ್ತು ಸಕ್ಕರೆ ಮಟ್ಟವನ್ನು ನಿಯಂತ್ರಣದಲ್ಲಿಡಲು ಹಾಗೂ ತೂಕ ಇಳಿಸಲು ಸಹಾಯವಾಗುವಂತೆ ಈ ಯೋಜನೆ ರೂಪಿಸಲಾಗಿದೆ.</p>
+    <div class="patient-card">
+      <div class="patient-avatar eng">A</div>
+      <div class="patient-meta">
+        <h3>Mr. Angadi <span class="eng" style="font-weight:400;font-size:14px;color:#7a715e;">· 65 ವರ್ಷ</span></h3>
+        <div class="tag-row">
+          <span class="tag mar">ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣ</span>
+          <span class="tag gold">ಮಧುಮೇಹ ನಿರ್ವಹಣೆ</span>
+          <span class="tag">ತೂಕ ಇಳಿಕೆ</span>
+          <span class="tag">ಶುದ್ಧ ಸಸ್ಯಾಹಾರ · ಉತ್ತರ ಕರ್ನಾಟಕ ಶೈಲಿ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GUIDELINES ================= -->
+  <section id="guidelines" class="section-pad reveal">
+    <span class="kicker eng">Golden Rules</span>
+    <h2 class="section-title">ಪಾಲಿಸಬೇಕಾದ ಮತ್ತು ತಪ್ಪಿಸಬೇಕಾದ ಅಂಶಗಳು</h2>
+    <p class="section-desc">ಈ ಸರಳ ನಿಯಮಗಳನ್ನು 12 ವಾರಗಳ ಕಾಲ ದಿನನಿತ್ಯ ಪಾಲಿಸುವುದರಿಂದ ಒಳ್ಳೆಯ ಫಲಿತಾಂಶ ಸಿಗುತ್ತದೆ.</p>
+    <div class="grid3">
+      <div class="guide-card">
+        <div class="ic">🌾</div>
+        <h4>ಜೋಳ, ಸಜ್ಜೆ, ರಾಗಿ ಆಧಾರಿತ ಆಹಾರ</h4>
+        <p>ಅನ್ನ/ಗೋಧಿ ಬದಲು ಜೋಳದ ರೊಟ್ಟಿ, ಸಜ್ಜೆ ರೊಟ್ಟಿ, ರಾಗಿ ಮುದ್ದೆ ಹೆಚ್ಚಾಗಿ ಸೇವಿಸಿ. ಇವು ನಿಧಾನವಾಗಿ ಜೀರ್ಣವಾಗಿ ಸಕ್ಕರೆ ಮಟ್ಟ ಹಠಾತ್ ಏರದಂತೆ ತಡೆಯುತ್ತವೆ.</p>
+      </div>
+      <div class="guide-card">
+        <div class="ic">🥗</div>
+        <h4>ಸೊಪ್ಪು ಮತ್ತು ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ</h4>
+        <p>ಪ್ರತಿ ಊಟದಲ್ಲಿ ಅರ್ಧ ತಟ್ಟೆ ಸೊಪ್ಪು/ತರಕಾರಿ ಪಲ್ಯ ಇರಲಿ. ಮೆಂತ್ಯ, ಬೆಂಡೆ, ನುಗ್ಗೆ, ಅವರೆಕಾಳು ವಿಶೇಷವಾಗಿ ಒಳ್ಳೆಯದು.</p>
+      </div>
+      <div class="guide-card walk">
+        <div class="ic">🚶</div>
+        <h4>ಊಟದ ನಂತರ ನಡಿಗೆ</h4>
+        <p>ಪ್ರತಿ ಊಟದ ನಂತರ ಕನಿಷ್ಠ 10 ನಿಮಿಷ ನಿಧಾನವಾಗಿ ನಡೆಯುವುದರಿಂದ ಸಕ್ಕರೆ ಮಟ್ಟ ನಿಯಂತ್ರಣದಲ್ಲಿ ಇರುತ್ತದೆ.</p>
+      </div>
+      <div class="guide-card avoid">
+        <div class="ic">🚫</div>
+        <h4>ಎಣ್ಣೆ ಮತ್ತು ತುಪ್ಪ ಕಡಿಮೆ ಮಾಡಿ</h4>
+        <p>ಎಣ್ಣೆಗಾಯಿಯಂತಹ ಖಾದ್ಯಗಳನ್ನು ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ, ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ತಯಾರಿಸಿ. ಕರಿದ ತಿಂಡಿ, ಜೀಲೇಬಿ, ಸಿಹಿ ತಿನಿಸು ವರ್ಜಿಸಿ.</p>
+      </div>
+      <div class="guide-card avoid">
+        <div class="ic">🍚</div>
+        <h4>ಬಿಳಿ ಅಕ್ಕಿ, ಸಿಹಿ ತಗ್ಗಿಸಿ</h4>
+        <p>ಬಿಳಿ ಅಕ್ಕಿಯ ಅನ್ನ, ಸಕ್ಕರೆ, ಬೆಲ್ಲ ಹಾಗೂ ಪ್ಯಾಕೆಟ್ ತಿಂಡಿಗಳನ್ನು ಆದಷ್ಟು ಕಡಿಮೆ ಮಾಡಿ.</p>
+      </div>
+      <div class="guide-card">
+        <div class="ic">🥛</div>
+        <h4>ಮಜ್ಜಿಗೆ, ನೀರು ಹೆಚ್ಚು ಕುಡಿಯಿರಿ</h4>
+        <p>ಕೆನೆ ಮೊಸರಿಗಿಂತ ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ ಉತ್ತಮ. ದಿನಕ್ಕೆ 8-10 ಲೋಟ ನೀರು ಕುಡಿಯಿರಿ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DAILY ROUTINE ================= -->
+  <section id="routine" class="section-pad reveal">
+    <span class="kicker eng">A Sample Day</span>
+    <h2 class="section-title">ದಿನಚರಿ ಮಾದರಿ</h2>
+    <p class="section-desc">ಪ್ರತಿ ದಿನ ಒಂದೇ ಸಮಯಕ್ಕೆ ಊಟ-ತಿಂಡಿ ಮಾಡುವುದು ಸಕ್ಕರೆ ಮಟ್ಟ ಸ್ಥಿರವಾಗಿಡಲು ಸಹಕಾರಿ.</p>
+    <div class="routine-list">
+      <div class="rline"><div class="time">6:00 AM</div><div class="what">ಎದ್ದು ಉಗುರುಬೆಚ್ಚಗಿನ ನೀರು, ನಂತರ ಪ್ರಾಣಾಯಾಮ</div></div>
+      <div class="rline"><div class="time">6:30 AM</div><div class="what">ಯೋಗ + 20-30 ನಿಮಿಷ ನಡಿಗೆ</div></div>
+      <div class="rline"><div class="time">8:00 AM</div><div class="what">ಬೆಳಗಿನ ಉಪಾಹಾರ</div></div>
+      <div class="rline"><div class="time">10:30 AM</div><div class="what">ಸಣ್ಣ ಪ್ರಮಾಣದ ಹಣ್ಣು ಅಥವಾ ಮಜ್ಜಿಗೆ</div></div>
+      <div class="rline"><div class="time">1:00 PM</div><div class="what">ಮಧ್ಯಾಹ್ನದ ಊಟ + 10 ನಿಮಿಷ ನಡಿಗೆ</div></div>
+      <div class="rline"><div class="time">4:30 PM</div><div class="what">ಸಂಜೆಯ ಲಘು ತಿಂಡಿ (ಕೋಸಂಬರಿ/ಹುರಿದ ಕಡಲೆ)</div></div>
+      <div class="rline"><div class="time">7:30 PM</div><div class="what">ರಾತ್ರಿಯ ಊಟ (ಹಗುರ) + 10 ನಿಮಿಷ ನಡಿಗೆ</div></div>
+      <div class="rline"><div class="time">9:30 PM</div><div class="what">ನಿದ್ರೆ (7-8 ಗಂಟೆ ವಿಶ್ರಾಂತಿ ಅಗತ್ಯ)</div></div>
+    </div>
+  </section>
+
+  <!-- ================= 12 WEEK PLAN ================= -->
+  <section id="plan" class="section-pad reveal">
+    <span class="kicker eng">The Journey</span>
+    <h2 class="section-title">12 ವಾರಗಳ ಆಹಾರ ಯೋಜನೆ</h2>
+    <p class="section-desc">ಪ್ರತಿ ವಾರವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದಂತೆ ಇಲ್ಕಲ್ ಸೀರೆಯ ನೇಯ್ಗೆಯಂತೆ ನಿಮ್ಮ ಪ್ರಗತಿ-ಪಟ್ಟಿ ಬೆಳೆಯುತ್ತಾ ಹೋಗುತ್ತದೆ. ಎಲ್ಲಾ 12 ವಾರಗಳ ವಿವರ ಕೆಳಗೆ ಪೂರ್ಣವಾಗಿ ನೀಡಲಾಗಿದೆ, ವಾರ ಮುಗಿದ ಮೇಲೆ ಪಕ್ಕದ ಚೌಕದಲ್ಲಿ ✓ ಗುರುತು ಮಾಡಿ.</p>
+
+    <div class="braid-wrap">
+      <div class="braid-label"><span>ಪ್ರಗತಿ</span><span id="braidPct">0 / 12 ವಾರ</span></div>
+      <div class="braid-track"><div class="braid-fill" id="braidFill"></div></div>
+      <div class="braid-hint eng">Your woven progress braid, mark each completed week</div>
+    </div>
+
+    <div class="week-list" id="weekList"></div>
+  </section>
+
+  <!-- ================= RECIPES ================= -->
+  <section id="recipes" class="section-pad reveal">
+    <span class="kicker eng">Recipe Library</span>
+    <h2 class="section-title">ಉತ್ತರ ಕರ್ನಾಟಕದ ಆರೋಗ್ಯಕರ ಪಾಕವಿಧಾನಗಳು</h2>
+    <p class="section-desc">ಈ 12 ಪಾಕವಿಧಾನಗಳನ್ನೇ 12 ವಾರಗಳಲ್ಲಿ ಬದಲಿಸಿ-ಬದಲಿಸಿ ಬಳಸಲಾಗಿದೆ. ಪ್ರತಿಯೊಂದರ ಸಾಮಗ್ರಿ ಮತ್ತು ವಿಧಾನ ಕೆಳಗೆ ಪೂರ್ಣವಾಗಿ ನೀಡಲಾಗಿದೆ.</p>
+    <div class="recipe-filters" id="filterRow"></div>
+    <div class="recipe-grid" id="recipeGrid"></div>
+  </section>
+
+  <!-- ================= YOGA ================= -->
+  <section id="yoga" class="section-pad reveal">
+    <span class="kicker eng">Movement &amp; Breath</span>
+    <h2 class="section-title">ಯೋಗ ಮತ್ತು ದೈಹಿಕ ವ್ಯಾಯಾಮ</h2>
+    <p class="section-desc">65 ವರ್ಷ ವಯಸ್ಸಿಗೆ ಸೂಕ್ತವಾದ, ಸೌಮ್ಯವಾದ ಯೋಗಾಸನ ಮತ್ತು ಪ್ರಾಣಾಯಾಮಗಳು. ಆಸನಗಳನ್ನು ನಿಧಾನವಾಗಿ, ಆಧಾರ ಪಡೆದು ಮಾಡಿ.</p>
+    <div class="yoga-grid" id="yogaGrid"></div>
+    <div class="yoga-note">⚠️ <b>ಗಮನಿಸಿ:</b> ಯೋಗ ಅಥವಾ ವ್ಯಾಯಾಮ ಆರಂಭಿಸುವ ಮೊದಲು, ವಿಶೇಷವಾಗಿ ಹೃದಯ ಅಥವಾ ಮಂಡಿ ಸಮಸ್ಯೆ ಇದ್ದರೆ, ವೈದ್ಯರ ಅಥವಾ ಪ್ರಶಿಕ್ಷಿತ ಯೋಗ ಗುರುಗಳ ಸಲಹೆ ಪಡೆಯಿರಿ. ತಲೆಸುತ್ತು ಅಥವಾ ನೋವು ಕಂಡುಬಂದರೆ ತಕ್ಷಣ ನಿಲ್ಲಿಸಿ.</div>
+
+    <div class="walk-card">
+      <h4 style="font-size:16.5px;color:var(--indigo-deeper);">🚶 ನಡಿಗೆ ಯೋಜನೆ (Walking Plan)</h4>
+      <p style="font-size:13.8px;color:#5a5142;margin-top:8px;">ಕ್ರಮೇಣ ನಡಿಗೆಯ ಸಮಯ ಹೆಚ್ಚಿಸಿ, ದೇಹಕ್ಕೆ ಒತ್ತಡ ಬೀಳದಂತೆ:</p>
+      <div class="walk-week-bar">
+        <span class="wk-pill">ವಾರ 1-2 : 15 ನಿಮಿಷ</span>
+        <span class="wk-pill">ವಾರ 3-4 : 20 ನಿಮಿಷ</span>
+        <span class="wk-pill">ವಾರ 5-6 : 25 ನಿಮಿಷ</span>
+        <span class="wk-pill">ವಾರ 7-9 : 30 ನಿಮಿಷ</span>
+        <span class="wk-pill">ವಾರ 10-12 : 30-35 ನಿಮಿಷ + ಸಣ್ಣ ಏರು ದಾರಿ</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <b>ಪ್ರಮುಖ ಸೂಚನೆ:</b> ಇದು ಸಾಮಾನ್ಯ ಮಾಹಿತಿಗಾಗಿ ರೂಪಿಸಿದ ಜೀವನಶೈಲಿ ಮತ್ತು ಆಹಾರ ಮಾರ್ಗದರ್ಶಿಯಾಗಿದ್ದು, ಇದು ವೈದ್ಯಕೀಯ ಸಲಹೆ ಅಲ್ಲ. ಶ್ರೀ ಅಂಗಡಿ ಅವರಿಗೆ ಮಧುಮೇಹ ಮತ್ತು ಕೊಲೆಸ್ಟ್ರಾಲ್ ಸಮಸ್ಯೆ ಇರುವುದರಿಂದ, ಈ ಯೋಜನೆಯನ್ನು ಆರಂಭಿಸುವ ಮೊದಲು ಮತ್ತು 12 ವಾರಗಳ ಅವಧಿಯಲ್ಲಿ ನಿಯಮಿತವಾಗಿ ಅವರ ವೈದ್ಯರು ಅಥವಾ ಆಹಾರ ತಜ್ಞರನ್ನು (dietitian) ಸಂಪರ್ಕಿಸಬೇಕು. ಔಷಧಿಯ ಪ್ರಮಾಣ, ಸಕ್ಕರೆ ಮತ್ತು ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರಿಂಗ್ ಬಗ್ಗೆ ವೈದ್ಯರ ಸಲಹೆಯನ್ನೇ ಅಂತಿಮವಾಗಿ ಪಾಲಿಸಬೇಕು.
+    </div>
+    <div class="fmeta">Made with care for Mr. Angadi · North Karnataka Vegetarian Wellness Plan</div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const recipes = [
+  {id:'r1', name:'ಜೋಳದ ರೊಟ್ಟಿ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🫓', cat:'staple',
+    benefit:'ಕಡಿಮೆ ಗ್ಲೈಸೆಮಿಕ್ ಇಂಡೆಕ್ಸ್ ಮತ್ತು ನಾರಿನಂಶ ಹೆಚ್ಚು, ಸಕ್ಕರೆ ಮಟ್ಟ ನಿಧಾನವಾಗಿ ಏರುವಂತೆ ಮಾಡುತ್ತದೆ.',
+    ingredients:['ಜೋಳದ ಹಿಟ್ಟು, 1 ಕಪ್','ಬಿಸಿ ನೀರು, ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಷ್ಟು','ಉಪ್ಪು, ರುಚಿಗೆ ತಕ್ಕಷ್ಟು'],
+    method:['ಹಿಟ್ಟಿಗೆ ಉಪ್ಪು ಬೆರೆಸಿ, ಬಿಸಿ ನೀರು ಹಾಕುತ್ತಾ ಮೃದುವಾದ ಕಣಕ ಮಾಡಿ.','ಬಾಳೆ ಎಲೆ ಅಥವಾ ಪ್ಲಾಸ್ಟಿಕ್ ಹಾಳೆಯ ಮೇಲೆ ಕೈಯಿಂದ ತಟ್ಟಿ ರೊಟ್ಟಿ ಆಕಾರ ಮಾಡಿ.','ಬಿಸಿ ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಬದಿ ಚೆನ್ನಾಗಿ ಬೇಯಿಸಿ.','ಎಣ್ಣೆ ಇಲ್ಲದೆ ಬಿಸಿ-ಬಿಸಿಯಾಗಿ ಬಡಿಸಿ.']},
+  {id:'r2', name:'ಸಜ್ಜೆ ರೊಟ್ಟಿ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🫓', cat:'staple',
+    benefit:'ನಾರು ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.',
+    ingredients:['ಸಜ್ಜೆ ಹಿಟ್ಟು, 1 ಕಪ್','ಬಿಸಿ ನೀರು','ಉಪ್ಪು'],
+    method:['ಸಜ್ಜೆ ಹಿಟ್ಟಿಗೆ ಬಿಸಿ ನೀರು ಸೇರಿಸಿ ಕಣಕ ಕಲಸಿ.','ಸಣ್ಣ ಉಂಡೆ ಮಾಡಿ ತಟ್ಟಿ ರೊಟ್ಟಿ ಮಾಡಿ.','ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಕಡೆ ಬೇಯಿಸಿ.','ಮೆಂತ್ಯ ಪಲ್ಯ ಅಥವಾ ಚಟ್ನಿ ಜೊತೆ ಬಡಿಸಿ.']},
+  {id:'r3', name:'ರಾಗಿ ಮುದ್ದೆ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🍚', cat:'staple',
+    benefit:'ಕ್ಯಾಲ್ಸಿಯಂ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ನಿಧಾನ ಜೀರ್ಣವಾಗಿ ಸಕ್ಕರೆ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.',
+    ingredients:['ರಾಗಿ ಹಿಟ್ಟು, 1 ಕಪ್','ನೀರು, 2 ಕಪ್','ಉಪ್ಪು ಚಿಟಿಕೆ'],
+    method:['ನೀರನ್ನು ಕುದಿಸಿ, ಉಪ್ಪು ಹಾಕಿ.','ರಾಗಿ ಹಿಟ್ಟನ್ನು ನಿಧಾನವಾಗಿ ಸೇರಿಸುತ್ತಾ ಗಟ್ಟಿಯಾಗುವವರೆಗೆ ಕಲಸಿ.','ಮುಚ್ಚಿ 5 ನಿಮಿಷ ಬೇಯಿಸಿ.','ಒದ್ದೆ ಕೈಯಿಂದ ಉಂಡೆ ಮಾಡಿ, ಸಾರು ಜೊತೆ ಬಡಿಸಿ.']},
+  {id:'r4', name:'ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ', tag:'ಪಲ್ಯ', icon:'🥬', cat:'palya',
+    benefit:'ಮೆಂತ್ಯದಲ್ಲಿರುವ ನಾರು ಸಕ್ಕರೆ ಮಟ್ಟ ಮತ್ತು ಕೊಲೆಸ್ಟ್ರಾಲ್ ಎರಡನ್ನೂ ನಿಯಂತ್ರಿಸಲು ನೆರವಾಗುತ್ತದೆ.',
+    ingredients:['ಮೆಂತ್ಯ ಸೊಪ್ಪು, 2 ಕಟ್ಟು (ಹೆಚ್ಚಿದ್ದು)','ಈರುಳ್ಳಿ, 1 ಸಣ್ಣದು','ಹಸಿ ಮೆಣಸಿನಕಾಯಿ, 1','ಸಾಸಿವೆ, ಜೀರಿಗೆ, ಚಿಟಿಕೆ','ಎಣ್ಣೆ, 1 ಚಮಚ ಮಾತ್ರ'],
+    method:['ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಸಾಸಿವೆ, ಜೀರಿಗೆ ಸಿಡಿಸಿ.','ಈರುಳ್ಳಿ, ಮೆಣಸಿನಕಾಯಿ ಹಾಕಿ ಬಾಡಿಸಿ.','ಸೊಪ್ಪು ಹಾಕಿ ಮುಚ್ಚಿ ಬೇಯಿಸಿ.','ಉಪ್ಪು ಹಾಕಿ ಬೆರೆಸಿ ಬಡಿಸಿ.']},
+  {id:'r5', name:'ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ', tag:'ಪಲ್ಯ', icon:'🥒', cat:'palya',
+    benefit:'ಬೆಂಡೆಕಾಯಿಯಲ್ಲಿನ ನಾರು ರಕ್ತದ ಸಕ್ಕರೆ ಹೀರಿಕೊಳ್ಳುವಿಕೆಯನ್ನು ನಿಧಾನಗೊಳಿಸುತ್ತದೆ.',
+    ingredients:['ಬೆಂಡೆಕಾಯಿ, 250 ಗ್ರಾಂ','ಈರುಳ್ಳಿ, 1','ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ','ಎಣ್ಣೆ, 1 ಚಮಚ'],
+    method:['ಬೆಂಡೆಕಾಯಿ ಸಣ್ಣಗೆ ಹೆಚ್ಚಿ.','ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಈರುಳ್ಳಿ ಹುರಿದು ಬೆಂಡೆಕಾಯಿ ಸೇರಿಸಿ.','ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ, ಉಪ್ಪು ಹಾಕಿ.','ಮುಚ್ಚಿ, ನಡುನಡುವೆ ಕಲಸುತ್ತಾ ಬೇಯಿಸಿ.']},
+  {id:'r6', name:'ಅವರೆಕಾಳು ಉಸಳಿ', tag:'ಪಲ್ಯ', icon:'🫘', cat:'palya',
+    benefit:'ಪ್ರೋಟೀನ್ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ಹೊಟ್ಟೆ ತುಂಬಿದ ಭಾವ ನೀಡಿ ತೂಕ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.',
+    ingredients:['ಅವರೆಕಾಳು, 1 ಕಪ್','ಈರುಳ್ಳಿ, ಬೆಳ್ಳುಳ್ಳಿ','ಸಾಸಿವೆ, ಕರಿಬೇವು','ಎಣ್ಣೆ, 1 ಚಮಚ'],
+    method:['ಅವರೆಕಾಳನ್ನು ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.','ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಒಗ್ಗರಣೆ ಹಾಕಿ ಈರುಳ್ಳಿ ಹುರಿಯಿರಿ.','ಬೇಯಿಸಿದ ಅವರೆಕಾಳು ಸೇರಿಸಿ, ಮಸಾಲೆ ಬೆರೆಸಿ.','5 ನಿಮಿಷ ಬೇಯಿಸಿ ಬಡಿಸಿ.']},
+  {id:'r7', name:'ಹೆಸರುಬೇಳೆ ಸಾರು', tag:'ಸಾರು', icon:'🍲', cat:'saaru',
+    benefit:'ಹಗುರ ಪ್ರೋಟೀನ್ ಮೂಲ, ಜೀರ್ಣಕ್ಕೆ ಸುಲಭ, ಎಣ್ಣೆ ಬಳಕೆ ಕಡಿಮೆ.',
+    ingredients:['ಹೆಸರುಬೇಳೆ, 1/2 ಕಪ್','ಟೊಮ್ಯಾಟೊ, 1','ಬೆಳ್ಳುಳ್ಳಿ ಎಸಳು, 2','ಅರಿಶಿನ, ಜೀರಿಗೆ ಪುಡಿ'],
+    method:['ಹೆಸರುಬೇಳೆ, ಟೊಮ್ಯಾಟೊ ಹಾಕಿ ಬೇಯಿಸಿ.','ಚೆನ್ನಾಗಿ ಬೆಂದ ಮೇಲೆ ಕಡೆದು, ನೀರು ಸೇರಿಸಿ.','ಒಗ್ಗರಣೆ (ಜೀರಿಗೆ, ಬೆಳ್ಳುಳ್ಳಿ) ಹಾಕಿ ಕುದಿಸಿ.','ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು ಹಾಕಿ ಬಡಿಸಿ.']},
+  {id:'r8', name:'ನುಗ್ಗೆಕಾಯಿ ಸಾರು', tag:'ಸಾರು', icon:'🥣', cat:'saaru',
+    benefit:'ಜೀವಸತ್ವ ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ ಎಂದು ಸಾಂಪ್ರದಾಯಿಕವಾಗಿ ನಂಬಲಾಗಿದೆ.',
+    ingredients:['ನುಗ್ಗೆಕಾಯಿ, 2','ತೊಗರಿಬೇಳೆ, 1/2 ಕಪ್','ಹುಣಸೆ ರಸ','ಸಾಂಬಾರ್ ಪುಡಿ'],
+    method:['ತೊಗರಿಬೇಳೆ ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.','ನುಗ್ಗೆಕಾಯಿ ತುಂಡು, ಹುಣಸೆ ರಸ, ಸಾಂಬಾರ್ ಪುಡಿ ಸೇರಿಸಿ ಕುದಿಸಿ.','ಬೇಯಿಸಿದ ಬೇಳೆ ಸೇರಿಸಿ ಚೆನ್ನಾಗಿ ಕುದಿಸಿ.','ಒಗ್ಗರಣೆ ಹಾಕಿ ಬಡಿಸಿ.']},
+  {id:'r9', name:'ಕೋಸಂಬರಿ', tag:'ಸಲಾಡ್', icon:'🥗', cat:'salad',
+    benefit:'ಕಚ್ಚಾ ಕಾಳು ಆಧಾರಿತ ಸಲಾಡ್, ಎಣ್ಣೆ ಇಲ್ಲದೆ, ನಾರು ಮತ್ತು ಪ್ರೋಟೀನ್ ಹೆಚ್ಚು.',
+    ingredients:['ಹೆಸರುಬೇಳೆ (ನೆನೆಸಿದ್ದು), 1/2 ಕಪ್','ಸೌತೆಕಾಯಿ, ಕ್ಯಾರೆಟ್, ತುರಿದದ್ದು','ಕೊಬ್ಬರಿ ತುರಿ, ಸ್ವಲ್ಪ','ನಿಂಬೆ ರಸ, ಕೊತ್ತಂಬರಿ'],
+    method:['ಹೆಸರುಬೇಳೆಯನ್ನು 1 ಗಂಟೆ ನೆನೆಸಿಡಿ.','ತರಕಾರಿ, ಕೊಬ್ಬರಿ ಜೊತೆ ಬೆರೆಸಿ.','ನಿಂಬೆ ರಸ, ಉಪ್ಪು, ಕೊತ್ತಂಬರಿ ಸೇರಿಸಿ.','ತಣ್ಣಗೆ ಬಡಿಸಿ.']},
+  {id:'r10', name:'ಮಜ್ಜಿಗೆ ಹುಳಿ', tag:'ಪಾನೀಯ', icon:'🥛', cat:'drink',
+    benefit:'ಕೆನೆ ತೆಗೆದ ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, ಕೊಬ್ಬು ಕಡಿಮೆ, ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.',
+    ingredients:['ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, 2 ಕಪ್','ಶುಂಠಿ, ಹಸಿಮೆಣಸಿನಕಾಯಿ','ಕರಿಬೇವು, ಸಾಸಿವೆ','ಉಪ್ಪು'],
+    method:['ಮಜ್ಜಿಗೆಗೆ ಶುಂಠಿ-ಮೆಣಸು ಅರೆದು ಸೇರಿಸಿ.','ಸಾಸಿವೆ, ಕರಿಬೇವು ಒಗ್ಗರಣೆ ಹಾಕಿ.','ಉಪ್ಪು ಸೇರಿಸಿ ಬೆರೆಸಿ.','ಊಟದ ಜೊತೆ ಅಥವಾ ಸಂಜೆ ಲಘು ಪಾನೀಯವಾಗಿ ಸೇವಿಸಿ.']},
+  {id:'r11', name:'ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ', tag:'ಚಟ್ನಿ', icon:'🥜', cat:'chutney',
+    benefit:'ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಮತ್ತು ಪ್ರೋಟೀನ್ ನೀಡುತ್ತದೆ, ಸ್ವಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಮಾತ್ರ ಸೇವಿಸಿ.',
+    ingredients:['ಹುರಿದ ಶೇಂಗಾ, 1 ಕಪ್','ಒಣ ಮೆಣಸಿನಕಾಯಿ, 2','ಬೆಳ್ಳುಳ್ಳಿ, 1 ಎಸಳು','ಉಪ್ಪು'],
+    method:['ಶೇಂಗಾವನ್ನು ಹುರಿದು ಸಿಪ್ಪೆ ತೆಗೆಯಿರಿ.','ಎಲ್ಲಾ ಸಾಮಗ್ರಿ ಜೊತೆ ಒರಟಾಗಿ ಪುಡಿ ಮಾಡಿ.','ಗಾಳಿಯಾಡದ ಡಬ್ಬದಲ್ಲಿ ಇಡಿ.','ರೊಟ್ಟಿ ಜೊತೆ 1 ಚಮಚದಷ್ಟು ಮಾತ್ರ ಬಡಿಸಿ.']},
+  {id:'r12', name:'ಎಳ್ಳು ಚಟ್ನಿ', tag:'ಚಟ್ನಿ', icon:'✨', cat:'chutney',
+    benefit:'ಎಳ್ಳಿನಲ್ಲಿರುವ ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಹೃದಯದ ಆರೋಗ್ಯಕ್ಕೆ ಸಹಕಾರಿ, ಅಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಸೇವಿಸಿ.',
+    ingredients:['ಎಳ್ಳು, 1/2 ಕಪ್','ಒಣ ಮೆಣಸಿನಕಾಯಿ, 1-2','ಹುಣಸೆ, ಚಿಟಿಕೆ','ಉಪ್ಪು'],
+    method:['ಎಳ್ಳನ್ನು ಒಣಗಿಸಿ ಹುರಿಯಿರಿ.','ಮೆಣಸಿನಕಾಯಿ, ಹುಣಸೆ, ಉಪ್ಪು ಜೊತೆ ಪುಡಿ ಮಾಡಿ.','ಗಾಳಿಯಾಡದ ಡಬ್ಬಿಯಲ್ಲಿ ಶೇಖರಿಸಿ.','ರೊಟ್ಟಿ/ಮುದ್ದೆ ಜೊತೆ ಸ್ವಲ್ಪವೇ ಬಡಿಸಿ.']},
+];
+
+const catNames = {all:'ಎಲ್ಲಾ', staple:'ಮುಖ್ಯ ಆಹಾರ', palya:'ಪಲ್ಯ', saaru:'ಸಾರು', salad:'ಸಲಾಡ್', drink:'ಪಾನೀಯ', chutney:'ಚಟ್ನಿ'};
+
+const yogaPoses = [
+  {name:'ಅನುಲೋಮ ವಿಲೋಮ', eng:'Anulom Vilom', icon:'🌬️', desc:'ಮೂಗಿನ ಎರಡು ಹೊಳ್ಳೆಗಳಿಂದ ಪರ್ಯಾಯವಾಗಿ ಉಸಿರಾಟ. ಒತ್ತಡ ಕಡಿಮೆ ಮಾಡಿ, ರಕ್ತದೊತ್ತಡ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.'},
+  {name:'ಭ್ರಾಮರಿ ಪ್ರಾಣಾಯಾಮ', eng:'Bhramari', icon:'🐝', desc:'ಝೇಂಕಾರ ಶಬ್ದ ಮಾಡುತ್ತಾ ಉಸಿರಾಟ. ಮನಸ್ಸಿಗೆ ಶಾಂತಿ, ನಿದ್ರೆ ಸುಧಾರಣೆಗೆ ಸಹಾಯಕ.'},
+  {name:'ತಾಡಾಸನ', eng:'Tadasana', icon:'🧍', desc:'ನಿಂತು ಎರಡೂ ಕೈ ಮೇಲಕ್ಕೆ ಚಾಚಿ ನಿಲ್ಲುವುದು. ದೇಹದ ಸಮತೋಲನ ಮತ್ತು ಭಂಗಿ ಸುಧಾರಿಸುತ್ತದೆ.'},
+  {name:'ವೃಕ್ಷಾಸನ (ಗೋಡೆ ಆಧಾರ)', eng:'Vrikshasana', icon:'🌳', desc:'ಒಂದು ಕಾಲಿನ ಮೇಲೆ ನಿಂತು ಸಮತೋಲನ ಸಾಧಿಸುವುದು. ಅಗತ್ಯವಿದ್ದರೆ ಗೋಡೆಯ ಆಧಾರ ಪಡೆಯಿರಿ.'},
+  {name:'ಭುಜಂಗಾಸನ (ಸೌಮ್ಯ)', eng:'Bhujangasana', icon:'🐍', desc:'ಹೊಟ್ಟೆಯ ಮೇಲೆ ಮಲಗಿ ಎದೆಭಾಗ ನಿಧಾನವಾಗಿ ಮೇಲೆತ್ತುವುದು. ಬೆನ್ನುಮೂಳೆಗೆ ಒಳ್ಳೆಯದು.'},
+  {name:'ವಜ್ರಾಸನ', eng:'Vajrasana', icon:'🙏', desc:'ಮೊಣಕಾಲೂರಿ ಕುಳಿತು ಧ್ಯಾನಸ್ಥ ಭಂಗಿ. ಊಟದ ನಂತರ ಕುಳಿತರೆ ಜೀರ್ಣಕ್ರಿಯೆಗೆ ಸಹಕಾರಿ.'},
+  {name:'ಪವನಮುಕ್ತಾಸನ', eng:'Pavanamuktasana', icon:'🦵', desc:'ಬೆನ್ನಮೇಲೆ ಮಲಗಿ ಮಂಡಿಗಳನ್ನು ಎದೆಯ ಬಳಿ ತರುವುದು. ಹೊಟ್ಟೆಯ ಗ್ಯಾಸ್ ಮತ್ತು ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.'},
+  {name:'ಮಾರ್ಜಾರಾಸನ', eng:'Cat-Cow Stretch', icon:'🐱', desc:'ನಾಲ್ಕು ಕಾಲಿನ ಮೇಲೆ ಬೆನ್ನನ್ನು ಮೇಲೆ-ಕೆಳಗೆ ಬಾಗಿಸುವುದು. ಬೆನ್ನುಮೂಳೆ ಸಡಿಲಗೊಳ್ಳುತ್ತದೆ.'},
+  {name:'ಶವಾಸನ', eng:'Shavasana', icon:'😌', desc:'ಎಲ್ಲಾ ಆಸನಗಳ ಕೊನೆಯಲ್ಲಿ 5-10 ನಿಮಿಷ ಸಂಪೂರ್ಣ ವಿಶ್ರಾಂತಿ. ಮನಸ್ಸು-ದೇಹ ಶಾಂತಗೊಳ್ಳುತ್ತದೆ.'},
+];
+
+/* week phase focus text */
+const phases = [
+  {range:[1,3], phase:'ಹಂತ 1 · ಅಡಿಪಾಯ', focus:'ಜೋಳ/ಸಜ್ಜೆ ರೊಟ್ಟಿಗೆ ಮೆಲ್ಲಗೆ ಬದಲಾವಣೆ, ಎಣ್ಣೆ ಕಡಿಮೆ ಮಾಡುವುದು, 15-20 ನಿಮಿಷ ನಡಿಗೆ ಮತ್ತು ಸರಳ ಪ್ರಾಣಾಯಾಮ ಆರಂಭ.'},
+  {range:[4,6], phase:'ಹಂತ 2 · ಬಲವರ್ಧನೆ', focus:'ಅನ್ನದ ಪ್ರಮಾಣ ಇನ್ನಷ್ಟು ಕಡಿಮೆಗೊಳಿಸಿ, ಸೊಪ್ಪು-ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ, ನಡಿಗೆ 20-25 ನಿಮಿಷಕ್ಕೆ ಹಾಗೂ ಯೋಗಾಸನ ಸೇರ್ಪಡೆ.'},
+  {range:[7,9], phase:'ಹಂತ 3 · ಸ್ಥಿರತೆ', focus:'ಸಂಪೂರ್ಣವಾಗಿ ಸಿರಿಧಾನ್ಯ ಆಧಾರಿತ ಊಟ, ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ ವಿಶೇಷ ಖಾದ್ಯ, ನಡಿಗೆ 30 ನಿಮಿಷ, ಎಲ್ಲಾ ಯೋಗಾಸನ ಅಭ್ಯಾಸ.'},
+  {range:[10,12], phase:'ಹಂತ 4 · ಸಾಧನೆ ಕಾಪಾಡುವಿಕೆ', focus:'ಸಾಧಿಸಿದ ಬದಲಾವಣೆಯನ್ನು ಕಾಯಂ ಅಭ್ಯಾಸವಾಗಿಸಿ, ವೈದ್ಯರಿಂದ ಸಕ್ಕರೆ/ಕೊಲೆಸ್ಟ್ರಾಲ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಿ ಪ್ರಗತಿ ಪರಿಶೀಲಿಸಿ.'},
+];
+
+/* meal rotation pools */
+const bfPool = [
+  ['ಜೋಳದ ರೊಟ್ಟಿ + ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ'], ['ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಎಳ್ಳು ಚಟ್ನಿ'], ['ರಾಗಿ ಗಂಜಿ + ಮಜ್ಜಿಗೆ'], ['ಅಂಬಲಿ (ಜೋಳ) + ಸ್ವಲ್ಪ ಬೆಲ್ಲ ರಹಿತ']
+];
+const lunchPool = [
+  ['ಜೋಳದ ರೊಟ್ಟಿ','ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ','ಹೆಸರುಬೇಳೆ ಸಾರು','ಮಜ್ಜಿಗೆ ಹುಳಿ'],
+  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ','ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ','ನುಗ್ಗೆಕಾಯಿ ಸಾರು','ಕೋಸಂಬರಿ'],
+  ['ರಾಗಿ ಮುದ್ದೆ','ಅವರೆಕಾಳು ಉಸಳಿ','ಹೆಸರುಬೇಳೆ ಸಾರು','ಮಜ್ಜಿಗೆ'],
+  ['ಜೋಳದ ರೊಟ್ಟಿ','ಕೋಸಂಬರಿ','ನುಗ್ಗೆಕಾಯಿ ಸಾರು','ಮಜ್ಜಿಗೆ ಹುಳಿ'],
+];
+const snackPool = ['ಹುರಿದ ಕಡಲೆ + ಚಹಾ (ಸಕ್ಕರೆ ರಹಿತ)', 'ಕೋಸಂಬರಿ ಬಟ್ಟಲು', 'ಒಂದು ಹಣ್ಣು (ಸೇಬು/ಪೇರಳೆ)', 'ಮಜ್ಜಿಗೆ + ಹುರಿಗಡಲೆ'];
+const dinnerPool = [
+  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ','ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ'],
+  ['ರಾಗಿ ಮುದ್ದೆ (ಅರ್ಧ) + ಹೆಸರುಬೇಳೆ ಸಾರು'],
+  ['ಜೋಳದ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ'],
+  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ'],
+];
+
+/* build 12 weeks */
+const weeks = [];
+for(let w=1; w<=12; w++){
+  const ph = phases.find(p => w>=p.range[0] && w<=p.range[1]);
+  weeks.push({
+    num:w,
+    phase:ph.phase,
+    focus:ph.focus,
+    breakfast: bfPool[(w-1)%bfPool.length][0],
+    lunch: lunchPool[(w-1)%lunchPool.length].join(' + '),
+    snack: snackPool[(w-1)%snackPool.length],
+    dinner: dinnerPool[(w-1)%dinnerPool.length][0],
+    yogaFocus: w<=3 ? 'ಅನುಲೋಮ ವಿಲೋಮ + ತಾಡಾಸನ + ಶವಾಸನ' :
+               w<=6 ? 'ಭ್ರಾಮರಿ + ವಜ್ರಾಸನ + ಪವನಮುಕ್ತಾಸನ + ಶವಾಸನ' :
+               w<=9 ? 'ಎಲ್ಲಾ ಪ್ರಾಣಾಯಾಮ + ವೃಕ್ಷಾಸನ + ಭುಜಂಗಾಸನ + ಶವಾಸನ' :
+                      'ಸಂಪೂರ್ಣ ಯೋಗ ಕ್ರಮ (20-25 ನಿಮಿಷ) + ಧ್ಯಾನ',
+    walkMinutes: w<=2?15 : w<=4?20 : w<=6?25 : w<=9?30 : 32,
+  });
+}
+
+/* ============ RENDER ============ */
+function renderWeeks(){
+  const list = document.getElementById('weekList');
+  list.innerHTML = weeks.map(w => `
+    <div class="week-card" id="wk-${w.num}">
+      <div class="week-head">
+        <div class="week-num">${w.num}</div>
+        <div class="titles">
+          <div class="phase">${w.phase}</div>
+          <h4>ವಾರ ${w.num}, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-${w.num}" onclick="toggleCheck(${w.num})">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">${w.focus}</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>${w.breakfast}</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>${w.lunch}</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>${w.snack}</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>${w.dinner}</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>${w.yogaFocus}</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ ${w.walkMinutes} ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCheck(n){
+  const el = document.getElementById('chk-'+n);
+  el.classList.toggle('done');
+  updateBraid();
+}
+function updateBraid(){
+  const done = document.querySelectorAll('.week-check.done').length;
+  document.getElementById('braidFill').style.width = (done/12*100)+'%';
+  document.getElementById('braidPct').textContent = done+' / 12 ವಾರ';
+}
+
+function renderRecipes(filter){
+  const grid = document.getElementById('recipeGrid');
+  const items = filter==='all' ? recipes : recipes.filter(r=>r.cat===filter);
+  grid.innerHTML = items.map(r => `
+    <div class="recipe-card">
+      <div class="recipe-top">
+        <div class="ricon">${r.icon}</div>
+        <div>
+          <div class="rtag">${r.tag}</div>
+          <h4>${r.name}</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ${r.benefit}</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul>${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol>${r.method.map(s=>`<li>${s}</li>`).join('')}</ol>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFilters(){
+  const cats = ['all', ...new Set(recipes.map(r=>r.cat))];
+  const row = document.getElementById('filterRow');
+  row.innerHTML = cats.map((c,i)=>`<div class="filter-chip ${i===0?'active':''}" data-cat="${c}" onclick="selectFilter('${c}', this)">${catNames[c]}</div>`).join('');
+}
+function selectFilter(cat, el){
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderRecipes(cat);
+}
+
+function renderYoga(){
+  document.getElementById('yogaGrid').innerHTML = yogaPoses.map(y=>`
+    <div class="yoga-card">
+      <div class="yoga-ic">${y.icon}</div>
+      <span class="eng-name">${y.eng}</span>
+      <h4>${y.name}</h4>
+      <p>${y.desc}</p>
+    </div>
+  `).join('');
+}
+
+/* nav tabs */
+document.querySelectorAll('.tabbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* scroll reveal */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* init */
+renderWeeks();
+renderFilters();
+renderRecipes('all');
+renderYoga();
+</script>
+</body>
+</html>
