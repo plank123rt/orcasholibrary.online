@@ -127,8 +127,11 @@
   .tabbtn:hover{background:rgba(33,44,86,0.12);}
 
   /* ===== reveal ===== */
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
-  .reveal.visible{opacity:1;transform:translateY(0);}
+  /* Visible by default so content always shows even if JS doesn't run.
+     Only elements JS marks with .js-anim get the fade/slide entrance. */
+  .reveal{opacity:1;transform:none;}
+  .reveal.js-anim{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.js-anim.visible{opacity:1;transform:translateY(0);}
 
   .kicker{font-family:var(--serif-en);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon-pallu);font-weight:600;margin-bottom:8px;display:block;}
   .section-title{font-size:clamp(24px,4vw,34px);margin-bottom:10px;}
@@ -424,7 +427,391 @@
       <div class="braid-hint eng">Your woven progress braid, mark each completed week</div>
     </div>
 
-    <div class="week-list" id="weekList"></div>
+    <div class="week-list" id="weekList">
+    <div class="week-card" id="wk-1">
+      <div class="week-head">
+        <div class="week-num">1</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 1 · ಅಡಿಪಾಯ</div>
+          <h4>ವಾರ 1, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-1" onclick="toggleCheck(1)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಜೋಳ/ಸಜ್ಜೆ ರೊಟ್ಟಿಗೆ ಮೆಲ್ಲಗೆ ಬದಲಾವಣೆ, ಎಣ್ಣೆ ಕಡಿಮೆ ಮಾಡುವುದು, 15-20 ನಿಮಿಷ ನಡಿಗೆ ಮತ್ತು ಸರಳ ಪ್ರಾಣಾಯಾಮ ಆರಂಭ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಹುರಿದ ಕಡಲೆ + ಚಹಾ (ಸಕ್ಕರೆ ರಹಿತ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಅನುಲೋಮ ವಿಲೋಮ + ತಾಡಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 15 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-2">
+      <div class="week-head">
+        <div class="week-num">2</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 1 · ಅಡಿಪಾಯ</div>
+          <h4>ವಾರ 2, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-2" onclick="toggleCheck(2)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಜೋಳ/ಸಜ್ಜೆ ರೊಟ್ಟಿಗೆ ಮೆಲ್ಲಗೆ ಬದಲಾವಣೆ, ಎಣ್ಣೆ ಕಡಿಮೆ ಮಾಡುವುದು, 15-20 ನಿಮಿಷ ನಡಿಗೆ ಮತ್ತು ಸರಳ ಪ್ರಾಣಾಯಾಮ ಆರಂಭ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಎಳ್ಳು ಚಟ್ನಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಕೋಸಂಬರಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಕೋಸಂಬರಿ ಬಟ್ಟಲು</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ (ಅರ್ಧ) + ಹೆಸರುಬೇಳೆ ಸಾರು</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಅನುಲೋಮ ವಿಲೋಮ + ತಾಡಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 15 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-3">
+      <div class="week-head">
+        <div class="week-num">3</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 1 · ಅಡಿಪಾಯ</div>
+          <h4>ವಾರ 3, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-3" onclick="toggleCheck(3)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಜೋಳ/ಸಜ್ಜೆ ರೊಟ್ಟಿಗೆ ಮೆಲ್ಲಗೆ ಬದಲಾವಣೆ, ಎಣ್ಣೆ ಕಡಿಮೆ ಮಾಡುವುದು, 15-20 ನಿಮಿಷ ನಡಿಗೆ ಮತ್ತು ಸರಳ ಪ್ರಾಣಾಯಾಮ ಆರಂಭ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ರಾಗಿ ಗಂಜಿ + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ + ಅವರೆಕಾಳು ಉಸಳಿ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಒಂದು ಹಣ್ಣು (ಸೇಬು/ಪೇರಳೆ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಅನುಲೋಮ ವಿಲೋಮ + ತಾಡಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 20 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-4">
+      <div class="week-head">
+        <div class="week-num">4</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 2 · ಬಲವರ್ಧನೆ</div>
+          <h4>ವಾರ 4, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-4" onclick="toggleCheck(4)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಅನ್ನದ ಪ್ರಮಾಣ ಇನ್ನಷ್ಟು ಕಡಿಮೆಗೊಳಿಸಿ, ಸೊಪ್ಪು-ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ, ನಡಿಗೆ 20-25 ನಿಮಿಷಕ್ಕೆ ಹಾಗೂ ಯೋಗಾಸನ ಸೇರ್ಪಡೆ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಅಂಬಲಿ (ಜೋಳ) + ಸ್ವಲ್ಪ ಬೆಲ್ಲ ರಹಿತ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಮಜ್ಜಿಗೆ + ಹುರಿಗಡಲೆ</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಭ್ರಾಮರಿ + ವಜ್ರಾಸನ + ಪವನಮುಕ್ತಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 20 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-5">
+      <div class="week-head">
+        <div class="week-num">5</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 2 · ಬಲವರ್ಧನೆ</div>
+          <h4>ವಾರ 5, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-5" onclick="toggleCheck(5)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಅನ್ನದ ಪ್ರಮಾಣ ಇನ್ನಷ್ಟು ಕಡಿಮೆಗೊಳಿಸಿ, ಸೊಪ್ಪು-ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ, ನಡಿಗೆ 20-25 ನಿಮಿಷಕ್ಕೆ ಹಾಗೂ ಯೋಗಾಸನ ಸೇರ್ಪಡೆ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಹುರಿದ ಕಡಲೆ + ಚಹಾ (ಸಕ್ಕರೆ ರಹಿತ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಭ್ರಾಮರಿ + ವಜ್ರಾಸನ + ಪವನಮುಕ್ತಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 25 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-6">
+      <div class="week-head">
+        <div class="week-num">6</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 2 · ಬಲವರ್ಧನೆ</div>
+          <h4>ವಾರ 6, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-6" onclick="toggleCheck(6)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಅನ್ನದ ಪ್ರಮಾಣ ಇನ್ನಷ್ಟು ಕಡಿಮೆಗೊಳಿಸಿ, ಸೊಪ್ಪು-ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ, ನಡಿಗೆ 20-25 ನಿಮಿಷಕ್ಕೆ ಹಾಗೂ ಯೋಗಾಸನ ಸೇರ್ಪಡೆ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಎಳ್ಳು ಚಟ್ನಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಕೋಸಂಬರಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಕೋಸಂಬರಿ ಬಟ್ಟಲು</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ (ಅರ್ಧ) + ಹೆಸರುಬೇಳೆ ಸಾರು</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಭ್ರಾಮರಿ + ವಜ್ರಾಸನ + ಪವನಮುಕ್ತಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 25 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-7">
+      <div class="week-head">
+        <div class="week-num">7</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 3 · ಸ್ಥಿರತೆ</div>
+          <h4>ವಾರ 7, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-7" onclick="toggleCheck(7)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಂಪೂರ್ಣವಾಗಿ ಸಿರಿಧಾನ್ಯ ಆಧಾರಿತ ಊಟ, ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ ವಿಶೇಷ ಖಾದ್ಯ, ನಡಿಗೆ 30 ನಿಮಿಷ, ಎಲ್ಲಾ ಯೋಗಾಸನ ಅಭ್ಯಾಸ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ರಾಗಿ ಗಂಜಿ + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ + ಅವರೆಕಾಳು ಉಸಳಿ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಒಂದು ಹಣ್ಣು (ಸೇಬು/ಪೇರಳೆ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಎಲ್ಲಾ ಪ್ರಾಣಾಯಾಮ + ವೃಕ್ಷಾಸನ + ಭುಜಂಗಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 30 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-8">
+      <div class="week-head">
+        <div class="week-num">8</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 3 · ಸ್ಥಿರತೆ</div>
+          <h4>ವಾರ 8, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-8" onclick="toggleCheck(8)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಂಪೂರ್ಣವಾಗಿ ಸಿರಿಧಾನ್ಯ ಆಧಾರಿತ ಊಟ, ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ ವಿಶೇಷ ಖಾದ್ಯ, ನಡಿಗೆ 30 ನಿಮಿಷ, ಎಲ್ಲಾ ಯೋಗಾಸನ ಅಭ್ಯಾಸ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಅಂಬಲಿ (ಜೋಳ) + ಸ್ವಲ್ಪ ಬೆಲ್ಲ ರಹಿತ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಮಜ್ಜಿಗೆ + ಹುರಿಗಡಲೆ</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಎಲ್ಲಾ ಪ್ರಾಣಾಯಾಮ + ವೃಕ್ಷಾಸನ + ಭುಜಂಗಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 30 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-9">
+      <div class="week-head">
+        <div class="week-num">9</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 3 · ಸ್ಥಿರತೆ</div>
+          <h4>ವಾರ 9, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-9" onclick="toggleCheck(9)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಂಪೂರ್ಣವಾಗಿ ಸಿರಿಧಾನ್ಯ ಆಧಾರಿತ ಊಟ, ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ ವಿಶೇಷ ಖಾದ್ಯ, ನಡಿಗೆ 30 ನಿಮಿಷ, ಎಲ್ಲಾ ಯೋಗಾಸನ ಅಭ್ಯಾಸ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಹುರಿದ ಕಡಲೆ + ಚಹಾ (ಸಕ್ಕರೆ ರಹಿತ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಎಲ್ಲಾ ಪ್ರಾಣಾಯಾಮ + ವೃಕ್ಷಾಸನ + ಭುಜಂಗಾಸನ + ಶವಾಸನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 30 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-10">
+      <div class="week-head">
+        <div class="week-num">10</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 4 · ಸಾಧನೆ ಕಾಪಾಡುವಿಕೆ</div>
+          <h4>ವಾರ 10, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-10" onclick="toggleCheck(10)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಾಧಿಸಿದ ಬದಲಾವಣೆಯನ್ನು ಕಾಯಂ ಅಭ್ಯಾಸವಾಗಿಸಿ, ವೈದ್ಯರಿಂದ ಸಕ್ಕರೆ/ಕೊಲೆಸ್ಟ್ರಾಲ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಿ ಪ್ರಗತಿ ಪರಿಶೀಲಿಸಿ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಎಳ್ಳು ಚಟ್ನಿ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಕೋಸಂಬರಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಕೋಸಂಬರಿ ಬಟ್ಟಲು</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ (ಅರ್ಧ) + ಹೆಸರುಬೇಳೆ ಸಾರು</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಸಂಪೂರ್ಣ ಯೋಗ ಕ್ರಮ (20-25 ನಿಮಿಷ) + ಧ್ಯಾನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 32 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-11">
+      <div class="week-head">
+        <div class="week-num">11</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 4 · ಸಾಧನೆ ಕಾಪಾಡುವಿಕೆ</div>
+          <h4>ವಾರ 11, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-11" onclick="toggleCheck(11)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಾಧಿಸಿದ ಬದಲಾವಣೆಯನ್ನು ಕಾಯಂ ಅಭ್ಯಾಸವಾಗಿಸಿ, ವೈದ್ಯರಿಂದ ಸಕ್ಕರೆ/ಕೊಲೆಸ್ಟ್ರಾಲ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಿ ಪ್ರಗತಿ ಪರಿಶೀಲಿಸಿ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ರಾಗಿ ಗಂಜಿ + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ರಾಗಿ ಮುದ್ದೆ + ಅವರೆಕಾಳು ಉಸಳಿ + ಹೆಸರುಬೇಳೆ ಸಾರು + ಮಜ್ಜಿಗೆ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಒಂದು ಹಣ್ಣು (ಸೇಬು/ಪೇರಳೆ)</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಸಂಪೂರ್ಣ ಯೋಗ ಕ್ರಮ (20-25 ನಿಮಿಷ) + ಧ್ಯಾನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 32 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="week-card" id="wk-12">
+      <div class="week-head">
+        <div class="week-num">12</div>
+        <div class="titles">
+          <div class="phase">ಹಂತ 4 · ಸಾಧನೆ ಕಾಪಾಡುವಿಕೆ</div>
+          <h4>ವಾರ 12, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
+        </div>
+        <div class="week-check" id="chk-12" onclick="toggleCheck(12)">✓</div>
+      </div>
+      <div class="week-body">
+        <div class="week-body-inner">
+          <div>
+            <div class="week-focus">ಸಾಧಿಸಿದ ಬದಲಾವಣೆಯನ್ನು ಕಾಯಂ ಅಭ್ಯಾಸವಾಗಿಸಿ, ವೈದ್ಯರಿಂದ ಸಕ್ಕರೆ/ಕೊಲೆಸ್ಟ್ರಾಲ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಿ ಪ್ರಗತಿ ಪರಿಶೀಲಿಸಿ.</div>
+            <table class="meal-table">
+              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>ಅಂಬಲಿ (ಜೋಳ) + ಸ್ವಲ್ಪ ಬೆಲ್ಲ ರಹಿತ</td></tr>
+              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>ಜೋಳದ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ + ನುಗ್ಗೆಕಾಯಿ ಸಾರು + ಮಜ್ಜಿಗೆ ಹುಳಿ</td></tr>
+              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>ಮಜ್ಜಿಗೆ + ಹುರಿಗಡಲೆ</td></tr>
+              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ</td></tr>
+            </table>
+          </div>
+          <div class="week-side">
+            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
+            <ul>
+              <li>ಸಂಪೂರ್ಣ ಯೋಗ ಕ್ರಮ (20-25 ನಿಮಿಷ) + ಧ್ಯಾನ</li>
+              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ 32 ನಿಮಿಷ</li>
+              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ================= RECIPES ================= -->
@@ -432,8 +819,212 @@
     <span class="kicker eng">Recipe Library</span>
     <h2 class="section-title">ಉತ್ತರ ಕರ್ನಾಟಕದ ಆರೋಗ್ಯಕರ ಪಾಕವಿಧಾನಗಳು</h2>
     <p class="section-desc">ಈ 12 ಪಾಕವಿಧಾನಗಳನ್ನೇ 12 ವಾರಗಳಲ್ಲಿ ಬದಲಿಸಿ-ಬದಲಿಸಿ ಬಳಸಲಾಗಿದೆ. ಪ್ರತಿಯೊಂದರ ಸಾಮಗ್ರಿ ಮತ್ತು ವಿಧಾನ ಕೆಳಗೆ ಪೂರ್ಣವಾಗಿ ನೀಡಲಾಗಿದೆ.</p>
-    <div class="recipe-filters" id="filterRow"></div>
-    <div class="recipe-grid" id="recipeGrid"></div>
+    <div class="recipe-filters" id="filterRow"><div class="filter-chip active" data-cat="all" onclick="selectFilter('all', this)">ಎಲ್ಲಾ</div><div class="filter-chip " data-cat="staple" onclick="selectFilter('staple', this)">ಮುಖ್ಯ ಆಹಾರ</div><div class="filter-chip " data-cat="palya" onclick="selectFilter('palya', this)">ಪಲ್ಯ</div><div class="filter-chip " data-cat="saaru" onclick="selectFilter('saaru', this)">ಸಾರು</div><div class="filter-chip " data-cat="salad" onclick="selectFilter('salad', this)">ಸಲಾಡ್</div><div class="filter-chip " data-cat="drink" onclick="selectFilter('drink', this)">ಪಾನೀಯ</div><div class="filter-chip " data-cat="chutney" onclick="selectFilter('chutney', this)">ಚಟ್ನಿ</div></div>
+    <div class="recipe-grid" id="recipeGrid">
+    <div class="recipe-card" data-cat="staple">
+      <div class="recipe-top">
+        <div class="ricon">🫓</div>
+        <div>
+          <div class="rtag">ಮುಖ್ಯ ಆಹಾರ</div>
+          <h4>ಜೋಳದ ರೊಟ್ಟಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಕಡಿಮೆ ಗ್ಲೈಸೆಮಿಕ್ ಇಂಡೆಕ್ಸ್ ಮತ್ತು ನಾರಿನಂಶ ಹೆಚ್ಚು, ಸಕ್ಕರೆ ಮಟ್ಟ ನಿಧಾನವಾಗಿ ಏರುವಂತೆ ಮಾಡುತ್ತದೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಜೋಳದ ಹಿಟ್ಟು, 1 ಕಪ್</li><li>ಬಿಸಿ ನೀರು, ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಷ್ಟು</li><li>ಉಪ್ಪು, ರುಚಿಗೆ ತಕ್ಕಷ್ಟು</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಹಿಟ್ಟಿಗೆ ಉಪ್ಪು ಬೆರೆಸಿ, ಬಿಸಿ ನೀರು ಹಾಕುತ್ತಾ ಮೃದುವಾದ ಕಣಕ ಮಾಡಿ.</li><li>ಬಾಳೆ ಎಲೆ ಅಥವಾ ಪ್ಲಾಸ್ಟಿಕ್ ಹಾಳೆಯ ಮೇಲೆ ಕೈಯಿಂದ ತಟ್ಟಿ ರೊಟ್ಟಿ ಆಕಾರ ಮಾಡಿ.</li><li>ಬಿಸಿ ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಬದಿ ಚೆನ್ನಾಗಿ ಬೇಯಿಸಿ.</li><li>ಎಣ್ಣೆ ಇಲ್ಲದೆ ಬಿಸಿ-ಬಿಸಿಯಾಗಿ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="staple">
+      <div class="recipe-top">
+        <div class="ricon">🫓</div>
+        <div>
+          <div class="rtag">ಮುಖ್ಯ ಆಹಾರ</div>
+          <h4>ಸಜ್ಜೆ ರೊಟ್ಟಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ನಾರು ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಸಜ್ಜೆ ಹಿಟ್ಟು, 1 ಕಪ್</li><li>ಬಿಸಿ ನೀರು</li><li>ಉಪ್ಪು</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಸಜ್ಜೆ ಹಿಟ್ಟಿಗೆ ಬಿಸಿ ನೀರು ಸೇರಿಸಿ ಕಣಕ ಕಲಸಿ.</li><li>ಸಣ್ಣ ಉಂಡೆ ಮಾಡಿ ತಟ್ಟಿ ರೊಟ್ಟಿ ಮಾಡಿ.</li><li>ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಕಡೆ ಬೇಯಿಸಿ.</li><li>ಮೆಂತ್ಯ ಪಲ್ಯ ಅಥವಾ ಚಟ್ನಿ ಜೊತೆ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="staple">
+      <div class="recipe-top">
+        <div class="ricon">🍚</div>
+        <div>
+          <div class="rtag">ಮುಖ್ಯ ಆಹಾರ</div>
+          <h4>ರಾಗಿ ಮುದ್ದೆ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಕ್ಯಾಲ್ಸಿಯಂ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ನಿಧಾನ ಜೀರ್ಣವಾಗಿ ಸಕ್ಕರೆ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ರಾಗಿ ಹಿಟ್ಟು, 1 ಕಪ್</li><li>ನೀರು, 2 ಕಪ್</li><li>ಉಪ್ಪು ಚಿಟಿಕೆ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ನೀರನ್ನು ಕುದಿಸಿ, ಉಪ್ಪು ಹಾಕಿ.</li><li>ರಾಗಿ ಹಿಟ್ಟನ್ನು ನಿಧಾನವಾಗಿ ಸೇರಿಸುತ್ತಾ ಗಟ್ಟಿಯಾಗುವವರೆಗೆ ಕಲಸಿ.</li><li>ಮುಚ್ಚಿ 5 ನಿಮಿಷ ಬೇಯಿಸಿ.</li><li>ಒದ್ದೆ ಕೈಯಿಂದ ಉಂಡೆ ಮಾಡಿ, ಸಾರು ಜೊತೆ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="palya">
+      <div class="recipe-top">
+        <div class="ricon">🥬</div>
+        <div>
+          <div class="rtag">ಪಲ್ಯ</div>
+          <h4>ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಮೆಂತ್ಯದಲ್ಲಿರುವ ನಾರು ಸಕ್ಕರೆ ಮಟ್ಟ ಮತ್ತು ಕೊಲೆಸ್ಟ್ರಾಲ್ ಎರಡನ್ನೂ ನಿಯಂತ್ರಿಸಲು ನೆರವಾಗುತ್ತದೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಮೆಂತ್ಯ ಸೊಪ್ಪು, 2 ಕಟ್ಟು (ಹೆಚ್ಚಿದ್ದು)</li><li>ಈರುಳ್ಳಿ, 1 ಸಣ್ಣದು</li><li>ಹಸಿ ಮೆಣಸಿನಕಾಯಿ, 1</li><li>ಸಾಸಿವೆ, ಜೀರಿಗೆ, ಚಿಟಿಕೆ</li><li>ಎಣ್ಣೆ, 1 ಚಮಚ ಮಾತ್ರ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಸಾಸಿವೆ, ಜೀರಿಗೆ ಸಿಡಿಸಿ.</li><li>ಈರುಳ್ಳಿ, ಮೆಣಸಿನಕಾಯಿ ಹಾಕಿ ಬಾಡಿಸಿ.</li><li>ಸೊಪ್ಪು ಹಾಕಿ ಮುಚ್ಚಿ ಬೇಯಿಸಿ.</li><li>ಉಪ್ಪು ಹಾಕಿ ಬೆರೆಸಿ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="palya">
+      <div class="recipe-top">
+        <div class="ricon">🥒</div>
+        <div>
+          <div class="rtag">ಪಲ್ಯ</div>
+          <h4>ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಬೆಂಡೆಕಾಯಿಯಲ್ಲಿನ ನಾರು ರಕ್ತದ ಸಕ್ಕರೆ ಹೀರಿಕೊಳ್ಳುವಿಕೆಯನ್ನು ನಿಧಾನಗೊಳಿಸುತ್ತದೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಬೆಂಡೆಕಾಯಿ, 250 ಗ್ರಾಂ</li><li>ಈರುಳ್ಳಿ, 1</li><li>ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ</li><li>ಎಣ್ಣೆ, 1 ಚಮಚ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಬೆಂಡೆಕಾಯಿ ಸಣ್ಣಗೆ ಹೆಚ್ಚಿ.</li><li>ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಈರುಳ್ಳಿ ಹುರಿದು ಬೆಂಡೆಕಾಯಿ ಸೇರಿಸಿ.</li><li>ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ, ಉಪ್ಪು ಹಾಕಿ.</li><li>ಮುಚ್ಚಿ, ನಡುನಡುವೆ ಕಲಸುತ್ತಾ ಬೇಯಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="palya">
+      <div class="recipe-top">
+        <div class="ricon">🫘</div>
+        <div>
+          <div class="rtag">ಪಲ್ಯ</div>
+          <h4>ಅವರೆಕಾಳು ಉಸಳಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಪ್ರೋಟೀನ್ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ಹೊಟ್ಟೆ ತುಂಬಿದ ಭಾವ ನೀಡಿ ತೂಕ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಅವರೆಕಾಳು, 1 ಕಪ್</li><li>ಈರುಳ್ಳಿ, ಬೆಳ್ಳುಳ್ಳಿ</li><li>ಸಾಸಿವೆ, ಕರಿಬೇವು</li><li>ಎಣ್ಣೆ, 1 ಚಮಚ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಅವರೆಕಾಳನ್ನು ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.</li><li>ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಒಗ್ಗರಣೆ ಹಾಕಿ ಈರುಳ್ಳಿ ಹುರಿಯಿರಿ.</li><li>ಬೇಯಿಸಿದ ಅವರೆಕಾಳು ಸೇರಿಸಿ, ಮಸಾಲೆ ಬೆರೆಸಿ.</li><li>5 ನಿಮಿಷ ಬೇಯಿಸಿ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="saaru">
+      <div class="recipe-top">
+        <div class="ricon">🍲</div>
+        <div>
+          <div class="rtag">ಸಾರು</div>
+          <h4>ಹೆಸರುಬೇಳೆ ಸಾರು</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಹಗುರ ಪ್ರೋಟೀನ್ ಮೂಲ, ಜೀರ್ಣಕ್ಕೆ ಸುಲಭ, ಎಣ್ಣೆ ಬಳಕೆ ಕಡಿಮೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಹೆಸರುಬೇಳೆ, 1/2 ಕಪ್</li><li>ಟೊಮ್ಯಾಟೊ, 1</li><li>ಬೆಳ್ಳುಳ್ಳಿ ಎಸಳು, 2</li><li>ಅರಿಶಿನ, ಜೀರಿಗೆ ಪುಡಿ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಹೆಸರುಬೇಳೆ, ಟೊಮ್ಯಾಟೊ ಹಾಕಿ ಬೇಯಿಸಿ.</li><li>ಚೆನ್ನಾಗಿ ಬೆಂದ ಮೇಲೆ ಕಡೆದು, ನೀರು ಸೇರಿಸಿ.</li><li>ಒಗ್ಗರಣೆ (ಜೀರಿಗೆ, ಬೆಳ್ಳುಳ್ಳಿ) ಹಾಕಿ ಕುದಿಸಿ.</li><li>ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು ಹಾಕಿ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="saaru">
+      <div class="recipe-top">
+        <div class="ricon">🥣</div>
+        <div>
+          <div class="rtag">ಸಾರು</div>
+          <h4>ನುಗ್ಗೆಕಾಯಿ ಸಾರು</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಜೀವಸತ್ವ ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ ಎಂದು ಸಾಂಪ್ರದಾಯಿಕವಾಗಿ ನಂಬಲಾಗಿದೆ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ನುಗ್ಗೆಕಾಯಿ, 2</li><li>ತೊಗರಿಬೇಳೆ, 1/2 ಕಪ್</li><li>ಹುಣಸೆ ರಸ</li><li>ಸಾಂಬಾರ್ ಪುಡಿ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ತೊಗರಿಬೇಳೆ ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.</li><li>ನುಗ್ಗೆಕಾಯಿ ತುಂಡು, ಹುಣಸೆ ರಸ, ಸಾಂಬಾರ್ ಪುಡಿ ಸೇರಿಸಿ ಕುದಿಸಿ.</li><li>ಬೇಯಿಸಿದ ಬೇಳೆ ಸೇರಿಸಿ ಚೆನ್ನಾಗಿ ಕುದಿಸಿ.</li><li>ಒಗ್ಗರಣೆ ಹಾಕಿ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="salad">
+      <div class="recipe-top">
+        <div class="ricon">🥗</div>
+        <div>
+          <div class="rtag">ಸಲಾಡ್</div>
+          <h4>ಕೋಸಂಬರಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಕಚ್ಚಾ ಕಾಳು ಆಧಾರಿತ ಸಲಾಡ್, ಎಣ್ಣೆ ಇಲ್ಲದೆ, ನಾರು ಮತ್ತು ಪ್ರೋಟೀನ್ ಹೆಚ್ಚು.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಹೆಸರುಬೇಳೆ (ನೆನೆಸಿದ್ದು), 1/2 ಕಪ್</li><li>ಸೌತೆಕಾಯಿ, ಕ್ಯಾರೆಟ್, ತುರಿದದ್ದು</li><li>ಕೊಬ್ಬರಿ ತುರಿ, ಸ್ವಲ್ಪ</li><li>ನಿಂಬೆ ರಸ, ಕೊತ್ತಂಬರಿ</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಹೆಸರುಬೇಳೆಯನ್ನು 1 ಗಂಟೆ ನೆನೆಸಿಡಿ.</li><li>ತರಕಾರಿ, ಕೊಬ್ಬರಿ ಜೊತೆ ಬೆರೆಸಿ.</li><li>ನಿಂಬೆ ರಸ, ಉಪ್ಪು, ಕೊತ್ತಂಬರಿ ಸೇರಿಸಿ.</li><li>ತಣ್ಣಗೆ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="drink">
+      <div class="recipe-top">
+        <div class="ricon">🥛</div>
+        <div>
+          <div class="rtag">ಪಾನೀಯ</div>
+          <h4>ಮಜ್ಜಿಗೆ ಹುಳಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಕೆನೆ ತೆಗೆದ ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, ಕೊಬ್ಬು ಕಡಿಮೆ, ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, 2 ಕಪ್</li><li>ಶುಂಠಿ, ಹಸಿಮೆಣಸಿನಕಾಯಿ</li><li>ಕರಿಬೇವು, ಸಾಸಿವೆ</li><li>ಉಪ್ಪು</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಮಜ್ಜಿಗೆಗೆ ಶುಂಠಿ-ಮೆಣಸು ಅರೆದು ಸೇರಿಸಿ.</li><li>ಸಾಸಿವೆ, ಕರಿಬೇವು ಒಗ್ಗರಣೆ ಹಾಕಿ.</li><li>ಉಪ್ಪು ಸೇರಿಸಿ ಬೆರೆಸಿ.</li><li>ಊಟದ ಜೊತೆ ಅಥವಾ ಸಂಜೆ ಲಘು ಪಾನೀಯವಾಗಿ ಸೇವಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="chutney">
+      <div class="recipe-top">
+        <div class="ricon">🥜</div>
+        <div>
+          <div class="rtag">ಚಟ್ನಿ</div>
+          <h4>ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಮತ್ತು ಪ್ರೋಟೀನ್ ನೀಡುತ್ತದೆ, ಸ್ವಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಮಾತ್ರ ಸೇವಿಸಿ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಹುರಿದ ಶೇಂಗಾ, 1 ಕಪ್</li><li>ಒಣ ಮೆಣಸಿನಕಾಯಿ, 2</li><li>ಬೆಳ್ಳುಳ್ಳಿ, 1 ಎಸಳು</li><li>ಉಪ್ಪು</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಶೇಂಗಾವನ್ನು ಹುರಿದು ಸಿಪ್ಪೆ ತೆಗೆಯಿರಿ.</li><li>ಎಲ್ಲಾ ಸಾಮಗ್ರಿ ಜೊತೆ ಒರಟಾಗಿ ಪುಡಿ ಮಾಡಿ.</li><li>ಗಾಳಿಯಾಡದ ಡಬ್ಬದಲ್ಲಿ ಇಡಿ.</li><li>ರೊಟ್ಟಿ ಜೊತೆ 1 ಚಮಚದಷ್ಟು ಮಾತ್ರ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  
+    <div class="recipe-card" data-cat="chutney">
+      <div class="recipe-top">
+        <div class="ricon">✨</div>
+        <div>
+          <div class="rtag">ಚಟ್ನಿ</div>
+          <h4>ಎಳ್ಳು ಚಟ್ನಿ</h4>
+        </div>
+      </div>
+      <div class="recipe-info">
+        <div class="benefit">💚 ಎಳ್ಳಿನಲ್ಲಿರುವ ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಹೃದಯದ ಆರೋಗ್ಯಕ್ಕೆ ಸಹಕಾರಿ, ಅಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಸೇವಿಸಿ.</div>
+        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
+        <ul><li>ಎಳ್ಳು, 1/2 ಕಪ್</li><li>ಒಣ ಮೆಣಸಿನಕಾಯಿ, 1-2</li><li>ಹುಣಸೆ, ಚಿಟಿಕೆ</li><li>ಉಪ್ಪು</li></ul>
+        <h6>ವಿಧಾನ</h6>
+        <ol><li>ಎಳ್ಳನ್ನು ಒಣಗಿಸಿ ಹುರಿಯಿರಿ.</li><li>ಮೆಣಸಿನಕಾಯಿ, ಹುಣಸೆ, ಉಪ್ಪು ಜೊತೆ ಪುಡಿ ಮಾಡಿ.</li><li>ಗಾಳಿಯಾಡದ ಡಬ್ಬಿಯಲ್ಲಿ ಶೇಖರಿಸಿ.</li><li>ರೊಟ್ಟಿ/ಮುದ್ದೆ ಜೊತೆ ಸ್ವಲ್ಪವೇ ಬಡಿಸಿ.</li></ol>
+      </div>
+    </div>
+  </div>
   </section>
 
   <!-- ================= YOGA ================= -->
@@ -441,7 +1032,70 @@
     <span class="kicker eng">Movement &amp; Breath</span>
     <h2 class="section-title">ಯೋಗ ಮತ್ತು ದೈಹಿಕ ವ್ಯಾಯಾಮ</h2>
     <p class="section-desc">65 ವರ್ಷ ವಯಸ್ಸಿಗೆ ಸೂಕ್ತವಾದ, ಸೌಮ್ಯವಾದ ಯೋಗಾಸನ ಮತ್ತು ಪ್ರಾಣಾಯಾಮಗಳು. ಆಸನಗಳನ್ನು ನಿಧಾನವಾಗಿ, ಆಧಾರ ಪಡೆದು ಮಾಡಿ.</p>
-    <div class="yoga-grid" id="yogaGrid"></div>
+    <div class="yoga-grid" id="yogaGrid">
+    <div class="yoga-card">
+      <div class="yoga-ic">🌬️</div>
+      <span class="eng-name">Anulom Vilom</span>
+      <h4>ಅನುಲೋಮ ವಿಲೋಮ</h4>
+      <p>ಮೂಗಿನ ಎರಡು ಹೊಳ್ಳೆಗಳಿಂದ ಪರ್ಯಾಯವಾಗಿ ಉಸಿರಾಟ. ಒತ್ತಡ ಕಡಿಮೆ ಮಾಡಿ, ರಕ್ತದೊತ್ತಡ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🐝</div>
+      <span class="eng-name">Bhramari</span>
+      <h4>ಭ್ರಾಮರಿ ಪ್ರಾಣಾಯಾಮ</h4>
+      <p>ಝೇಂಕಾರ ಶಬ್ದ ಮಾಡುತ್ತಾ ಉಸಿರಾಟ. ಮನಸ್ಸಿಗೆ ಶಾಂತಿ, ನಿದ್ರೆ ಸುಧಾರಣೆಗೆ ಸಹಾಯಕ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🧍</div>
+      <span class="eng-name">Tadasana</span>
+      <h4>ತಾಡಾಸನ</h4>
+      <p>ನಿಂತು ಎರಡೂ ಕೈ ಮೇಲಕ್ಕೆ ಚಾಚಿ ನಿಲ್ಲುವುದು. ದೇಹದ ಸಮತೋಲನ ಮತ್ತು ಭಂಗಿ ಸುಧಾರಿಸುತ್ತದೆ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🌳</div>
+      <span class="eng-name">Vrikshasana</span>
+      <h4>ವೃಕ್ಷಾಸನ (ಗೋಡೆ ಆಧಾರ)</h4>
+      <p>ಒಂದು ಕಾಲಿನ ಮೇಲೆ ನಿಂತು ಸಮತೋಲನ ಸಾಧಿಸುವುದು. ಅಗತ್ಯವಿದ್ದರೆ ಗೋಡೆಯ ಆಧಾರ ಪಡೆಯಿರಿ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🐍</div>
+      <span class="eng-name">Bhujangasana</span>
+      <h4>ಭುಜಂಗಾಸನ (ಸೌಮ್ಯ)</h4>
+      <p>ಹೊಟ್ಟೆಯ ಮೇಲೆ ಮಲಗಿ ಎದೆಭಾಗ ನಿಧಾನವಾಗಿ ಮೇಲೆತ್ತುವುದು. ಬೆನ್ನುಮೂಳೆಗೆ ಒಳ್ಳೆಯದು.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🙏</div>
+      <span class="eng-name">Vajrasana</span>
+      <h4>ವಜ್ರಾಸನ</h4>
+      <p>ಮೊಣಕಾಲೂರಿ ಕುಳಿತು ಧ್ಯಾನಸ್ಥ ಭಂಗಿ. ಊಟದ ನಂತರ ಕುಳಿತರೆ ಜೀರ್ಣಕ್ರಿಯೆಗೆ ಸಹಕಾರಿ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🦵</div>
+      <span class="eng-name">Pavanamuktasana</span>
+      <h4>ಪವನಮುಕ್ತಾಸನ</h4>
+      <p>ಬೆನ್ನಮೇಲೆ ಮಲಗಿ ಮಂಡಿಗಳನ್ನು ಎದೆಯ ಬಳಿ ತರುವುದು. ಹೊಟ್ಟೆಯ ಗ್ಯಾಸ್ ಮತ್ತು ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">🐱</div>
+      <span class="eng-name">Cat-Cow Stretch</span>
+      <h4>ಮಾರ್ಜಾರಾಸನ</h4>
+      <p>ನಾಲ್ಕು ಕಾಲಿನ ಮೇಲೆ ಬೆನ್ನನ್ನು ಮೇಲೆ-ಕೆಳಗೆ ಬಾಗಿಸುವುದು. ಬೆನ್ನುಮೂಳೆ ಸಡಿಲಗೊಳ್ಳುತ್ತದೆ.</p>
+    </div>
+  
+    <div class="yoga-card">
+      <div class="yoga-ic">😌</div>
+      <span class="eng-name">Shavasana</span>
+      <h4>ಶವಾಸನ</h4>
+      <p>ಎಲ್ಲಾ ಆಸನಗಳ ಕೊನೆಯಲ್ಲಿ 5-10 ನಿಮಿಷ ಸಂಪೂರ್ಣ ವಿಶ್ರಾಂತಿ. ಮನಸ್ಸು-ದೇಹ ಶಾಂತಗೊಳ್ಳುತ್ತದೆ.</p>
+    </div>
+  </div>
     <div class="yoga-note">⚠️ <b>ಗಮನಿಸಿ:</b> ಯೋಗ ಅಥವಾ ವ್ಯಾಯಾಮ ಆರಂಭಿಸುವ ಮೊದಲು, ವಿಶೇಷವಾಗಿ ಹೃದಯ ಅಥವಾ ಮಂಡಿ ಸಮಸ್ಯೆ ಇದ್ದರೆ, ವೈದ್ಯರ ಅಥವಾ ಪ್ರಶಿಕ್ಷಿತ ಯೋಗ ಗುರುಗಳ ಸಲಹೆ ಪಡೆಯಿರಿ. ತಲೆಸುತ್ತು ಅಥವಾ ನೋವು ಕಂಡುಬಂದರೆ ತಕ್ಷಣ ನಿಲ್ಲಿಸಿ.</div>
 
     <div class="walk-card">
@@ -463,239 +1117,59 @@
 <footer>
   <div class="wrap">
     <div class="disclaimer">
-      <b>ಪ್ರಮುಖ ಸೂಚನೆ:</b> ಇದು ಸಾಮಾನ್ಯ ಮಾಹಿತಿಗಾಗಿ ರೂಪಿಸಿದ ಜೀವನಶೈಲಿ ಮತ್ತು ಆಹಾರ ಮಾರ್ಗದರ್ಶಿಯಾಗಿದ್ದು, ಇದು ವೈದ್ಯಕೀಯ ಸಲಹೆ ಅಲ್ಲ. ಶ್ರೀ ಅಂಗಡಿ ಅವರಿಗೆ ಮಧುಮೇಹ ಮತ್ತು ಕೊಲೆಸ್ಟ್ರಾಲ್ ಸಮಸ್ಯೆ ಇರುವುದರಿಂದ, ಈ ಯೋಜನೆಯನ್ನು ಆರಂಭಿಸುವ ಮೊದಲು ಮತ್ತು 12 ವಾರಗಳ ಅವಧಿಯಲ್ಲಿ ನಿಯಮಿತವಾಗಿ ಅವರ ವೈದ್ಯರು ಅಥವಾ ಆಹಾರ ತಜ್ಞರನ್ನು (dietitian) ಸಂಪರ್ಕಿಸಬೇಕು. ಔಷಧಿಯ ಪ್ರಮಾಣ, ಸಕ್ಕರೆ ಮತ್ತು ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರಿಂಗ್ ಬಗ್ಗೆ ವೈದ್ಯರ ಸಲಹೆಯನ್ನೇ ಅಂತಿಮವಾಗಿ ಪಾಲಿಸಬೇಕು.
+      <b>ಸೂಚನೆ:</b> ಇದು ಸಾಮಾನ್ಯ ಜೀವನಶೈಲಿ ಮಾರ್ಗದರ್ಶಿ, ವೈದ್ಯಕೀಯ ಸಲಹೆಗೆ ಪರ್ಯಾಯವಲ್ಲ. ವೈದ್ಯರ ಸಲಹೆಯನ್ನೂ ಜೊತೆಗೆ ಪಾಲಿಸಿ.
     </div>
     <div class="fmeta">Made with care for Mr. Angadi · North Karnataka Vegetarian Wellness Plan</div>
   </div>
 </footer>
 
 <script>
-/* ============ DATA ============ */
-const recipes = [
-  {id:'r1', name:'ಜೋಳದ ರೊಟ್ಟಿ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🫓', cat:'staple',
-    benefit:'ಕಡಿಮೆ ಗ್ಲೈಸೆಮಿಕ್ ಇಂಡೆಕ್ಸ್ ಮತ್ತು ನಾರಿನಂಶ ಹೆಚ್ಚು, ಸಕ್ಕರೆ ಮಟ್ಟ ನಿಧಾನವಾಗಿ ಏರುವಂತೆ ಮಾಡುತ್ತದೆ.',
-    ingredients:['ಜೋಳದ ಹಿಟ್ಟು, 1 ಕಪ್','ಬಿಸಿ ನೀರು, ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಷ್ಟು','ಉಪ್ಪು, ರುಚಿಗೆ ತಕ್ಕಷ್ಟು'],
-    method:['ಹಿಟ್ಟಿಗೆ ಉಪ್ಪು ಬೆರೆಸಿ, ಬಿಸಿ ನೀರು ಹಾಕುತ್ತಾ ಮೃದುವಾದ ಕಣಕ ಮಾಡಿ.','ಬಾಳೆ ಎಲೆ ಅಥವಾ ಪ್ಲಾಸ್ಟಿಕ್ ಹಾಳೆಯ ಮೇಲೆ ಕೈಯಿಂದ ತಟ್ಟಿ ರೊಟ್ಟಿ ಆಕಾರ ಮಾಡಿ.','ಬಿಸಿ ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಬದಿ ಚೆನ್ನಾಗಿ ಬೇಯಿಸಿ.','ಎಣ್ಣೆ ಇಲ್ಲದೆ ಬಿಸಿ-ಬಿಸಿಯಾಗಿ ಬಡಿಸಿ.']},
-  {id:'r2', name:'ಸಜ್ಜೆ ರೊಟ್ಟಿ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🫓', cat:'staple',
-    benefit:'ನಾರು ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.',
-    ingredients:['ಸಜ್ಜೆ ಹಿಟ್ಟು, 1 ಕಪ್','ಬಿಸಿ ನೀರು','ಉಪ್ಪು'],
-    method:['ಸಜ್ಜೆ ಹಿಟ್ಟಿಗೆ ಬಿಸಿ ನೀರು ಸೇರಿಸಿ ಕಣಕ ಕಲಸಿ.','ಸಣ್ಣ ಉಂಡೆ ಮಾಡಿ ತಟ್ಟಿ ರೊಟ್ಟಿ ಮಾಡಿ.','ಹಂಚಿನ ಮೇಲೆ ಎರಡೂ ಕಡೆ ಬೇಯಿಸಿ.','ಮೆಂತ್ಯ ಪಲ್ಯ ಅಥವಾ ಚಟ್ನಿ ಜೊತೆ ಬಡಿಸಿ.']},
-  {id:'r3', name:'ರಾಗಿ ಮುದ್ದೆ', tag:'ಮುಖ್ಯ ಆಹಾರ', icon:'🍚', cat:'staple',
-    benefit:'ಕ್ಯಾಲ್ಸಿಯಂ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ನಿಧಾನ ಜೀರ್ಣವಾಗಿ ಸಕ್ಕರೆ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.',
-    ingredients:['ರಾಗಿ ಹಿಟ್ಟು, 1 ಕಪ್','ನೀರು, 2 ಕಪ್','ಉಪ್ಪು ಚಿಟಿಕೆ'],
-    method:['ನೀರನ್ನು ಕುದಿಸಿ, ಉಪ್ಪು ಹಾಕಿ.','ರಾಗಿ ಹಿಟ್ಟನ್ನು ನಿಧಾನವಾಗಿ ಸೇರಿಸುತ್ತಾ ಗಟ್ಟಿಯಾಗುವವರೆಗೆ ಕಲಸಿ.','ಮುಚ್ಚಿ 5 ನಿಮಿಷ ಬೇಯಿಸಿ.','ಒದ್ದೆ ಕೈಯಿಂದ ಉಂಡೆ ಮಾಡಿ, ಸಾರು ಜೊತೆ ಬಡಿಸಿ.']},
-  {id:'r4', name:'ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ', tag:'ಪಲ್ಯ', icon:'🥬', cat:'palya',
-    benefit:'ಮೆಂತ್ಯದಲ್ಲಿರುವ ನಾರು ಸಕ್ಕರೆ ಮಟ್ಟ ಮತ್ತು ಕೊಲೆಸ್ಟ್ರಾಲ್ ಎರಡನ್ನೂ ನಿಯಂತ್ರಿಸಲು ನೆರವಾಗುತ್ತದೆ.',
-    ingredients:['ಮೆಂತ್ಯ ಸೊಪ್ಪು, 2 ಕಟ್ಟು (ಹೆಚ್ಚಿದ್ದು)','ಈರುಳ್ಳಿ, 1 ಸಣ್ಣದು','ಹಸಿ ಮೆಣಸಿನಕಾಯಿ, 1','ಸಾಸಿವೆ, ಜೀರಿಗೆ, ಚಿಟಿಕೆ','ಎಣ್ಣೆ, 1 ಚಮಚ ಮಾತ್ರ'],
-    method:['ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಸಾಸಿವೆ, ಜೀರಿಗೆ ಸಿಡಿಸಿ.','ಈರುಳ್ಳಿ, ಮೆಣಸಿನಕಾಯಿ ಹಾಕಿ ಬಾಡಿಸಿ.','ಸೊಪ್ಪು ಹಾಕಿ ಮುಚ್ಚಿ ಬೇಯಿಸಿ.','ಉಪ್ಪು ಹಾಕಿ ಬೆರೆಸಿ ಬಡಿಸಿ.']},
-  {id:'r5', name:'ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ', tag:'ಪಲ್ಯ', icon:'🥒', cat:'palya',
-    benefit:'ಬೆಂಡೆಕಾಯಿಯಲ್ಲಿನ ನಾರು ರಕ್ತದ ಸಕ್ಕರೆ ಹೀರಿಕೊಳ್ಳುವಿಕೆಯನ್ನು ನಿಧಾನಗೊಳಿಸುತ್ತದೆ.',
-    ingredients:['ಬೆಂಡೆಕಾಯಿ, 250 ಗ್ರಾಂ','ಈರುಳ್ಳಿ, 1','ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ','ಎಣ್ಣೆ, 1 ಚಮಚ'],
-    method:['ಬೆಂಡೆಕಾಯಿ ಸಣ್ಣಗೆ ಹೆಚ್ಚಿ.','ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಈರುಳ್ಳಿ ಹುರಿದು ಬೆಂಡೆಕಾಯಿ ಸೇರಿಸಿ.','ಅರಿಶಿನ, ಮೆಣಸಿನ ಪುಡಿ, ಉಪ್ಪು ಹಾಕಿ.','ಮುಚ್ಚಿ, ನಡುನಡುವೆ ಕಲಸುತ್ತಾ ಬೇಯಿಸಿ.']},
-  {id:'r6', name:'ಅವರೆಕಾಳು ಉಸಳಿ', tag:'ಪಲ್ಯ', icon:'🫘', cat:'palya',
-    benefit:'ಪ್ರೋಟೀನ್ ಮತ್ತು ನಾರು ಸಮೃದ್ಧ, ಹೊಟ್ಟೆ ತುಂಬಿದ ಭಾವ ನೀಡಿ ತೂಕ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.',
-    ingredients:['ಅವರೆಕಾಳು, 1 ಕಪ್','ಈರುಳ್ಳಿ, ಬೆಳ್ಳುಳ್ಳಿ','ಸಾಸಿವೆ, ಕರಿಬೇವು','ಎಣ್ಣೆ, 1 ಚಮಚ'],
-    method:['ಅವರೆಕಾಳನ್ನು ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.','ಕಡಿಮೆ ಎಣ್ಣೆಯಲ್ಲಿ ಒಗ್ಗರಣೆ ಹಾಕಿ ಈರುಳ್ಳಿ ಹುರಿಯಿರಿ.','ಬೇಯಿಸಿದ ಅವರೆಕಾಳು ಸೇರಿಸಿ, ಮಸಾಲೆ ಬೆರೆಸಿ.','5 ನಿಮಿಷ ಬೇಯಿಸಿ ಬಡಿಸಿ.']},
-  {id:'r7', name:'ಹೆಸರುಬೇಳೆ ಸಾರು', tag:'ಸಾರು', icon:'🍲', cat:'saaru',
-    benefit:'ಹಗುರ ಪ್ರೋಟೀನ್ ಮೂಲ, ಜೀರ್ಣಕ್ಕೆ ಸುಲಭ, ಎಣ್ಣೆ ಬಳಕೆ ಕಡಿಮೆ.',
-    ingredients:['ಹೆಸರುಬೇಳೆ, 1/2 ಕಪ್','ಟೊಮ್ಯಾಟೊ, 1','ಬೆಳ್ಳುಳ್ಳಿ ಎಸಳು, 2','ಅರಿಶಿನ, ಜೀರಿಗೆ ಪುಡಿ'],
-    method:['ಹೆಸರುಬೇಳೆ, ಟೊಮ್ಯಾಟೊ ಹಾಕಿ ಬೇಯಿಸಿ.','ಚೆನ್ನಾಗಿ ಬೆಂದ ಮೇಲೆ ಕಡೆದು, ನೀರು ಸೇರಿಸಿ.','ಒಗ್ಗರಣೆ (ಜೀರಿಗೆ, ಬೆಳ್ಳುಳ್ಳಿ) ಹಾಕಿ ಕುದಿಸಿ.','ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು ಹಾಕಿ ಬಡಿಸಿ.']},
-  {id:'r8', name:'ನುಗ್ಗೆಕಾಯಿ ಸಾರು', tag:'ಸಾರು', icon:'🥣', cat:'saaru',
-    benefit:'ಜೀವಸತ್ವ ಮತ್ತು ಖನಿಜಾಂಶ ಸಮೃದ್ಧ, ಕೊಲೆಸ್ಟ್ರಾಲ್ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ ಎಂದು ಸಾಂಪ್ರದಾಯಿಕವಾಗಿ ನಂಬಲಾಗಿದೆ.',
-    ingredients:['ನುಗ್ಗೆಕಾಯಿ, 2','ತೊಗರಿಬೇಳೆ, 1/2 ಕಪ್','ಹುಣಸೆ ರಸ','ಸಾಂಬಾರ್ ಪುಡಿ'],
-    method:['ತೊಗರಿಬೇಳೆ ಬೇಯಿಸಿಟ್ಟುಕೊಳ್ಳಿ.','ನುಗ್ಗೆಕಾಯಿ ತುಂಡು, ಹುಣಸೆ ರಸ, ಸಾಂಬಾರ್ ಪುಡಿ ಸೇರಿಸಿ ಕುದಿಸಿ.','ಬೇಯಿಸಿದ ಬೇಳೆ ಸೇರಿಸಿ ಚೆನ್ನಾಗಿ ಕುದಿಸಿ.','ಒಗ್ಗರಣೆ ಹಾಕಿ ಬಡಿಸಿ.']},
-  {id:'r9', name:'ಕೋಸಂಬರಿ', tag:'ಸಲಾಡ್', icon:'🥗', cat:'salad',
-    benefit:'ಕಚ್ಚಾ ಕಾಳು ಆಧಾರಿತ ಸಲಾಡ್, ಎಣ್ಣೆ ಇಲ್ಲದೆ, ನಾರು ಮತ್ತು ಪ್ರೋಟೀನ್ ಹೆಚ್ಚು.',
-    ingredients:['ಹೆಸರುಬೇಳೆ (ನೆನೆಸಿದ್ದು), 1/2 ಕಪ್','ಸೌತೆಕಾಯಿ, ಕ್ಯಾರೆಟ್, ತುರಿದದ್ದು','ಕೊಬ್ಬರಿ ತುರಿ, ಸ್ವಲ್ಪ','ನಿಂಬೆ ರಸ, ಕೊತ್ತಂಬರಿ'],
-    method:['ಹೆಸರುಬೇಳೆಯನ್ನು 1 ಗಂಟೆ ನೆನೆಸಿಡಿ.','ತರಕಾರಿ, ಕೊಬ್ಬರಿ ಜೊತೆ ಬೆರೆಸಿ.','ನಿಂಬೆ ರಸ, ಉಪ್ಪು, ಕೊತ್ತಂಬರಿ ಸೇರಿಸಿ.','ತಣ್ಣಗೆ ಬಡಿಸಿ.']},
-  {id:'r10', name:'ಮಜ್ಜಿಗೆ ಹುಳಿ', tag:'ಪಾನೀಯ', icon:'🥛', cat:'drink',
-    benefit:'ಕೆನೆ ತೆಗೆದ ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, ಕೊಬ್ಬು ಕಡಿಮೆ, ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.',
-    ingredients:['ತೆಳ್ಳಗಿನ ಮಜ್ಜಿಗೆ, 2 ಕಪ್','ಶುಂಠಿ, ಹಸಿಮೆಣಸಿನಕಾಯಿ','ಕರಿಬೇವು, ಸಾಸಿವೆ','ಉಪ್ಪು'],
-    method:['ಮಜ್ಜಿಗೆಗೆ ಶುಂಠಿ-ಮೆಣಸು ಅರೆದು ಸೇರಿಸಿ.','ಸಾಸಿವೆ, ಕರಿಬೇವು ಒಗ್ಗರಣೆ ಹಾಕಿ.','ಉಪ್ಪು ಸೇರಿಸಿ ಬೆರೆಸಿ.','ಊಟದ ಜೊತೆ ಅಥವಾ ಸಂಜೆ ಲಘು ಪಾನೀಯವಾಗಿ ಸೇವಿಸಿ.']},
-  {id:'r11', name:'ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ', tag:'ಚಟ್ನಿ', icon:'🥜', cat:'chutney',
-    benefit:'ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಮತ್ತು ಪ್ರೋಟೀನ್ ನೀಡುತ್ತದೆ, ಸ್ವಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಮಾತ್ರ ಸೇವಿಸಿ.',
-    ingredients:['ಹುರಿದ ಶೇಂಗಾ, 1 ಕಪ್','ಒಣ ಮೆಣಸಿನಕಾಯಿ, 2','ಬೆಳ್ಳುಳ್ಳಿ, 1 ಎಸಳು','ಉಪ್ಪು'],
-    method:['ಶೇಂಗಾವನ್ನು ಹುರಿದು ಸಿಪ್ಪೆ ತೆಗೆಯಿರಿ.','ಎಲ್ಲಾ ಸಾಮಗ್ರಿ ಜೊತೆ ಒರಟಾಗಿ ಪುಡಿ ಮಾಡಿ.','ಗಾಳಿಯಾಡದ ಡಬ್ಬದಲ್ಲಿ ಇಡಿ.','ರೊಟ್ಟಿ ಜೊತೆ 1 ಚಮಚದಷ್ಟು ಮಾತ್ರ ಬಡಿಸಿ.']},
-  {id:'r12', name:'ಎಳ್ಳು ಚಟ್ನಿ', tag:'ಚಟ್ನಿ', icon:'✨', cat:'chutney',
-    benefit:'ಎಳ್ಳಿನಲ್ಲಿರುವ ಒಳ್ಳೆಯ ಕೊಬ್ಬು ಹೃದಯದ ಆರೋಗ್ಯಕ್ಕೆ ಸಹಕಾರಿ, ಅಲ್ಪ ಪ್ರಮಾಣದಲ್ಲಿ ಸೇವಿಸಿ.',
-    ingredients:['ಎಳ್ಳು, 1/2 ಕಪ್','ಒಣ ಮೆಣಸಿನಕಾಯಿ, 1-2','ಹುಣಸೆ, ಚಿಟಿಕೆ','ಉಪ್ಪು'],
-    method:['ಎಳ್ಳನ್ನು ಒಣಗಿಸಿ ಹುರಿಯಿರಿ.','ಮೆಣಸಿನಕಾಯಿ, ಹುಣಸೆ, ಉಪ್ಪು ಜೊತೆ ಪುಡಿ ಮಾಡಿ.','ಗಾಳಿಯಾಡದ ಡಬ್ಬಿಯಲ್ಲಿ ಶೇಖರಿಸಿ.','ರೊಟ್ಟಿ/ಮುದ್ದೆ ಜೊತೆ ಸ್ವಲ್ಪವೇ ಬಡಿಸಿ.']},
-];
-
-const catNames = {all:'ಎಲ್ಲಾ', staple:'ಮುಖ್ಯ ಆಹಾರ', palya:'ಪಲ್ಯ', saaru:'ಸಾರು', salad:'ಸಲಾಡ್', drink:'ಪಾನೀಯ', chutney:'ಚಟ್ನಿ'};
-
-const yogaPoses = [
-  {name:'ಅನುಲೋಮ ವಿಲೋಮ', eng:'Anulom Vilom', icon:'🌬️', desc:'ಮೂಗಿನ ಎರಡು ಹೊಳ್ಳೆಗಳಿಂದ ಪರ್ಯಾಯವಾಗಿ ಉಸಿರಾಟ. ಒತ್ತಡ ಕಡಿಮೆ ಮಾಡಿ, ರಕ್ತದೊತ್ತಡ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಹಕಾರಿ.'},
-  {name:'ಭ್ರಾಮರಿ ಪ್ರಾಣಾಯಾಮ', eng:'Bhramari', icon:'🐝', desc:'ಝೇಂಕಾರ ಶಬ್ದ ಮಾಡುತ್ತಾ ಉಸಿರಾಟ. ಮನಸ್ಸಿಗೆ ಶಾಂತಿ, ನಿದ್ರೆ ಸುಧಾರಣೆಗೆ ಸಹಾಯಕ.'},
-  {name:'ತಾಡಾಸನ', eng:'Tadasana', icon:'🧍', desc:'ನಿಂತು ಎರಡೂ ಕೈ ಮೇಲಕ್ಕೆ ಚಾಚಿ ನಿಲ್ಲುವುದು. ದೇಹದ ಸಮತೋಲನ ಮತ್ತು ಭಂಗಿ ಸುಧಾರಿಸುತ್ತದೆ.'},
-  {name:'ವೃಕ್ಷಾಸನ (ಗೋಡೆ ಆಧಾರ)', eng:'Vrikshasana', icon:'🌳', desc:'ಒಂದು ಕಾಲಿನ ಮೇಲೆ ನಿಂತು ಸಮತೋಲನ ಸಾಧಿಸುವುದು. ಅಗತ್ಯವಿದ್ದರೆ ಗೋಡೆಯ ಆಧಾರ ಪಡೆಯಿರಿ.'},
-  {name:'ಭುಜಂಗಾಸನ (ಸೌಮ್ಯ)', eng:'Bhujangasana', icon:'🐍', desc:'ಹೊಟ್ಟೆಯ ಮೇಲೆ ಮಲಗಿ ಎದೆಭಾಗ ನಿಧಾನವಾಗಿ ಮೇಲೆತ್ತುವುದು. ಬೆನ್ನುಮೂಳೆಗೆ ಒಳ್ಳೆಯದು.'},
-  {name:'ವಜ್ರಾಸನ', eng:'Vajrasana', icon:'🙏', desc:'ಮೊಣಕಾಲೂರಿ ಕುಳಿತು ಧ್ಯಾನಸ್ಥ ಭಂಗಿ. ಊಟದ ನಂತರ ಕುಳಿತರೆ ಜೀರ್ಣಕ್ರಿಯೆಗೆ ಸಹಕಾರಿ.'},
-  {name:'ಪವನಮುಕ್ತಾಸನ', eng:'Pavanamuktasana', icon:'🦵', desc:'ಬೆನ್ನಮೇಲೆ ಮಲಗಿ ಮಂಡಿಗಳನ್ನು ಎದೆಯ ಬಳಿ ತರುವುದು. ಹೊಟ್ಟೆಯ ಗ್ಯಾಸ್ ಮತ್ತು ಜೀರ್ಣಕ್ಕೆ ಒಳ್ಳೆಯದು.'},
-  {name:'ಮಾರ್ಜಾರಾಸನ', eng:'Cat-Cow Stretch', icon:'🐱', desc:'ನಾಲ್ಕು ಕಾಲಿನ ಮೇಲೆ ಬೆನ್ನನ್ನು ಮೇಲೆ-ಕೆಳಗೆ ಬಾಗಿಸುವುದು. ಬೆನ್ನುಮೂಳೆ ಸಡಿಲಗೊಳ್ಳುತ್ತದೆ.'},
-  {name:'ಶವಾಸನ', eng:'Shavasana', icon:'😌', desc:'ಎಲ್ಲಾ ಆಸನಗಳ ಕೊನೆಯಲ್ಲಿ 5-10 ನಿಮಿಷ ಸಂಪೂರ್ಣ ವಿಶ್ರಾಂತಿ. ಮನಸ್ಸು-ದೇಹ ಶಾಂತಗೊಳ್ಳುತ್ತದೆ.'},
-];
-
-/* week phase focus text */
-const phases = [
-  {range:[1,3], phase:'ಹಂತ 1 · ಅಡಿಪಾಯ', focus:'ಜೋಳ/ಸಜ್ಜೆ ರೊಟ್ಟಿಗೆ ಮೆಲ್ಲಗೆ ಬದಲಾವಣೆ, ಎಣ್ಣೆ ಕಡಿಮೆ ಮಾಡುವುದು, 15-20 ನಿಮಿಷ ನಡಿಗೆ ಮತ್ತು ಸರಳ ಪ್ರಾಣಾಯಾಮ ಆರಂಭ.'},
-  {range:[4,6], phase:'ಹಂತ 2 · ಬಲವರ್ಧನೆ', focus:'ಅನ್ನದ ಪ್ರಮಾಣ ಇನ್ನಷ್ಟು ಕಡಿಮೆಗೊಳಿಸಿ, ಸೊಪ್ಪು-ತರಕಾರಿ ಹೆಚ್ಚಿಸಿ, ನಡಿಗೆ 20-25 ನಿಮಿಷಕ್ಕೆ ಹಾಗೂ ಯೋಗಾಸನ ಸೇರ್ಪಡೆ.'},
-  {range:[7,9], phase:'ಹಂತ 3 · ಸ್ಥಿರತೆ', focus:'ಸಂಪೂರ್ಣವಾಗಿ ಸಿರಿಧಾನ್ಯ ಆಧಾರಿತ ಊಟ, ವಾರಕ್ಕೊಮ್ಮೆ ಮಾತ್ರ ವಿಶೇಷ ಖಾದ್ಯ, ನಡಿಗೆ 30 ನಿಮಿಷ, ಎಲ್ಲಾ ಯೋಗಾಸನ ಅಭ್ಯಾಸ.'},
-  {range:[10,12], phase:'ಹಂತ 4 · ಸಾಧನೆ ಕಾಪಾಡುವಿಕೆ', focus:'ಸಾಧಿಸಿದ ಬದಲಾವಣೆಯನ್ನು ಕಾಯಂ ಅಭ್ಯಾಸವಾಗಿಸಿ, ವೈದ್ಯರಿಂದ ಸಕ್ಕರೆ/ಕೊಲೆಸ್ಟ್ರಾಲ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಿ ಪ್ರಗತಿ ಪರಿಶೀಲಿಸಿ.'},
-];
-
-/* meal rotation pools */
-const bfPool = [
-  ['ಜೋಳದ ರೊಟ್ಟಿ + ಶೇಂಗಾ ಚಟ್ನಿ ಪುಡಿ'], ['ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಎಳ್ಳು ಚಟ್ನಿ'], ['ರಾಗಿ ಗಂಜಿ + ಮಜ್ಜಿಗೆ'], ['ಅಂಬಲಿ (ಜೋಳ) + ಸ್ವಲ್ಪ ಬೆಲ್ಲ ರಹಿತ']
-];
-const lunchPool = [
-  ['ಜೋಳದ ರೊಟ್ಟಿ','ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ','ಹೆಸರುಬೇಳೆ ಸಾರು','ಮಜ್ಜಿಗೆ ಹುಳಿ'],
-  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ','ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ','ನುಗ್ಗೆಕಾಯಿ ಸಾರು','ಕೋಸಂಬರಿ'],
-  ['ರಾಗಿ ಮುದ್ದೆ','ಅವರೆಕಾಳು ಉಸಳಿ','ಹೆಸರುಬೇಳೆ ಸಾರು','ಮಜ್ಜಿಗೆ'],
-  ['ಜೋಳದ ರೊಟ್ಟಿ','ಕೋಸಂಬರಿ','ನುಗ್ಗೆಕಾಯಿ ಸಾರು','ಮಜ್ಜಿಗೆ ಹುಳಿ'],
-];
-const snackPool = ['ಹುರಿದ ಕಡಲೆ + ಚಹಾ (ಸಕ್ಕರೆ ರಹಿತ)', 'ಕೋಸಂಬರಿ ಬಟ್ಟಲು', 'ಒಂದು ಹಣ್ಣು (ಸೇಬು/ಪೇರಳೆ)', 'ಮಜ್ಜಿಗೆ + ಹುರಿಗಡಲೆ'];
-const dinnerPool = [
-  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ','ಮೆಂತ್ಯ ಸೊಪ್ಪು ಪಲ್ಯ'],
-  ['ರಾಗಿ ಮುದ್ದೆ (ಅರ್ಧ) + ಹೆಸರುಬೇಳೆ ಸಾರು'],
-  ['ಜೋಳದ ರೊಟ್ಟಿ + ಬೆಂಡೆಕಾಯಿ ಪಲ್ಯ'],
-  ['ಸಜ್ಜೆ ರೊಟ್ಟಿ + ಕೋಸಂಬರಿ'],
-];
-
-/* build 12 weeks */
-const weeks = [];
-for(let w=1; w<=12; w++){
-  const ph = phases.find(p => w>=p.range[0] && w<=p.range[1]);
-  weeks.push({
-    num:w,
-    phase:ph.phase,
-    focus:ph.focus,
-    breakfast: bfPool[(w-1)%bfPool.length][0],
-    lunch: lunchPool[(w-1)%lunchPool.length].join(' + '),
-    snack: snackPool[(w-1)%snackPool.length],
-    dinner: dinnerPool[(w-1)%dinnerPool.length][0],
-    yogaFocus: w<=3 ? 'ಅನುಲೋಮ ವಿಲೋಮ + ತಾಡಾಸನ + ಶವಾಸನ' :
-               w<=6 ? 'ಭ್ರಾಮರಿ + ವಜ್ರಾಸನ + ಪವನಮುಕ್ತಾಸನ + ಶವಾಸನ' :
-               w<=9 ? 'ಎಲ್ಲಾ ಪ್ರಾಣಾಯಾಮ + ವೃಕ್ಷಾಸನ + ಭುಜಂಗಾಸನ + ಶವಾಸನ' :
-                      'ಸಂಪೂರ್ಣ ಯೋಗ ಕ್ರಮ (20-25 ನಿಮಿಷ) + ಧ್ಯಾನ',
-    walkMinutes: w<=2?15 : w<=4?20 : w<=6?25 : w<=9?30 : 32,
-  });
-}
-
-/* ============ RENDER ============ */
-function renderWeeks(){
-  const list = document.getElementById('weekList');
-  list.innerHTML = weeks.map(w => `
-    <div class="week-card" id="wk-${w.num}">
-      <div class="week-head">
-        <div class="week-num">${w.num}</div>
-        <div class="titles">
-          <div class="phase">${w.phase}</div>
-          <h4>ವಾರ ${w.num}, ಗುರಿ ಕೇಂದ್ರಿತ ಯೋಜನೆ</h4>
-        </div>
-        <div class="week-check" id="chk-${w.num}" onclick="toggleCheck(${w.num})">✓</div>
-      </div>
-      <div class="week-body">
-        <div class="week-body-inner">
-          <div>
-            <div class="week-focus">${w.focus}</div>
-            <table class="meal-table">
-              <tr><td class="mtime">ಬೆಳಗಿನ ಉಪಾಹಾರ</td><td>${w.breakfast}</td></tr>
-              <tr><td class="mtime">ಮಧ್ಯಾಹ್ನದ ಊಟ</td><td>${w.lunch}</td></tr>
-              <tr><td class="mtime">ಸಂಜೆ ತಿಂಡಿ</td><td>${w.snack}</td></tr>
-              <tr><td class="mtime">ರಾತ್ರಿಯ ಊಟ</td><td>${w.dinner}</td></tr>
-            </table>
-          </div>
-          <div class="week-side">
-            <h5>🧘 ಯೋಗ / ವ್ಯಾಯಾಮ ಗಮನ</h5>
-            <ul>
-              <li>${w.yogaFocus}</li>
-              <li>ನಡಿಗೆ: ದಿನಕ್ಕೆ ${w.walkMinutes} ನಿಮಿಷ</li>
-              <li>ನೀರು: ದಿನಕ್ಕೆ 8-10 ಲೋಟ</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
+/* Progressive enhancement only. All plan/recipe/yoga content above already
+   exists as plain HTML, so the page is fully readable even if this script
+   does not run on some mobile browsers. */
 
 function toggleCheck(n){
-  const el = document.getElementById('chk-'+n);
+  var el = document.getElementById('chk-'+n);
+  if(!el) return;
   el.classList.toggle('done');
   updateBraid();
 }
 function updateBraid(){
-  const done = document.querySelectorAll('.week-check.done').length;
-  document.getElementById('braidFill').style.width = (done/12*100)+'%';
-  document.getElementById('braidPct').textContent = done+' / 12 ವಾರ';
+  var done = document.querySelectorAll('.week-check.done').length;
+  var fill = document.getElementById('braidFill');
+  var pct = document.getElementById('braidPct');
+  if(fill) fill.style.width = (done/12*100)+'%';
+  if(pct) pct.textContent = done+' / 12 ವಾರ';
 }
 
-function renderRecipes(filter){
-  const grid = document.getElementById('recipeGrid');
-  const items = filter==='all' ? recipes : recipes.filter(r=>r.cat===filter);
-  grid.innerHTML = items.map(r => `
-    <div class="recipe-card">
-      <div class="recipe-top">
-        <div class="ricon">${r.icon}</div>
-        <div>
-          <div class="rtag">${r.tag}</div>
-          <h4>${r.name}</h4>
-        </div>
-      </div>
-      <div class="recipe-info">
-        <div class="benefit">💚 ${r.benefit}</div>
-        <h6>ಬೇಕಾಗುವ ಸಾಮಗ್ರಿ</h6>
-        <ul>${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul>
-        <h6>ವಿಧಾನ</h6>
-        <ol>${r.method.map(s=>`<li>${s}</li>`).join('')}</ol>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderFilters(){
-  const cats = ['all', ...new Set(recipes.map(r=>r.cat))];
-  const row = document.getElementById('filterRow');
-  row.innerHTML = cats.map((c,i)=>`<div class="filter-chip ${i===0?'active':''}" data-cat="${c}" onclick="selectFilter('${c}', this)">${catNames[c]}</div>`).join('');
-}
 function selectFilter(cat, el){
-  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
   el.classList.add('active');
-  renderRecipes(cat);
+  document.querySelectorAll('.recipe-card').forEach(function(card){
+    var show = (cat === 'all') || (card.getAttribute('data-cat') === cat);
+    card.style.display = show ? '' : 'none';
+  });
 }
 
-function renderYoga(){
-  document.getElementById('yogaGrid').innerHTML = yogaPoses.map(y=>`
-    <div class="yoga-card">
-      <div class="yoga-ic">${y.icon}</div>
-      <span class="eng-name">${y.eng}</span>
-      <h4>${y.name}</h4>
-      <p>${y.desc}</p>
-    </div>
-  `).join('');
-}
-
-/* nav tabs */
-document.querySelectorAll('.tabbtn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+/* nav tabs: smooth scroll to section */
+document.querySelectorAll('.tabbtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tabbtn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
-    document.getElementById(btn.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+    var target = document.getElementById(btn.dataset.target);
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
   });
 });
 
-/* scroll reveal */
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* init */
-renderWeeks();
-renderFilters();
-renderRecipes('all');
-renderYoga();
+/* scroll reveal: purely an enhancement. Sections are visible by default via
+   CSS (.reveal{opacity:1}) so nothing depends on this running. */
+if('IntersectionObserver' in window){
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('js-anim'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, {threshold:0.08});
+  document.querySelectorAll('.reveal.js-anim').forEach(function(el){ io.observe(el); });
+}
 </script>
 </body>
 </html>
