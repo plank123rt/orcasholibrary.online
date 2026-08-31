@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narmada Suresh, Longitudinal Laboratory Comparison</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F1E8;
+    --paper:#FFFFFF;
+    --ink:#1C2430;
+    --ink-soft:#5B6472;
+    --ink-faint:#8A9099;
+    --line:#E1DBC9;
+    --line-strong:#CFC7AE;
+    --improved:#2E6B4A;
+    --improved-bg:#E7F1EB;
+    --worsened:#A8442F;
+    --worsened-bg:#F8EAE6;
+    --neutral:#7C7361;
+    --neutral-bg:#EFEBDF;
+    --accent:#3F5B7F;
+    --accent-soft:#EAEFF4;
+    --apollo:#3F5B7F;
+    --lal:#8A6A3F;
+    --tata:#2E6B4A;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  .serif{font-family:'Source Serif 4', Georgia, serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* progress bar */
+  #progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--apollo), var(--lal), var(--tata));
+    z-index:200; transition:width 0.1s linear;
+  }
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 22px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:56px 0 34px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-size:13px; letter-spacing:0.03em; color:var(--ink-soft);
+    margin:0 0 10px; opacity:0; transform:translateY(6px);
+    animation:riseIn 0.6s ease forwards;
+  }
+  h1.patient-name{
+    font-size:clamp(34px, 8vw, 52px);
+    font-weight:600;
+    line-height:1.05;
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+    opacity:0; transform:translateY(10px);
+    animation:riseIn 0.7s ease forwards;
+    animation-delay:0.12s;
+  }
+  .hero-sub{
+    font-size:17px; color:var(--ink-soft); margin:0 0 32px; max-width:56ch;
+    opacity:0; transform:translateY(10px);
+    animation:riseIn 0.7s ease forwards;
+    animation-delay:0.24s;
+  }
+  @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
+
+  /* timeline */
+  .timeline{
+    position:relative;
+    display:flex;
+    justify-content:space-between;
+    padding-top:6px;
+    opacity:0;
+    animation:riseIn 0.8s ease forwards;
+    animation-delay:0.4s;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    top:9px; left:8px; right:8px; height:2px;
+    background:var(--line-strong);
+  }
+  .timeline .track-fill{
+    position:absolute; top:9px; left:8px; height:2px;
+    background:linear-gradient(90deg, var(--apollo), var(--lal) 50%, var(--tata));
+    width:0%;
+    animation:growTrack 1.1s ease forwards;
+    animation-delay:0.7s;
+  }
+  @keyframes growTrack{ to{ width:calc(100% - 16px); } }
+  .tl-point{ position:relative; text-align:left; width:31%; }
+  .tl-dot{
+    width:12px; height:12px; border-radius:50%;
+    background:var(--paper); border:2.5px solid var(--dotcolor, var(--accent));
+    margin-bottom:12px;
+  }
+  .tl-date{ font-size:14px; font-weight:600; font-family:'IBM Plex Mono', monospace; }
+  .tl-lab{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+
+  /* ---------- STICKY NAV ---------- */
+  nav.jumpnav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(244,241,232,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
+  }
+  nav.jumpnav::-webkit-scrollbar{display:none;}
+  nav.jumpnav .wrap{ display:flex; gap:4px; padding:10px 22px; }
+  nav.jumpnav a{
+    flex:0 0 auto;
+    font-size:13px; color:var(--ink-soft); text-decoration:none;
+    padding:6px 11px; border-radius:20px; border:1px solid transparent;
+    transition:background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  nav.jumpnav a.active{
+    color:var(--accent); background:var(--accent-soft); border-color:var(--accent);
+  }
+
+  main{padding-top:8px;}
+
+  section{ padding:44px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  h2.section-title{
+    font-size:26px; font-weight:600; margin:0 0 4px; letter-spacing:-0.01em;
+  }
+  p.section-note{ color:var(--ink-soft); font-size:14.5px; margin:0 0 24px; max-width:62ch; }
+
+  /* legend */
+  .legend{ display:flex; gap:18px; flex-wrap:wrap; margin-bottom:24px; }
+  .legend-item{ display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink-soft); }
+  .legend-dot{ width:9px; height:9px; border-radius:50%; }
+
+  /* ---------- IMPROVEMENTS TABLE ---------- */
+  .imp-table{ width:100%; border-collapse:collapse; }
+  .imp-table thead th{
+    text-align:left; font-size:12px; font-weight:500; color:var(--ink-soft);
+    padding:0 10px 10px; border-bottom:1px solid var(--line-strong);
+  }
+  .imp-table tbody td{
+    padding:13px 10px; border-bottom:1px solid var(--line); font-size:14.5px; vertical-align:top;
+  }
+  .imp-table tbody tr:hover{ background:rgba(46,107,74,0.045); }
+  .param-name{ font-weight:600; }
+  .val-cell{ font-family:'IBM Plex Mono', monospace; font-size:13.5px; white-space:nowrap; }
+  .val-cell.dim{ color:var(--ink-faint); }
+  .imp-change{ color:var(--improved); font-weight:500; }
+
+  /* ---------- RANK LIST ---------- */
+  .rank-list{ list-style:none; margin:0; padding:0; counter-reset:rank; }
+  .rank-item{
+    display:flex; align-items:baseline; gap:16px;
+    padding:14px 0; border-bottom:1px solid var(--line);
+    counter-increment:rank;
+  }
+  .rank-item::before{
+    content:counter(rank);
+    font-family:'Source Serif 4', serif; font-size:20px; color:var(--line-strong);
+    font-weight:600; width:24px; flex:0 0 auto;
+  }
+  .rank-body{ flex:1; }
+  .rank-name{ font-weight:600; font-size:15px; }
+  .rank-change{ font-family:'IBM Plex Mono', monospace; font-size:13.5px; color:var(--improved); margin-top:2px; }
+
+  /* ---------- CATEGORY TABLES ---------- */
+  .cat-block{ margin-bottom:46px; }
+  .cat-block:last-child{ margin-bottom:0; }
+  h3.cat-title{
+    font-size:19px; font-weight:600; margin:0 0 14px;
+    padding-bottom:10px; border-bottom:1.5px solid var(--ink);
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .cat-count{ font-size:12.5px; color:var(--ink-faint); font-weight:400; font-family:'IBM Plex Mono', monospace; }
+
+  table.data-table{ width:100%; border-collapse:collapse; }
+  table.data-table thead th{
+    text-align:left; font-size:11.5px; font-weight:500; color:var(--ink-soft);
+    padding:0 8px 9px; border-bottom:1px solid var(--line-strong);
+    white-space:nowrap;
+  }
+  table.data-table thead th.num{ text-align:left; }
+  table.data-table tbody td{
+    padding:10px 8px; border-bottom:1px solid var(--line);
+    font-size:13.5px; vertical-align:top;
+  }
+  table.data-table tbody tr:hover{ background:rgba(63,91,127,0.04); }
+  table.data-table td.pname{ font-weight:500; max-width:150px; }
+  table.data-table td.punit{ color:var(--ink-faint); font-size:12px; }
+  table.data-table td.pval{ font-family:'IBM Plex Mono', monospace; font-size:12.8px; white-space:nowrap; }
+  table.data-table td.pval .range{ display:block; color:var(--ink-faint); font-size:10.8px; font-family:'IBM Plex Sans',sans-serif; margin-top:1px; white-space:normal; }
+  table.data-table td.pstatus{ font-size:12.8px; }
+  .badge{
+    display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:7px; vertical-align:middle;
+  }
+  .badge.g{ background:var(--improved); }
+  .badge.r{ background:var(--worsened); }
+  .badge.n{ background:var(--neutral); }
+  td.pstatus.g{ color:var(--improved); }
+  td.pstatus.r{ color:var(--worsened); }
+  td.pstatus.n{ color:var(--neutral); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:40px 0 70px; }
+  .foot-notes{ font-size:13px; color:var(--ink-soft); line-height:1.7; }
+  .foot-notes strong{ color:var(--ink); }
+  .disclaimer{
+    margin-top:26px; padding:16px 18px; background:var(--paper);
+    border:1px solid var(--line); border-radius:4px;
+    font-size:12.5px; color:var(--ink-soft); line-height:1.65;
+  }
+
+  /* ---------- MOBILE: stacked tables ---------- */
+  @media (max-width: 640px){
+    .wrap{ padding:0 16px; }
+    header.hero{ padding:42px 0 26px; }
+    .timeline{ flex-direction:column; gap:16px; }
+    .timeline::before, .timeline .track-fill{ display:none; }
+    .tl-point{ width:100%; display:flex; align-items:center; gap:12px; }
+    .tl-dot{ margin-bottom:0; }
+
+    table.data-table thead{ display:none; }
+    table.data-table, table.data-table tbody, table.data-table tr, table.data-table td{ display:block; width:100%; }
+    table.data-table tr{
+      padding:12px 0; border-bottom:1px solid var(--line);
+    }
+    table.data-table td{ border-bottom:none; padding:3px 0; }
+    table.data-table td.pname{ font-size:14.5px; font-weight:600; max-width:none; margin-bottom:4px; }
+    table.data-table td.pval, table.data-table td.pstatus{ padding-left:0; }
+    table.data-table td.pval::before, table.data-table td.pstatus::before{
+      content:attr(data-label);
+      display:inline-block; width:76px; color:var(--ink-faint); font-family:'IBM Plex Sans',sans-serif; font-size:11px;
+      vertical-align:top;
+    }
+    table.data-table td.punit{ display:none; }
+
+    .imp-table thead{ display:none; }
+    .imp-table, .imp-table tbody, .imp-table tr, .imp-table td{ display:block; width:100%; }
+    .imp-table tr{ padding:14px 0; border-bottom:1px solid var(--line); }
+    .imp-table td{ border-bottom:none; padding:2px 0; }
+    .imp-table td.param-name{ font-size:15.5px; margin-bottom:6px; }
+    .imp-table td.val-cell::before{
+      content:attr(data-label);
+      display:inline-block; width:96px; color:var(--ink-faint); font-family:'IBM Plex Sans',sans-serif; font-size:11px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Longitudinal laboratory comparison</p>
+    <h1 class="patient-name serif">Narmada Suresh</h1>
+    <p class="hero-sub">Every patient parameter reported across three lab visits, tracked side by side with each lab's own reference range and a plain-language trend for every value.</p>
+    <div class="timeline">
+      <div class="track-fill"></div>
+      <div class="tl-point">
+        <div class="tl-dot" style="--dotcolor:var(--apollo)"></div>
+        <div>
+          <div class="tl-date">28 Apr 2026</div>
+          <div class="tl-lab">Apollo Diagnostics</div>
+        </div>
+      </div>
+      <div class="tl-point">
+        <div class="tl-dot" style="--dotcolor:var(--lal)"></div>
+        <div>
+          <div class="tl-date">28 May 2026</div>
+          <div class="tl-lab">Dr Lal PathLabs</div>
+        </div>
+      </div>
+      <div class="tl-point">
+        <div class="tl-dot" style="--dotcolor:var(--tata)"></div>
+        <div>
+          <div class="tl-date">29 Aug 2026</div>
+          <div class="tl-lab">Tata 1mg Labs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="jumpnav">
+  <div class="wrap" id="navwrap">
+    <a href="#improved" class="navlink" data-target="improved">What improved</a>
+    <a href="#ranking" class="navlink" data-target="ranking">Top movers</a>
+    <!-- category links injected by JS -->
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <section id="improved">
+      <h2 class="section-title serif">What improved</h2>
+      <p class="section-note">Movement toward the desirable or normal direction across the three visits, including values that improved but remain outside range.</p>
+      <table class="imp-table" id="impTable">
+        <thead>
+          <tr><th>Parameter</th><th>28 Apr</th><th>28 May</th><th>29 Aug</th><th>Improvement</th></tr>
+        </thead>
+        <tbody><!-- injected --></tbody>
+      </table>
+    </section>
+
+    <section id="ranking">
+      <h2 class="section-title serif">The strongest improvements</h2>
+      <p class="section-note">Ranked by how meaningfully each value moved, reading across all three reports.</p>
+      <ol class="rank-list" id="rankList"><!-- injected --></ol>
+    </section>
+
+    <section id="fulldata">
+      <h2 class="section-title serif">Full longitudinal data</h2>
+      <p class="section-note">Every parameter present in the three uploaded reports, with each lab's own reference range reproduced as printed. Ranges are not harmonized across labs or assay methods, so read each value against the range printed beside it, not against the others.</p>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--improved)"></span>Improved / moved toward target</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--worsened)"></span>Worsened / abnormal / outside range</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--neutral)"></span>Normal, stable, or not directly comparable</div>
+      </div>
+      <div id="categories"><!-- injected --></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-notes">
+      <strong>Sources.</strong> Report 1: collected 28 Apr 2026, Apollo Diagnostics. Report 2: collected 28 May 2026, Dr Lal PathLabs. Report 3: collected 29 Aug 2026, Tata 1mg Labs.<br><br>
+      <strong>Key longitudinal signals.</strong> Clear improvements: hemoglobin, RDW, HDL, triglycerides, VLDL, vitamin B12 by August, vitamin D by the August lab's range, and creatinine. Persistent issue: fasting glucose stayed very high (274 → 287 mg/dL) while HbA1c improved only slightly (13.4% → 13.0%). Lipids: LDL stayed near 140 mg/dL and non-HDL stayed high despite major gains in triglycerides and HDL. Liver enzymes: GGT stayed elevated (51 → 54 U/L) and ALT rose from 32 to 38 U/L, above the August range. Kidney screening in August was reassuring: creatinine 0.62 mg/dL, UACR under 30 mg/g, urine protein negative.
+    </div>
+    <div class="disclaimer">
+      This is a source-faithful longitudinal comparison built directly from the three uploaded lab reports. It reproduces each lab's reference ranges as printed, without harmonizing them across labs or assay methods, and does not replace clinical interpretation by a doctor.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================= DATA ================= */
+
+// Improvements-only table: [name, apr, may, aug, improvement]
+const improvements = [
+  ["Hemoglobin","13.7","Not reported","14.3","↑ 0.6 g/dL, remained normal"],
+  ["RDW","11.5 (below range)","Not reported","12.8","Normalized into range"],
+  ["Platelet count","221,000","Not reported","251,000","↑ 30,000, remained normal"],
+  ["Vitamin B12","390.5","281","529","Major recovery (+248 from May, +138.5 from April)"],
+  ["Vitamin D","Not reported","74.9 nmol/L","34.6 ng/mL","Moved into the August lab's sufficient range"],
+  ["Triglycerides","Not reported","131","73","↓ 58 mg/dL, major improvement"],
+  ["HDL cholesterol","Not reported","46 (below target)","62","↑ 16 mg/dL, into favorable range"],
+  ["VLDL cholesterol","Not reported","26","15","↓ 11 mg/dL"],
+  ["Total protein","Not reported","6.60","7.42","↑ 0.82 g/dL, remained normal"],
+  ["Albumin","Not reported","4.30","4.80","↑ 0.50 g/dL, remained normal"],
+  ["Globulin","Not reported","2.30","2.60","↑ 0.30 g/dL, remained normal"],
+  ["Creatinine","Not reported","0.74","0.62","↓ 0.12 mg/dL"],
+  ["Urea","Not reported","29.0","26.47","↓ 2.53 mg/dL, remained normal"],
+  ["BUN","Not reported","13.54","12.0","↓ 1.54 mg/dL, remained normal"],
+  ["Potassium","Not reported","4.65","4.25","↓ 0.40, remained normal"],
+  ["HbA1c","13.4","Not reported","13.0","↓ 0.4 percentage points"],
+  ["eAG","338","Not reported","326.4","↓ 11.6 mg/dL"],
+  ["ESR","Not reported","6","6","Stable at a low, normal level"],
+  ["LDL : HDL ratio","Not reported","Not reported","2.26","Favorable ratio in August"],
+  ["Total cholesterol : HDL ratio","Not reported","Not reported","3.5","Favorable ratio in August"]
+];
+
+// Ranking: [name, change]
+const ranking = [
+  ["HDL cholesterol","46 → 62 mg/dL"],
+  ["Triglycerides","131 → 73 mg/dL"],
+  ["Vitamin B12","281 → 529 pg/mL, May to August"],
+  ["Vitamin D","~30 → 34.6 ng/mL, now sufficient"],
+  ["Creatinine","0.74 → 0.62 mg/dL"],
+  ["HbA1c","13.4% → 13.0%"],
+  ["Estimated average glucose","338 → 326.4 mg/dL"],
+  ["RDW","11.5% → 12.8%, normalized"],
+  ["Albumin","4.30 → 4.80 g/dL"],
+  ["VLDL cholesterol","26 → 15 mg/dL"]
+];
+
+// Category tables.
+// row = [parameter, unit, apr value, apr range, may value, may range, aug value, aug range, status text, trend(g/r/n)]
+const NR = "Not reported";
+const categories = [
+{ id:"cbc", title:"Complete blood count", rows:[
+  ["Hemoglobin","g/dL","13.7","12.5–15",NR,"","14.3","12.0–15.0","Improved; normal","g"],
+  ["PCV / HCT","%","41.70","36–46",NR,"","43.3","36–46","Improved; normal","g"],
+  ["RBC count","million/cu.mm","4.73","3.8–4.8",NR,"","5.13","3.8–4.8","Increased; now above Aug range","r"],
+  ["MCV","fL","88","83–101",NR,"","84.3","83–101","Slight decrease; normal","n"],
+  ["MCH","pg","29","27–32",NR,"","27.9","27–32","Slight decrease; normal","n"],
+  ["MCHC","g/dL","32.9","31.5–34.5",NR,"","33.1","31.5–34.5","Essentially stable","n"],
+  ["RDW / RDW-CV","%","11.5","11.6–14",NR,"","12.8","11.5–14","Normalized into range","g"],
+  ["Total leucocyte count (TLC)","cells/cu.mm","4,880","4000–10000",NR,"","5.96 ×10³/µL","4–10","Stable; normal","n"],
+  ["Neutrophils","%","59","40–80",NR,"","63.8","40–80","Increased; normal","n"],
+  ["Lymphocytes","%","35","20–40",NR,"","25.5","20–40","Decreased; normal","n"],
+  ["Eosinophils","%","1","1–6",NR,"","1.2","1–6","Essentially stable","n"],
+  ["Monocytes","%","5","2–10",NR,"","8.9","2–10","Increased; normal","n"],
+  ["Basophils","%","0","0–2",NR,"","0.6","0–2","Increased; normal","n"],
+  ["Corrected TLC","cells/cu.mm","4,880","Not stated",NR,"",NR,"","Not repeated","n"],
+  ["Absolute neutrophil count","cells/cu.mm","2879.2","2000–7000",NR,"","3.8 ×10³/µL","2–7","Normal; units differ","n"],
+  ["Absolute lymphocyte count","cells/cu.mm","1708","1000–3000",NR,"","1.52 ×10³/µL","1–3","Normal; units differ","n"],
+  ["Absolute eosinophil count","cells/cu.mm","48.8","20–500",NR,"","0.07 ×10³/µL","0.02–0.5","Normal; units differ","n"],
+  ["Absolute monocyte count","cells/cu.mm","244","200–1000",NR,"","0.53 ×10³/µL","0.2–1","Normal; units differ","n"],
+  ["Absolute basophil count","cells/cu.mm",NR,"",NR,"","0.04 ×10³/µL","0.02–0.1","August only","n"],
+  ["Neutrophil lymphocyte ratio (NLR)","ratio","1.69","0.78–3.53",NR,"",NR,"","Not repeated","n"],
+  ["Platelet count","cells/cu.mm","221,000","150000–410000",NR,"","251 ×10³/µL","150–410","Stable; normal","n"],
+  ["MPV","fL","9.7","8.1–13.9",NR,"","9.1","6.5–12","Slight decrease; normal","n"],
+  ["PDW","fL",NR,"",NR,"","14.5","9–17","August only","n"]
+]},
+{ id:"glucose", title:"Glucose and diabetes", rows:[
+  ["Glucose, fasting","mg/dL","274","70–100",NR,"","287","70–99","Worsened by 13; still severely high","r"],
+  ["Glucose, random","mg/dL",NR,"","460 (Critical)","70–140",NR,"","May only; critical value","r"],
+  ["HbA1c / Glycosylated hemoglobin","%","13.4","Not stated",NR,"","13.0","4.0–5.6","Improved by 0.4; still severely high","r"],
+  ["Estimated average glucose (eAG)","mg/dL","338","Not stated",NR,"","326.40","Not stated","Improved by 11.6","g"],
+  ["Urine glucose","qualitative",NR,"",NR,"","2+","Negative","Abnormal; August only","r"]
+]},
+{ id:"kidney", title:"Kidney function and electrolytes", rows:[
+  ["Creatinine","mg/dL",NR,"","0.74","0.55–1.02","0.62","0.5–1.1","Lower; normal","g"],
+  ["Estimated GFR","mL/min/1.73m²",NR,"","99",">59",NR,"","May only; normal","n"],
+  ["GFR category","category",NR,"","G1","Not stated",NR,"","May only","n"],
+  ["Urea","mg/dL",NR,"","29.00","13.00–43.00","26.47","17.9–54.9","Lower; normal","g"],
+  ["Blood urea nitrogen (BUN)","mg/dL",NR,"","13.54","6.00–20.00","12","9.8–20.1","Lower; normal","g"],
+  ["BUN / Creatinine ratio","ratio",NR,"","18","Not stated","20.0","12:1–20:1","At the upper end of the Aug range","n"],
+  ["Uric acid","mg/dL",NR,"","1.90","2.60–6.00","2.0","2.5–6.2","Slight increase; still low","r"],
+  ["Sodium","mmol/L",NR,"","134","136–146","133","136–145","Slightly worse; low","r"],
+  ["Potassium","mmol/L",NR,"","4.65","3.50–5.10","4.25","3.5–5.1","Lower; normal","g"],
+  ["Chloride","mEq/L",NR,"","99.12","101–109","99.0","98–107","Essentially stable; Aug range normal","n"],
+  ["Calcium, total","mg/dL",NR,"","8.80","8.70–10.40","8.7","9.0–10.2","Slightly lower; now low by Aug range","r"],
+  ["Phosphorus","mg/dL",NR,"","3.40","2.40–5.10",NR,"","Not repeated","n"]
+]},
+{ id:"liver", title:"Liver function", rows:[
+  ["Bilirubin, total","mg/dL",NR,"","0.49","0.30–1.20","0.54","0.3–1.2","Essentially stable; normal","n"],
+  ["Bilirubin, direct","mg/dL",NR,"","0.15","<0.3","0.19","0–0.5","Slight increase; normal","n"],
+  ["Bilirubin, indirect","mg/dL",NR,"","0.34","<1.10","0.35","0.2–0.8","Essentially stable; normal","n"],
+  ["Total protein","g/dL",NR,"","6.60","5.70–8.20","7.42","6.4–8.3","Increased; normal","g"],
+  ["Albumin","g/dL",NR,"","4.30","3.20–4.80","4.80","3.5–5.0","Increased; normal","g"],
+  ["Globulin","g/dL",NR,"","2.30","2.0–3.5","2.6","2.3–4.1","Increased; normal","g"],
+  ["A/G ratio","ratio",NR,"","1.87","0.90–2.00","1.83","0.8–1.9","Essentially stable; normal","n"],
+  ["AST / SGOT","U/L",NR,"","20.0","13–35","29","11–34","Increased; normal","n"],
+  ["ALT / SGPT","U/L",NR,"","32.0","10–49","38","0–34","Increased; now above Aug range","r"],
+  ["AST:ALT / SGOT:SGPT","ratio",NR,"","0.63","<1.00","0.76","Not stated","Increased; source gives no Aug range","n"],
+  ["Alkaline phosphatase (ALP)","U/L",NR,"","80.00","30–120","97","46–122","Increased; normal","n"],
+  ["GGT / GGTP","U/L",NR,"","51.0","0–38","54","0–38","Persistently high; slightly worse","r"]
+]},
+{ id:"lipid", title:"Lipid profile", rows:[
+  ["Total cholesterol","mg/dL",NR,"","197","<200","217","≤199.9","Worsened; now above range","r"],
+  ["Triglycerides","mg/dL",NR,"","131","<150","73","≤149.9","Major improvement","g"],
+  ["HDL cholesterol","mg/dL",NR,"","46",">50","62","≥49.5","Major improvement into favorable range","g"],
+  ["LDL cholesterol","mg/dL",NR,"","142","<100","140","≤99.9","Essentially unchanged; high","r"],
+  ["VLDL cholesterol","mg/dL",NR,"","26","<30","15","<30","Improved","g"],
+  ["Non-HDL cholesterol","mg/dL",NR,"","151","<130","155","≤129.9","Slightly worsened; high","r"],
+  ["Total cholesterol : HDL","ratio",NR,"",NR,"","3.5","3.0–4.0 desirable","August only; desirable","n"],
+  ["LDL : HDL","ratio",NR,"",NR,"","2.26","2.0–2.5 desirable","August only; desirable","n"]
+]},
+{ id:"vitamins", title:"Vitamins and minerals", rows:[
+  ["Vitamin B12","pg/mL","390.5","197–771","281.00","211–911","529.0","187–833","Drop in May, then major improvement by Aug","g"],
+  ["Vitamin D, 25-OH","ng/mL / nmol/L",NR,"","74.90 nmol/L","75–250 nmol/L","34.6 ng/mL","30–100 ng/mL","Improved into Aug sufficient range; units changed","g"],
+  ["Vitamin B9 / Folic acid","ng/mL",NR,"",NR,"","14.30","3.1–20.5","August only; normal","n"]
+]},
+{ id:"thyroid", title:"Thyroid", rows:[
+  ["Free T3","pg/mL",NR,"","2.76","2.30–4.20",NR,"","May only","n"],
+  ["Free T4","ng/dL",NR,"","1.36","0.89–1.76",NR,"","May only","n"],
+  ["TSH, ultrasensitive","µIU/mL",NR,"","1.113","0.550–4.780","1.880","0.35–4.94","Higher; still normal","n"],
+  ["Total T3","ng/mL",NR,"",NR,"","0.88","0.35–1.93","August only; normal","n"],
+  ["Total T4","µg/dL",NR,"",NR,"","9.3","4.87–11.72","August only; normal","n"]
+]},
+{ id:"iron", title:"Iron studies", rows:[
+  ["Serum iron","µg/dL",NR,"","83.00","50–170","80","50–170","Essentially stable","n"],
+  ["TIBC","µg/dL",NR,"","266.10","250–425","306.7","250–460","Increased; normal","n"],
+  ["UIBC","µg/dL",NR,"",NR,"","227","70–310","August only; normal","n"],
+  ["Transferrin saturation","%",NR,"","31.19","15–50","26.08","15–50","Lower; still normal","n"]
+]},
+{ id:"inflammation", title:"Inflammation and arthritis screening", rows:[
+  ["ESR","mm/hr",NR,"","6","0–20","6","0–19","Exactly unchanged","n"],
+  ["CRP, quantitative","mg/L",NR,"","1.40","<3.30","2.10","<5.0","Increased; still within range","n"],
+  ["Rheumatoid factor, quantitative","IU/mL",NR,"",NR,"","<15.00","<30 negative","August only; negative","n"]
+]},
+{ id:"urine-routine", title:"Urine routine and microscopy", rows:[
+  ["Colour","qualitative",NR,"",NR,"","Pale yellow","Pale Yellow","August only; normal","n"],
+  ["Appearance","qualitative",NR,"",NR,"","Clear","Clear","August only; normal","n"],
+  ["Specific gravity","ratio",NR,"",NR,"","1.014","1.000–1.030","August only; normal","n"],
+  ["Urine pH","pH",NR,"",NR,"","5.0","5.0–8.0","August only; lower bound of range","n"],
+  ["Urine glucose","qualitative",NR,"",NR,"","2+","Negative","August only; abnormal","r"],
+  ["Urine protein","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Urine ketones","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Urine blood","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Urine bilirubin","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Urobilinogen","qualitative",NR,"",NR,"","Normal","Normal","August only; normal","n"],
+  ["Leukocyte esterase","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Nitrite","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Ascorbic acid","qualitative",NR,"",NR,"","Negative","Negative","August only; normal","n"],
+  ["Urine pus cells","/hpf",NR,"",NR,"","0.20","0.0–5.0","August only; normal","n"],
+  ["Urine red blood cells","/hpf",NR,"",NR,"","0.20","0.0–2.0","August only; normal","n"],
+  ["Urine epithelial cells","/hpf",NR,"",NR,"","1.30","0.0–5.0","August only; normal","n"],
+  ["Urine yeast","/hpf",NR,"",NR,"","0.00","0.0–1.0","August only; normal","n"],
+  ["Urine bacteria","/hpf",NR,"",NR,"","Nil","0.0–80.0","August only; normal","n"],
+  ["Hyaline casts","/hpf",NR,"",NR,"","0.00","0.0–5.0","August only; normal","n"],
+  ["RBC casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["WBC casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Hyaline-granular casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Fatty casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Granular casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Waxy casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Microorganism casts","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Calcium oxalate monohydrate crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Calcium oxalate dihydrate crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Triple phosphate crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Uric acid crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Calcium phosphate","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Cystine crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Leucine crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Tyrosine crystals","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"],
+  ["Amorphous material","/hpf",NR,"",NR,"","0.00","0.0–0.99","August only; normal","n"]
+]},
+{ id:"urine-albumin", title:"Urine albumin / kidney damage screening", rows:[
+  ["Microalbumin / albumin","mg/L",NR,"",NR,"","<5.0","<30","August only; below assay limit, normal","n"],
+  ["Urinary creatinine","mg/dL",NR,"",NR,"","22.97","15–278","August only; normal","n"],
+  ["Microalbumin / creatinine ratio (UACR)","mg/g creatinine",NR,"",NR,"","<30","<30","August only; A1, normal range","n"]
+]},
+{ id:"stool", title:"Stool examination", rows:[
+  ["Stool colour","qualitative",NR,"",NR,"","Brownish Yellow / Brownish","Not specified","August only","n"],
+  ["Stool consistency","qualitative",NR,"",NR,"","Formed","Not specified","August only","n"],
+  ["Stool reaction / pH","pH",NR,"",NR,"","8.00","Not specified","August only; alkaline","n"],
+  ["Visible blood","qualitative",NR,"",NR,"","Absent","Not Detected","August only","n"],
+  ["Mucus","qualitative",NR,"",NR,"","Absent","Not Detected","August only","n"],
+  ["Parasites","qualitative",NR,"",NR,"","Not Seen","Not Detected","August only","n"],
+  ["Pus cells (stool)","/hpf",NR,"",NR,"","2–3","0–5","August only; normal","n"],
+  ["Red blood cells (stool)","/hpf",NR,"",NR,"","Nil","Not Detected","August only","n"],
+  ["Epithelial cells (stool)","/hpf",NR,"",NR,"","1–2","Not stated","August only","n"],
+  ["Cysts","qualitative",NR,"",NR,"","Not Seen","Not Detected","August only","n"],
+  ["Ova","qualitative",NR,"",NR,"","Not Seen","Not Detected","August only","n"]
+]}
+];
+
+/* ================= RENDER ================= */
+
+function trendWord(t){ return t==="g" ? "Improved" : t==="r" ? "Worsened" : "Stable"; }
+
+// improvements table
+const impBody = document.querySelector("#impTable tbody");
+improvements.forEach(([name,apr,may,aug,change])=>{
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td class="param-name">${name}</td>
+    <td class="val-cell ${apr==='Not reported'?'dim':''}" data-label="28 Apr">${apr}</td>
+    <td class="val-cell ${may==='Not reported'?'dim':''}" data-label="28 May">${may}</td>
+    <td class="val-cell" data-label="29 Aug">${aug}</td>
+    <td class="imp-change" data-label="Improvement">${change}</td>`;
+  impBody.appendChild(tr);
+});
+
+// ranking
+const rankList = document.getElementById("rankList");
+ranking.forEach(([name,change])=>{
+  const li = document.createElement("li");
+  li.className = "rank-item";
+  li.innerHTML = `<div class="rank-body"><div class="rank-name">${name}</div><div class="rank-change">${change}</div></div>`;
+  rankList.appendChild(li);
+});
+
+// category tables + nav links
+const catWrap = document.getElementById("categories");
+const navWrap = document.getElementById("navwrap");
+
+categories.forEach(cat=>{
+  const a = document.createElement("a");
+  a.href = "#"+cat.id; a.className = "navlink"; a.dataset.target = cat.id;
+  a.textContent = cat.title;
+  navWrap.appendChild(a);
+
+  const block = document.createElement("div");
+  block.className = "cat-block";
+  block.id = cat.id;
+  block.innerHTML = `
+    <h3 class="cat-title serif">${cat.title} <span class="cat-count">${cat.rows.length} parameters</span></h3>
+    <table class="data-table">
+      <thead><tr>
+        <th>Parameter</th><th>28 Apr</th><th>28 May</th><th>29 Aug</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        ${cat.rows.map(r=>{
+          const [name,unit,apr,aprR,may,mayR,aug,augR,status,trend] = r;
+          const fmt = (v,rg)=> v===NR ? `<span style="color:var(--ink-faint)">Not reported</span>` : `${v}${rg?`<span class="range">Range: ${rg}</span>`:""}`;
+          return `<tr>
+            <td class="pname">${name}<span class="punit"> · ${unit||""}</span></td>
+            <td class="pval" data-label="28 Apr">${fmt(apr,aprR)}</td>
+            <td class="pval" data-label="28 May">${fmt(may,mayR)}</td>
+            <td class="pval" data-label="29 Aug">${fmt(aug,augR)}</td>
+            <td class="pstatus ${trend}" data-label="Status"><span class="badge ${trend}"></span>${status}</td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+  catWrap.appendChild(block);
+});
+
+/* ================= INTERACTIVITY ================= */
+
+// scroll progress bar
+const progress = document.getElementById("progress");
+function updateProgress(){
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = scrolled + "%";
+}
+document.addEventListener("scroll", updateProgress, {passive:true});
+updateProgress();
+
+// sticky nav active state
+const navLinks = Array.from(document.querySelectorAll(".navlink"));
+const targets = navLinks.map(l => document.getElementById(l.dataset.target)).filter(Boolean);
+function updateActiveNav(){
+  let current = targets[0];
+  const y = window.scrollY + 90;
+  targets.forEach(t=>{ if(t.offsetTop <= y) current = t; });
+  navLinks.forEach(l=> l.classList.toggle("active", l.dataset.target === current.id));
+  const activeEl = navWrap.querySelector(".active");
+  if(activeEl) activeEl.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+}
+document.addEventListener("scroll", updateActiveNav, {passive:true});
+updateActiveNav();
+</script>
+</body>
+</html>
