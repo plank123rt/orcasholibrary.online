@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lalitha's Gentle Strength Journey</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBEFEA;
+    --bg-deep: #F6E3DC;
+    --card: #FFFDFC;
+    --card-line: #F0DCD6;
+    --plum: #4A2E3B;
+    --plum-soft: #7A5A68;
+    --rose: #B9636F;
+    --rose-light: #E4A0A8;
+    --mauve: #C98BA0;
+    --orchid: #A87BB0;
+    --gold: #CB9A4F;
+    --berry: #9E4F5E;
+    --white-veil: rgba(255,255,255,0.6);
+    --shadow: 0 18px 40px -22px rgba(122, 63, 78, 0.35);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background:
+      radial-gradient(1100px 620px at 12% -8%, var(--bg-deep), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #F3E2EC, transparent 55%),
+      var(--bg);
+    color: var(--plum);
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--plum);
+    margin: 0;
+  }
+
+  a{ color: var(--berry); }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  button{ font-family: inherit; }
+
+  :focus-visible{
+    outline: 3px solid var(--orchid);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 64px 20px 46px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-petals{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .petal{
+    position: absolute;
+    animation: drift 22s ease-in-out infinite;
+    transform-origin: center;
+  }
+  .petal.p1{ top: 8%; left: 8%; width: 46px; animation-duration: 19s; }
+  .petal.p2{ top: 18%; right: 10%; width: 34px; animation-duration: 25s; animation-delay: -6s; }
+  .petal.p3{ top: 55%; left: 4%; width: 30px; animation-duration: 21s; animation-delay: -3s; }
+  .petal.p4{ top: 62%; right: 6%; width: 40px; animation-duration: 27s; animation-delay: -11s; }
+
+  @keyframes drift{
+    0%   { transform: translate(0,0) rotate(0deg); }
+    50%  { transform: translate(10px,-18px) rotate(14deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+  }
+
+  .hero-eyebrow{
+    display: inline-block;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: var(--berry);
+    background: var(--white-veil);
+    padding: 6px 16px;
+    border-radius: 40px;
+    opacity: 0;
+    animation: riseIn 0.7s ease forwards;
+    animation-delay: 0.1s;
+  }
+
+  .hero h1{
+    font-size: clamp(2.3rem, 6vw, 3.4rem);
+    margin: 18px 0 10px;
+    opacity: 0;
+    animation: riseIn 0.8s ease forwards;
+    animation-delay: 0.28s;
+  }
+
+  .hero h1 em{
+    font-style: italic;
+    color: var(--berry);
+  }
+
+  .hero p.lede{
+    max-width: 540px;
+    margin: 0 auto;
+    color: var(--plum-soft);
+    font-size: 1.05rem;
+    opacity: 0;
+    animation: riseIn 0.8s ease forwards;
+    animation-delay: 0.46s;
+  }
+
+  .hero-bloom{
+    margin: 30px auto 0;
+    width: 92px;
+    height: 92px;
+    opacity: 0;
+    animation: riseIn 0.9s ease forwards, spin 60s linear infinite;
+    animation-delay: 0.6s, 1.5s;
+  }
+
+  @keyframes riseIn{
+    from{ opacity: 0; transform: translateY(16px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(360deg); }
+  }
+
+  /* ---------- SECTIONS GENERAL ---------- */
+  section{ padding: 8px 20px 46px; }
+
+  .section-inner{
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .kicker{
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rose);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .section-title{
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    margin-bottom: 10px;
+  }
+
+  .section-lede{
+    color: var(--plum-soft);
+    max-width: 620px;
+    margin-bottom: 26px;
+  }
+
+  /* ---------- NOTE CARD ---------- */
+  .note-card{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-left: 5px solid var(--rose);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .note-card svg{ flex: none; margin-top: 3px; }
+  .note-card h3{ font-size: 1.15rem; margin-bottom: 6px; }
+  .note-card p{ margin: 0; color: var(--plum-soft); font-size: 0.96rem; }
+  .note-card p + p{ margin-top: 8px; }
+
+  /* ---------- PHASE LEGEND ---------- */
+  .phase-legend{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-bottom: 22px;
+  }
+  .phase-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+    color: var(--plum-soft);
+    font-weight: 600;
+  }
+  .phase-dot{
+    width: 11px; height: 11px; border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ---------- WEEK GARDEN ---------- */
+  .garden{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 620px){
+    .garden{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .bud{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 16px;
+    padding: 10px 4px 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .bud:hover{ transform: translateY(-3px); box-shadow: var(--shadow); }
+  .bud svg{ width: 30px; height: 30px; transition: transform 0.3s ease; }
+  .bud .bud-label{ font-size: 0.72rem; color: var(--plum-soft); font-weight: 700; }
+  .bud.active{
+    border-color: var(--rose);
+    box-shadow: var(--shadow);
+    background: linear-gradient(180deg, #FFFFFF, #FDF3EF);
+  }
+  .bud.active svg{ transform: scale(1.14) rotate(-6deg); }
+
+  /* ---------- WEEK DETAIL (scrolling stack) ---------- */
+  .weeks-scroll{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 26px;
+  }
+
+  .detail-card{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 30px clamp(18px, 4vw, 38px) 34px;
+    scroll-margin-top: 24px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .detail-card.in-view{ opacity: 1; transform: translateY(0); }
+
+  .detail-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px dashed var(--card-line);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+  }
+
+  .detail-phase{
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+  }
+
+  .detail-head h2{ font-size: clamp(1.4rem, 3vw, 1.9rem); margin-top: 4px; }
+
+  .week-badge{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    flex: none;
+  }
+  .week-badge span{ display: block; font-family: 'Nunito', sans-serif; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--plum-soft); margin-top: 2px; }
+
+  .detail-intro{ color: var(--plum-soft); margin-bottom: 22px; max-width: 640px; }
+
+  .exercise{
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius-md);
+    padding: 20px 20px 18px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #FFFFFF, #FFFAF8);
+  }
+  .exercise:last-child{ margin-bottom: 0; }
+
+  .exercise-head{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .ex-badge{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: #fff;
+    flex: none;
+    font-size: 1.05rem;
+  }
+  .exercise-head h3{ font-size: 1.2rem; flex: 1 1 auto; min-width: 160px; }
+
+  .meta-row{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-left: 46px;
+    margin-bottom: 4px;
+  }
+  .meta-pill{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--berry);
+    background: #FBEAEA;
+    border-radius: 30px;
+    padding: 4px 11px;
+  }
+  .meta-pill svg{ width: 14px; height: 14px; }
+  .meta-pill.dose{ color: var(--plum-soft); background: #F2ECEE; }
+
+  .ex-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    margin-top: 14px;
+  }
+  @media (max-width: 560px){
+    .ex-grid{ grid-template-columns: 1fr; }
+  }
+  .ex-field label{
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .ex-field p{ margin: 0; font-size: 0.92rem; color: var(--plum-soft); }
+  .ex-field.span2{ grid-column: 1 / -1; }
+
+  .week-tip{
+    margin-top: 18px;
+    font-size: 0.9rem;
+    color: var(--plum-soft);
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    border: 1px dashed var(--card-line);
+  }
+  .week-tip strong{ color: var(--rose); }
+
+  /* ---------- OUTCOMES ---------- */
+  .milestones{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 660px){
+    .milestones{ grid-template-columns: 1fr; }
+  }
+  .milestone{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius-md);
+    padding: 22px 20px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .milestone.in-view{ opacity: 1; transform: translateY(0); }
+  .milestone .m-week{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.1rem;
+    color: var(--rose);
+    line-height: 1;
+  }
+  .milestone .m-week span{ font-size: 1rem; color: var(--plum-soft); font-family: 'Nunito', sans-serif; font-weight: 700; }
+  .milestone h4{ margin: 8px 0 6px; font-size: 1.02rem; font-family: 'Nunito', sans-serif; font-weight: 800; }
+  .milestone p{ margin: 0; font-size: 0.9rem; color: var(--plum-soft); }
+
+  /* ---------- REFERENCES ---------- */
+  .ref-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ref-list li{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  .ref-list a{ font-weight: 700; text-decoration: none; }
+  .ref-list a:hover{ text-decoration: underline; }
+  .ref-list .ref-note{ color: var(--plum-soft); display: block; margin-top: 2px; font-size: 0.85rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: var(--plum-soft);
+  }
+  footer .signoff{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--rose);
+    margin-bottom: 10px;
+  }
+  footer .fine{ font-size: 0.82rem; max-width: 560px; margin: 14px auto 0; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-petals" aria-hidden="true">
+    <svg class="petal p1" viewBox="0 0 40 40"><path d="M20 2 C28 10 28 24 20 34 C12 24 12 10 20 2Z" fill="#D98C93" opacity="0.5"/></svg>
+    <svg class="petal p2" viewBox="0 0 40 40"><path d="M20 2 C28 10 28 24 20 34 C12 24 12 10 20 2Z" fill="#A87BB0" opacity="0.45"/></svg>
+    <svg class="petal p3" viewBox="0 0 40 40"><path d="M20 2 C28 10 28 24 20 34 C12 24 12 10 20 2Z" fill="#CB9A4F" opacity="0.4"/></svg>
+    <svg class="petal p4" viewBox="0 0 40 40"><path d="M20 2 C28 10 28 24 20 34 C12 24 12 10 20 2Z" fill="#B9636F" opacity="0.4"/></svg>
+  </div>
+  <span class="hero-eyebrow">A twelve week journey, made for you</span>
+  <h1>For <em>Lalitha</em>, a gentler way to sit, move and heal</h1>
+  <p class="lede">A soft, steady plan to ease groin tightness and discomfort that builds up from long days at your desk, one small, doable step at a time.</p>
+  <svg class="hero-bloom" viewBox="0 0 100 100" aria-hidden="true">
+    <g transform="translate(50,50)">
+      <path d="M0 -6 C10 -20 10 -34 0 -40 C-10 -34 -10 -20 0 -6Z" fill="#E4A0A8" opacity="0.85"/>
+      <path d="M0 -6 C10 -20 10 -34 0 -40 C-10 -34 -10 -20 0 -6Z" fill="#C98BA0" opacity="0.85" transform="rotate(72)"/>
+      <path d="M0 -6 C10 -20 10 -34 0 -40 C-10 -34 -10 -20 0 -6Z" fill="#A87BB0" opacity="0.85" transform="rotate(144)"/>
+      <path d="M0 -6 C10 -20 10 -34 0 -40 C-10 -34 -10 -20 0 -6Z" fill="#CB9A4F" opacity="0.85" transform="rotate(216)"/>
+      <path d="M0 -6 C10 -20 10 -34 0 -40 C-10 -34 -10 -20 0 -6Z" fill="#B9636F" opacity="0.85" transform="rotate(288)"/>
+      <circle r="7" fill="#7A5A68"/>
+    </g>
+  </svg>
+</header>
+
+<section aria-label="Before you begin">
+  <div class="section-inner">
+    <div class="note-card">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#B9636F" stroke-width="1.6"/><path d="M12 8v5" stroke="#B9636F" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="0.9" fill="#B9636F"/></svg>
+      <div>
+        <h3>A gentle word before you start</h3>
+        <p>This guide shares general movement education, not a diagnosis or a medical treatment plan. Groin discomfort can come from many different causes, so it is worth having a doctor or physiotherapist take a look before you begin, especially to rule anything else out.</p>
+        <p>Please pause and see a doctor if the pain is sudden or severe, keeps getting worse, wakes you at night, or comes with a lump, fever, swelling or numbness. Within the exercises, always stay in a gentle, comfortable range and stop anything that causes sharp pain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="How this journey is built">
+  <div class="section-inner">
+    <p class="kicker">The shape of the journey</p>
+    <h2 class="section-title">Five gentle phases, twelve weeks</h2>
+    <p class="section-lede">Each phase builds on the one before it, moving from awareness, to stretching, to quiet strength, so your hips and pelvis feel steadier every week.</p>
+    <div class="phase-legend" id="phaseLegend"></div>
+    <div class="garden" id="garden" aria-label="Jump to a week"></div>
+  </div>
+</section>
+
+<section aria-label="Weekly plan">
+  <div class="section-inner">
+    <div class="weeks-scroll" id="weeksScroll"></div>
+  </div>
+</section>
+
+<section aria-label="What to expect">
+  <div class="section-inner">
+    <p class="kicker">Looking ahead</p>
+    <h2 class="section-title">What many women notice along the way</h2>
+    <p class="section-lede">Every body moves at its own pace, but here is the general shape of progress this kind of plan tends to bring.</p>
+    <div class="milestones" id="milestones"></div>
+  </div>
+</section>
+
+<section aria-label="Further reading">
+  <div class="section-inner">
+    <p class="kicker">Further reading</p>
+    <h2 class="section-title">Where these ideas come from</h2>
+    <p class="section-lede">General, reputable sources on hip and groin health if you would like to read more.</p>
+    <ul class="ref-list" id="refList"></ul>
+  </div>
+</section>
+
+<footer>
+  <p class="signoff">With care, for your comfort</p>
+  <p>Twelve weeks from now, sitting, standing and moving through your day can feel noticeably lighter.</p>
+  <p class="fine">This content is educational and general in nature. It does not replace an in person assessment by a doctor or physiotherapist, who can look at your specific history and confirm what is right for your body.</p>
+</footer>
+
+<script>
+(function(){
+
+  const ICONS = {
+    sun: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.3" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2.5v2.4"/><path d="M12 19.1v2.4"/><path d="M4.2 4.2l1.7 1.7"/><path d="M18.1 18.1l1.7 1.7"/><path d="M2.5 12h2.4"/><path d="M19.1 12h2.4"/><path d="M4.2 19.8l1.7-1.7"/><path d="M18.1 5.9l1.7-1.7"/></g></svg>',
+    moon: '<svg viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" fill="currentColor"/></svg>',
+    midday: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 8.4V12l2.6 1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    leaf: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 20c8-1 13-6 15-15-9 1-14 7-15 15Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'
+  };
+
+  function whenIcon(w){
+    if(w === 'morning') return ICONS.sun;
+    if(w === 'evening') return ICONS.moon;
+    return ICONS.midday;
+  }
+  function whenLabel(w){
+    if(w === 'morning') return 'Morning';
+    if(w === 'evening') return 'Evening';
+    return 'Midday break';
+  }
+
+  const PHASES = [
+    { key:'awaken',   name:'Awakening',      color:'#E4A0A8' },
+    { key:'found',    name:'Foundations',    color:'#C98BA0' },
+    { key:'activate', name:'Activation',     color:'#A87BB0' },
+    { key:'strength', name:'Building Strength', color:'#CB9A4F' },
+    { key:'integrate',name:'Everyday Integration', color:'#B9636F' }
+  ];
+
+  function phaseOf(week){
+    if(week <= 2) return PHASES[0];
+    if(week <= 4) return PHASES[1];
+    if(week <= 6) return PHASES[2];
+    if(week <= 9) return PHASES[3];
+    return PHASES[4];
+  }
+
+  const WEEKS = [
+    { week:1, theme:'Waking up your hips', intro:'This week is simply about noticing how sitting has been holding your hips still, and giving them a little gentle motion again.',
+      exercises:[
+        { name:'Seated Pelvic Tilts', when:'morning', dose:'2 sets of 10, slow and easy',
+          how:'Sit tall at the edge of your chair with both feet flat on the floor. Slowly rock your pelvis forward, letting your lower back arch a little, then rock it back, rounding your lower back gently. Keep the movement slow.',
+          why:'Hours of sitting keep the pelvis locked in one position. This gentle rocking reintroduces movement and brings fresh blood flow to the muscles around your hips and groin.',
+          what:'Pelvis, lower back, hip joint' },
+        { name:'Standing Hip Flexor Stretch', when:'evening', dose:'2 rounds each side, holding 20 seconds',
+          how:'Stand near a wall or chair for balance. Step one foot forward into a soft, shallow lunge with the back knee gently bent and your hips facing forward. Hold, then switch sides.',
+          why:'The muscles at the front of the hip and groin shorten from long sitting. A light stretch begins to restore their length without forcing anything.',
+          what:'Hip flexors, front of the groin' }
+      ],
+      tip:'If a step feels like too much today, that is completely fine. A smaller, comfortable movement done regularly matters far more than a perfect one done rarely.' },
+
+    { week:2, theme:'A little more range', intro:'Now that your body has met the basics, we add one more gentle opening for the outer hip and groin.',
+      exercises:[
+        { name:'Seated Pelvic Tilts', when:'morning', dose:'2 sets of 12',
+          how:'Same as last week: sit tall, feet flat, and rock your pelvis slowly forward and back, a little further this time if it feels easy.',
+          why:'Repeating this daily keeps building the habit of gentle motion before your body settles into a chair for hours.',
+          what:'Pelvis, lower back, hip joint' },
+        { name:'Seated Figure-4 Stretch', when:'midday', dose:'2 rounds each side, holding 25 seconds',
+          how:'Sit tall in your chair, cross one ankle just above the opposite knee, and gently lean your chest forward while keeping your back straight until you feel an easy stretch.',
+          why:'This opens the outer hip and groin area, which tends to stay compressed for hours when you are seated.',
+          what:'Outer hip, groin, hip rotators' },
+        { name:'Standing Hip Flexor Stretch', when:'evening', dose:'2 rounds each side, holding 25 seconds',
+          how:'Continue the gentle lunge stretch from last week, holding a touch longer now that your body is familiar with it.',
+          why:'Consistency is what slowly lengthens a tight muscle. This second week deepens what week one started.',
+          what:'Hip flexors, front of the groin' }
+      ],
+      tip:'Try doing the figure-4 stretch right at your desk chair. It takes less than a minute and quietly undoes some of the compression from sitting.' },
+
+    { week:3, theme:'Lengthening the front line', intro:'This week moves into deeper, more deliberate stretching for the muscles most affected by sitting.',
+      exercises:[
+        { name:'Kneeling Hip Flexor Stretch', when:'evening', dose:'2 rounds each side, holding 25 to 30 seconds',
+          how:'Kneel on a cushion with one foot forward, knee bent at a right angle. Gently tuck your pelvis under and shift your weight forward until you feel a stretch at the front of the hip of the kneeling leg.',
+          why:'This reaches the deep hip flexor muscle more directly than a standing stretch, and this muscle is one of the most common contributors to groin tightness from sitting.',
+          what:'Deep hip flexor, front of groin' },
+        { name:'Butterfly Stretch', when:'evening', dose:'2 rounds, holding 20 to 30 seconds',
+          how:'Sit on the floor with the soles of your feet together and knees falling out to the sides. Hold your ankles and hinge gently forward from your hips, keeping your back long.',
+          why:'This lengthens the inner thigh muscles that attach close to the groin and often feel tight after long sitting.',
+          what:'Inner thigh, groin' },
+        { name:'Wall Hamstring Stretch', when:'evening', dose:'1 round each leg, holding 30 seconds',
+          how:'Lie on your back near a wall, extend one leg up against it, and let the other rest on the floor. Move closer or further from the wall to adjust the stretch.',
+          why:'Tight hamstrings pull on the pelvis from below, which can add strain to the hip and groin area above.',
+          what:'Hamstrings, pelvis alignment' }
+      ],
+      tip:'These three stretches make a nice short wind down routine before bed, all done on the floor in one place.' },
+
+    { week:4, theme:'Deepening the stretch', intro:'Same gentle stretches, held a little longer, plus one new movement for the inner thigh.',
+      exercises:[
+        { name:'Kneeling Hip Flexor Stretch', when:'evening', dose:'2 rounds each side, holding 30 to 40 seconds',
+          how:'As before, but let yourself settle a little deeper into the stretch now that the tissue is more familiar with it.',
+          why:'Longer, unhurried holds allow a tight muscle to relax further than shorter ones.',
+          what:'Deep hip flexor, front of groin' },
+        { name:'Butterfly Stretch', when:'evening', dose:'2 rounds, holding 30 seconds',
+          how:'Repeat the butterfly stretch from last week, breathing slowly and letting your knees settle lower if that feels comfortable.',
+          why:'Continued inner thigh lengthening supports easier movement in and out of chairs and cars.',
+          what:'Inner thigh, groin' },
+        { name:'Standing Side Lunge Stretch', when:'morning', dose:'2 rounds each side, holding 20 seconds',
+          how:'Stand with feet wide apart, shift your weight onto one bent knee while keeping the other leg straight, feeling the stretch along the inner thigh of the straight leg.',
+          why:'This adds a standing, more functional version of the inner thigh stretch to complement the seated one.',
+          what:'Inner thigh, groin' }
+      ],
+      tip:'Notice this week whether standing up from your chair feels any easier than it did two weeks ago. Small changes are easy to miss unless you pause to check.' },
+
+    { week:5, theme:'Waking up quiet strength', intro:'This week introduces isometric holds, a very gentle first step into strengthening that is easy on the joints.',
+      exercises:[
+        { name:'Seated Towel Squeeze', when:'morning', dose:'10 squeezes, holding 5 seconds each',
+          how:'Sit upright with a rolled towel or soft cushion between your knees. Gently squeeze your knees together, hold, then release slowly.',
+          why:'Isometric holds like this are often naturally pain easing and begin rebuilding strength in the inner thigh without any joint movement.',
+          what:'Inner thigh, groin stability' },
+        { name:'Glute Bridge Hold', when:'evening', dose:'8 repetitions, holding 10 seconds',
+          how:'Lie on your back, knees bent, feet flat on the floor. Lift your hips until your body forms a straight line from shoulders to knees, hold, then lower slowly.',
+          why:'Strong glutes take pressure off the front of the hip and groin during both sitting and standing.',
+          what:'Glutes, hamstrings, pelvis' },
+        { name:'Bird-Dog Hold', when:'evening', dose:'8 repetitions each side, holding 5 seconds',
+          how:'On hands and knees, extend one arm and the opposite leg at the same time, keeping your hips level, then return with control.',
+          why:'This strengthens the deep core and hip stabilisers that support the pelvis, easing strain that can radiate into the groin.',
+          what:'Core, hip stabilisers, pelvis control' }
+      ],
+      tip:'You may feel a little muscle fatigue after these, which is a normal sign of new effort. Sharp pain is not, so keep the holds gentle.' },
+
+    { week:6, theme:'Holding a little longer', intro:'The same three movements, given a bit more time under tension, plus a new side-lying exercise.',
+      exercises:[
+        { name:'Seated Towel Squeeze', when:'morning', dose:'10 squeezes, holding 8 seconds each',
+          how:'Repeat the towel squeeze, extending the hold slightly now that it feels familiar.',
+          why:'Gradually increasing hold time is a gentle way to keep building strength week over week.',
+          what:'Inner thigh, groin stability' },
+        { name:'Glute Bridge Hold', when:'evening', dose:'8 repetitions, holding 15 seconds',
+          how:'Repeat the bridge hold, keeping your ribs down and breathing steadily through the longer hold.',
+          why:'A longer hold asks the glutes to keep supporting the pelvis for a bit more time, building endurance.',
+          what:'Glutes, hamstrings, pelvis' },
+        { name:'Side-Lying Leg Lift Hold', when:'morning', dose:'8 repetitions each side, holding 5 to 8 seconds',
+          how:'Lie on your side with legs stacked and straight. Lift the top leg to hip height, hold, then lower with control.',
+          why:'This builds strength in the muscles along the outer hip, which help keep the pelvis level and steady.',
+          what:'Outer hip, pelvis stability' }
+      ],
+      tip:'Halfway through the journey. However things feel today, you have already given your hips six weeks of consistent attention they were not getting before.' },
+
+    { week:7, theme:'Building real strength', intro:'The isometric holds now turn into fuller movements with repetitions, the next natural step in getting stronger.',
+      exercises:[
+        { name:'Glute Bridges', when:'morning', dose:'12 repetitions, smooth and controlled',
+          how:'Lie on your back, knees bent, feet flat. Lift your hips up, squeeze gently at the top, then lower with control. Repeat without pausing at the top for long.',
+          why:'Moving through the full repetition builds strength through more of the movement than a static hold alone.',
+          what:'Glutes, hamstrings, pelvis' },
+        { name:'Clamshells', when:'evening', dose:'12 repetitions each side',
+          how:'Lie on your side with knees bent and feet together. Keeping your feet touching, lift your top knee like an opening shell, then lower slowly.',
+          why:'This targets the hip rotators that help support the pelvis and reduce strain from sitting posture.',
+          what:'Hip rotators, outer hip' },
+        { name:'Standing Hip Abduction', when:'morning', dose:'10 to 12 repetitions each side',
+          how:'Stand holding a wall or chair for balance. Lift one leg out to the side, keeping your hips level and your torso still, then lower.',
+          why:'This strengthens the muscles that keep the pelvis level while you stand and walk, easing pressure on the groin.',
+          what:'Hip abductors, pelvis stability' }
+      ],
+      tip:'If your balance feels wobbly on the standing exercise, keep a light hand on a wall the whole time. Steadiness matters more than doing it unsupported.' },
+
+    { week:8, theme:'A little more challenge', intro:'The same strengthening movements continue, with slightly more repetitions and one new functional exercise.',
+      exercises:[
+        { name:'Glute Bridges', when:'morning', dose:'15 repetitions',
+          how:'Continue the bridge as before, adding a few more repetitions now that your hips are more familiar with the movement.',
+          why:'Gradually increasing repetitions is how strength keeps building without needing extra equipment.',
+          what:'Glutes, hamstrings, pelvis' },
+        { name:'Clamshells', when:'evening', dose:'15 repetitions each side',
+          how:'Repeat the clamshell, moving slowly and pausing briefly at the top of each lift.',
+          why:'A slower tempo asks the hip rotators to work a little harder through the whole movement.',
+          what:'Hip rotators, outer hip' },
+        { name:'Sit-to-Stand', when:'midday', dose:'10 repetitions',
+          how:'Sit at the edge of a sturdy chair, feet hip width apart. Lean your chest slightly forward, press through your feet to stand tall, then sit back down slowly.',
+          why:'This trains the exact movement that can feel uncomfortable after long sitting, rebuilding strength and confidence in it directly.',
+          what:'Glutes, thighs, hip and groin control' }
+      ],
+      tip:'The sit-to-stand is easy to sneak into a work day. Try it once during a midday break, using your own desk chair.' },
+
+    { week:9, theme:'Freeing up hip rotation', intro:'This week adds a flowing mobility movement to keep the hip joint moving well in every direction, not just forward and back.',
+      exercises:[
+        { name:'90/90 Hip Mobility Flow', when:'evening', dose:'8 slow rotations each direction',
+          how:'Sit on the floor with your front leg bent at a right angle in front of you and your back leg bent at a right angle out to the side. Gently rotate your knees from one side to the other, keeping your chest tall.',
+          why:'This improves the hip joint\u2019s range of rotation, which reduces the compensations elsewhere that can add to groin tightness.',
+          what:'Hip rotation, groin, hip joint mobility' },
+        { name:'Glute Bridges', when:'morning', dose:'15 repetitions, slower tempo',
+          how:'Continue the bridge, this time lifting and lowering more slowly to add a little extra challenge without adding weight.',
+          why:'A slower tempo keeps the muscles under tension longer, which supports continued strength gains.',
+          what:'Glutes, hamstrings, pelvis' },
+        { name:'Clamshells', when:'evening', dose:'15 repetitions each side, slower tempo',
+          how:'Repeat the clamshell with the same slower, controlled pace.',
+          why:'Consistency with a slightly increasing challenge is what carries strength forward week by week.',
+          what:'Hip rotators, outer hip' }
+      ],
+      tip:'The 90/90 flow can feel unfamiliar at first. Keep the movements small and unhurried until your hips get used to the new range.' },
+
+    { week:10, theme:'Bringing it into everyday movement', intro:'Strength now starts to look more like real life: standing on one leg, marching, and controlling the pelvis while moving.',
+      exercises:[
+        { name:'Single-Leg Glute Bridge', when:'morning', dose:'8 repetitions each side',
+          how:'From the bridge position, extend one leg straight out. Lift your hips using only the other leg, then lower with control.',
+          why:'This asks each hip to stabilise the pelvis independently, closer to what happens when you walk or stand.',
+          what:'Glutes, pelvis stability, groin support' },
+        { name:'Standing Marching with Pelvis Control', when:'midday', dose:'12 repetitions each leg',
+          how:'Stand tall and lift one knee to hip height without letting your pelvis tilt or your torso lean. Alternate sides at a steady, unhurried pace.',
+          why:'This trains hip flexion together with pelvis control, the exact combination needed for comfortable walking after long sitting.',
+          what:'Hip flexors, pelvis control, core' }
+      ],
+      tip:'Try marching in place for a minute during a work call. It is a quiet way to fit movement into a busy day.' },
+
+    { week:11, theme:'A flow for busy days', intro:'This week brings several earlier exercises together into one short flow you can use as a proper movement break during work.',
+      exercises:[
+        { name:'Desk Break Flow', when:'midday', dose:'One full round every 45 to 60 minutes of sitting',
+          how:'In order: 10 seated pelvic tilts, a 20 second kneeling or standing hip flexor stretch on each side, 10 towel or knee squeezes held for 5 seconds, and 10 standing marches on each leg.',
+          why:'Combining a short mobility, stretch, and activation sequence undoes several hours of sitting tightness in about two minutes.',
+          what:'Pelvis, hip flexors, inner thigh, hip control' },
+        { name:'Evening Full Stretch', when:'evening', dose:'One full round of the week three and four stretches',
+          how:'Repeat the kneeling hip flexor stretch, butterfly stretch, and wall hamstring stretch, holding each for 30 seconds.',
+          why:'An evening stretch routine helps release whatever tightness built up over the day, even on days the desk flow gets missed.',
+          what:'Hip flexors, inner thigh, hamstrings' }
+      ],
+      tip:'Set a gentle reminder on your phone for the desk break flow. The goal is not perfection, just breaking up long, still stretches of sitting.' },
+
+    { week:12, theme:'Maintaining what you have built', intro:'The final week is about noticing how far your hips have come, and choosing which pieces of this journey to keep going with.',
+      exercises:[
+        { name:'Favourites Maintenance Flow', when:'morning', dose:'3 times a week going forward, one full round',
+          how:'Choose four or five exercises from this journey that felt best for you, for example glute bridges, clamshells, the kneeling hip flexor stretch, and the towel squeeze. Do one round of each.',
+          why:'Keeping a shorter routine going long term matters more than doing everything perfectly for a few weeks and then stopping.',
+          what:'Whole hip and pelvis support system' },
+        { name:'Gentle Check-In', when:'evening', dose:'A few quiet minutes',
+          how:'Sit comfortably and notice how getting up from a chair feels compared to week one, how long you can sit comfortably now, and which movements feel easiest.',
+          why:'Noticing progress, even small progress, is what keeps a movement habit alive well beyond twelve weeks.',
+          what:'Awareness, motivation, long term habit' }
+      ],
+      tip:'Whatever you notice this week, gentle or big, it is the result of twelve weeks of showing up for your own body. That is worth celebrating on its own.' }
+  ];
+
+  const garden = document.getElementById('garden');
+  const legend = document.getElementById('phaseLegend');
+  const weeksScroll = document.getElementById('weeksScroll');
+
+  function petalSVG(color, filled){
+    return '<svg viewBox="0 0 40 40" aria-hidden="true">' +
+      '<g transform="translate(20,20)">' +
+      [0,72,144,216,288].map(function(deg){
+        return '<path d="M0 -3 C6 -12 6 -20 0 -24 C-6 -20 -6 -12 0 -3Z" fill="'+color+'" opacity="'+(filled?0.95:0.55)+'" transform="rotate('+deg+')"/>';
+      }).join('') +
+      '<circle r="4" fill="#7A5A68"/>' +
+      '</g></svg>';
+  }
+
+  PHASES.forEach(function(p){
+    legend.innerHTML += '<span class="phase-chip"><span class="phase-dot" style="background:'+p.color+'"></span>'+p.name+'</span>';
+  });
+
+  WEEKS.forEach(function(w){
+    const ph = phaseOf(w.week);
+    const btn = document.createElement('button');
+    btn.className = 'bud';
+    btn.setAttribute('data-week', w.week);
+    btn.setAttribute('aria-label', 'Jump to week ' + w.week);
+    btn.innerHTML = petalSVG(ph.color, false) + '<span class="bud-label">Wk ' + w.week + '</span>';
+    btn.addEventListener('click', function(){
+      const target = document.getElementById('week-' + w.week);
+      if(target){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+    garden.appendChild(btn);
+  });
+
+  function setActiveBud(weekNum){
+    document.querySelectorAll('.bud').forEach(function(b){
+      b.classList.toggle('active', Number(b.getAttribute('data-week')) === weekNum);
+    });
+  }
+
+  function fieldRow(label, text){
+    return '<div class="ex-field"><label>'+label+'</label><p>'+text+'</p></div>';
+  }
+
+  function renderExercise(ex, idx, color){
+    return '' +
+      '<div class="exercise">' +
+        '<div class="exercise-head">' +
+          '<span class="ex-badge" style="background:'+color+'">'+(idx+1)+'</span>' +
+          '<h3>'+ex.name+'</h3>' +
+        '</div>' +
+        '<div class="meta-row">' +
+          '<span class="meta-pill">'+whenIcon(ex.when)+' '+whenLabel(ex.when)+'</span>' +
+          '<span class="meta-pill dose">'+ex.dose+'</span>' +
+        '</div>' +
+        '<div class="ex-grid">' +
+          fieldRow('How to do it', ex.how) +
+          fieldRow('Why it helps', ex.why) +
+          '<div class="ex-field span2"><label>What it helps</label><p>'+ex.what+'</p></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderWeekCard(w){
+    const ph = phaseOf(w.week);
+    let html = '<div class="detail-head">';
+    html += '<div><div class="detail-phase" style="color:'+ph.color+'">'+ph.name+' &middot; Week '+w.week+' of 12</div><h2>'+w.theme+'</h2></div>';
+    html += '<div class="week-badge" style="color:'+ph.color+'">'+w.week+'<span>of 12</span></div>';
+    html += '</div>';
+    html += '<p class="detail-intro">'+w.intro+'</p>';
+    w.exercises.forEach(function(ex, i){ html += renderExercise(ex, i, ph.color); });
+    html += '<p class="week-tip"><strong>A gentle note: </strong>'+w.tip+'</p>';
+
+    const card = document.createElement('div');
+    card.className = 'detail-card';
+    card.id = 'week-' + w.week;
+    card.setAttribute('data-week', w.week);
+    card.innerHTML = html;
+    return card;
+  }
+
+  WEEKS.forEach(function(w){
+    weeksScroll.appendChild(renderWeekCard(w));
+  });
+
+  setActiveBud(1);
+
+  if('IntersectionObserver' in window){
+    const cardObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in-view'); }
+      });
+      const visible = entries.filter(function(e){ return e.isIntersecting; });
+      if(visible.length){
+        visible.sort(function(a,b){ return b.intersectionRatio - a.intersectionRatio; });
+        setActiveBud(Number(visible[0].target.getAttribute('data-week')));
+      }
+    }, { threshold: [0.2, 0.5, 0.8], rootMargin: '-10% 0px -40% 0px' });
+    document.querySelectorAll('.detail-card').forEach(function(el){ cardObserver.observe(el); });
+  } else {
+    document.querySelectorAll('.detail-card').forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  // Milestones
+  const MILESTONES = [
+    { week: 4, title: 'Easier mornings', text: 'Less stiffness on standing up, and the first sense that gentle, regular movement is starting to matter.' },
+    { week: 8, title: 'Noticeably steadier', text: 'Many women notice sitting for longer stretches feels more comfortable, with less nagging tightness in the groin.' },
+    { week: 12, title: 'A stronger foundation', text: 'Stronger glutes and hips now share the load with the front of the hip, and short movement breaks have become a natural habit.' }
+  ];
+  const milestonesEl = document.getElementById('milestones');
+  MILESTONES.forEach(function(m){
+    const div = document.createElement('div');
+    div.className = 'milestone';
+    div.innerHTML = '<div class="m-week">'+m.week+' <span>weeks</span></div><h4>'+m.title+'</h4><p>'+m.text+'</p>';
+    milestonesEl.appendChild(div);
+  });
+
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); } });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.milestone').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.milestone').forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  // References
+  const REFS = [
+    { title: 'Four Hip Flexor Stretches to Relieve Tightness, from a PT', source: 'Hospital for Special Surgery', url: 'https://www.hss.edu/health-library/move-better/hip-flexor-stretch' },
+    { title: 'Exercises and stretches for groin pain', source: 'Sword Health', url: 'https://swordhealth.com/care-explorer/groin-pain/exercises-stretching' },
+    { title: '6 groin stretches to relieve pain and prevent injuries', source: 'Hinge Health', url: 'https://www.hingehealth.com/resources/articles/groin-stretches/' },
+    { title: 'Groin stretches for pain and injury prevention', source: 'BenchMark Physical Therapy', url: 'https://www.benchmarkpt.com/blog/groin-stretches-for-pain-and-injury-prevention/' },
+    { title: 'Painful hips after sitting, a physiotherapist\u2019s guide to relief', source: 'High Bar Health', url: 'https://www.highbarhealth.com/painful-hips-after-sitting/' },
+    { title: 'Hip pain from bad posture, physiotherapy exercises', source: 'Granville Physiotherapy', url: 'https://www.granvillephysiotherapy.ca/hip-pain-bad-posture-sitting-physiotherapy-exercises/' }
+  ];
+  const refList = document.getElementById('refList');
+  REFS.forEach(function(r){
+    const li = document.createElement('li');
+    li.innerHTML = '<a href="'+r.url+'" target="_blank" rel="noopener">'+r.title+'</a><span class="ref-note">'+r.source+'</span>';
+    refList.appendChild(li);
+  });
+
+})();
+</script>
+</body>
+</html>
