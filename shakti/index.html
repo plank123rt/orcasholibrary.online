@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fifteen Minutes, Six Months</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --twilight:#2C2951;
+    --twilight-deep:#211E3F;
+    --cream:#FBF6EF;
+    --cream-warm:#F5EEE2;
+    --gold:#E8B84B;
+    --coral:#E8697F;
+    --sage:#7FA087;
+    --ink:#241F3D;
+    --ink-soft:#5B5678;
+    --lavender:#C9B7DE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Karla',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  .wrap{max-width:480px;margin:0 auto;position:relative;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:radial-gradient(120% 90% at 50% -10%, #3A3670 0%, var(--twilight) 55%, var(--twilight-deep) 100%);
+    padding:52px 24px 40px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    color:var(--cream);
+  }
+  .stars{position:absolute;inset:0;}
+  .star{
+    position:absolute;
+    width:2px;height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.5;
+    animation:twinkle 3.2s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.15;}
+    50%{opacity:.85;}
+  }
+  .moon-stage{
+    position:relative;
+    width:120px;height:120px;
+    margin:8px auto 20px;
+  }
+  .moon-glow{
+    position:absolute;inset:0;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(232,184,75,0.35) 0%, rgba(232,184,75,0) 70%);
+    animation:pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:.7;}
+    50%{transform:scale(1.15);opacity:1;}
+  }
+  .moon{
+    position:absolute;
+    top:20px;left:20px;
+    width:80px;height:80px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#FBEFC9,var(--gold));
+    box-shadow:0 0 30px rgba(232,184,75,.5);
+  }
+  .moon::after{
+    content:'';
+    position:absolute;
+    top:8px;left:12px;
+    width:70px;height:70px;
+    border-radius:50%;
+    background:var(--twilight);
+    opacity:0;
+    animation:phase 24s ease-in-out infinite;
+  }
+  @keyframes phase{
+    0%,100%{opacity:0; transform:translateX(0);}
+    50%{opacity:.85; transform:translateX(-18px);}
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--lavender);
+    margin-bottom:10px;
+  }
+  .hero h1{
+    font-size:34px;
+    line-height:1.08;
+    color:#fff;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .hero-sub{
+    margin-top:14px;
+    font-size:15.5px;
+    color:#D9D5EF;
+    max-width:340px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:36px 24px;}
+  .section-label{
+    font-size:12.5px;
+    color:var(--coral);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  section h2{font-size:23px;color:var(--ink);margin-bottom:14px;}
+
+  /* WHY */
+  .why-row{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #EAE1D2;
+    align-items:flex-start;
+  }
+  .why-row:last-child{border-bottom:none;}
+  .why-icon{
+    flex:0 0 auto;
+    width:38px;height:38px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--cream-warm);
+  }
+  .why-text h3{font-size:15.5px;margin-bottom:3px;}
+  .why-text p{font-size:14px;color:var(--ink-soft);}
+
+  .note-card{
+    margin-top:18px;
+    background:#F1E9F6;
+    border-radius:16px;
+    padding:16px 18px;
+    font-size:13.5px;
+    color:#4A3D5C;
+  }
+  .note-card b{color:#3B2E4D;}
+
+  /* SCHEDULE */
+  .schedule-section{background:var(--twilight);color:var(--cream);}
+  .schedule-section .section-label{color:var(--gold);}
+  .schedule-section h2{color:#fff;}
+  .toggle-row{
+    display:flex;
+    background:rgba(255,255,255,.08);
+    border-radius:100px;
+    padding:4px;
+    margin-bottom:20px;
+  }
+  .toggle-btn{
+    flex:1;
+    border:none;
+    background:transparent;
+    color:#C9C4E5;
+    font-family:'Karla',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    padding:10px 0;
+    border-radius:100px;
+    cursor:pointer;
+    transition:.25s;
+  }
+  .toggle-btn.active{
+    background:var(--gold);
+    color:var(--twilight-deep);
+  }
+  .day-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .day-chip{
+    aspect-ratio:1;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:12px;
+    background:rgba(255,255,255,.07);
+    font-size:12.5px;
+    font-weight:700;
+    color:#B9B4DA;
+  }
+  .day-chip.active{
+    background:var(--coral);
+    color:#fff;
+  }
+  .time-card{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    padding:16px 18px;
+  }
+  .time-card .time{
+    font-family:'Fraunces',serif;
+    font-size:21px;
+    color:var(--gold);
+    margin-bottom:4px;
+  }
+  .time-card p{font-size:13.5px;color:#D9D5EF;}
+
+  /* JOURNEY / PHASES */
+  .journey-bar{
+    display:flex;
+    height:8px;
+    border-radius:100px;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .journey-bar span{flex:1;}
+  .jb1{background:var(--sage);}
+  .jb2{background:var(--gold);margin:0 3px;}
+  .jb3{background:var(--coral);}
+  .journey-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+
+  .phase{
+    border:1px solid #EAE1D2;
+    border-radius:18px;
+    margin-bottom:14px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .phase-head{
+    padding:16px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+  }
+  .phase-head-left{display:flex;align-items:center;gap:12px;}
+  .phase-dot{
+    width:10px;height:10px;border-radius:50%;
+  }
+  .phase-months{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  .phase-name{font-family:'Fraunces',serif;font-size:17px;}
+  .chevron{
+    width:20px;height:20px;
+    transition:transform .3s;
+    color:var(--ink-soft);
+  }
+  .phase.open .chevron{transform:rotate(180deg);}
+  .phase-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+  }
+  .phase.open .phase-body{max-height:2000px;}
+  .phase-inner{padding:0 18px 18px;}
+  .phase-goal{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+    padding-bottom:14px;
+    border-bottom:1px dashed #EAE1D2;
+  }
+  .exercise{
+    display:flex;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid #F3EEE3;
+  }
+  .exercise:last-child{border-bottom:none;}
+  .ex-icon{
+    flex:0 0 auto;
+    width:42px;height:42px;
+    border-radius:12px;
+    background:var(--cream-warm);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ex-name{font-size:14.5px;font-weight:700;}
+  .ex-dose{font-size:12px;color:var(--coral);font-weight:700;margin-top:1px;}
+  .ex-how{font-size:13px;color:var(--ink-soft);margin-top:4px;}
+  .ex-why{font-size:12px;color:var(--sage);margin-top:4px;font-style:italic;}
+
+  /* TRACKER */
+  .tracker-section{background:var(--cream-warm);}
+  .track-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#fff;
+    border-radius:14px;
+    padding:13px 16px;
+    margin-bottom:10px;
+    border:1px solid #EAE1D2;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .track-item.done{
+    background:linear-gradient(90deg,#FDF3E4,#fff);
+    border-color:var(--gold);
+  }
+  .check{
+    flex:0 0 auto;
+    width:24px;height:24px;
+    border-radius:50%;
+    border:2px solid #D9CDBA;
+    display:flex;align-items:center;justify-content:center;
+    transition:.2s;
+  }
+  .track-item.done .check{
+    background:var(--sage);
+    border-color:var(--sage);
+  }
+  .check svg{opacity:0;transition:.2s;}
+  .track-item.done .check svg{opacity:1;}
+  .track-label{font-size:14px;font-weight:600;}
+  .track-sub{font-size:12px;color:var(--ink-soft);}
+  #streakMsg{
+    text-align:center;
+    font-size:13px;
+    color:var(--sage);
+    font-weight:700;
+    margin-top:12px;
+    min-height:18px;
+  }
+
+  /* REFERENCES */
+  .refs-section p{font-size:12.5px;color:var(--ink-soft);}
+  .refs-section ul{
+    margin:12px 0 0;
+    padding-left:18px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .refs-section li{margin-bottom:6px;}
+
+  footer{
+    text-align:center;
+    padding:36px 24px 44px;
+    background:var(--twilight-deep);
+    color:#B9B4DA;
+    font-size:13px;
+  }
+  footer .sign{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:17px;
+    display:block;
+    margin-bottom:8px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .star,.moon-glow,.moon::after{animation:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="stars" id="stars"></div>
+    <div class="eyebrow">A CYCLE-FRIENDLY MOVEMENT PLAN, MADE FOR YOU</div>
+    <div class="moon-stage">
+      <div class="moon-glow"></div>
+      <div class="moon"></div>
+    </div>
+    <h1>Welcome, <em>Shakti</em></h1>
+    <p class="hero-sub">Fifteen minutes, six months, one steadier you. Gentle, doable movement built around your actual school day, made to support your cycle rather than fight it.</p>
+  </div>
+
+  <section>
+    <div class="section-label">WHY THESE MOVES, NOT A WORKOUT</div>
+    <h2>What we're actually doing here</h2>
+    <div class="why-row">
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.4 4 9.4 4C10.9 4 12 5 12 5C12 5 13.1 4 14.6 4C17.6 4 20 6.6 20 9.8C20 15.5 12 21 12 21Z" stroke="#7FA087" stroke-width="1.6"/></svg>
+      </div>
+      <div class="why-text">
+        <h3>Blood flow to the pelvis</h3>
+        <p>Slow hip openers and gentle flexion increase circulation to the pelvic muscles and lower back, which is where a lot of period discomfort and heaviness of flow originates.</p>
+      </div>
+    </div>
+    <div class="why-row">
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3V6M12 18V21M4.2 4.2L6.3 6.3M17.7 17.7L19.8 19.8M3 12H6M18 12H21M4.2 19.8L6.3 17.7M17.7 6.3L19.8 4.2" stroke="#E8B84B" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="why-text">
+        <h3>Calming the stress hormone</h3>
+        <p>Cortisol competes with the hormones that regulate your cycle. Slow breathing and restorative poses turn that down, which is often more useful than a hard cardio session.</p>
+      </div>
+    </div>
+    <div class="why-row">
+      <div class="why-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 20V10M6 10C6 7 8 5 12 5C16 5 18 7 18 10V20" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="why-text">
+        <h3>Light strength, not more burn</h3>
+        <p>Since a lean body doesn't need to lose weight to help its cycle, we use light resistance to build muscle signalling without adding to an already tight energy budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule-section">
+    <div class="section-label">WHEN SHE'LL ACTUALLY DO THIS</div>
+    <h2>Built around 8 to 4, and Saturdays to 1</h2>
+    <div class="toggle-row">
+      <button class="toggle-btn active" id="btnMorning" onclick="setMode('morning')">Before school</button>
+      <button class="toggle-btn" id="btnEvening" onclick="setMode('evening')">After school</button>
+    </div>
+    <div class="day-grid" id="dayGrid"></div>
+    <div class="time-card">
+      <div class="time" id="timeText">6:45 – 7:00 AM</div>
+      <p id="timeSub">Fifteen minutes before the school bag even gets packed. Room to breathe, floor space, a mat or towel is all it needs.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">THE SIX MONTH ARC</div>
+    <h2>Three slow phases, two months each</h2>
+    <div class="journey-bar"><span class="jb1"></span><span class="jb2"></span><span class="jb3"></span></div>
+    <div class="journey-labels"><span>Months 1–2</span><span>Months 3–4</span><span>Months 5–6</span></div>
+
+    <div class="phase open" id="phase1">
+      <div class="phase-head" onclick="togglePhase('phase1')">
+        <div class="phase-head-left">
+          <div class="phase-dot" style="background:var(--sage)"></div>
+          <div>
+            <div class="phase-name">Foundation</div>
+            <div class="phase-months">Months 1–2 · settle the nervous system</div>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <p class="phase-goal">Goal: teach the body that it's safe, through breath and slow mobility. Nothing here should ever feel like effort.</p>
+
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="#7FA087" stroke-width="1.6"/><path d="M12 8V12L14.5 14" stroke="#7FA087" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">4-7-8 breathing</div>
+              <div class="ex-dose">3 minutes</div>
+              <div class="ex-how">Sit or lie down. Breathe in through the nose for 4 counts, hold for 7, breathe out slowly through the mouth for 8. Repeat.</div>
+              <div class="ex-why">Lowers cortisol before it can compete with your cycle hormones.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12C4 12 8 8 12 12C16 16 20 12 20 12" stroke="#7FA087" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Cat-cow flow</div>
+              <div class="ex-dose">2 minutes, slow</div>
+              <div class="ex-how">On hands and knees, arch the back up on the exhale, dip it down on the inhale. Move with the breath, not a count.</div>
+              <div class="ex-why">Mobilises the lower spine and pelvis where cramping and heaviness sit.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4C8 4 6 8 6 11C6 15 9 18 12 20C15 18 18 15 18 11C18 8 16 4 12 4Z" stroke="#7FA087" stroke-width="1.6"/></svg></div>
+            <div>
+              <div class="ex-name">Butterfly stretch</div>
+              <div class="ex-dose">2 minutes</div>
+              <div class="ex-how">Sit, soles of the feet together, knees relaxed toward the floor. Sit tall, no bouncing, just breathe into it.</div>
+              <div class="ex-why">Opens the hips and increases circulation to the pelvic floor.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 20V4M6 4L18 4M6 12H14" stroke="#7FA087" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Child's pose with sway</div>
+              <div class="ex-dose">2 minutes</div>
+              <div class="ex-how">Kneel, hips to heels, arms stretched forward, forehead down. Gently sway the hips side to side.</div>
+              <div class="ex-why">A full nervous-system reset, deeply restful for the lower back.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="2" stroke="#7FA087" stroke-width="1.6"/></svg></div>
+            <div>
+              <div class="ex-name">Legs up the wall</div>
+              <div class="ex-dose">3 to 4 minutes</div>
+              <div class="ex-how">Lie on your back, legs resting up a wall or the side of a bed, arms open. Just breathe.</div>
+              <div class="ex-why">A classic for calming the whole system, especially good in the evening.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase" id="phase2">
+      <div class="phase-head" onclick="togglePhase('phase2')">
+        <div class="phase-head-left">
+          <div class="phase-dot" style="background:var(--gold)"></div>
+          <div>
+            <div class="phase-name">Build</div>
+            <div class="phase-months">Months 3–4 · gentle strength</div>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <p class="phase-goal">Goal: light bodyweight strength. Muscle helps hormone signalling even without any weight change, so this stays easy on purpose.</p>
+
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6V18M15 6V18M6 10H9M15 10H18M6 14H9M15 14H18" stroke="#E8B84B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Bodyweight squats</div>
+              <div class="ex-dose">2 sets of 8 to 10</div>
+              <div class="ex-how">Feet hip-width, sit back like reaching for a chair, chest lifted. Slow down, slow up.</div>
+              <div class="ex-why">Builds the biggest muscles in the body with zero impact.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 16L10 10L14 14L20 8" stroke="#E8B84B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Glute bridges</div>
+              <div class="ex-dose">2 sets of 10</div>
+              <div class="ex-how">Lie on your back, knees bent, feet flat. Lift the hips up, squeeze, lower slowly.</div>
+              <div class="ex-why">Strengthens the muscles that support the pelvis and lower back.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="6" rx="1" stroke="#E8B84B" stroke-width="1.6"/></svg></div>
+            <div>
+              <div class="ex-name">Wall push-ups</div>
+              <div class="ex-dose">2 sets of 8</div>
+              <div class="ex-how">Hands on a wall, shoulder height. Bend the elbows to bring the chest toward the wall, push back.</div>
+              <div class="ex-why">Builds upper body strength gently, no floor needed.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12H20M12 4V20" stroke="#E8B84B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Bird-dog</div>
+              <div class="ex-dose">2 sets of 8 each side</div>
+              <div class="ex-how">On hands and knees, extend the opposite arm and leg straight out, hold 2 seconds, return.</div>
+              <div class="ex-why">Trains balance and core control without any strain.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#E8B84B" stroke-width="1.6"/></svg></div>
+            <div>
+              <div class="ex-name">Clamshells</div>
+              <div class="ex-dose">2 sets of 10 each side</div>
+              <div class="ex-how">Lie on your side, knees bent, feet together. Open the top knee like a clamshell, close slowly.</div>
+              <div class="ex-why">Strengthens the hips, which steadies the pelvis during activity.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase" id="phase3">
+      <div class="phase-head" onclick="togglePhase('phase3')">
+        <div class="phase-head-left">
+          <div class="phase-dot" style="background:var(--coral)"></div>
+          <div>
+            <div class="phase-name">Flow</div>
+            <div class="phase-months">Months 5–6 · confidence and consistency</div>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <p class="phase-goal">Goal: everything from the last two phases, now flowing together, plus short easy walks. Still capped at 15 minutes.</p>
+
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 4C10 4 8 12 12 12C16 12 14 20 18 20" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Sun salutation, slow version</div>
+              <div class="ex-dose">3 rounds</div>
+              <div class="ex-how">Reach up, fold forward, step back to a gentle plank, lower, cobra, downward dog, step forward, rise.</div>
+              <div class="ex-why">Links breath, strength and stretch into one flowing sequence.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4V20M6 8L12 4L18 8" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Tree pose</div>
+              <div class="ex-dose">1 minute each side</div>
+              <div class="ex-how">Stand tall, one foot resting on the inner calf or thigh, hands together at the chest. Find a still point to look at.</div>
+              <div class="ex-why">Balance work quietly builds core and ankle strength.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M15 8L19 12L15 16" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Easy walk</div>
+              <div class="ex-dose">8 to 10 minutes, relaxed pace</div>
+              <div class="ex-how">Around the block or a terrace, phone away, just noticing surroundings. Not a power walk.</div>
+              <div class="ex-why">Movement without pushing the energy budget too hard.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Band rows</div>
+              <div class="ex-dose">2 sets of 10</div>
+              <div class="ex-how">Loop a band around a door handle, pull the elbows straight back, squeeze the shoulder blades, release slowly.</div>
+              <div class="ex-why">Keeps building upper body and posture strength.</div>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="ex-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3V21M8 7L12 3L16 7" stroke="#E8697F" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div>
+              <div class="ex-name">Gratitude breath cooldown</div>
+              <div class="ex-dose">2 minutes</div>
+              <div class="ex-how">Sit quietly, hand on the belly, breathe slowly, and name one thing that went well today.</div>
+              <div class="ex-why">Closes the session calmly and builds the habit of noticing progress.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tracker-section">
+    <div class="section-label">TODAY</div>
+    <h2>Check them off as you go</h2>
+    <div class="track-item" onclick="toggleTrack(this)">
+      <div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="track-label">Warm-up breath</div><div class="track-sub">1 to 2 minutes</div></div>
+    </div>
+    <div class="track-item" onclick="toggleTrack(this)">
+      <div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="track-label">Today's exercise set</div><div class="track-sub">From the current phase above</div></div>
+    </div>
+    <div class="track-item" onclick="toggleTrack(this)">
+      <div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12L9 17L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="track-label">Cooldown stretch</div><div class="track-sub">1 to 2 minutes</div></div>
+    </div>
+    <div id="streakMsg"></div>
+  </section>
+
+  <section class="refs-section">
+    <div class="section-label">FOR THE ADULTS IN THE ROOM</div>
+    <h2>Where this is grounded</h2>
+    <p>This plan favours mobility, breath and light resistance over aerobic or fat-loss style exercise, since that approach fits a lean, low-flow presentation better than a generic PCOS program built for weight loss.</p>
+    <ul>
+      <li>International Evidence-based Guideline for the Assessment and Management of Polycystic Ovary Syndrome, 2023</li>
+      <li>Research on the lean PCOS phenotype and the role of resistance exercise and micronutrient support</li>
+      <li>Adolescent lean PCOS studies on insulin resistance independent of body weight</li>
+      <li>Clinical guidance on functional hypothalamic amenorrhea and energy availability in adolescents</li>
+      <li>ACOG patient guidance on menstrual health in adolescents</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span class="sign">One small, steady thing a day.</span>
+    Fifteen minutes doesn't ask much of a school day, and that's the whole point.
+  </footer>
+
+</div>
+
+<script>
+  // stars
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<40;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    starsEl.appendChild(s);
+  }
+
+  // day grid: Mon..Sun
+  const days = ['M','T','W','T','F','S','S'];
+  const dayGrid = document.getElementById('dayGrid');
+  days.forEach((d,i)=>{
+    const el = document.createElement('div');
+    el.className='day-chip active';
+    el.textContent=d;
+    dayGrid.appendChild(el);
+  });
+
+  const scheduleData = {
+    morning: {time:'6:45 – 7:00 AM', sub:"Fifteen minutes before the school bag even gets packed. Room to breathe, floor space, a mat or towel is all it needs.", sat:'8:15 – 8:30 AM'},
+    evening: {time:'4:30 – 4:45 PM', sub:"Right after getting home, before the day's energy fully settles. Change out of the uniform first, it helps the mind switch modes.", sat:'1:30 – 1:45 PM'}
+  };
+  function setMode(mode){
+    document.getElementById('btnMorning').classList.toggle('active', mode==='morning');
+    document.getElementById('btnEvening').classList.toggle('active', mode==='evening');
+    const d = scheduleData[mode];
+    document.getElementById('timeText').textContent = d.time;
+    document.getElementById('timeSub').textContent = d.sub;
+  }
+
+  function togglePhase(id){
+    const el = document.getElementById(id);
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.phase').forEach(p=>p.classList.remove('open'));
+    if(!wasOpen) el.classList.add('open');
+  }
+
+  function toggleTrack(el){
+    el.classList.toggle('done');
+    const total = document.querySelectorAll('.track-item').length;
+    const done = document.querySelectorAll('.track-item.done').length;
+    const msg = document.getElementById('streakMsg');
+    if(done===total){
+      msg.textContent = "That's today done. Same time tomorrow.";
+    } else if(done>0){
+      msg.textContent = done+" of "+total+" done for today.";
+    } else {
+      msg.textContent = '';
+    }
+  }
+</script>
+</body>
+</html>
