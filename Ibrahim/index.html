@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supplement Juice Pairing Guide</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --plum: #3D1140;
+    --plum-soft: #5C2A5E;
+    --berry: #C1447E;
+    --mango: #F4923B;
+    --citrus: #FFC24B;
+    --sage: #4F8F6B;
+    --sage-soft: #E1F0E6;
+    --cream: #FBF6EE;
+    --ink: #2B1E2D;
+    --line: rgba(61,17,64,0.13);
+    --card: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--plum) 0%, var(--plum-soft) 55%, var(--berry) 130%);
+    padding: 44px 20px 56px;
+    color: var(--cream);
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.35;
+    animation: drift 14s ease-in-out infinite;
+  }
+  .blob-a { width: 160px; height: 160px; background: var(--mango); top: -40px; right: -30px; animation-delay: 0s; }
+  .blob-b { width: 110px; height: 110px; background: var(--citrus); bottom: -30px; left: -20px; animation-delay: 3s; }
+  .blob-c { width: 70px; height: 70px; background: var(--sage); top: 60%; right: 15%; animation-delay: 6s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(12px, -14px) scale(1.06); }
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--citrus);
+    margin: 0 0 8px;
+    opacity: 0;
+    animation: rise 0.6s ease forwards;
+  }
+
+  h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(28px, 6.5vw, 40px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    line-height: 1.14;
+    opacity: 0;
+    animation: rise 0.6s ease 0.08s forwards;
+  }
+
+  .hero p {
+    font-size: 16px;
+    max-width: 58ch;
+    margin: 0;
+    color: #F1E4EE;
+    opacity: 0;
+    animation: rise 0.6s ease 0.16s forwards;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .top-note {
+    background: #FCE6EF;
+    border: 1px solid #E8B9CE;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 14.5px;
+    color: var(--plum);
+  }
+
+  .top-note strong { font-weight: 700; }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: #F1E7D8;
+    padding: 5px;
+    border-radius: 14px;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--plum);
+    padding: 9px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .tab-btn.active {
+    background: var(--plum);
+    color: var(--cream);
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .principle {
+    background: var(--sage-soft);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+
+  .principle h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 17px;
+    color: var(--plum);
+    margin: 0 0 8px;
+  }
+
+  .principle p { margin: 0; font-size: 15px; }
+
+  .card {
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 18px;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--plum);
+    margin: 0;
+  }
+
+  .juice-tag {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0 4px;
+  }
+
+  .chip {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: #F1E7D8;
+    color: var(--plum);
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--plum-soft);
+    margin: 14px 0 4px;
+  }
+
+  .label:first-of-type { margin-top: 4px; }
+
+  .card p { margin: 0; font-size: 15px; }
+
+  .combo-badge {
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--berry);
+    background: #FCE6EF;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+
+  footer {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 2px solid var(--line);
+    font-size: 13.5px;
+    color: var(--ink);
+    opacity: 0.75;
+  }
+
+  @media (max-width: 420px) {
+    .wrap { padding: 24px 16px 48px; }
+    .hero { padding: 36px 16px 46px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+    <div class="hero-inner">
+      <p class="kicker">Pediatric supplement mixing reference</p>
+      <h1>Juice Pairings That Mask Supplement Taste</h1>
+      <p>Flavor profiles and juice matches for L-taurine, L-theanine, digestive enzymes, probiotics, B12, and grape seed extract, both on their own and in the combinations used across a rotation.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="top-note">
+      <strong>Note: every pairing below is a starting example built from the general flavor chemistry of each supplement, not a fixed rule.</strong> Since several combinations will be tried in practice, the actual best fruit and juice match can be adjusted based on what the individual child takes to best.
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showPanel('individual', this)">Individual</button>
+      <button class="tab-btn" onclick="showPanel('combined', this)">Combined rotations</button>
+    </div>
+
+    <div id="individual" class="panel active">
+      <div class="principle">
+        <h2>The masking logic, in short</h2>
+        <p>Sugar competitively suppresses bitter taste receptors, acidity boosts perceived sweetness and pulls attention from off-notes, cold temperature dulls bitterness overall, and pulp or puree thickness coats the tongue so powders never touch the papillae directly.</p>
+      </div>
+
+      <div class="card" style="border-color:#C9A8D8;">
+        <div class="card-top">
+          <h3>Grape Seed Extract</h3>
+          <span class="juice-tag" style="background:#F0E1EC; color:#7A3468;">Concord Grape + Blueberry</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>Strongly bitter and astringent, a tannin-rich polyphenol concentrate that puckers the mouth like strong black tea.</p>
+        <p class="label">Why this pairing works</p>
+        <p>Concord grape juice is itself tannic, so the extract blends into a flavor the palate already expects. Blueberry adds sweetness and deep color that further round the astringency.</p>
+      </div>
+
+      <div class="card" style="border-color:#F3C08A;">
+        <div class="card-top">
+          <h3>L-Taurine</h3>
+          <span class="juice-tag" style="background:#FFEBD6; color:#B4610B;">Pineapple + Mango</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>Mildly sour with a faint chalky, slightly salty edge, typical of a free amino acid in powder form.</p>
+        <p class="label">Why this pairing works</p>
+        <p>Pineapple's own acidity absorbs the sourness, while mango's sugar and body smooth over the chalkiness.</p>
+      </div>
+
+      <div class="card" style="border-color:#B7CDB4;">
+        <div class="card-top">
+          <h3>L-Theanine</h3>
+          <span class="juice-tag" style="background:#E4EFE0; color:#3F6B3D;">Apple + Pear</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>The mildest of the group, with a faint sweet-savory, almost umami quality and very little bitterness.</p>
+        <p class="label">Why this pairing works</p>
+        <p>A gentle juice is enough to fully absorb the small umami note without adding a flavor a child would notice as new.</p>
+      </div>
+
+      <div class="card" style="border-color:#F3B08A;">
+        <div class="card-top">
+          <h3>Digestive Enzymes</h3>
+          <span class="juice-tag" style="background:#FFE9D6; color:#B4560B;">Pineapple + Orange</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>Often bitter and slightly musty, since the blend usually includes plant enzymes like bromelain and papain.</p>
+        <p class="label">Why this pairing works</p>
+        <p>Pineapple is itself a bromelain source, so the flavor reads as congruent rather than foreign, and orange's acidity masks the musty notes.</p>
+      </div>
+
+      <div class="card" style="border-color:#F0A8B4;">
+        <div class="card-top">
+          <h3>Probiotics</h3>
+          <span class="juice-tag" style="background:#FDE4E8; color:#B23A52;">Strawberry + Banana</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>Usually close to tasteless but can carry a faint sour, fermented note and a chalky mouthfeel from fillers.</p>
+        <p class="label">Why this pairing works</p>
+        <p>Banana's thickness physically coats the chalky texture, while strawberry's sweetness covers any faint sourness.</p>
+      </div>
+
+      <div class="card" style="border-color:#C9A8D8;">
+        <div class="card-top">
+          <h3>Vitamin B12</h3>
+          <span class="juice-tag" style="background:#EFE3F4; color:#6B3B85;">Blueberry + Raspberry</span>
+        </div>
+        <p class="label">Taste profile</p>
+        <p>Can leave a faint metallic aftertaste, most noticeable with cyanocobalamin or methylcobalamin powders.</p>
+        <p class="label">Why this pairing works</p>
+        <p>Dark berries are one of the most effective natural maskers for metallic notes, since their bold aromatic intensity overwhelms the aftertaste.</p>
+      </div>
+    </div>
+
+    <div id="combined" class="panel">
+      <div class="principle">
+        <h2>Why combined profiles differ from single ones</h2>
+        <p>When two or more supplements share the same off-note family (for example two bitter compounds), the bitterness compounds rather than cancels out, so the masking juice needs to work harder. When the off-notes are different (sour plus metallic plus musty), a broader-spectrum juice with both acidity and a dominant aromatic fruit tends to cover more ground than any single pairing built for one supplement alone.</p>
+      </div>
+
+      <div class="card" style="border-color:#C9A8D8;">
+        <span class="combo-badge">Rotation 1</span>
+        <div class="card-top">
+          <h3>Digestive Enzymes + Probiotics + B12</h3>
+        </div>
+        <p class="label">Combined taste profile</p>
+        <p>Three distinct off-notes stack here: musty bitterness from the enzymes, a faint chalky sourness from the probiotics, and a metallic edge from B12. None of these overlap, so the mixture reads as more "busy" than any one alone, rather than more intense in a single direction.</p>
+        <p class="label">Juice options</p>
+        <div class="chip-row">
+          <span class="chip">Pineapple + Blueberry</span>
+          <span class="chip">Mango + Raspberry</span>
+          <span class="chip">Orange + Blackberry</span>
+        </div>
+        <p class="label">Flavor chemistry notes</p>
+        <p>Pineapple's bromelain-congruent flavor and acidity handle the enzyme mustiness, while the dark berry component handles B12's metallic note; either combination covers both. B12 (especially methylcobalamin) is light-sensitive, so mix it in right before serving and keep the juice out of direct sunlight rather than pre-mixing and storing. Probiotics are living organisms, so use a cold juice and serve promptly rather than letting the mixture sit, since extended time in an acidic liquid can reduce live bacteria counts.</p>
+      </div>
+
+      <div class="card" style="border-color:#F3C08A;">
+        <span class="combo-badge">Rotation 2</span>
+        <div class="card-top">
+          <h3>Digestive Enzymes + Probiotics + L-Theanine + L-Taurine</h3>
+        </div>
+        <p class="label">Combined taste profile</p>
+        <p>The base musty bitterness from the enzymes remains the dominant note. Taurine adds a second layer of sourness and salt on top of the probiotics' own faint sourness, so the sour side of the profile is more noticeable than in any single pairing. Theanine's mild umami quality does not add bitterness itself, but umami can slightly heighten how bitterness is perceived alongside it, so this combination benefits from a juice with strong sweetness rather than acidity alone.</p>
+        <p class="label">Juice options</p>
+        <div class="chip-row">
+          <span class="chip">Pineapple + Mango</span>
+          <span class="chip">Apple + Pineapple</span>
+          <span class="chip">Orange + Pineapple + Banana</span>
+        </div>
+        <p class="label">Flavor chemistry notes</p>
+        <p>Taurine and theanine are both small, water-soluble amino acid compounds that dissolve cleanly with no interaction concerns between them. The one practical point worth knowing: enzymes such as bromelain and papain are proteins, and very high acid environments (straight lemon or lime juice as the base) can gradually reduce their activity through low pH, so a moderate-acid tropical base like pineapple or mango is a better carrier than a pure citrus one. Keep the probiotic-related notes from Rotation 1 in mind here too: cold, prompt serving.</p>
+      </div>
+
+      <div class="card" style="border-color:#F0A8B4;">
+        <span class="combo-badge">Rotation 3</span>
+        <div class="card-top">
+          <h3>Digestive Enzymes + Probiotics + Grape Seed Extract</h3>
+        </div>
+        <p class="label">Combined taste profile</p>
+        <p>This is the most demanding of the three rotations, because enzymes and grape seed extract are both bitter, so the bitterness compounds rather than one masking the other. Probiotics contribute a smaller chalky-sour note underneath. The juice base needs to be both very sweet and flavor-matched to tannins to have a real chance of covering this combination.</p>
+        <p class="label">Juice options</p>
+        <div class="chip-row">
+          <span class="chip">Concord Grape + Blueberry + Pineapple</span>
+          <span class="chip">Pomegranate + Blueberry</span>
+          <span class="chip">Grape + Mango</span>
+        </div>
+        <p class="label">Flavor chemistry notes</p>
+        <p>Concord grape and pomegranate both carry their own natural tannins, so the grape seed extract's astringency reads as congruent rather than foreign, and the added pineapple in the first option helps with the enzyme side specifically. One thing worth knowing: tannins can bind to proteins, including the proteolytic enzymes in a digestive enzyme blend, if the mixture sits for a while before drinking. Mixing right before serving, rather than pre-mixing and storing in the fridge, keeps this from becoming a factor.</p>
+      </div>
+    </div>
+
+    <footer>
+      Practical tip across all rotations: chill the juice before mixing, since cold temperature further dulls bitter and metallic perception, and mix immediately before serving rather than storing the finished mixture.
+    </footer>
+
+  </div>
+
+<script>
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
