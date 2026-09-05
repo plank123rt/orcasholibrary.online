@@ -114,6 +114,33 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  .reports-link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 18px;
+    padding: 12px 18px;
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 14px;
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    opacity: 0;
+    animation: rise 0.6s ease 0.24s forwards;
+    transition: background 0.2s ease;
+  }
+  .reports-link:hover { background: rgba(255,255,255,0.26); }
+  .reports-link-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #F1E4EE;
+    opacity: 0.85;
+  }
+
   .wrap {
     max-width: 720px;
     margin: 0 auto;
@@ -635,6 +662,10 @@
       <p class="kicker">🧃 For Ibrahim (pediatric supplement mixing reference)</p>
       <h1>Juice Pairings That Mask Supplement Taste 🍇🍊🍓</h1>
       <p>Flavor profiles and juice matches for L-taurine, L-theanine, digestive enzymes, probiotics, B12, and grape seed extract, both on their own and in the combinations used across a rotation.</p>
+      <a class="reports-link" href="https://orcasholibrary.online/ibrahim-report/" target="_blank" rel="noopener">
+        📄 View Ibrahim's reports
+        <span class="reports-link-sub">We've extracted everything from them here, tap to open</span>
+      </a>
     </div>
   </div>
 
