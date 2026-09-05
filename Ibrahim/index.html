@@ -46,6 +46,7 @@
     font-family: 'Inter', sans-serif;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   .hero {
@@ -130,6 +131,13 @@
   }
 
   .top-note strong { font-weight: 700; }
+
+  .tabs-hint {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--plum-soft);
+    margin: 0 0 10px;
+  }
 
   .tabs {
     display: flex;
@@ -264,6 +272,7 @@
   @media (max-width: 420px) {
     .wrap { padding: 24px 16px 48px; }
     .hero { padding: 36px 16px 46px; }
+    .diet-toggle-hint { display: none; }
   }
 
 
@@ -273,16 +282,6 @@
 .diet-plan-section * { box-sizing: border-box; }
 
 .diet-plan-section html { scroll-behavior: smooth; }
-
-.diet-plan-section body {
-    margin: 0;
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
 
 .diet-plan-section .wrap {
     max-width: 780px;
@@ -299,8 +298,11 @@
 .diet-plan-section a { color: var(--forest); }
 
   /* ---------- Decorative floating icons ---------- */
+.diet-plan-section {
+    position: relative;
+  }
 .diet-plan-section .floaters {
-    position: fixed;
+    position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 0;
@@ -326,13 +328,13 @@
 .diet-plan-section header.hero {
     position: relative;
     z-index: 1;
-    padding: 56px 20px 40px;
-    background: linear-gradient(160deg, var(--forest) 0%, var(--forest-dark) 100%);
+    padding: 40px 20px 36px;
+    background: linear-gradient(160deg, var(--plum) 0%, var(--plum-soft) 55%, var(--berry) 130%);
     color: #fff;
-    border-radius: 0 0 32px 32px;
+    border-radius: 0 0 24px 24px;
     text-align: left;
   }
-.diet-plan-section header.hero .wrap { padding-bottom: 0; }
+.diet-plan-section header.hero .wrap { padding-bottom: 0; max-width: 720px; }
 .diet-plan-section .eyebrow-row {
     display: flex;
     gap: 8px;
@@ -558,19 +560,23 @@
   .diet-toggle {
     margin-top: 32px;
     background: var(--card);
-    border: 1px solid var(--line);
+    border: 2px solid var(--berry);
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 10px 24px rgba(193,68,126,0.18);
   }
   .diet-toggle summary {
     list-style: none;
     cursor: pointer;
     padding: 20px 22px;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
   }
   .diet-toggle summary::-webkit-details-marker { display: none; }
+  .diet-toggle-text { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
   .diet-toggle-title {
     font-family: 'Fredoka', sans-serif;
     font-size: 17px;
@@ -582,14 +588,39 @@
     color: var(--ink);
     opacity: 0.7;
   }
+  .diet-toggle-hint {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--berry);
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .diet-toggle-chevron {
+    font-size: 18px;
+    color: var(--berry);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    animation: chevronBounce 1.6s ease-in-out infinite;
+  }
+  .diet-toggle[open] .diet-toggle-chevron {
+    transform: rotate(180deg);
+    animation: none;
+  }
+  @keyframes chevronBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
   .diet-toggle[open] summary {
     border-bottom: 1px solid var(--line);
   }
-  .diet-plan-section {
-    padding: 8px 0 0;
+  .diet-toggle > .diet-plan-section {
+    padding-top: 8px;
   }
-  .diet-plan-section .wrap {
-    padding: 0 0 8px;
+  .diet-toggle > .diet-plan-section > .wrap {
+    padding-bottom: 32px;
   }
 </style>
 </head>
@@ -601,8 +632,8 @@
     <div class="blob blob-b"></div>
     <div class="blob blob-c"></div>
     <div class="hero-inner">
-      <p class="kicker">Pediatric supplement mixing reference</p>
-      <h1>Juice Pairings That Mask Supplement Taste</h1>
+      <p class="kicker">🧃 For Ibrahim (pediatric supplement mixing reference)</p>
+      <h1>Juice Pairings That Mask Supplement Taste 🍇🍊🍓</h1>
       <p>Flavor profiles and juice matches for L-taurine, L-theanine, digestive enzymes, probiotics, B12, and grape seed extract, both on their own and in the combinations used across a rotation.</p>
     </div>
   </div>
@@ -613,9 +644,10 @@
       <strong>Note: every pairing below is a starting example built from the general flavor chemistry of each supplement, not a fixed rule.</strong> Since several combinations will be tried in practice, the actual best fruit and juice match can be adjusted based on what the individual child takes to best.
     </div>
 
+    <p class="tabs-hint">👆 Tap a tab to switch between single-supplement pairings and combined rotations</p>
     <div class="tabs">
-      <button class="tab-btn active" onclick="showPanel('individual', this)">Individual</button>
-      <button class="tab-btn" onclick="showPanel('combined', this)">Combined rotations</button>
+      <button class="tab-btn active" onclick="showPanel('individual', this)">🍹 Individual</button>
+      <button class="tab-btn" onclick="showPanel('combined', this)">🔀 Combined rotations</button>
     </div>
 
     <div id="individual" class="panel active">
@@ -756,8 +788,12 @@
 
   <details class="diet-toggle">
     <summary class="diet-toggle-summary">
-      <span class="diet-toggle-title">🍛 Open Ibrahim's full 7-day diet plan</span>
-      <span class="diet-toggle-sub">Meals, recipes, and feeding notes that pair with the juices above</span>
+      <div class="diet-toggle-text">
+        <span class="diet-toggle-title">🍛 Open Ibrahim's full 7-day diet plan</span>
+        <span class="diet-toggle-sub">Meals, recipes, and feeding notes that pair with the juices above</span>
+      </div>
+      <span class="diet-toggle-hint">👇 Tap to open</span>
+      <span class="diet-toggle-chevron">⌄</span>
     </summary>
     <div class="diet-plan-section">
 
