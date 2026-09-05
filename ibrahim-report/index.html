@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibrahim Hussain: Consolidated Medical Record & Analysis</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<style>
+  :root {
+    --navy: #1b2a4a;
+    --teal: #0f7a72;
+    --red: #b3261e;
+    --amber: #b8860b;
+    --purple: #5b3a8e;
+    --gray: #6b7280;
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --border: #e2e5ea;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: #1f2430;
+    margin: 0;
+    padding: 0 0 60px 0;
+    line-height: 1.55;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gentlePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(179,38,30,0.25); }
+    50%      { box-shadow: 0 0 0 6px rgba(179,38,30,0); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  @keyframes dotGrow {
+    from { transform: scale(0); }
+    to   { transform: scale(1); }
+  }
+
+  header {
+    background: linear-gradient(120deg, var(--navy), #2c4270, var(--teal), var(--navy));
+    background-size: 300% 300%;
+    animation: shimmer 14s ease infinite;
+    color: white;
+    padding: 34px 40px;
+  }
+  header h1 { margin: 0 0 6px 0; font-size: 26px; }
+  header p { margin: 2px 0; opacity: 0.92; font-size: 14px; }
+
+  nav.toc {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    font-size: 13px;
+  }
+  nav.toc a {
+    color: var(--navy); text-decoration: none; font-weight: 600;
+    padding: 4px 8px; border-radius: 6px; transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+  nav.toc a:hover { background: #eef1f6; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  .patient-bar {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    background: var(--card); margin-top: -20px; border-radius: 10px;
+    padding: 18px 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    animation: fadeInUp 0.5s ease both;
+  }
+  .patient-bar div { font-size: 14px; }
+  .patient-bar span.label { display:block; font-size:11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+  .patient-bar span.value { font-weight: 600; color: var(--navy); }
+
+  section { margin-top: 40px; scroll-margin-top: 60px; }
+  h2 {
+    color: var(--navy);
+    border-bottom: 3px solid var(--teal);
+    padding-bottom: 6px;
+    font-size: 21px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h3 { color: var(--teal); font-size: 16px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    animation: fadeInUp 0.5s ease both;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .card:hover { box-shadow: 0 6px 18px rgba(27,42,74,0.08); transform: translateY(-2px); }
+
+  .meta { font-size: 12.5px; color: var(--gray); margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px 0; font-size: 13.5px; }
+  th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; }
+  th { background: #eef1f6; color: var(--navy); }
+  tr { transition: background 0.15s ease; }
+  tr:hover td { background: #fafbfd; }
+  tr.high td.result { color: var(--red); font-weight: 700; }
+  tr.low td.result { color: #a15c00; font-weight: 700; }
+  tr.flag-note td { font-style: italic; color: var(--gray); }
+
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; margin-left: 6px;
+  }
+  .badge.high { background: #fdecea; color: var(--red); animation: gentlePulse 2.4s ease-in-out infinite; }
+  .badge.low  { background: #fff4e0; color: #a15c00; }
+  .badge.normal { background: #e8f6f0; color: var(--teal); }
+
+  .diagnosis-box {
+    background: #fdecea; border-left: 5px solid var(--red);
+    padding: 18px 22px; border-radius: 8px; margin: 16px 0;
+    animation: fadeInUp 0.6s ease both;
+  }
+  .diagnosis-box h3 { color: var(--red); margin-top:0; }
+
+  .biochem-box {
+    background: #f4f0fb; border-left: 5px solid var(--purple);
+    padding: 14px 18px; border-radius: 8px; font-size: 13.5px;
+    margin-top: 12px;
+  }
+  .biochem-box .bc-title {
+    font-weight: 700; color: var(--purple); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .biochem-box .ref { font-size: 11.5px; color: var(--gray); margin-top: 6px; }
+
+  .note-box {
+    background: #eef4fb; border-left: 5px solid #2c6fbb;
+    padding: 14px 18px; border-radius: 8px; font-size: 13.5px;
+  }
+
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li {
+    position: relative; padding: 10px 0 10px 26px; border-left: 2px solid var(--border);
+    margin-left: 8px;
+    animation: fadeInUp 0.5s ease both;
+  }
+  .timeline li::before {
+    content: ''; position: absolute; left: -7px; top: 14px;
+    width: 12px; height: 12px; border-radius: 50%; background: var(--teal);
+    animation: dotGrow 0.4s ease both;
+  }
+  .timeline li.milestone::before { background: var(--red); }
+  .timeline .date { font-weight: 700; color: var(--navy); }
+
+  .analysis-list li { margin-bottom: 12px; }
+
+  .disclaimer {
+    margin-top: 40px; padding: 16px 20px; background: #fff8e1;
+    border: 1px solid #f0d97b; border-radius: 8px; font-size: 13px; color: #5c4a00;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } nav.toc { font-size: 12px; } }
+  .source-tag { font-size: 11px; color: var(--gray); }
+
+  .ref-list { list-style: none; padding: 0; margin: 0; counter-reset: refcounter; }
+  .ref-list li {
+    counter-increment: refcounter;
+    padding: 10px 0 10px 34px; position: relative;
+    border-bottom: 1px dashed var(--border); font-size: 13px;
+  }
+  .ref-list li::before {
+    content: counter(refcounter);
+    position: absolute; left: 0; top: 10px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--navy); color: white; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ref-list a { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>🩺 Consolidated Medical Record: Ibrahim Hussain</h1>
+    <p>Compiled from 22 uploaded documents spanning Sep 2022 to Jan 2025</p>
+    <p>Report generated for clinical review purposes only. Not a substitute for physician interpretation.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#timeline">📅 Timeline</a>
+  <a href="#workup">🔬 2022 Work-Up</a>
+  <a href="#hospitalization">🏥 Jan 2025 Admission</a>
+  <a href="#analysis">🧭 Clinical Analysis</a>
+  <a href="#documents">📋 Documents</a>
+  <a href="#references">📚 References</a>
+</nav>
+
+<div class="container">
+
+  <div class="patient-bar">
+    <div><span class="label">👤 Name</span><span class="value">Ibrahim Hussain</span></div>
+    <div><span class="label">⚥ Sex</span><span class="value">Male</span></div>
+    <div><span class="label">🎂 Date of Birth</span><span class="value">9 Dec 2021</span></div>
+    <div><span class="label">⚖️ Birth Weight</span><span class="value">2.14 kg</span></div>
+    <div><span class="label">👨‍👩‍👧 Birth Order</span><span class="value">Third child, consanguineous marriage</span></div>
+    <div><span class="label">🧬 Confirmed Diagnosis</span><span class="value">Niemann-Pick Disease, Type C1</span></div>
+  </div>
+
+  <div class="diagnosis-box">
+    <h3>🧬 Primary Diagnosis: Niemann-Pick Disease, Type C1 (NPC1)</h3>
+    <p>Confirmed by Whole Exome Sequencing (Redcliffe Labs, reported 18 Nov 2022): a homozygous, likely-pathogenic frameshift variant in <b>NPC1</b>, <b>c.336_337delAT (p.Cys113Ter)</b>, exon 4, autosomal recessive inheritance. This is consistent with the parents' consanguineous marriage. The variant is novel (not previously reported in gnomAD or 1kG databases) and causes premature protein truncation.</p>
+    <div class="biochem-box">
+      <div class="bc-title">🔬 What NPC1 normally does</div>
+      <p>The <i>NPC1</i> gene encodes a large protein sitting in the membrane of lysosomes (the cell's recycling compartments). Its job is to shuttle cholesterol out of the lysosome after LDL particles are broken down inside it, handing the cholesterol off from a partner protein (NPC2) and passing it on to the rest of the cell.<sup>[1,2]</sup> When <i>NPC1</i> is truncated, as in this child's variant, cholesterol and related fatty lipids become trapped inside lysosomes instead of being redistributed. Over time this traps macrophages, liver cells, spleen cells and neurons in an overloaded state, which is why NPC1 disease affects the spleen, liver and brain together rather than just one organ.</p>
+      <div class="ref">See references 1 and 2</div>
+    </div>
+  </div>
+
+  <section id="timeline">
+    <h2>📅 1. Clinical Timeline</h2>
+    <ul class="timeline">
+      <li><span class="date">9 Dec 2021</span>: Born at Khushi Medical Centre, Meerut, to mother "Smt. Shazia" (age 29). Birth weight 2.14 kg (low). Delivery type noted as instrumental/assisted ("OTVE").</li>
+      <li><span class="date">17 Sep 2022 (age 9 months)</span>: Referred to Sir Ganga Ram Hospital (Dr. Nishant Wadhwa, Pediatric GI) for failure to thrive with splenomegaly and low-set ears. Weight 6.09 kg (1st percentile).</li>
+      <li><span class="date">17 to 19 Sep 2022</span>: Work-up: CBC/peripheral smear, LFT, skeletal survey, ophthalmology exam, abdominal ultrasound, lysosomal enzyme panel, chitotriosidase.</li>
+      <li class="milestone"><span class="date">17 Sep 2022</span>: Ophthalmology (Dr. Amit Khosla): fundus reflex altered, <b>cherry-red spot</b> identified.</li>
+      <li><span class="date">19 Sep 2022</span>: Abdominal USG confirms splenomegaly (9.0 cm); liver, kidneys, pancreas normal.</li>
+      <li class="milestone"><span class="date">20 Sep 2022</span>: Chitotriosidase markedly elevated (905.81 vs. cutoff &lt;150); Niemann-Pick A/B and Gaucher enzyme assays normal (ruled out).</li>
+      <li><span class="date">26 Sep 2022</span>: Dr. Veronica Arora (Medical Genetics) documents splenomegaly, deranged LFT, cherry-red spots, chitotriosidase positivity, raising clinical suspicion of NPC and advising Whole Exome Sequencing.</li>
+      <li class="milestone"><span class="date">26 Sep 2022 (sample) / 18 Nov 2022 (report)</span>: WES confirms homozygous pathogenic NPC1 variant.</li>
+      <li><span class="date">17 Dec 2022 (age ~1 year)</span>: Neurodevelopmental assessment (Dr. Imran Noorani): diagnosis of <b>Niemann-Pick Disease Type C with Global Developmental Delay</b>. Bayley Scales show delay in all three domains; INFANIB abnormal.</li>
+      <li><span class="date">2 Dec 2022 (age 11m 23d)</span>: Follow-up with Dr. Wadhwa: weight 6.8 kg; parents counselled regarding liver transplantation as a possible definitive procedure; nutritional supplement (Muout Plus) started.</li>
+      <li><span class="date">2 Dec 2022</span>: Dr. Veronica Arora confirms diagnosis on genetic testing; plans physiotherapy, occupational therapy, vitamin supplementation (Syp A to Z), and <b>Miglustat</b> (disease-specific substrate reduction therapy for NPC).</li>
+      <li><span class="date">3 to 7 Jan 2025 (age 3 years 1 month)</span>: Hospitalized (Shubham Hospital, Meerut) with fever, cough, respiratory distress, and hepatosplenomegaly of infective origin. Discharged on request (DOR) after clinical improvement.</li>
+      <li><span class="date">6 Jan 2025</span>: Follow-up abdominal USG: mild hepatomegaly (new, hyperechoic) and mild splenomegaly (101 x 40 mm), mildly dilated bowel loops, colon loaded with stool.</li>
+    </ul>
+  </section>
+
+  <section id="workup">
+    <h2>🔬 2. Diagnostic Work-Up (September to December 2022)</h2>
+
+    <div class="card">
+      <h3>🩺 2.1 Initial Presentation, Dr. Nishant Wadhwa, Pediatric Gastroenterology (17 Sep 2022)</h3>
+      <div class="meta">Age 9m 8d · Weight 6.09 kg (1st percentile)</div>
+      <p><b>Symptoms:</b> Referred for failure to thrive with splenomegaly; low-set ears.<br>
+      <b>Exam findings:</b> Mild pallor, soft abdomen, splenomegaly.<br>
+      <b>Significant history:</b> Third in birth order; product of a consanguineous marriage.<br>
+      <b>Investigations ordered:</b> CBC/Haemogram, peripheral smear, Liver Function Tests, blood "TMS" (tandem mass spectrometry / metabolic screen), ophthalmological evaluation.</p>
+    </div>
+
+    <div class="card">
+      <h3>🧬 2.2 Genetics Consultation, Dr. Veronica Arora (three visits: 17 Sep, 26 Sep, 2 Dec 2022)</h3>
+      <table>
+        <tr><th>Date</th><th>Notes</th></tr>
+        <tr><td>17 Sep 2022</td><td>Splenomegaly with failure to thrive. Antenatal history normal. Birth weight 2.25 kg (as recorded here). Developmental exam: cannot sit with support, identifies parents, speech limited to 2 to 3 words. Weight 6.09 kg, length ~61 cm, HC ~41 cm. Spleen enlarged ~3 cm below costal margin. Reflexes/tone noted as increased ("brisk").</td></tr>
+        <tr><td>26 Sep 2022</td><td>Splenomegaly + deranged LFT + cherry-red spots + chitotriosidase positive, raising suspicion of "? NPC (Niemann-Pick C) disease"; advised Whole Exome Sequencing.</td></tr>
+        <tr><td>2 Dec 2022</td><td>"Niemann Pick type C, confirmed on genetic testing." Notes gross motor delay (does not sit without support at 2 years, flagged with concern). Plan: physiotherapy, occupational therapy, referral to Child Development Clinic, Syp A to Z 2.5 mL once daily, and plan to start <b>Miglustat</b>.</td></tr>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>👁️ 2.3 Ophthalmology, Dr. Amit Khosla (17 Sep 2022)</h3>
+        <p><b>Findings:</b> Fundus reflex altered; <b>cherry-red spot</b> present.</p>
+        <div class="biochem-box">
+          <div class="bc-title">🔬 Why a cherry-red spot appears</div>
+          <p>The macula (the eye's central retina) is thin except for the fovea, which lacks the layer of ganglion-cell neurons that covers the rest of the retina. In lysosomal storage diseases, lipid builds up inside those surrounding ganglion cells and makes them look pale and opaque. The thin, ganglion-cell-free fovea in the middle keeps its normal reddish colour because the underlying choroidal blood vessels still show through, so it appears as a "cherry-red" dot surrounded by a pale halo.<sup>[3]</sup> This sign appears in Niemann-Pick disease as well as in other sphingolipid storage disorders such as Tay-Sachs disease, so it is a useful pointer toward lysosomal storage disease but not proof of any single diagnosis on its own.</p>
+          <div class="ref">See reference 3</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🦴 2.4 Skeletal Imaging (17 Sep 2022)</h3>
+        <p><b>Dorso-lumbar spine (AP):</b> Vertebral bodies and disc spaces normal; pedicles normal.<br>
+        <b>Left wrist (AP):</b> Bone age by TW2 method &lt;1 year, consistent with chronological age.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🖼️ 2.5 Abdominal Ultrasound (19 Sep 2022)</h3>
+      <table>
+        <tr><th>Organ</th><th>Finding</th></tr>
+        <tr><td>Liver</td><td>Normal echotexture, span 8.7 cm, no masses; portal vein 5.5 mm; no biliary dilation</td></tr>
+        <tr><td>Gallbladder</td><td>Normal, no calculi/sludge</td></tr>
+        <tr class="high"><td>Spleen</td><td class="result">Enlarged, 9.0 cm, normal echotexture</td></tr>
+        <tr><td>Pancreas</td><td>Normal</td></tr>
+        <tr><td>Kidneys</td><td>Normal size bilaterally (R 5.6x1.9 cm, L 5.8x2.7 cm), no hydronephrosis/calculi</td></tr>
+        <tr><td>Ascites</td><td>None</td></tr>
+      </table>
+      <p><b>Impression:</b> Isolated splenomegaly.</p>
+    </div>
+
+    <div class="card">
+      <h3>🩸 2.6 Hepatic Profile, Sir Ganga Ram Hospital (collected 17 Sep, reported 18 Sep 2022)</h3>
+      <table>
+        <tr><th>Test</th><th class="result">Result</th><th>Reference Range</th><th>Flag</th></tr>
+        <tr><td>Bilirubin, Total</td><td>0.23 mg/dL</td><td>0.20 to 1.20</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>Bilirubin, Direct</td><td>0.09 mg/dL</td><td>0.00 to 0.50</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>Total Protein</td><td>7.06 g/dL</td><td>4.40 to 7.60</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>Albumin</td><td>4.44 g/dL</td><td>3.80 to 5.40</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>Globulin</td><td>2.62 g/dL</td><td>1.80 to 3.60</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>A/G Ratio</td><td>1.69</td><td>2:1 (ref)</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr class="high"><td>AST / SGOT</td><td class="result">56.0 IU/L</td><td>5.0 to 34.0</td><td><span class="badge high">High</span></td></tr>
+        <tr><td>ALT / SGPT</td><td>11.0 IU/L</td><td>0.0 to 55.0</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr><td>Alkaline Phosphatase</td><td>304.0 IU/L</td><td>&lt;500.0</td><td><span class="badge normal">Normal</span></td></tr>
+        <tr class="low"><td>GGT</td><td class="result">10.0 IU/L</td><td>12.0 to 64.0</td><td><span class="badge low">Low</span></td></tr>
+      </table>
+      <div class="biochem-box">
+        <div class="bc-title">🔬 Reading this pattern</div>
+        <p>AST is raised while ALT, alkaline phosphatase and GGT are normal or low. A classic bile-duct obstruction pattern usually raises alkaline phosphatase and GGT together, and a viral hepatitis pattern usually raises ALT more than AST. Neither pattern is seen here. This isolated AST elevation is more in keeping with generalized hepatocellular stress, which is consistent with lipid-laden storage cells accumulating inside the liver rather than a blocked bile duct or drug-induced injury.</p>
+        <div class="ref">Interpretation carried over from the original laboratory report's printed note</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>🧪 2.7 Lysosomal Enzyme Panel (collected 17/19 Sep, reported 20 Sep 2022)</h3>
+        <table>
+          <tr><th>Assay</th><th class="result">Result</th><th>Reference</th><th>Flag</th></tr>
+          <tr class="high"><td>Chitotriosidase</td><td class="result">905.81 nmol/hr/mL</td><td>&lt;150.0</td><td><span class="badge high">Markedly elevated</span></td></tr>
+          <tr><td>Sphingomyelinase (NP-A/B)</td><td>12.83 nmol/17hr/mg</td><td>&gt;9 (normal)</td><td><span class="badge normal">Normal</span></td></tr>
+          <tr><td>Beta-glucosidase (Gaucher)</td><td>14.36 nmol/hr/mg</td><td>10.0 to 45.0 (cutoff &lt;6.0)</td><td><span class="badge normal">Normal</span></td></tr>
+        </table>
+        <div class="biochem-box">
+          <div class="bc-title">🔬 What chitotriosidase measures</div>
+          <p>Chitotriosidase is an enzyme released in large amounts by activated macrophages, the immune cells that end up stuffed with undigested lipid in storage disorders. Because it is a marker of macrophage activation rather than of any single disease, it rises across several lysosomal storage diseases, including Gaucher disease and the Niemann-Pick family, not just NPC.<sup>[4,5]</sup> The value here (905.81, against a cutoff below 150) points strongly toward macrophage overload. Combined with normal sphingomyelinase (which rules out Niemann-Pick A/B) and normal beta-glucosidase (which rules out Gaucher disease), the pattern narrows the differential specifically toward NPC, which is exactly the logic the genetics note followed.</p>
+          <div class="ref">See references 4 and 5</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🩸 2.8 Complete Blood Count & Smear (collected 17 Sep, reported 19 Sep 2022)</h3>
+        <table>
+          <tr><th>Test</th><th class="result">Result</th><th>Reference</th><th>Flag</th></tr>
+          <tr class="low"><td>Haemoglobin</td><td class="result">9.3 g/dL</td><td>11.1 to 14.1</td><td><span class="badge low">Low</span></td></tr>
+          <tr><td>TLC</td><td>10.88 x10³/µL</td><td>6.00 to 16.00</td><td><span class="badge normal">Normal</span></td></tr>
+          <tr><td>Platelets</td><td>324 x10³/µL</td><td>200 to 550</td><td><span class="badge normal">Normal</span></td></tr>
+          <tr class="high"><td>RBC</td><td class="result">5.81 mill/µL</td><td>3.10 to 5.10</td><td><span class="badge high">High</span></td></tr>
+          <tr class="low"><td>MCV</td><td class="result">60.1 fl</td><td>72.0 to 82.0</td><td><span class="badge low">Low (microcytic)</span></td></tr>
+          <tr class="low"><td>MCH</td><td class="result">16.0 pg</td><td>25.0 to 29.0</td><td><span class="badge low">Low</span></td></tr>
+          <tr class="low"><td>MCHC</td><td class="result">26.6 g/dL</td><td>32.0 to 36.0</td><td><span class="badge low">Low</span></td></tr>
+          <tr class="high"><td>RDW</td><td class="result">25.4%</td><td>11.6 to 14.0</td><td><span class="badge high">High</span></td></tr>
+        </table>
+        <div class="biochem-box">
+          <div class="bc-title">🔬 High RBC count + very low MCV: a clue</div>
+          <p><b>Peripheral smear impression:</b> Microcytic hypochromic anemia with mild erythrocytosis; anisopoikilocytosis, target cells, elliptocytes.</p>
+          <p>The Mentzer index (MCV divided by RBC count) is a quick bedside tool to separate iron deficiency from thalassemia trait when red cells are small. Here that works out to roughly 60.1 ÷ 5.81 ≈ 10.3. Values under 13 generally favour a thalassemia trait pattern (small red cells the bone marrow overproduces to compensate) over simple iron deficiency (which tends to give a normal or high Mentzer index because the total red cell count usually falls, not rises). Target cells on the smear point the same way. This is why the lab recommended serum iron studies and Hb HPLC (haemoglobin electrophoresis) to look specifically for a haemoglobinopathy such as beta-thalassemia trait. No record among the uploaded files shows these follow-up tests were completed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🧠 2.9 Neurodevelopmental Assessment, Dr. Imran Noorani (17 Dec 2022, age 1 year)</h3>
+      <table>
+        <tr><th>Bayley Scale (BSID) Domain</th><th class="result">Score</th><th>Concern Flagged</th></tr>
+        <tr class="low"><td>Cognitive</td><td class="result">65</td><td>Yes</td></tr>
+        <tr class="low"><td>Language</td><td class="result">56</td><td>Yes</td></tr>
+        <tr class="low"><td>Motor</td><td class="result">52</td><td>Yes</td></tr>
+      </table>
+      <p><b>INFANIB score:</b> 56 (Abnormal). <b>Diagnosis recorded:</b> Niemann-Pick Disease Type C with Global Developmental Delay. <b>Recommendations:</b> parental counselling about condition and prognosis, parent-led training as the core of intervention, early intervention and stimulation therapy.</p>
+    </div>
+  </section>
+
+  <section id="hospitalization">
+    <h2>🏥 3. Hospitalization & Follow-Up (January 2025, age ~3.1 years)</h2>
+
+    <div class="card">
+      <h3>📄 3.1 Admission Summary, Discharge Summary, Shubham Hospital (3 to 7 Jan 2025)</h3>
+      <p><b>Diagnosis:</b> Respiratory tract infection (upper/lower, handwriting reads as URTI/LRTI) with hepatosplenomegaly of infective etiology.<br>
+      <b>Presenting complaints:</b> Cough, fever, respiratory distress.<br>
+      <b>Treatment given:</b> Oxygen support, IV fluids, antibiotics, antipyretics, nebulization, and other supportive medications (exact drug names not fully legible in the handwritten record).<br>
+      <b>Discharge type:</b> Discharge on Request (DOR), meaning the family requested discharge before the treating team's planned endpoint.</p>
+    </div>
+
+    <div class="card">
+      <h3>📊 3.2 Serial Inflammatory Markers & Blood Counts</h3>
+      <table>
+        <tr><th>Test</th><th>3 Jan 2025</th><th>6 Jan 2025</th><th>Reference</th><th>Trend</th></tr>
+        <tr><td>CRP</td><td class="result" style="color:var(--red)">22.22 mg/L</td><td>5.62 mg/L</td><td>0 to 6</td><td>Improved, infection resolving</td></tr>
+        <tr><td>WBC</td><td class="result" style="color:var(--red)">14,100 /µL</td><td>8,600 /µL</td><td>4,000 to 11,000</td><td>Improved</td></tr>
+        <tr><td>ESR</td><td>21 mm</td><td>17 mm</td><td>0 to 20</td><td>Improved</td></tr>
+        <tr><td>Haemoglobin</td><td class="result" style="color:#a15c00">11.9 g/dL</td><td class="result" style="color:#a15c00">12.5 g/dL</td><td>13 to 18</td><td>Persistently low, slightly improved</td></tr>
+        <tr><td>MCV</td><td class="result" style="color:#a15c00">54.58 fl</td><td class="result" style="color:#a15c00">57.65 fl</td><td>80 to 100</td><td>Persistently microcytic</td></tr>
+        <tr><td>MCH</td><td>24.24 pg</td><td>24.51 pg</td><td>26 to 34</td><td>Persistently low</td></tr>
+        <tr><td>MCHC</td><td class="result" style="color:var(--red)">44.40%</td><td class="result" style="color:var(--red)">42.52%</td><td>32 to 36</td><td>Elevated both times; spurious/lab artifact likely given very low MCV</td></tr>
+        <tr><td>Platelets</td><td>2.69 lakh/µL</td><td>2.49 lakh/µL</td><td>1.5 to 4.5 lakh/µL</td><td>Normal, stable</td></tr>
+        <tr><td>SGPT (ALT)</td><td>19.47 U/L</td><td>—</td><td>0 to 42</td><td>Normal</td></tr>
+        <tr><td>Typhidot IgM/IgG</td><td>Negative/Negative</td><td>—</td><td>—</td><td>Typhoid excluded</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>💨 3.3 Venous Blood Gas, Two Time Points</h3>
+      <table>
+        <tr><th>Parameter</th><th>3 Jan 2025, 5:43 PM</th><th>6 Jan 2025, 3:46 PM</th></tr>
+        <tr><td>pH</td><td>7.457</td><td>7.517 (more alkalotic)</td></tr>
+        <tr><td>pCO₂</td><td>27.92 mmHg</td><td>26.57 mmHg</td></tr>
+        <tr><td>pO₂</td><td>47.09 mmHg</td><td>71.38 mmHg (improved oxygenation)</td></tr>
+        <tr><td>HCO₃⁻</td><td>19.91 mmol/L</td><td>21.75 mmol/L</td></tr>
+        <tr><td>SO₂</td><td>93.45%</td><td>90.67%</td></tr>
+        <tr><td>Na⁺</td><td>144.6 mmol/L (high-normal)</td><td class="result" style="color:var(--red)">148.4 mmol/L (elevated)</td></tr>
+        <tr><td>K⁺</td><td>3.98 mmol/L</td><td class="result" style="color:#a15c00">3.19 mmol/L (low)</td></tr>
+        <tr><td>Ionized Ca²⁺</td><td class="result" style="color:#a15c00">0.92 mmol/L (low)</td><td class="result" style="color:#a15c00">1.01 mmol/L (low-normal)</td></tr>
+        <tr><td>HCT</td><td>35.43%</td><td>38.60%</td></tr>
+      </table>
+      <div class="biochem-box">
+        <div class="bc-title">🔬 Reading the acid-base picture</div>
+        <p>Both samples show low pCO₂ with a high-normal to elevated pH, a respiratory alkalosis pattern. This happens when fast breathing (tachypnea) driven by fever or respiratory distress blows off more carbon dioxide than usual, shifting blood pH upward. It is a common, usually self-limiting finding during febrile respiratory illness in young children and does not by itself indicate a metabolic or NPC-related problem. The drift toward higher sodium and lower potassium by 6 Jan is worth flagging to the treating team, since it can reflect dehydration or the effects of IV fluids and diuresis during the admission rather than the underlying storage disease.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🖼️ 3.4 Follow-Up Abdominal Ultrasound (6 Jan 2025)</h3>
+      <table>
+        <tr><th>Organ</th><th>Finding</th></tr>
+        <tr class="low"><td>Liver</td><td class="result">Now mildly enlarged, mildly diffusely hyperechoic echotexture (new finding vs. 2022, when liver was normal)</td></tr>
+        <tr><td>Gallbladder</td><td>48 x 11 mm, non-lithiasic; CBD 2.1 mm (normal)</td></tr>
+        <tr><td>Pancreas</td><td>Normal</td></tr>
+        <tr class="high"><td>Spleen</td><td class="result">Mildly enlarged, 101 x 40 mm</td></tr>
+        <tr><td>Kidneys</td><td>Right 72x27 mm, Left 69x25 mm, normal</td></tr>
+        <tr><td>Bowel</td><td>Mildly dilated loops; colon loaded with faecal matter and gas</td></tr>
+        <tr><td>Ascites</td><td>None</td></tr>
+      </table>
+      <p><b>Impression:</b> Mild hepatomegaly (new) with hyperechoic liver texture, mild splenomegaly, mildly dilated bowel loops, stool-loaded colon.</p>
+    </div>
+  </section>
+
+  <section id="analysis">
+    <h2>🧭 4. Overall Clinical Analysis</h2>
+    <div class="card">
+      <ul class="analysis-list">
+        <li><b>Diagnosis is genetically confirmed and consistent with the clinical picture.</b> The combination of splenomegaly, cherry-red macular spot, elevated chitotriosidase, normal Niemann-Pick A/B and Gaucher enzymes, and a homozygous loss-of-function NPC1 variant (in a child of consanguineous parents) is a textbook diagnostic pathway to Niemann-Pick Disease Type C1. ACMG classification of "Likely Pathogenic" (PM2, PVS1) reflects strong evidence, though the report itself recommends Sanger confirmation in the child and carrier testing in both parents; it is worth checking whether that confirmatory step was completed, since it was not included among the uploaded files.</li>
+        <li><b>Organ involvement has progressed between 2022 and 2025.</b> At 9 months, imaging showed isolated splenomegaly with a structurally normal liver. By age 3, the liver has become mildly enlarged with a hyperechoic texture, a change worth flagging to the treating hepatologist, since it could reflect disease progression, superimposed steatosis, or a combination with the concurrent infective illness.</li>
+        <li><b>Neurodevelopmental delay is global and was already apparent at 1 year of age</b> (low scores across cognitive, language, and motor domains, abnormal INFANIB). NPC is a neurovisceral disorder; progressive neurological involvement (in addition to the visceral/hepatosplenic findings) is expected and typically requires ongoing multidisciplinary follow-up (neurology, developmental pediatrics, physiotherapy/OT), which the records show was already initiated.</li>
+        <li><b>A separate, unexplained microcytic anemia thread runs through the whole record.</b> From the first CBC (Hb 9.3, MCV 60.1, raised RBC count and RDW) to the most recent (Hb 11.9 to 12.5, MCV ~55 to 58), the child has a persistent microcytic picture with a pattern (high RBC count + very low MCV, Mentzer index around 10) that classically suggests a co-existing haemoglobinopathy (e.g., beta-thalassemia trait) rather than simple iron deficiency. The 2022 report explicitly recommended serum iron studies and Hb HPLC; there is no HPLC or ferritin/iron panel result among these documents, so it is worth confirming with the family whether that work-up was ever done.</li>
+        <li><b>The January 2025 admission appears to be an intercurrent infection</b> (elevated CRP, elevated WBC with neutrophil predominance, respiratory symptoms) superimposed on the underlying hepatosplenomegaly, and it resolved biochemically by discharge (CRP and WBC normalized). The discharge was patient/family-initiated (DOR) rather than physician-recommended completion of the course, which may be relevant context for the family's next visit.</li>
+        <li><b>Medication history is only partially documented.</b> The 2022 genetics note records a plan to start Miglustat alongside a multivitamin syrup, but none of the uploaded records confirm the drug was actually dispensed, dosed, or tolerated, and no drug names are legible in the January 2025 discharge summary. Getting a clean current medication list from the treating team would help complete this picture.
+          <div class="biochem-box">
+            <div class="bc-title">💊 How Miglustat works</div>
+            <p>Miglustat is a small oral molecule that blocks glucosylceramide synthase, the enzyme that carries out the first committed step in building glycosphingolipids (a family of fatty molecules). By slowing their production, it reduces the amount of lipid that has to be cleared by the already overwhelmed lysosomal system, rather than fixing the underlying transport defect directly. Because it can cross the blood-brain barrier, it is used specifically to help slow the progressive neurological component of NPC, and it is the only substrate reduction therapy specifically authorized for NPC in several jurisdictions.<sup>[6,7]</sup> It does not reverse existing damage and works best as a long-term, continuously taken therapy, so confirming whether it was actually started and is being taken consistently is clinically important.</p>
+            <div class="ref">See references 6 and 7</div>
+          </div>
+        </li>
+        <li><b>Electrolyte findings from the January 2025 blood gases</b> (mild hypernatremia, hypokalemia, and low ionized calcium) are most likely explained by acute illness/fluid status rather than NPC itself, but they are the kind of finding that is easy to miss if not explicitly flagged to the pediatrician at the next visit.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="documents">
+    <h2>📋 5. Documents Included in This Compilation</h2>
+    <div class="card">
+      <table>
+        <tr><th>#</th><th>Document</th><th>Date</th><th>Source</th></tr>
+        <tr><td>1</td><td>Discharge card, birth</td><td>9 Dec 2021</td><td>Khushi Medical Centre, Meerut</td></tr>
+        <tr><td>2</td><td>Hepatic profile (LFT)</td><td>17 to 18 Sep 2022</td><td>Sir Ganga Ram Hospital, Biochemistry</td></tr>
+        <tr><td>3</td><td>Pediatric GI consult</td><td>17 Sep 2022</td><td>Dr. Nishant Wadhwa</td></tr>
+        <tr><td>4</td><td>Genetics consult note</td><td>17 Sep 2022</td><td>Dr. Veronica Arora</td></tr>
+        <tr><td>5</td><td>Ophthalmology exam</td><td>17 Sep 2022</td><td>Dr. Amit Khosla</td></tr>
+        <tr><td>6</td><td>Skeletal survey (spine + wrist X-ray)</td><td>17 Sep 2022</td><td>Sir Ganga Ram Hospital, Radiology</td></tr>
+        <tr><td>7</td><td>CBC + peripheral smear</td><td>17/19 Sep 2022</td><td>Sir Ganga Ram Hospital, Haematology</td></tr>
+        <tr><td>8</td><td>Genetics consult note (follow-up)</td><td>26 Sep 2022</td><td>Dr. Veronica Arora</td></tr>
+        <tr><td>9</td><td>Abdominal ultrasound</td><td>19 Sep 2022</td><td>Sir Ganga Ram Hospital, Radiology</td></tr>
+        <tr><td>10</td><td>Chitotriosidase enzyme assay</td><td>19 to 20 Sep 2022</td><td>Sir Ganga Ram Hospital, Biochemical Genetics</td></tr>
+        <tr><td>11</td><td>Sphingomyelinase & Beta-glucosidase assays</td><td>17 to 20 Sep 2022</td><td>Sir Ganga Ram Hospital, Biochemical Genetics</td></tr>
+        <tr><td>12</td><td>Whole Exome Sequencing report</td><td>Sample 26 Sep, reported 18 Nov 2022</td><td>Redcliffe Labs</td></tr>
+        <tr><td>13</td><td>Neurodevelopmental assessment</td><td>17 Dec 2022</td><td>Dr. Imran Noorani, Mind Meadow</td></tr>
+        <tr><td>14</td><td>Pediatric GI follow-up</td><td>2 Dec 2022</td><td>Dr. Nishant Wadhwa</td></tr>
+        <tr><td>15</td><td>Genetics follow-up (treatment plan)</td><td>2 Dec 2022</td><td>Dr. Veronica Arora</td></tr>
+        <tr><td>16</td><td>Discharge summary, febrile illness</td><td>3 to 7 Jan 2025</td><td>Shubham Hospital & Child Care Center</td></tr>
+        <tr><td>17</td><td>Abdominal ultrasound (follow-up)</td><td>6 Jan 2025</td><td>Health Care Imaging Centre, Meerut</td></tr>
+        <tr><td>18</td><td>Venous blood gas</td><td>3 Jan 2025</td><td>Shubham Hospital, Pathology</td></tr>
+        <tr><td>19</td><td>SGPT, Typhidot, CRP, CBC</td><td>3 Jan 2025</td><td>Shubham Hospital, Pathology</td></tr>
+        <tr><td>20</td><td>Venous blood gas (repeat)</td><td>6 Jan 2025</td><td>Shubham Hospital, Pathology</td></tr>
+        <tr><td>21</td><td>CRP & CBC (repeat)</td><td>6 Jan 2025</td><td>Shubham Hospital, Pathology</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="references">
+    <h2>📚 6. Biochemistry References</h2>
+    <div class="card">
+      <p class="meta">The explainer boxes above are grounded in the following sources. These describe general disease mechanisms and are not specific to this patient's records.</p>
+      <ol class="ref-list">
+        <li>NPC intracellular cholesterol transporter 1 (NPC1), gene summary. OMIM, entry *607623. <a href="https://omim.org/entry/607623" target="_blank" rel="noopener">omim.org/entry/607623</a></li>
+        <li>Chen, W. et al. "Extending Spectrum of NPC1-Related Human Disorders: From Niemann-Pick C1 Disease to Obesity." <i>Endocrine Reviews</i>, 39(2), 2018. <a href="https://academic.oup.com/edrv/article/39/2/192/4794852" target="_blank" rel="noopener">academic.oup.com</a></li>
+        <li>Tripathy, K. & Patel, B.C. "Cherry Red Spot." <i>StatPearls</i>, NCBI Bookshelf, 2023. <a href="https://www.ncbi.nlm.nih.gov/books/NBK539841/" target="_blank" rel="noopener">ncbi.nlm.nih.gov/books/NBK539841</a></li>
+        <li>Guo, Y. et al. "Elevated plasma chitotriosidase activity in various lysosomal storage disorders." <i>Journal of Inherited Metabolic Disease</i>, 18, 1995. <a href="https://pubmed.ncbi.nlm.nih.gov/8750610/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/8750610</a></li>
+        <li>Chitotriosidase overview. <i>ScienceDirect Topics</i> (Seminars in Immunology, 2023). <a href="https://www.sciencedirect.com/topics/pharmacology-toxicology-and-pharmaceutical-science/chitotriosidase" target="_blank" rel="noopener">sciencedirect.com</a></li>
+        <li>Patterson, M.C. et al. "Miglustat for treatment of Niemann-Pick C disease: a randomised controlled study." <i>The Lancet Neurology</i>, 2007. <a href="https://www.sciencedirect.com/science/article/abs/pii/S1474442207701941" target="_blank" rel="noopener">sciencedirect.com</a></li>
+        <li>Patterson, M. & Platt, F. "New therapies in the management of Niemann-Pick type C disease: clinical utility of miglustat." <i>Therapeutics and Clinical Risk Management</i>, PMC. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2781062/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov/PMC2781062</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="disclaimer">
+    <b>Note:</b> This report is a structured compilation and organizational analysis of the uploaded documents, intended to make the record easier to review at a glance. It is not a medical diagnosis, treatment plan, or substitute for the assessment of Ibrahim's treating physicians (pediatric gastroenterology, medical genetics, and neurodevelopmental pediatrics teams). Several findings above (the unresolved anemia work-up, medication confirmation, and new hepatic changes) are flagged specifically because they look like natural next questions to raise at the next clinical visit, not because a firm conclusion can be drawn from paperwork alone. The biochemical explainer boxes describe general disease mechanisms drawn from the medical literature and are provided for background understanding only. Handwritten portions of a few notes (e.g., parts of the January 2025 discharge summary and some abbreviations in Dr. Arora's notes) were only partially legible and are described accordingly.
+  </div>
+
+</div>
+</body>
+</html>
