@@ -93,6 +93,47 @@
 
   p.sub .lock { margin-right: 4px; }
 
+  .namefield {
+    margin-bottom: 16px;
+  }
+
+  .namefield label {
+    display: block;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+
+  .namefield input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .namefield input:focus {
+    border-color: var(--grad-b);
+  }
+
+  .namefield input.needs-attention {
+    border-color: var(--err);
+  }
+
+  .namefield .hint {
+    font-size: 12px;
+    color: var(--err);
+    margin-top: 6px;
+    display: none;
+  }
+
+  .namefield .hint.show { display: block; }
+
   .dropzone {
     border: 1.5px dashed var(--line);
     border-radius: 16px;
@@ -249,6 +290,12 @@
     <h1>Send us your files</h1>
     <p class="sub"><span class="lock">🔒</span>Everything you upload stays private, visible only to you and your care team.</p>
 
+    <div class="namefield">
+      <label for="patientName">Your name</label>
+      <input type="text" id="patientName" placeholder="Full name" autocomplete="name" />
+      <p class="hint" id="nameHint">Please enter your name before uploading, so we know whose file this is.</p>
+    </div>
+
     <div class="dropzone" id="dropzone">
       <div class="icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0-13 5 5m-5-5-5 5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
@@ -269,13 +316,20 @@
 
 <script>
   // ---- CONFIG: paste the URL you get after deploying the Apps Script web app ----
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyNv5DbHU86wN0r--Zh3QdiJcT7pCgjlq7ZUusxG7bmsJLraT9dd5L4W2L_yzyC7NPd/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxN43moRe7UU9fCKjRkx6emmK5KemnoW6Hn3SVLmw2RBVHXkL-miIazYD5Rc5sS8kTJ/exec";
   const MAX_FILE_BYTES = 20 * 1024 * 1024; // 20MB
 
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
   const fileList = document.getElementById('fileList');
   const configWarning = document.getElementById('configWarning');
+  const patientNameInput = document.getElementById('patientName');
+  const nameHint = document.getElementById('nameHint');
+
+  patientNameInput.addEventListener('input', () => {
+    patientNameInput.classList.remove('needs-attention');
+    nameHint.classList.remove('show');
+  });
 
   dropzone.addEventListener('click', () => fileInput.click());
 
@@ -309,12 +363,20 @@
     }
     configWarning.style.display = 'none';
 
+    const patientName = patientNameInput.value.trim();
+    if (!patientName) {
+      patientNameInput.classList.add('needs-attention');
+      nameHint.classList.add('show');
+      patientNameInput.focus();
+      return;
+    }
+
     Array.from(files).forEach(file => {
       if (file.size > MAX_FILE_BYTES) {
         addRow(file, 'err', '⚠️', 'Too large, 20MB limit');
         return;
       }
-      uploadFile(file);
+      uploadFile(file, patientName);
     });
   }
 
@@ -340,46 +402,45 @@
     return div.innerHTML;
   }
 
-  function uploadFile(file) {
+  function uploadFile(file, patientName) {
     const row = addRow(file, '', '📤', '');
     const fill = row.querySelector('.fill');
     const pct = row.querySelector('.pct');
     const emojiEl = row.querySelector('.emoji');
 
+    // A smooth, simulated progress fill. Real byte-level tracking requires an
+    // xhr.upload listener, but Apps Script can't answer the CORS preflight that
+    // listener forces the browser to send, so every upload would fail outright.
+    let progress = 0;
+    const ticker = setInterval(() => {
+      progress = Math.min(progress + Math.random() * 15, 92);
+      fill.style.width = progress + '%';
+      pct.textContent = Math.round(progress) + '%';
+      emojiEl.textContent = progress < 50 ? '📤' : '🚀';
+    }, 180);
+
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = async function (e) {
       const base64Data = e.target.result.split(',')[1];
-      const payload = JSON.stringify({
-        filename: file.name,
-        mimeType: file.type || 'application/octet-stream',
-        data: base64Data
-      });
+      try {
+        const res = await fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // keeps this a simple request, no preflight
+          body: JSON.stringify({
+            filename: file.name,
+            mimeType: file.type || 'application/octet-stream',
+            data: base64Data,
+            patientName: patientName
+          })
+        });
+        const result = await res.json();
+        clearInterval(ticker);
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', WEB_APP_URL, true);
-      xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8'); // avoids a CORS preflight
-
-      xhr.upload.onprogress = function (evt) {
-        if (evt.lengthComputable) {
-          const percent = Math.round((evt.loaded / evt.total) * 100);
-          fill.style.width = percent + '%';
-          pct.textContent = percent + '%';
-          if (percent < 100) {
-            emojiEl.textContent = percent < 50 ? '📤' : '🚀';
-          }
-        }
-      };
-
-      xhr.onload = function () {
-        let result = {};
-        try { result = JSON.parse(xhr.responseText); } catch (err) {}
-
-        if (xhr.status === 200 && result.fileUrl) {
+        if (result.fileUrl) {
           row.classList.add('ok');
           fill.style.width = '100%';
           pct.textContent = '';
           emojiEl.textContent = '✅';
-          row.querySelector('.msg')?.remove();
           row.insertAdjacentHTML('beforeend', `<div class="msg">Uploaded successfully</div>`);
         } else {
           row.classList.add('err');
@@ -387,16 +448,20 @@
           pct.textContent = '';
           row.insertAdjacentHTML('beforeend', `<div class="msg">${result.error || 'Something went wrong, try again'}</div>`);
         }
-      };
-
-      xhr.onerror = function () {
+      } catch (err) {
+        clearInterval(ticker);
         row.classList.add('err');
         emojiEl.textContent = '⚠️';
         pct.textContent = '';
         row.insertAdjacentHTML('beforeend', `<div class="msg">Network error, try again</div>`);
-      };
-
-      xhr.send(payload);
+      }
+    };
+    reader.onerror = function () {
+      clearInterval(ticker);
+      row.classList.add('err');
+      emojiEl.textContent = '⚠️';
+      pct.textContent = '';
+      row.insertAdjacentHTML('beforeend', `<div class="msg">Couldn't read this file, try again</div>`);
     };
     reader.readAsDataURL(file);
   }
