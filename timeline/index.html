@@ -402,6 +402,85 @@
 
   .fx-card{ margin-top: 28px; }
   .val-card{ margin-top: 28px; }
+  .time-conv-card{ margin-top: 28px; }
+
+  .picked-chip{
+    margin-top: 8px;
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    background: rgba(217,165,68,0.08);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+  .time-results{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--border);
+  }
+  .time-card{
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 14px 12px;
+    position: relative;
+  }
+  .time-card .remove{
+    position:absolute;
+    top: 8px; right: 8px;
+    width: 20px; height:20px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-faint);
+    font-size: 14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .time-card .remove:hover{ color: var(--danger); }
+  .time-card .city{
+    font-family:'Spectral', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .time-card .country{
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .time-card .big-time{
+    font-family:'Spectral', serif;
+    font-size: 22px;
+    color: var(--blue);
+  }
+  .time-card .day-label{
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .time-card .badge{
+    display:inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    background: rgba(217,165,68,0.08);
+    border: 1px solid var(--gold-dim);
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
 
   .results-row{
     display:flex;
@@ -609,6 +688,40 @@
 
   </main>
 
+  <section class="card time-conv-card">
+    <h2>Time converter</h2>
+
+    <div class="field">
+      <label for="refCitySearch">Reference time is in</label>
+      <div class="add-city">
+        <input type="text" id="refCitySearch" placeholder="Search a city" autocomplete="off">
+        <div class="suggestions" id="refSuggestions"></div>
+      </div>
+      <div class="picked-chip" id="refPicked"></div>
+    </div>
+
+    <div class="dir-row">
+      <div class="field">
+        <label for="refTime">Time</label>
+        <input type="time" id="refTime">
+      </div>
+      <div class="field">
+        <label for="refDate">Date</label>
+        <input type="date" id="refDate">
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:8px;">
+      <label for="cmpCitySearch">Compare with</label>
+      <div class="add-city">
+        <input type="text" id="cmpCitySearch" placeholder="Add a city to compare" autocomplete="off">
+        <div class="suggestions" id="cmpSuggestions"></div>
+      </div>
+    </div>
+
+    <div class="time-results" id="timeResults"></div>
+  </section>
+
   <section class="card val-card">
     <h2>Raise & valuation</h2>
 
@@ -710,61 +823,204 @@
 
 <script>
 /* ============ CITY DATA ============ */
+/* Each entry: { name, country, tz, aliases }. Aliases help searches like
+   "California" or "IST" surface the right city even when it isn't the city name itself. */
 const CITIES = [
-  ["Bengaluru","India","Asia/Kolkata"],
-  ["Mumbai","India","Asia/Kolkata"],
-  ["New Delhi","India","Asia/Kolkata"],
-  ["Kolkata","India","Asia/Kolkata"],
-  ["Chennai","India","Asia/Kolkata"],
-  ["New York","USA","America/New_York"],
-  ["Los Angeles","USA","America/Los_Angeles"],
-  ["Chicago","USA","America/Chicago"],
-  ["Denver","USA","America/Denver"],
-  ["Honolulu","USA","Pacific/Honolulu"],
-  ["Anchorage","USA","America/Anchorage"],
-  ["Toronto","Canada","America/Toronto"],
-  ["Vancouver","Canada","America/Vancouver"],
-  ["Mexico City","Mexico","America/Mexico_City"],
-  ["Sao Paulo","Brazil","America/Sao_Paulo"],
-  ["Buenos Aires","Argentina","America/Argentina/Buenos_Aires"],
-  ["London","UK","Europe/London"],
-  ["Paris","France","Europe/Paris"],
-  ["Berlin","Germany","Europe/Berlin"],
-  ["Madrid","Spain","Europe/Madrid"],
-  ["Rome","Italy","Europe/Rome"],
-  ["Amsterdam","Netherlands","Europe/Amsterdam"],
-  ["Lisbon","Portugal","Europe/Lisbon"],
-  ["Zurich","Switzerland","Europe/Zurich"],
-  ["Stockholm","Sweden","Europe/Stockholm"],
-  ["Vienna","Austria","Europe/Vienna"],
-  ["Warsaw","Poland","Europe/Warsaw"],
-  ["Athens","Greece","Europe/Athens"],
-  ["Kyiv","Ukraine","Europe/Kyiv"],
-  ["Moscow","Russia","Europe/Moscow"],
-  ["Istanbul","Turkey","Europe/Istanbul"],
-  ["Reykjavik","Iceland","Atlantic/Reykjavik"],
-  ["Dubai","UAE","Asia/Dubai"],
-  ["Riyadh","Saudi Arabia","Asia/Riyadh"],
-  ["Tel Aviv","Israel","Asia/Jerusalem"],
-  ["Karachi","Pakistan","Asia/Karachi"],
-  ["Dhaka","Bangladesh","Asia/Dhaka"],
-  ["Bangkok","Thailand","Asia/Bangkok"],
-  ["Singapore","Singapore","Asia/Singapore"],
-  ["Hong Kong","China","Asia/Hong_Kong"],
-  ["Shanghai","China","Asia/Shanghai"],
-  ["Beijing","China","Asia/Shanghai"],
-  ["Tokyo","Japan","Asia/Tokyo"],
-  ["Seoul","South Korea","Asia/Seoul"],
-  ["Jakarta","Indonesia","Asia/Jakarta"],
-  ["Manila","Philippines","Asia/Manila"],
-  ["Sydney","Australia","Australia/Sydney"],
-  ["Melbourne","Australia","Australia/Melbourne"],
-  ["Auckland","New Zealand","Pacific/Auckland"],
-  ["Cairo","Egypt","Africa/Cairo"],
-  ["Johannesburg","South Africa","Africa/Johannesburg"],
-  ["Lagos","Nigeria","Africa/Lagos"],
-  ["Nairobi","Kenya","Africa/Nairobi"]
+  { name:"India", country:"IST, all of India", tz:"Asia/Kolkata", aliases:["IST","Indian Standard Time","Bharat"] },
+  { name:"Bengaluru", country:"India", tz:"Asia/Kolkata", aliases:["Bangalore"] },
+  { name:"Mumbai", country:"India", tz:"Asia/Kolkata", aliases:["Bombay"] },
+  { name:"New Delhi", country:"India", tz:"Asia/Kolkata", aliases:["Delhi"] },
+  { name:"Kolkata", country:"India", tz:"Asia/Kolkata", aliases:["Calcutta"] },
+  { name:"Chennai", country:"India", tz:"Asia/Kolkata", aliases:["Madras"] },
+  { name:"Hyderabad", country:"India", tz:"Asia/Kolkata" },
+  { name:"Pune", country:"India", tz:"Asia/Kolkata" },
+  { name:"Ahmedabad", country:"India", tz:"Asia/Kolkata" },
+  { name:"Jaipur", country:"India", tz:"Asia/Kolkata" },
+
+  { name:"New York", country:"USA", tz:"America/New_York", aliases:["New York State","NYC"] },
+  { name:"Los Angeles", country:"USA", tz:"America/Los_Angeles", aliases:["California","LA"] },
+  { name:"San Francisco", country:"USA", tz:"America/Los_Angeles", aliases:["California","Bay Area","SF"] },
+  { name:"San Diego", country:"USA", tz:"America/Los_Angeles", aliases:["California"] },
+  { name:"San Jose", country:"USA", tz:"America/Los_Angeles", aliases:["California","Silicon Valley"] },
+  { name:"Sacramento", country:"USA", tz:"America/Los_Angeles", aliases:["California"] },
+  { name:"Seattle", country:"USA", tz:"America/Los_Angeles", aliases:["Washington State"] },
+  { name:"Portland", country:"USA", tz:"America/Los_Angeles", aliases:["Oregon"] },
+  { name:"Las Vegas", country:"USA", tz:"America/Los_Angeles", aliases:["Nevada"] },
+  { name:"Chicago", country:"USA", tz:"America/Chicago", aliases:["Illinois"] },
+  { name:"Houston", country:"USA", tz:"America/Chicago", aliases:["Texas"] },
+  { name:"Dallas", country:"USA", tz:"America/Chicago", aliases:["Texas"] },
+  { name:"Austin", country:"USA", tz:"America/Chicago", aliases:["Texas"] },
+  { name:"San Antonio", country:"USA", tz:"America/Chicago", aliases:["Texas"] },
+  { name:"Denver", country:"USA", tz:"America/Denver", aliases:["Colorado"] },
+  { name:"Phoenix", country:"USA", tz:"America/Phoenix", aliases:["Arizona"] },
+  { name:"Miami", country:"USA", tz:"America/New_York", aliases:["Florida"] },
+  { name:"Orlando", country:"USA", tz:"America/New_York", aliases:["Florida"] },
+  { name:"Tampa", country:"USA", tz:"America/New_York", aliases:["Florida"] },
+  { name:"Atlanta", country:"USA", tz:"America/New_York", aliases:["Georgia"] },
+  { name:"Boston", country:"USA", tz:"America/New_York", aliases:["Massachusetts"] },
+  { name:"Washington DC", country:"USA", tz:"America/New_York", aliases:["Washington","DC","District of Columbia"] },
+  { name:"Philadelphia", country:"USA", tz:"America/New_York", aliases:["Pennsylvania"] },
+  { name:"Detroit", country:"USA", tz:"America/New_York", aliases:["Michigan"] },
+  { name:"Minneapolis", country:"USA", tz:"America/Chicago", aliases:["Minnesota"] },
+  { name:"Nashville", country:"USA", tz:"America/Chicago", aliases:["Tennessee"] },
+  { name:"New Orleans", country:"USA", tz:"America/Chicago", aliases:["Louisiana"] },
+  { name:"Salt Lake City", country:"USA", tz:"America/Denver", aliases:["Utah"] },
+  { name:"Honolulu", country:"USA", tz:"Pacific/Honolulu", aliases:["Hawaii"] },
+  { name:"Anchorage", country:"USA", tz:"America/Anchorage", aliases:["Alaska"] },
+
+  { name:"Toronto", country:"Canada", tz:"America/Toronto", aliases:["Ontario"] },
+  { name:"Montreal", country:"Canada", tz:"America/Toronto", aliases:["Quebec"] },
+  { name:"Vancouver", country:"Canada", tz:"America/Vancouver", aliases:["British Columbia"] },
+  { name:"Calgary", country:"Canada", tz:"America/Edmonton", aliases:["Alberta"] },
+  { name:"Ottawa", country:"Canada", tz:"America/Toronto" },
+
+  { name:"Mexico City", country:"Mexico", tz:"America/Mexico_City" },
+  { name:"Cancun", country:"Mexico", tz:"America/Cancun" },
+  { name:"Guadalajara", country:"Mexico", tz:"America/Mexico_City" },
+  { name:"Sao Paulo", country:"Brazil", tz:"America/Sao_Paulo" },
+  { name:"Rio de Janeiro", country:"Brazil", tz:"America/Sao_Paulo" },
+  { name:"Buenos Aires", country:"Argentina", tz:"America/Argentina/Buenos_Aires" },
+  { name:"Santiago", country:"Chile", tz:"America/Santiago" },
+  { name:"Bogota", country:"Colombia", tz:"America/Bogota" },
+  { name:"Lima", country:"Peru", tz:"America/Lima" },
+  { name:"Caracas", country:"Venezuela", tz:"America/Caracas" },
+
+  { name:"London", country:"UK", tz:"Europe/London", aliases:["England","United Kingdom","Britain"] },
+  { name:"Edinburgh", country:"UK", tz:"Europe/London", aliases:["Scotland"] },
+  { name:"Manchester", country:"UK", tz:"Europe/London", aliases:["England"] },
+  { name:"Dublin", country:"Ireland", tz:"Europe/Dublin" },
+  { name:"Paris", country:"France", tz:"Europe/Paris" },
+  { name:"Berlin", country:"Germany", tz:"Europe/Berlin" },
+  { name:"Munich", country:"Germany", tz:"Europe/Berlin" },
+  { name:"Frankfurt", country:"Germany", tz:"Europe/Berlin" },
+  { name:"Madrid", country:"Spain", tz:"Europe/Madrid" },
+  { name:"Barcelona", country:"Spain", tz:"Europe/Madrid" },
+  { name:"Rome", country:"Italy", tz:"Europe/Rome" },
+  { name:"Milan", country:"Italy", tz:"Europe/Rome" },
+  { name:"Amsterdam", country:"Netherlands", tz:"Europe/Amsterdam" },
+  { name:"Brussels", country:"Belgium", tz:"Europe/Brussels" },
+  { name:"Lisbon", country:"Portugal", tz:"Europe/Lisbon" },
+  { name:"Zurich", country:"Switzerland", tz:"Europe/Zurich" },
+  { name:"Geneva", country:"Switzerland", tz:"Europe/Zurich" },
+  { name:"Stockholm", country:"Sweden", tz:"Europe/Stockholm" },
+  { name:"Oslo", country:"Norway", tz:"Europe/Oslo" },
+  { name:"Copenhagen", country:"Denmark", tz:"Europe/Copenhagen" },
+  { name:"Helsinki", country:"Finland", tz:"Europe/Helsinki" },
+  { name:"Vienna", country:"Austria", tz:"Europe/Vienna" },
+  { name:"Warsaw", country:"Poland", tz:"Europe/Warsaw" },
+  { name:"Prague", country:"Czech Republic", tz:"Europe/Prague" },
+  { name:"Budapest", country:"Hungary", tz:"Europe/Budapest" },
+  { name:"Athens", country:"Greece", tz:"Europe/Athens" },
+  { name:"Kyiv", country:"Ukraine", tz:"Europe/Kyiv" },
+  { name:"Moscow", country:"Russia", tz:"Europe/Moscow" },
+  { name:"Istanbul", country:"Turkey", tz:"Europe/Istanbul" },
+  { name:"Reykjavik", country:"Iceland", tz:"Atlantic/Reykjavik" },
+
+  { name:"Dubai", country:"UAE", tz:"Asia/Dubai" },
+  { name:"Abu Dhabi", country:"UAE", tz:"Asia/Dubai" },
+  { name:"Riyadh", country:"Saudi Arabia", tz:"Asia/Riyadh" },
+  { name:"Doha", country:"Qatar", tz:"Asia/Qatar" },
+  { name:"Kuwait City", country:"Kuwait", tz:"Asia/Kuwait" },
+  { name:"Tel Aviv", country:"Israel", tz:"Asia/Jerusalem" },
+  { name:"Karachi", country:"Pakistan", tz:"Asia/Karachi" },
+  { name:"Lahore", country:"Pakistan", tz:"Asia/Karachi" },
+  { name:"Islamabad", country:"Pakistan", tz:"Asia/Karachi" },
+  { name:"Dhaka", country:"Bangladesh", tz:"Asia/Dhaka" },
+  { name:"Kathmandu", country:"Nepal", tz:"Asia/Kathmandu" },
+  { name:"Colombo", country:"Sri Lanka", tz:"Asia/Colombo" },
+  { name:"Bangkok", country:"Thailand", tz:"Asia/Bangkok" },
+  { name:"Singapore", country:"Singapore", tz:"Asia/Singapore" },
+  { name:"Kuala Lumpur", country:"Malaysia", tz:"Asia/Kuala_Lumpur" },
+  { name:"Hong Kong", country:"China", tz:"Asia/Hong_Kong" },
+  { name:"Shanghai", country:"China", tz:"Asia/Shanghai" },
+  { name:"Beijing", country:"China", tz:"Asia/Shanghai" },
+  { name:"Shenzhen", country:"China", tz:"Asia/Shanghai" },
+  { name:"Taipei", country:"Taiwan", tz:"Asia/Taipei" },
+  { name:"Tokyo", country:"Japan", tz:"Asia/Tokyo" },
+  { name:"Osaka", country:"Japan", tz:"Asia/Tokyo" },
+  { name:"Seoul", country:"South Korea", tz:"Asia/Seoul" },
+  { name:"Jakarta", country:"Indonesia", tz:"Asia/Jakarta" },
+  { name:"Bali", country:"Indonesia", tz:"Asia/Makassar", aliases:["Denpasar"] },
+  { name:"Manila", country:"Philippines", tz:"Asia/Manila" },
+  { name:"Ho Chi Minh City", country:"Vietnam", tz:"Asia/Ho_Chi_Minh", aliases:["Saigon"] },
+  { name:"Hanoi", country:"Vietnam", tz:"Asia/Ho_Chi_Minh" },
+
+  { name:"Sydney", country:"Australia", tz:"Australia/Sydney", aliases:["New South Wales"] },
+  { name:"Melbourne", country:"Australia", tz:"Australia/Melbourne", aliases:["Victoria"] },
+  { name:"Brisbane", country:"Australia", tz:"Australia/Brisbane", aliases:["Queensland"] },
+  { name:"Perth", country:"Australia", tz:"Australia/Perth", aliases:["Western Australia"] },
+  { name:"Adelaide", country:"Australia", tz:"Australia/Adelaide", aliases:["South Australia"] },
+  { name:"Auckland", country:"New Zealand", tz:"Pacific/Auckland" },
+  { name:"Wellington", country:"New Zealand", tz:"Pacific/Auckland" },
+  { name:"Fiji", country:"Fiji", tz:"Pacific/Fiji" },
+
+  { name:"Cairo", country:"Egypt", tz:"Africa/Cairo" },
+  { name:"Johannesburg", country:"South Africa", tz:"Africa/Johannesburg" },
+  { name:"Cape Town", country:"South Africa", tz:"Africa/Johannesburg" },
+  { name:"Lagos", country:"Nigeria", tz:"Africa/Lagos" },
+  { name:"Nairobi", country:"Kenya", tz:"Africa/Nairobi" },
+  { name:"Addis Ababa", country:"Ethiopia", tz:"Africa/Addis_Ababa" },
+  { name:"Casablanca", country:"Morocco", tz:"Africa/Casablanca" },
+  { name:"Accra", country:"Ghana", tz:"Africa/Accra" }
 ];
+
+/* Fallback: every IANA timezone not already covered above, so a search for
+   an obscure place still finds something ("every city in the world"). */
+const ALL_TZS = (typeof Intl.supportedValuesOf === 'function') ? Intl.supportedValuesOf('timeZone') : [];
+const CURATED_TZ_SET = new Set(CITIES.map(c => c.tz));
+const FALLBACK_CITIES = ALL_TZS
+  .filter(tz => !CURATED_TZ_SET.has(tz) && tz.includes('/'))
+  .map(tz => {
+    const segs = tz.split('/');
+    return { name: segs[segs.length - 1].replace(/_/g, ' '), country: segs[0], tz, aliases: [] };
+  });
+
+const ALL_SEARCHABLE = CITIES.concat(FALLBACK_CITIES);
+
+function cityByName(name){
+  return CITIES.find(c => c.name === name) || FALLBACK_CITIES.find(c => c.name === name);
+}
+
+/* Generic, reusable "type to find a city" picker used by the world clock
+   add-city box and both pickers in the time converter. */
+function makeCityPicker({ inputEl, suggestionsEl, isExcluded, onPick }){
+  function render(query){
+    const q = query.trim().toLowerCase();
+    if(!q){ suggestionsEl.classList.remove('open'); suggestionsEl.innerHTML = ''; return; }
+
+    const seen = new Set();
+    const matches = [];
+    for(const c of ALL_SEARCHABLE){
+      if(matches.length >= 8) break;
+      if(isExcluded && isExcluded(c.name)) continue;
+      const key = c.name + '|' + c.tz;
+      if(seen.has(key)) continue;
+      const hay = [c.name, c.country, ...(c.aliases || [])].join(' ').toLowerCase();
+      if(hay.includes(q)){
+        seen.add(key);
+        matches.push(c);
+      }
+    }
+
+    suggestionsEl.innerHTML = matches.length === 0
+      ? '<div class="empty">No matching city</div>'
+      : matches.map(c => `<div class="opt" data-name="${c.name}" data-tz="${c.tz}"><span>${c.name}</span><span class="cc">${c.country}</span></div>`).join('');
+    suggestionsEl.classList.add('open');
+  }
+
+  inputEl.addEventListener('input', () => render(inputEl.value));
+  inputEl.addEventListener('focus', () => render(inputEl.value));
+  document.addEventListener('click', (e) => {
+    if(!e.target.closest('.add-city')) suggestionsEl.classList.remove('open');
+  });
+  suggestionsEl.addEventListener('click', (e) => {
+    const opt = e.target.closest('.opt');
+    if(!opt) return;
+    onPick({ name: opt.dataset.name, tz: opt.dataset.tz });
+    inputEl.value = '';
+    suggestionsEl.classList.remove('open');
+  });
+}
 
 const DEFAULT_CITIES = ["Bengaluru","New York","London","Tokyo"];
 
@@ -895,14 +1151,10 @@ function saveCities(){
   localStorage.setItem('longitude_cities', JSON.stringify(activeCities));
 }
 
-function cityByName(name){
-  return CITIES.find(c => c[0] === name);
-}
-
 function buildClockCard(name){
   const c = cityByName(name);
   if(!c) return null;
-  const [city, country, tz] = c;
+  const { name: city, country, tz } = c;
 
   const card = document.createElement('div');
   card.className = 'clock-card';
@@ -1013,46 +1265,142 @@ function setHand(el, deg, length){
 }
 
 /* ---- search / add city ---- */
-function renderSuggestions(query){
-  const q = query.trim().toLowerCase();
-  if(!q){ suggestions.classList.remove('open'); suggestions.innerHTML=''; return; }
-
-  const matches = CITIES.filter(c =>
-    !activeCities.includes(c[0]) &&
-    (c[0].toLowerCase().includes(q) || c[1].toLowerCase().includes(q))
-  ).slice(0, 8);
-
-  if(matches.length === 0){
-    suggestions.innerHTML = '<div class="empty">No matching city</div>';
-  } else {
-    suggestions.innerHTML = matches.map(c =>
-      `<div class="opt" data-name="${c[0]}"><span>${c[0]}</span><span class="cc">${c[1]}</span></div>`
-    ).join('');
+makeCityPicker({
+  inputEl: citySearch,
+  suggestionsEl: suggestions,
+  isExcluded: (name) => activeCities.includes(name),
+  onPick: ({ name }) => {
+    if(!activeCities.includes(name)){
+      activeCities.push(name);
+      saveCities();
+      renderClocks();
+    }
   }
-  suggestions.classList.add('open');
-}
-
-citySearch.addEventListener('input', () => renderSuggestions(citySearch.value));
-citySearch.addEventListener('focus', () => renderSuggestions(citySearch.value));
-document.addEventListener('click', (e) => {
-  if(!e.target.closest('.add-city')) suggestions.classList.remove('open');
-});
-
-suggestions.addEventListener('click', (e) => {
-  const opt = e.target.closest('.opt');
-  if(!opt) return;
-  const name = opt.dataset.name;
-  if(name && !activeCities.includes(name)){
-    activeCities.push(name);
-    saveCities();
-    renderClocks();
-  }
-  citySearch.value = '';
-  suggestions.classList.remove('open');
 });
 
 renderClocks();
 setInterval(tickClocks, 1000);
+
+/* ============ TIME CONVERTER ============ */
+const refCitySearch = document.getElementById('refCitySearch');
+const refSuggestions = document.getElementById('refSuggestions');
+const refPicked = document.getElementById('refPicked');
+const refTime = document.getElementById('refTime');
+const refDate = document.getElementById('refDate');
+const cmpCitySearch = document.getElementById('cmpCitySearch');
+const cmpSuggestions = document.getElementById('cmpSuggestions');
+const timeResults = document.getElementById('timeResults');
+
+// Reference always defaults to India, shown and treated as IST.
+let refCity = cityByName('India');
+let cmpCities = ['New York','London','Tokyo'];
+
+function renderRefChip(){
+  refPicked.textContent = refCity.name + ' (' + (refCity.name === 'India' ? 'IST' : refCity.country) + ')';
+}
+
+function getOffsetMinutes(tz, date){
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName:'shortOffset' }).formatToParts(date);
+  const tzName = (parts.find(p => p.type === 'timeZoneName') || {}).value || 'GMT+0';
+  const match = tzName.match(/GMT([+-])(\d+)(?::(\d+))?/);
+  if(!match) return 0;
+  const sign = match[1] === '-' ? -1 : 1;
+  const hours = parseInt(match[2], 10);
+  const mins = match[3] ? parseInt(match[3], 10) : 0;
+  return sign * (hours * 60 + mins);
+}
+
+function zonedTimeToUtc(y, mo, d, hh, mm, tz){
+  const naive = new Date(Date.UTC(y, mo - 1, d, hh, mm, 0));
+  const offset = getOffsetMinutes(tz, naive);
+  return new Date(naive.getTime() - offset * 60000);
+}
+
+function isoDateInZone(date, tz){
+  return new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(date); // YYYY-MM-DD
+}
+
+function setDefaultRefTimeAndDate(){
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: refCity.tz, hour12:false, hour:'2-digit', minute:'2-digit'
+  }).formatToParts(now).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+  refTime.value = `${parts.hour}:${parts.minute}`;
+  refDate.value = isoDateInZone(now, refCity.tz);
+}
+
+function computeTimeConversion(){
+  if(!refTime.value || !refDate.value){ timeResults.innerHTML = ''; return; }
+  const [y, mo, d] = refDate.value.split('-').map(Number);
+  const [hh, mm] = refTime.value.split(':').map(Number);
+  const utcMoment = zonedTimeToUtc(y, mo, d, hh, mm, refCity.tz);
+  const refDateStr = refDate.value;
+
+  timeResults.innerHTML = cmpCities.map(name => {
+    const c = cityByName(name);
+    if(!c) return '';
+
+    const timeParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: c.tz, hour12:true, hour:'2-digit', minute:'2-digit'
+    }).formatToParts(utcMoment).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+    const dayLabel = new Intl.DateTimeFormat('en-US', {
+      timeZone: c.tz, weekday:'short', month:'short', day:'numeric'
+    }).format(utcMoment);
+
+    const targetDateStr = isoDateInZone(utcMoment, c.tz);
+    const dayDiff = Math.round((parseISODate(targetDateStr) - parseISODate(refDateStr)) / 86400000);
+    const badge = dayDiff === 0 ? '' :
+      `<div class="badge">${dayDiff > 0 ? '+' : ''}${dayDiff} day${Math.abs(dayDiff) > 1 ? 's' : ''}</div>`;
+
+    return `
+      <div class="time-card" data-name="${name}">
+        <button class="remove" title="Remove">✕</button>
+        <div class="city">${c.name}</div>
+        <div class="country">${c.country}</div>
+        <div class="big-time">${timeParts.hour}:${timeParts.minute} ${timeParts.dayPeriod}</div>
+        <div class="day-label">${dayLabel}</div>
+        ${badge}
+      </div>`;
+  }).join('');
+
+  timeResults.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const name = e.target.closest('.time-card').dataset.name;
+      cmpCities = cmpCities.filter(n => n !== name);
+      computeTimeConversion();
+    });
+  });
+}
+
+makeCityPicker({
+  inputEl: refCitySearch,
+  suggestionsEl: refSuggestions,
+  isExcluded: () => false,
+  onPick: ({ name, tz }) => {
+    refCity = cityByName(name) || { name, country: '', tz };
+    renderRefChip();
+    setDefaultRefTimeAndDate();
+    computeTimeConversion();
+  }
+});
+
+makeCityPicker({
+  inputEl: cmpCitySearch,
+  suggestionsEl: cmpSuggestions,
+  isExcluded: (name) => cmpCities.includes(name),
+  onPick: ({ name }) => {
+    if(!cmpCities.includes(name)){
+      cmpCities.push(name);
+      computeTimeConversion();
+    }
+  }
+});
+
+[refTime, refDate].forEach(el => el.addEventListener('input', computeTimeConversion));
+
+renderRefChip();
+setDefaultRefTimeAndDate();
+computeTimeConversion();
 
 /* ============ CURRENCY EXCHANGE ============ */
 const CURRENCY_NAMES = {
