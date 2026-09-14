@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Longitude (Date Math & World Time)</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0E14;
+    --surface: #12161F;
+    --surface-alt: #1A2029;
+    --border: #242C39;
+    --gold: #D9A544;
+    --gold-dim: #8A6B31;
+    --blue: #5FA0C9;
+    --text: #E7E9ED;
+    --text-dim: #8891A0;
+    --text-faint: #565F6E;
+    --danger: #C0664F;
+    color-scheme: dark;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(217,165,68,0.05), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(95,160,201,0.05), transparent 45%);
+    min-height: 100vh;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  header.site{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap: 12px;
+  }
+
+  .brand h1{
+    font-family:'Spectral', serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin:0;
+    letter-spacing: 0.3px;
+  }
+
+  .brand .mark{
+    color: var(--gold);
+    font-style: italic;
+    font-family:'Spectral', serif;
+  }
+
+  .brand .sub{
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  .live-utc{
+    font-family:'Spectral', serif;
+    font-size: 15px;
+    color: var(--text-dim);
+    text-align:right;
+  }
+  .live-utc .t{ color: var(--text); font-size:18px; }
+
+  main.grid{
+    display:grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  @media (max-width: 880px){
+    main.grid{ grid-template-columns: 1fr; }
+    header.site{ flex-direction:column; align-items:flex-start; }
+    .live-utc{ text-align:left; }
+  }
+
+  section.card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px;
+  }
+
+  .card h2{
+    font-family:'Spectral', serif;
+    font-weight:500;
+    font-size: 15px;
+    margin: 0 0 22px;
+    color: var(--text-dim);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .card h2::before{
+    content:'';
+    width:16px; height:1px;
+    background: var(--gold-dim);
+    display:inline-block;
+  }
+
+  /* ---------- Date calculator ---------- */
+
+  .segmented{
+    display:flex;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px;
+    margin-bottom: 24px;
+  }
+  .segmented button{
+    flex:1;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family:'Inter';
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 8px;
+    border-radius: 4px;
+    cursor:pointer;
+    transition: background .15s, color .15s;
+  }
+  .segmented button.active{
+    background: var(--gold);
+    color: #1A1305;
+  }
+
+  .field{
+    margin-bottom: 18px;
+  }
+  .field label{
+    display:block;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
+  .field input[type="date"],
+  .field input[type="number"]{
+    width:100%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Inter';
+    font-size: 15px;
+    padding: 11px 12px;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .field input:focus{
+    border-color: var(--gold-dim);
+  }
+  .field input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(0.7);
+    cursor:pointer;
+  }
+
+  .dir-row{
+    display:flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .dir-row .field{ flex:1; margin-bottom:0; }
+  .dir-toggle{
+    display:flex;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow:hidden;
+    height: 43px;
+    flex-shrink:0;
+  }
+  .dir-toggle button{
+    width: 40px;
+    background: var(--surface-alt);
+    border:none;
+    color: var(--text-dim);
+    font-size: 17px;
+    cursor:pointer;
+  }
+  .dir-toggle button.active{
+    background: var(--gold);
+    color:#1A1305;
+  }
+  .dir-toggle button:first-child{ border-right: 1px solid var(--border); }
+
+  .presets{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .presets button{
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .presets button:hover{
+    border-color: var(--gold-dim);
+    color: var(--text);
+  }
+  .presets button.active{
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(217,165,68,0.08);
+  }
+
+  .result{
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--border);
+  }
+  .result .label{
+    font-size: 12px;
+    color: var(--text-faint);
+    text-transform: none;
+    margin-bottom: 6px;
+  }
+  .result .big-date{
+    font-family:'Spectral', serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1.15;
+  }
+  .result .weekday{
+    font-size: 15px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .result .breakdown{
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .result .breakdown b{ color: var(--text-dim); font-weight: 600; }
+
+  .between-result .big-date{ font-size: 44px; }
+  .between-result .unit{
+    font-size: 16px;
+    color: var(--text-dim);
+    font-family:'Inter';
+    margin-left: 6px;
+  }
+
+  /* ---------- World clock ---------- */
+
+  .add-city{
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .add-city input{
+    width:100%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family:'Inter';
+    font-size: 14px;
+    padding: 11px 12px;
+    border-radius: 5px;
+    outline:none;
+  }
+  .add-city input:focus{ border-color: var(--gold-dim); }
+  .suggestions{
+    position:absolute;
+    top: calc(100% + 4px);
+    left:0; right:0;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    max-height: 240px;
+    overflow-y:auto;
+    z-index: 20;
+    display:none;
+  }
+  .suggestions.open{ display:block; }
+  .suggestions .opt{
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor:pointer;
+    display:flex;
+    justify-content: space-between;
+    color: var(--text);
+  }
+  .suggestions .opt:hover{ background: rgba(217,165,68,0.08); }
+  .suggestions .opt .cc{ color: var(--text-faint); font-size: 12px; }
+  .suggestions .empty{ padding: 14px 12px; color: var(--text-faint); font-size: 13px; }
+
+  .clock-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .clock-card{
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 14px 14px;
+    position: relative;
+    text-align:center;
+  }
+  .clock-card .remove{
+    position:absolute;
+    top: 8px; right: 8px;
+    width: 20px; height:20px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-faint);
+    font-size: 14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .clock-card .remove:hover{ color: var(--danger); }
+
+  .clock-card svg{ width: 92px; height: 92px; margin: 4px auto 10px; display:block; }
+  .clock-face-ring{ fill:none; stroke: var(--border); stroke-width:1.5; }
+  .clock-tick{ stroke: var(--text-faint); stroke-width: 1.2; }
+  .clock-tick.major{ stroke: var(--gold-dim); stroke-width: 1.8; }
+  .hand{ stroke-linecap: round; }
+  .hand-hour{ stroke: var(--text); stroke-width: 3; }
+  .hand-min{ stroke: var(--text); stroke-width: 2; }
+  .hand-sec{ stroke: var(--gold); stroke-width: 1; }
+  .clock-center{ fill: var(--gold); }
+
+  .clock-card .city{
+    font-family:'Spectral', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .clock-card .country{
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+  .clock-card .digital{
+    font-family:'Spectral', serif;
+    font-size: 15px;
+    color: var(--blue);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .clock-card .meta{
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 3px;
+  }
+  .clock-card.is-day .digital{ color: var(--gold); }
+
+  .empty-clocks{
+    color: var(--text-faint);
+    font-size: 13px;
+    padding: 30px 10px;
+    text-align:center;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+  }
+
+  .fx-card{ margin-top: 28px; }
+  .val-card{ margin-top: 28px; }
+
+  .results-row{
+    display:flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--border);
+  }
+  .results-row .result{
+    flex: 1 1 220px;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .val-card select#valCurrency{
+    width:100%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family:'Inter';
+    font-size: 14px;
+    padding: 11px 12px;
+    border-radius: 5px;
+    outline:none;
+  }
+  .val-card select#valCurrency:focus{ border-color: var(--gold-dim); }
+
+  .fx-tickers{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .fx-ticker-loading{
+    color: var(--text-faint);
+    font-size: 13px;
+    grid-column: 1 / -1;
+  }
+  .fx-ticker{
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .fx-ticker .pair{
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .fx-ticker .rate{
+    font-family:'Spectral', serif;
+    font-size: 19px;
+    color: var(--gold);
+  }
+
+  .fx-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr auto 1fr;
+    gap: 12px;
+    align-items:end;
+  }
+  @media (max-width: 640px){
+    .fx-row{ grid-template-columns: 1fr; }
+    .fx-swap{ justify-self:center; transform: rotate(90deg); }
+  }
+
+  .fx-amount-field input{ font-family:'Spectral', serif; font-size: 17px; }
+
+  select#fxFrom, select#fxTo{
+    width:100%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family:'Inter';
+    font-size: 14px;
+    padding: 11px 12px;
+    border-radius: 5px;
+    outline:none;
+  }
+  select#fxFrom:focus, select#fxTo:focus{ border-color: var(--gold-dim); }
+
+  .fx-swap{
+    height: 43px;
+    width: 43px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 5px;
+    font-size: 16px;
+    cursor:pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .fx-swap:hover{ border-color: var(--gold-dim); color: var(--gold); }
+
+  .fx-meta{
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .fx-meta.error{ color: var(--danger); }
+
+  footer.note{
+    text-align:center;
+    color: var(--text-faint);
+    font-size: 12px;
+    margin-top: 40px;
+  }
+
+  ::-webkit-scrollbar{ width: 8px; }
+  ::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="site">
+    <div class="brand">
+      <h1><span class="mark">Longitude</span></h1>
+      <span class="sub">date math & world time</span>
+    </div>
+    <div class="live-utc">
+      <div>Coordinated Universal Time</div>
+      <div class="t" id="utcClock">--:--:-- --</div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <!-- DATE CALCULATOR -->
+    <section class="card">
+      <h2>Date calculator</h2>
+
+      <div class="segmented" role="tablist">
+        <button class="active" data-mode="add" id="tabAdd">Add / subtract days</button>
+        <button data-mode="between" id="tabBetween">Days between dates</button>
+      </div>
+
+      <!-- Mode: add days -->
+      <div id="modeAdd">
+        <div class="field">
+          <label for="startDate">Start date</label>
+          <input type="date" id="startDate">
+        </div>
+
+        <div class="dir-row">
+          <div class="field">
+            <label for="numDays">Number of days</label>
+            <input type="number" id="numDays" min="0" value="15" inputmode="numeric">
+          </div>
+          <div class="dir-toggle">
+            <button class="active" id="dirPlus" title="Add days">+</button>
+            <button id="dirMinus" title="Subtract days">&minus;</button>
+          </div>
+        </div>
+
+        <div class="presets" id="dayPresets">
+          <button type="button" data-val="6">6 days</button>
+          <button type="button" data-val="15">15 days</button>
+          <button type="button" data-val="20">20 days</button>
+          <button type="button" data-val="25">25 days</button>
+        </div>
+
+        <div class="result">
+          <div class="label">Result</div>
+          <div class="big-date" id="resultDate">Pick a date</div>
+          <div class="weekday" id="resultWeekday"></div>
+          <div class="breakdown" id="resultBreakdown"></div>
+        </div>
+      </div>
+
+      <!-- Mode: days between -->
+      <div id="modeBetween" style="display:none;">
+        <div class="field">
+          <label for="dateA">From</label>
+          <input type="date" id="dateA">
+        </div>
+        <div class="field">
+          <label for="dateB">To</label>
+          <input type="date" id="dateB">
+        </div>
+
+        <div class="result between-result">
+          <div class="label">Difference</div>
+          <div class="big-date" id="betweenDays">0<span class="unit">days</span></div>
+          <div class="breakdown" id="betweenBreakdown"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD CLOCK -->
+    <section class="card">
+      <h2>World clock</h2>
+
+      <div class="add-city">
+        <input type="text" id="citySearch" placeholder="Add a city, try Tokyo or Berlin" autocomplete="off">
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+
+      <div class="clock-grid" id="clockGrid"></div>
+      <div class="empty-clocks" id="emptyState" style="display:none;">No cities yet. Search above to add one.</div>
+    </section>
+
+  </main>
+
+  <section class="card val-card">
+    <h2>Raise & valuation</h2>
+
+    <div class="field">
+      <label for="valCurrency">Currency</label>
+      <select id="valCurrency"></select>
+    </div>
+
+    <div class="segmented" role="tablist">
+      <button class="active" id="tabEquity" data-mode="equity">Raise + equity %</button>
+      <button id="tabPre" data-mode="pre">Raise + pre-money</button>
+    </div>
+
+    <div id="modeEquity">
+      <div class="field">
+        <label for="raiseAmount">Money you are raising</label>
+        <input type="number" id="raiseAmount" min="0" value="500000" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="equityPercent">Equity you are giving up (%)</label>
+        <input type="number" id="equityPercent" min="0" max="100" step="0.1" value="10" inputmode="decimal">
+      </div>
+
+      <div class="results-row">
+        <div class="result">
+          <div class="label">Post-money valuation</div>
+          <div class="big-date" id="postMoneyOut">n/a</div>
+          <div class="breakdown" id="postMoneyUsd"></div>
+        </div>
+        <div class="result">
+          <div class="label">Pre-money valuation</div>
+          <div class="big-date" id="preMoneyOut">n/a</div>
+          <div class="breakdown" id="preMoneyUsd"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modePre" style="display:none;">
+      <div class="field">
+        <label for="raiseAmount2">Money you are raising</label>
+        <input type="number" id="raiseAmount2" min="0" value="500000" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="preMoneyInput">Pre-money valuation</label>
+        <input type="number" id="preMoneyInput" min="0" value="4500000" inputmode="decimal">
+      </div>
+
+      <div class="results-row">
+        <div class="result">
+          <div class="label">Post-money valuation</div>
+          <div class="big-date" id="postMoneyOut2">n/a</div>
+          <div class="breakdown" id="postMoneyUsd2"></div>
+        </div>
+        <div class="result">
+          <div class="label">Equity you are giving up</div>
+          <div class="big-date" id="equityOut">n/a</div>
+          <div class="breakdown" id="equityBreakdown"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card fx-card">
+    <h2>Currency exchange</h2>
+
+    <div class="fx-tickers" id="fxTickers">
+      <div class="fx-ticker-loading">Fetching live rates&hellip;</div>
+    </div>
+
+    <div class="fx-converter">
+      <div class="fx-row">
+        <div class="field fx-amount-field">
+          <label for="fxAmount">Amount</label>
+          <input type="number" id="fxAmount" value="1000" min="0" inputmode="decimal">
+        </div>
+        <div class="field">
+          <label for="fxFrom">From</label>
+          <select id="fxFrom"></select>
+        </div>
+        <button type="button" class="fx-swap" id="fxSwap" title="Swap currencies">&#8646;</button>
+        <div class="field">
+          <label for="fxTo">To</label>
+          <select id="fxTo"></select>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="label">Converted amount</div>
+        <div class="big-date" id="fxResult">&hellip;</div>
+        <div class="breakdown" id="fxRate"></div>
+      </div>
+    </div>
+
+    <div class="fx-meta" id="fxMeta"></div>
+  </section>
+
+  <footer class="note">Times update live in your browser. Nothing is sent anywhere.</footer>
+</div>
+
+<script>
+/* ============ CITY DATA ============ */
+const CITIES = [
+  ["Bengaluru","India","Asia/Kolkata"],
+  ["Mumbai","India","Asia/Kolkata"],
+  ["New Delhi","India","Asia/Kolkata"],
+  ["Kolkata","India","Asia/Kolkata"],
+  ["Chennai","India","Asia/Kolkata"],
+  ["New York","USA","America/New_York"],
+  ["Los Angeles","USA","America/Los_Angeles"],
+  ["Chicago","USA","America/Chicago"],
+  ["Denver","USA","America/Denver"],
+  ["Honolulu","USA","Pacific/Honolulu"],
+  ["Anchorage","USA","America/Anchorage"],
+  ["Toronto","Canada","America/Toronto"],
+  ["Vancouver","Canada","America/Vancouver"],
+  ["Mexico City","Mexico","America/Mexico_City"],
+  ["Sao Paulo","Brazil","America/Sao_Paulo"],
+  ["Buenos Aires","Argentina","America/Argentina/Buenos_Aires"],
+  ["London","UK","Europe/London"],
+  ["Paris","France","Europe/Paris"],
+  ["Berlin","Germany","Europe/Berlin"],
+  ["Madrid","Spain","Europe/Madrid"],
+  ["Rome","Italy","Europe/Rome"],
+  ["Amsterdam","Netherlands","Europe/Amsterdam"],
+  ["Lisbon","Portugal","Europe/Lisbon"],
+  ["Zurich","Switzerland","Europe/Zurich"],
+  ["Stockholm","Sweden","Europe/Stockholm"],
+  ["Vienna","Austria","Europe/Vienna"],
+  ["Warsaw","Poland","Europe/Warsaw"],
+  ["Athens","Greece","Europe/Athens"],
+  ["Kyiv","Ukraine","Europe/Kyiv"],
+  ["Moscow","Russia","Europe/Moscow"],
+  ["Istanbul","Turkey","Europe/Istanbul"],
+  ["Reykjavik","Iceland","Atlantic/Reykjavik"],
+  ["Dubai","UAE","Asia/Dubai"],
+  ["Riyadh","Saudi Arabia","Asia/Riyadh"],
+  ["Tel Aviv","Israel","Asia/Jerusalem"],
+  ["Karachi","Pakistan","Asia/Karachi"],
+  ["Dhaka","Bangladesh","Asia/Dhaka"],
+  ["Bangkok","Thailand","Asia/Bangkok"],
+  ["Singapore","Singapore","Asia/Singapore"],
+  ["Hong Kong","China","Asia/Hong_Kong"],
+  ["Shanghai","China","Asia/Shanghai"],
+  ["Beijing","China","Asia/Shanghai"],
+  ["Tokyo","Japan","Asia/Tokyo"],
+  ["Seoul","South Korea","Asia/Seoul"],
+  ["Jakarta","Indonesia","Asia/Jakarta"],
+  ["Manila","Philippines","Asia/Manila"],
+  ["Sydney","Australia","Australia/Sydney"],
+  ["Melbourne","Australia","Australia/Melbourne"],
+  ["Auckland","New Zealand","Pacific/Auckland"],
+  ["Cairo","Egypt","Africa/Cairo"],
+  ["Johannesburg","South Africa","Africa/Johannesburg"],
+  ["Lagos","Nigeria","Africa/Lagos"],
+  ["Nairobi","Kenya","Africa/Nairobi"]
+];
+
+const DEFAULT_CITIES = ["Bengaluru","New York","London","Tokyo"];
+
+/* ============ STATE ============ */
+let activeCities = [];
+try{
+  const saved = JSON.parse(localStorage.getItem('longitude_cities'));
+  activeCities = Array.isArray(saved) && saved.length ? saved : DEFAULT_CITIES.slice();
+}catch(e){ activeCities = DEFAULT_CITIES.slice(); }
+
+/* ============ DATE CALCULATOR ============ */
+const startDate = document.getElementById('startDate');
+const numDays = document.getElementById('numDays');
+const dirPlus = document.getElementById('dirPlus');
+const dirMinus = document.getElementById('dirMinus');
+const resultDate = document.getElementById('resultDate');
+const resultWeekday = document.getElementById('resultWeekday');
+const resultBreakdown = document.getElementById('resultBreakdown');
+
+const dateA = document.getElementById('dateA');
+const dateB = document.getElementById('dateB');
+const betweenDays = document.getElementById('betweenDays');
+const betweenBreakdown = document.getElementById('betweenBreakdown');
+
+let direction = 1;
+
+function todayISO(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+startDate.value = todayISO();
+dateA.value = todayISO();
+dateB.value = todayISO();
+
+function fmtLong(d){
+  return d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+}
+function fmtWeekday(d){
+  return d.toLocaleDateString('en-US', { weekday:'long' });
+}
+
+function parseISODate(str){
+  const [y,m,d] = str.split('-').map(Number);
+  return new Date(y, m-1, d);
+}
+
+function computeAdd(){
+  if(!startDate.value){ resultDate.textContent = 'Pick a date'; resultWeekday.textContent=''; resultBreakdown.textContent=''; return; }
+  const base = parseISODate(startDate.value);
+  const n = parseInt(numDays.value || '0', 10) * direction;
+  const out = new Date(base);
+  out.setDate(out.getDate() + n);
+
+  resultDate.textContent = fmtLong(out);
+  resultWeekday.textContent = fmtWeekday(out);
+
+  const abs = Math.abs(parseInt(numDays.value || '0', 10));
+  const weeks = Math.floor(abs/7);
+  const rem = abs % 7;
+  let parts = [];
+  if(weeks) parts.push(weeks + (weeks===1 ? ' week' : ' weeks'));
+  if(rem || !weeks) parts.push(rem + (rem===1 ? ' day' : ' days'));
+  resultBreakdown.innerHTML = '<b>'+abs+'</b> days ' + (direction>0 ? 'after' : 'before') + ' start &nbsp;·&nbsp; ' + parts.join(' and ');
+}
+
+function computeBetween(){
+  if(!dateA.value || !dateB.value){ betweenDays.innerHTML = '0<span class="unit">days</span>'; betweenBreakdown.textContent=''; return; }
+  const a = parseISODate(dateA.value);
+  const b = parseISODate(dateB.value);
+  const diffMs = b - a;
+  const diffDays = Math.round(diffMs / 86400000);
+  const abs = Math.abs(diffDays);
+  betweenDays.innerHTML = abs + '<span class="unit">' + (abs===1?'day':'days') + '</span>';
+  const weeks = Math.floor(abs/7);
+  const rem = abs % 7;
+  let parts = [];
+  if(weeks) parts.push(weeks + (weeks===1 ? ' week' : ' weeks'));
+  if(rem || !weeks) parts.push(rem + (rem===1 ? ' day' : ' days'));
+  const rel = diffDays === 0 ? 'Same day' : (diffDays > 0 ? '“To” is later' : '“To” is earlier');
+  betweenBreakdown.innerHTML = rel + ' &nbsp;·&nbsp; ' + parts.join(' and ');
+}
+
+[startDate, numDays].forEach(el => el.addEventListener('input', () => { syncPresetActive(); computeAdd(); }));
+dirPlus.addEventListener('click', () => { direction = 1; dirPlus.classList.add('active'); dirMinus.classList.remove('active'); computeAdd(); });
+dirMinus.addEventListener('click', () => { direction = -1; dirMinus.classList.add('active'); dirPlus.classList.remove('active'); computeAdd(); });
+
+const dayPresets = document.getElementById('dayPresets');
+dayPresets.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  numDays.value = btn.dataset.val;
+  syncPresetActive();
+  computeAdd();
+});
+function syncPresetActive(){
+  [...dayPresets.querySelectorAll('button')].forEach(b => {
+    b.classList.toggle('active', b.dataset.val === String(numDays.value));
+  });
+}
+syncPresetActive();
+
+[dateA, dateB].forEach(el => el.addEventListener('input', computeBetween));
+
+const tabAdd = document.getElementById('tabAdd');
+const tabBetween = document.getElementById('tabBetween');
+const modeAdd = document.getElementById('modeAdd');
+const modeBetween = document.getElementById('modeBetween');
+
+tabAdd.addEventListener('click', () => {
+  tabAdd.classList.add('active'); tabBetween.classList.remove('active');
+  modeAdd.style.display=''; modeBetween.style.display='none';
+});
+tabBetween.addEventListener('click', () => {
+  tabBetween.classList.add('active'); tabAdd.classList.remove('active');
+  modeBetween.style.display=''; modeAdd.style.display='none';
+});
+
+computeAdd();
+computeBetween();
+
+/* ============ WORLD CLOCK ============ */
+const clockGrid = document.getElementById('clockGrid');
+const emptyState = document.getElementById('emptyState');
+const citySearch = document.getElementById('citySearch');
+const suggestions = document.getElementById('suggestions');
+
+function saveCities(){
+  localStorage.setItem('longitude_cities', JSON.stringify(activeCities));
+}
+
+function cityByName(name){
+  return CITIES.find(c => c[0] === name);
+}
+
+function buildClockCard(name){
+  const c = cityByName(name);
+  if(!c) return null;
+  const [city, country, tz] = c;
+
+  const card = document.createElement('div');
+  card.className = 'clock-card';
+  card.dataset.tz = tz;
+  card.dataset.city = city;
+
+  const ticks = [];
+  for(let i=0;i<60;i++){
+    const angle = i*6;
+    const major = i % 5 === 0;
+    const r1 = major ? 32 : 34.5;
+    const r2 = 36;
+    const rad = (angle-90) * Math.PI/180;
+    const x1 = 36 + r1*Math.cos(rad), y1 = 36 + r1*Math.sin(rad);
+    const x2 = 36 + r2*Math.cos(rad), y2 = 36 + r2*Math.sin(rad);
+    ticks.push(`<line class="clock-tick${major?' major':''}" x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}"/>`);
+  }
+
+  card.innerHTML = `
+    <button class="remove" title="Remove">✕</button>
+    <svg viewBox="0 0 72 72">
+      <circle class="clock-face-ring" cx="36" cy="36" r="34.5"/>
+      ${ticks.join('')}
+      <line class="hand hand-hour" x1="36" y1="36" x2="36" y2="20"/>
+      <line class="hand hand-min" x1="36" y1="36" x2="36" y2="14"/>
+      <line class="hand hand-sec" x1="36" y1="36" x2="36" y2="12"/>
+      <circle class="clock-center" cx="36" cy="36" r="2.4"/>
+    </svg>
+    <div class="city">${city}</div>
+    <div class="country">${country}</div>
+    <div class="digital">--:--:--</div>
+    <div class="meta">loading</div>
+  `;
+
+  card.querySelector('.remove').addEventListener('click', () => {
+    activeCities = activeCities.filter(n => n !== name);
+    saveCities();
+    renderClocks();
+  });
+
+  return card;
+}
+
+function renderClocks(){
+  clockGrid.innerHTML = '';
+  if(activeCities.length === 0){
+    emptyState.style.display = '';
+  } else {
+    emptyState.style.display = 'none';
+    activeCities.forEach(name => {
+      const card = buildClockCard(name);
+      if(card) clockGrid.appendChild(card);
+    });
+  }
+  tickClocks();
+}
+
+function tickClocks(){
+  const now = new Date();
+
+  // UTC readout (12-hour, AM/PM)
+  const utcParts = new Intl.DateTimeFormat('en-US', {
+    timeZone:'UTC', hour12:true, hour:'2-digit', minute:'2-digit', second:'2-digit'
+  }).formatToParts(now).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+  document.getElementById('utcClock').textContent =
+    `${utcParts.hour}:${utcParts.minute}:${utcParts.second} ${utcParts.dayPeriod}`;
+
+  document.querySelectorAll('.clock-card').forEach(card => {
+    const tz = card.dataset.tz;
+
+    // 24-hour parts drive the analog hand math
+    const parts24 = new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz, hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit'
+    }).formatToParts(now).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+    const h = parseInt(parts24.hour,10), m = parseInt(parts24.minute,10), s = parseInt(parts24.second,10);
+
+    const hourDeg = (h % 12) * 30 + m*0.5;
+    const minDeg = m * 6 + s*0.1;
+    const secDeg = s * 6;
+
+    setHand(card.querySelector('.hand-hour'), hourDeg, 16);
+    setHand(card.querySelector('.hand-min'), minDeg, 20);
+    setHand(card.querySelector('.hand-sec'), secDeg, 23);
+
+    // 12-hour parts (with AM/PM) drive the digital readout
+    const parts12 = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hour12:true, hour:'2-digit', minute:'2-digit', second:'2-digit'
+    }).formatToParts(now).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+    card.querySelector('.digital').textContent = `${parts12.hour}:${parts12.minute}:${parts12.second} ${parts12.dayPeriod}`;
+
+    // offset + day label
+    const offsetFmt = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName:'shortOffset' })
+      .formatToParts(now).find(p => p.type === 'timeZoneName');
+    const dayLabel = new Intl.DateTimeFormat('en-US', { timeZone: tz, weekday:'short', month:'short', day:'numeric' }).format(now);
+    card.querySelector('.meta').textContent = (offsetFmt ? offsetFmt.value : '') + ', ' + dayLabel;
+
+    const isDay = h >= 6 && h < 18;
+    card.classList.toggle('is-day', isDay);
+  });
+}
+
+function setHand(el, deg, length){
+  const rad = (deg - 90) * Math.PI/180;
+  const x2 = 36 + length*Math.cos(rad);
+  const y2 = 36 + length*Math.sin(rad);
+  el.setAttribute('x2', x2.toFixed(2));
+  el.setAttribute('y2', y2.toFixed(2));
+}
+
+/* ---- search / add city ---- */
+function renderSuggestions(query){
+  const q = query.trim().toLowerCase();
+  if(!q){ suggestions.classList.remove('open'); suggestions.innerHTML=''; return; }
+
+  const matches = CITIES.filter(c =>
+    !activeCities.includes(c[0]) &&
+    (c[0].toLowerCase().includes(q) || c[1].toLowerCase().includes(q))
+  ).slice(0, 8);
+
+  if(matches.length === 0){
+    suggestions.innerHTML = '<div class="empty">No matching city</div>';
+  } else {
+    suggestions.innerHTML = matches.map(c =>
+      `<div class="opt" data-name="${c[0]}"><span>${c[0]}</span><span class="cc">${c[1]}</span></div>`
+    ).join('');
+  }
+  suggestions.classList.add('open');
+}
+
+citySearch.addEventListener('input', () => renderSuggestions(citySearch.value));
+citySearch.addEventListener('focus', () => renderSuggestions(citySearch.value));
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.add-city')) suggestions.classList.remove('open');
+});
+
+suggestions.addEventListener('click', (e) => {
+  const opt = e.target.closest('.opt');
+  if(!opt) return;
+  const name = opt.dataset.name;
+  if(name && !activeCities.includes(name)){
+    activeCities.push(name);
+    saveCities();
+    renderClocks();
+  }
+  citySearch.value = '';
+  suggestions.classList.remove('open');
+});
+
+renderClocks();
+setInterval(tickClocks, 1000);
+
+/* ============ CURRENCY EXCHANGE ============ */
+const CURRENCY_NAMES = {
+  AED:'UAE Dirham', AFN:'Afghan Afghani', ALL:'Albanian Lek', AMD:'Armenian Dram',
+  ANG:'Netherlands Antillean Guilder', AOA:'Angolan Kwanza', ARS:'Argentine Peso',
+  AUD:'Australian Dollar', AWG:'Aruban Florin', AZN:'Azerbaijani Manat',
+  BAM:'Bosnia-Herzegovina Mark', BBD:'Barbadian Dollar', BDT:'Bangladeshi Taka',
+  BGN:'Bulgarian Lev', BHD:'Bahraini Dinar', BIF:'Burundian Franc', BMD:'Bermudan Dollar',
+  BND:'Brunei Dollar', BOB:'Bolivian Boliviano', BRL:'Brazilian Real', BSD:'Bahamian Dollar',
+  BTN:'Bhutanese Ngultrum', BWP:'Botswanan Pula', BYN:'Belarusian Ruble', BZD:'Belize Dollar',
+  CAD:'Canadian Dollar', CDF:'Congolese Franc', CHF:'Swiss Franc', CLP:'Chilean Peso',
+  CNY:'Chinese Yuan', COP:'Colombian Peso', CRC:'Costa Rican Colon', CUP:'Cuban Peso',
+  CVE:'Cape Verdean Escudo', CZK:'Czech Koruna', DJF:'Djiboutian Franc', DKK:'Danish Krone',
+  DOP:'Dominican Peso', DZD:'Algerian Dinar', EGP:'Egyptian Pound', ERN:'Eritrean Nakfa',
+  ETB:'Ethiopian Birr', EUR:'Euro', FJD:'Fijian Dollar', FKP:'Falkland Islands Pound',
+  GBP:'British Pound', GEL:'Georgian Lari', GHS:'Ghanaian Cedi', GIP:'Gibraltar Pound',
+  GMD:'Gambian Dalasi', GNF:'Guinean Franc', GTQ:'Guatemalan Quetzal', GYD:'Guyanaese Dollar',
+  HKD:'Hong Kong Dollar', HNL:'Honduran Lempira', HRK:'Croatian Kuna', HTG:'Haitian Gourde',
+  HUF:'Hungarian Forint', IDR:'Indonesian Rupiah', ILS:'Israeli Shekel', INR:'Indian Rupee',
+  IQD:'Iraqi Dinar', IRR:'Iranian Rial', ISK:'Icelandic Krona', JMD:'Jamaican Dollar',
+  JOD:'Jordanian Dinar', JPY:'Japanese Yen', KES:'Kenyan Shilling', KGS:'Kyrgystani Som',
+  KHR:'Cambodian Riel', KMF:'Comorian Franc', KRW:'South Korean Won', KWD:'Kuwaiti Dinar',
+  KYD:'Cayman Islands Dollar', KZT:'Kazakhstani Tenge', LAK:'Laotian Kip', LBP:'Lebanese Pound',
+  LKR:'Sri Lankan Rupee', LRD:'Liberian Dollar', LSL:'Lesotho Loti', LYD:'Libyan Dinar',
+  MAD:'Moroccan Dirham', MDL:'Moldovan Leu', MGA:'Malagasy Ariary', MKD:'Macedonian Denar',
+  MMK:'Myanmar Kyat', MNT:'Mongolian Tugrik', MOP:'Macanese Pataca', MRU:'Mauritanian Ouguiya',
+  MUR:'Mauritian Rupee', MVR:'Maldivian Rufiyaa', MWK:'Malawian Kwacha', MXN:'Mexican Peso',
+  MYR:'Malaysian Ringgit', MZN:'Mozambican Metical', NAD:'Namibian Dollar', NGN:'Nigerian Naira',
+  NIO:'Nicaraguan Cordoba', NOK:'Norwegian Krone', NPR:'Nepalese Rupee', NZD:'New Zealand Dollar',
+  OMR:'Omani Rial', PAB:'Panamanian Balboa', PEN:'Peruvian Sol', PGK:'Papua New Guinean Kina',
+  PHP:'Philippine Peso', PKR:'Pakistani Rupee', PLN:'Polish Zloty', PYG:'Paraguayan Guarani',
+  QAR:'Qatari Riyal', RON:'Romanian Leu', RSD:'Serbian Dinar', RUB:'Russian Ruble',
+  RWF:'Rwandan Franc', SAR:'Saudi Riyal', SBD:'Solomon Islands Dollar', SCR:'Seychellois Rupee',
+  SDG:'Sudanese Pound', SEK:'Swedish Krona', SGD:'Singapore Dollar', SHP:'Saint Helena Pound',
+  SLE:'Sierra Leonean Leone', SOS:'Somali Shilling', SRD:'Surinamese Dollar',
+  SSP:'South Sudanese Pound', STN:'Sao Tome and Principe Dobra', SYP:'Syrian Pound',
+  SZL:'Eswatini Lilangeni', THB:'Thai Baht', TJS:'Tajikistani Somoni', TMT:'Turkmenistani Manat',
+  TND:'Tunisian Dinar', TOP:'Tongan Paanga', TRY:'Turkish Lira', TTD:'Trinidad and Tobago Dollar',
+  TWD:'New Taiwan Dollar', TZS:'Tanzanian Shilling', UAH:'Ukrainian Hryvnia',
+  UGX:'Ugandan Shilling', USD:'US Dollar', UYU:'Uruguayan Peso', UZS:'Uzbekistani Som',
+  VES:'Venezuelan Bolivar', VND:'Vietnamese Dong', VUV:'Vanuatu Vatu', WST:'Samoan Tala',
+  XAF:'Central African CFA Franc', XCD:'East Caribbean Dollar', XOF:'West African CFA Franc',
+  XPF:'CFP Franc', YER:'Yemeni Rial', ZAR:'South African Rand', ZMW:'Zambian Kwacha',
+  ZWL:'Zimbabwean Dollar'
+};
+
+const POPULAR_PAIRS = [
+  ['USD','INR'], ['SGD','INR'], ['EUR','INR'], ['GBP','INR'], ['AED','INR']
+];
+
+let fxRates = null; // { CODE: rateFromUSD }
+let fxUpdated = null;
+
+const fxFrom = document.getElementById('fxFrom');
+const fxTo = document.getElementById('fxTo');
+const fxAmount = document.getElementById('fxAmount');
+const fxResult = document.getElementById('fxResult');
+const fxRate = document.getElementById('fxRate');
+const fxMeta = document.getElementById('fxMeta');
+const fxTickers = document.getElementById('fxTickers');
+const fxSwap = document.getElementById('fxSwap');
+
+function currencyLabel(code){
+  return CURRENCY_NAMES[code] ? `${code}, ${CURRENCY_NAMES[code]}` : code;
+}
+
+function populateCurrencySelects(){
+  const codes = Object.keys(fxRates).sort();
+  const options = codes.map(c => `<option value="${c}">${currencyLabel(c)}</option>`).join('');
+  fxFrom.innerHTML = options;
+  fxTo.innerHTML = options;
+  fxFrom.value = codes.includes('USD') ? 'USD' : codes[0];
+  fxTo.value = codes.includes('INR') ? 'INR' : codes[1];
+}
+
+function convert(amount, from, to){
+  if(!fxRates || !fxRates[from] || !fxRates[to]) return null;
+  const usdAmount = amount / fxRates[from];
+  return usdAmount * fxRates[to];
+}
+
+function fmtMoney(n){
+  return n.toLocaleString('en-US', { maximumFractionDigits: n < 10 ? 4 : 2, minimumFractionDigits: 2 });
+}
+
+function updateConverter(){
+  const amount = parseFloat(fxAmount.value || '0');
+  const from = fxFrom.value, to = fxTo.value;
+  const out = convert(amount, from, to);
+  if(out === null){ fxResult.textContent = 'n/a'; fxRate.textContent = ''; return; }
+  fxResult.textContent = fmtMoney(out) + ' ' + to;
+  const unitRate = convert(1, from, to);
+  fxRate.textContent = `1 ${from} equals ${fmtMoney(unitRate)} ${to}`;
+}
+
+function renderTickers(){
+  fxTickers.innerHTML = POPULAR_PAIRS.map(([from,to]) => {
+    const r = convert(1, from, to);
+    return `<div class="fx-ticker">
+      <div class="pair">${from} to ${to}</div>
+      <div class="rate">${r ? fmtMoney(r) : 'n/a'}</div>
+    </div>`;
+  }).join('');
+}
+
+async function loadFxRates(){
+  try{
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    if(data.result !== 'success') throw new Error('bad response');
+    fxRates = data.rates;
+    fxUpdated = data.time_last_update_utc;
+
+    populateCurrencySelects();
+    renderTickers();
+    updateConverter();
+    populateValCurrencySelect();
+    computeValuation();
+
+    fxMeta.textContent = 'Rates last updated ' + fxUpdated + '. Source, open.er-api.com';
+    fxMeta.classList.remove('error');
+  }catch(err){
+    fxMeta.textContent = 'Could not load live rates. Check your connection and reload the page.';
+    fxMeta.classList.add('error');
+    fxTickers.innerHTML = '<div class="fx-ticker-loading">Live rates unavailable right now.</div>';
+    fxResult.textContent = 'n/a';
+  }
+}
+
+[fxAmount, fxFrom, fxTo].forEach(el => el.addEventListener('input', updateConverter));
+fxSwap.addEventListener('click', () => {
+  const tmp = fxFrom.value;
+  fxFrom.value = fxTo.value;
+  fxTo.value = tmp;
+  updateConverter();
+});
+
+loadFxRates();
+setInterval(loadFxRates, 5 * 60 * 1000); // refresh every 5 minutes
+
+/* ============ VALUATION CALCULATOR ============ */
+const valCurrency = document.getElementById('valCurrency');
+const tabEquity = document.getElementById('tabEquity');
+const tabPre = document.getElementById('tabPre');
+const modeEquity = document.getElementById('modeEquity');
+const modePre = document.getElementById('modePre');
+
+const raiseAmount = document.getElementById('raiseAmount');
+const equityPercent = document.getElementById('equityPercent');
+const postMoneyOut = document.getElementById('postMoneyOut');
+const postMoneyUsd = document.getElementById('postMoneyUsd');
+const preMoneyOut = document.getElementById('preMoneyOut');
+const preMoneyUsd = document.getElementById('preMoneyUsd');
+
+const raiseAmount2 = document.getElementById('raiseAmount2');
+const preMoneyInput = document.getElementById('preMoneyInput');
+const postMoneyOut2 = document.getElementById('postMoneyOut2');
+const postMoneyUsd2 = document.getElementById('postMoneyUsd2');
+const equityOut = document.getElementById('equityOut');
+const equityBreakdown = document.getElementById('equityBreakdown');
+
+let valMode = 'equity';
+
+function populateValCurrencySelect(){
+  const codes = fxRates ? Object.keys(fxRates).sort() : ['USD','EUR','GBP','INR','SGD'];
+  valCurrency.innerHTML = codes.map(c => `<option value="${c}">${currencyLabel(c)}</option>`).join('');
+  valCurrency.value = codes.includes('USD') ? 'USD' : codes[0];
+}
+populateValCurrencySelect();
+
+function usdEquivalentLine(amount, code){
+  if(code === 'USD') return '';
+  const usd = fxRates ? convert(amount, code, 'USD') : null;
+  return usd === null ? '' : ('equal to about ' + fmtMoney(usd) + ' USD');
+}
+
+function computeValuation(){
+  const code = valCurrency.value;
+
+  if(valMode === 'equity'){
+    const raise = parseFloat(raiseAmount.value || '0');
+    const pct = parseFloat(equityPercent.value || '0');
+    if(pct <= 0 || raise <= 0){
+      postMoneyOut.textContent = 'n/a'; preMoneyOut.textContent = 'n/a';
+      postMoneyUsd.textContent = ''; preMoneyUsd.textContent = '';
+      return;
+    }
+    const post = raise / (pct/100);
+    const pre = post - raise;
+    postMoneyOut.textContent = fmtMoney(post) + ' ' + code;
+    preMoneyOut.textContent = fmtMoney(pre) + ' ' + code;
+    postMoneyUsd.textContent = usdEquivalentLine(post, code);
+    preMoneyUsd.textContent = usdEquivalentLine(pre, code);
+  } else {
+    const raise = parseFloat(raiseAmount2.value || '0');
+    const pre = parseFloat(preMoneyInput.value || '0');
+    if(raise < 0 || pre < 0 || (raise + pre) <= 0){
+      postMoneyOut2.textContent = 'n/a'; equityOut.textContent = 'n/a';
+      postMoneyUsd2.textContent = ''; equityBreakdown.textContent = '';
+      return;
+    }
+    const post = raise + pre;
+    const pct = post > 0 ? (raise / post) * 100 : 0;
+    postMoneyOut2.textContent = fmtMoney(post) + ' ' + code;
+    equityOut.textContent = pct.toFixed(2) + '%';
+    postMoneyUsd2.textContent = usdEquivalentLine(post, code);
+    equityBreakdown.innerHTML = 'Investor owns <b>' + pct.toFixed(2) + '%</b> of the company after the round';
+  }
+}
+
+tabEquity.addEventListener('click', () => {
+  valMode = 'equity';
+  tabEquity.classList.add('active'); tabPre.classList.remove('active');
+  modeEquity.style.display = ''; modePre.style.display = 'none';
+  computeValuation();
+});
+tabPre.addEventListener('click', () => {
+  valMode = 'pre';
+  tabPre.classList.add('active'); tabEquity.classList.remove('active');
+  modePre.style.display = ''; modeEquity.style.display = 'none';
+  computeValuation();
+});
+
+[valCurrency, raiseAmount, equityPercent, raiseAmount2, preMoneyInput].forEach(el =>
+  el.addEventListener('input', computeValuation)
+);
+
+computeValuation();
+</script>
+</body>
+</html>
