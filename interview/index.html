@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Orcasho — Interview Rewrite & Upgrade</title>
+  <link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #121110;
+    --bg-panel: #1B1917;
+    --bg-panel-2: #211E1A;
+    --bg-quote: #17151300;
+    --line: #332F29;
+    --line-soft: #262320;
+    --text: #F4EFE6;
+    --text-muted: #AFA799;
+    --text-dim: #726C61;
+    --rewrite: #E2664B;
+    --rewrite-dim: #4A2C24;
+    --addition: #E0A94E;
+    --addition-dim: #4A3B20;
+    --strong: #6FB88A;
+    --strong-dim: #26402F;
+    --accent: #E0A94E;
+    :root { --bg-panel-2: #211E1A; }
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) { color-scheme: dark; }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #F8F4EC;
+      --bg-panel: #FFFFFF;
+      --bg-panel-2: #F1EBDC;
+      --line: #E0D7C3;
+      --line-soft: #ECE5D4;
+      --text: #211D16;
+      --text-muted: #5F594C;
+      --text-dim: #948D7C;
+      --rewrite: #C24A31;
+      --rewrite-dim: #F2D9CE;
+      --addition: #A67A22;
+      --addition-dim: #F0E1BE;
+      --strong: #3E8259;
+      --strong-dim: #D7EADD;
+      --accent: #A67A22;
+      color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F8F4EC;
+    --bg-panel: #FFFFFF;
+    --bg-panel-2: #F1EBDC;
+    --line: #E0D7C3;
+    --line-soft: #ECE5D4;
+    --text: #211D16;
+    --text-muted: #5F594C;
+    --text-dim: #948D7C;
+    --rewrite: #C24A31;
+    --rewrite-dim: #F2D9CE;
+    --addition: #A67A22;
+    --addition-dim: #F0E1BE;
+    --strong: #3E8259;
+    --strong-dim: #D7EADD;
+    --accent: #A67A22;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] { color-scheme: dark; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: 44px; }
+  .disp { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  section { padding: 0 22px; }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  .wrap-wide { max-width: 920px; margin: 0 auto; }
+
+  /* ---------- progress bar ---------- */
+  .progress-track {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--line-soft); z-index: 30;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .progress-fill {
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--rewrite), var(--addition), var(--strong));
+    transition: width 0.1s linear;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding-top: 64px; padding-bottom: 56px;
+  }
+  .hero .eyebrow { font-size: 0.78rem; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 18px; }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; letter-spacing: -0.01em;
+    font-size: clamp(2.1rem, 6vw, 3.4rem);
+    line-height: 1.08; margin: 0 0 20px; max-width: 15ch;
+  }
+  .hero p.lede { font-size: clamp(1.02rem, 2vw, 1.18rem); color: var(--text-muted); max-width: 52ch; margin: 0 auto 30px; }
+  .status-strip { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .status-dot {
+    width: 30px; height: 30px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 600;
+    border: 1px solid var(--line);
+    opacity: 0; transform: translateY(6px);
+    animation: dotIn 0.5s ease forwards;
+  }
+  @keyframes dotIn { to { opacity: 1; transform: translateY(0); } }
+  .status-dot.rewrite { background: var(--rewrite-dim); color: var(--rewrite); }
+  .status-dot.addition { background: var(--addition-dim); color: var(--addition); }
+  .status-dot.strong { background: var(--strong-dim); color: var(--strong); }
+  .scroll-cue { margin-top: 34px; color: var(--text-dim); font-size: 0.72rem; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .scroll-cue .stem { width: 1px; height: 24px; background: linear-gradient(var(--text-dim), transparent); animation: stemPulse 2.2s ease-in-out infinite; }
+  @keyframes stemPulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+  /* ---------- generic section ---------- */
+  .section { padding-top: 84px; padding-bottom: 84px; border-top: 1px solid var(--line-soft); }
+  .eyebrow-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: var(--text-dim); margin-bottom: 10px; }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.01em; font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 0 0 18px; max-width: 22ch; }
+  h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.15rem; margin: 0 0 10px; }
+  p { color: var(--text-muted); font-size: 1.04rem; max-width: 68ch; }
+  p + p { margin-top: 1em; }
+  strong { color: var(--text); font-weight: 600; }
+
+  .verdict-block {
+    background: var(--bg-panel); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: 4px; padding: 26px 28px; margin-top: 22px;
+  }
+  .verdict-block p { color: var(--text); font-size: 1.08rem; }
+  .verdict-block p:first-child { margin-top: 0; }
+
+  /* ---------- priority fix list ---------- */
+  .fix-list { list-style: none; margin: 26px 0 0; padding: 0; counter-reset: fix; }
+  .fix-list li {
+    counter-increment: fix; display: grid; grid-template-columns: 40px 1fr; gap: 16px;
+    padding: 20px 0; border-top: 1px solid var(--line-soft);
+  }
+  .fix-list li:first-child { border-top: none; }
+  .fix-list li::before {
+    content: counter(fix);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem;
+    color: var(--accent);
+  }
+  .fix-list p { margin: 0; color: var(--text); font-size: 1.02rem; }
+
+  /* ---------- status badge ---------- */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.02em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px; border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .badge.rewrite { background: var(--rewrite-dim); color: var(--rewrite); }
+  .badge.addition { background: var(--addition-dim); color: var(--addition); }
+  .badge.strong { background: var(--strong-dim); color: var(--strong); }
+  .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ---------- Q&A card ---------- */
+  .qcard {
+    background: var(--bg-panel); border: 1px solid var(--line); border-radius: 6px;
+    padding: 26px 26px 28px; margin-top: 22px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .qcard.in-view { opacity: 1; transform: translateY(0); }
+  .qcard-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .qcard-ref { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; color: var(--text-dim); margin-bottom: 6px; }
+  .qcard-q { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.16rem; color: var(--text); max-width: 46ch; }
+  .qcard-problem { font-size: 0.95rem; color: var(--text-dim); margin: 12px 0 0; font-style: italic; }
+  .qcard-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-dim); margin: 20px 0 8px; }
+  .original-box {
+    background: var(--bg-panel-2); border: 1px dashed var(--line); border-radius: 4px;
+    padding: 14px 16px; font-size: 0.92rem; color: var(--text-dim); font-style: italic;
+  }
+  .rewrite-box {
+    background: var(--bg-panel-2); border-left: 3px solid var(--accent); border-radius: 3px;
+    padding: 18px 20px; font-size: 1.0rem; color: var(--text);
+  }
+  .rewrite-box p { color: var(--text); font-size: 1.0rem; }
+  .rewrite-box p + p { margin-top: 0.9em; }
+  .why-list { margin: 10px 0 0; padding-left: 20px; color: var(--text-muted); font-size: 0.95rem; }
+  .why-list li { margin-bottom: 6px; }
+  .critical-move {
+    margin-top: 18px; border: 1px solid var(--addition-dim); background: color-mix(in srgb, var(--addition) 8%, transparent);
+    border-radius: 4px; padding: 16px 18px;
+  }
+  .critical-move .cm-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--addition); letter-spacing: 0.03em; margin-bottom: 8px; }
+  .critical-move p { color: var(--text); font-size: 0.96rem; margin: 0; }
+
+  /* ---------- document cards ---------- */
+  .doc-card { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 6px; padding: 26px; margin-top: 22px; }
+  .doc-card-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .doc-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.1rem; }
+  .doc-card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; color: var(--text-dim); }
+  .site-row {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px;
+    padding: 12px 0; border-top: 1px solid var(--line-soft);
+  }
+  .site-row:first-of-type { border-top: none; margin-top: 14px; }
+  .site-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--text-dim); grid-column: 1 / -1; margin-bottom: 2px; }
+  .site-before, .site-after { font-size: 0.92rem; }
+  .site-before { color: var(--rewrite); }
+  .site-after { color: var(--strong); text-align: right; }
+  .site-arrow { color: var(--text-dim); font-size: 0.9rem; }
+  .doc-note-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .note-tag {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--text-dim);
+    border: 1px solid var(--line); border-radius: 20px; padding: 4px 10px;
+  }
+  .note-tag.resolved { color: var(--strong); border-color: var(--strong-dim); }
+  .doc-stat-row { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px; }
+  .doc-stat { }
+  .doc-stat .n { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--strong); }
+  .doc-stat .l { font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* ---------- marker bars ---------- */
+  .marker-row { margin-top: 20px; }
+  .marker-row:first-of-type { margin-top: 16px; }
+  .marker-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .marker-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--text); }
+  .marker-vals { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--text-dim); }
+  .marker-vals .good { color: var(--strong); }
+  .marker-track { position: relative; height: 6px; background: var(--line-soft); border-radius: 4px; overflow: hidden; }
+  .marker-fill-before { position: absolute; top: 0; left: 0; height: 100%; background: var(--rewrite); opacity: 0.55; width: 0%; transition: width 1s ease; border-radius: 4px; }
+  .marker-fill-after { position: absolute; top: 0; left: 0; height: 100%; background: var(--strong); width: 0%; transition: width 1.2s ease 0.3s; border-radius: 4px; }
+
+  /* ---------- scorecard ---------- */
+  .scorecard-row {
+    display: grid; grid-template-columns: 1.6fr auto 2fr; gap: 14px; align-items: center;
+    padding: 14px 0; border-top: 1px solid var(--line-soft);
+  }
+  .scorecard-row:first-child { border-top: none; }
+  .sc-q { font-size: 0.94rem; color: var(--text); }
+  .sc-fix { font-size: 0.86rem; color: var(--text-dim); }
+
+  /* ---------- checklist ---------- */
+  .checklist { list-style: none; margin: 24px 0 0; padding: 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 12px; padding: 13px 0;
+    border-top: 1px solid var(--line-soft); cursor: pointer; user-select: none;
+  }
+  .checklist li:first-child { border-top: none; }
+  .checkbox {
+    flex: 0 0 auto; width: 19px; height: 19px; border-radius: 4px; border: 1.5px solid var(--line);
+    margin-top: 2px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .checkbox svg { width: 11px; height: 11px; opacity: 0; transform: scale(0.6); transition: opacity 0.15s ease, transform 0.15s ease; }
+  .checklist li.checked .checkbox { background: var(--strong); border-color: var(--strong); }
+  .checklist li.checked .checkbox svg { opacity: 1; transform: scale(1); }
+  .checklist li.checked .cl-text { color: var(--text-dim); text-decoration: line-through; }
+  .cl-text { font-size: 0.98rem; color: var(--text); transition: color 0.2s ease; }
+
+  .stat-strip { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 20px; }
+  .stat-strip .n { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--accent); }
+  .stat-strip .l { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--text-dim); margin-top: 2px; }
+
+  footer { padding: 56px 22px 72px; text-align: center; border-top: 1px solid var(--line-soft); }
+  footer p.close-line { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.2rem; color: var(--text); max-width: 30ch; margin: 0 auto; }
+  footer p.tiny { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-top: 16px; }
+
+  @media (max-width: 640px) {
+    .section { padding-top: 60px; padding-bottom: 60px; }
+    .qcard, .doc-card { padding: 20px 18px; }
+    .scorecard-row { grid-template-columns: 1fr; gap: 4px; }
+    .sc-fix { padding-left: 0; }
+    .site-row { grid-template-columns: 1fr; text-align: left; }
+    .site-after { text-align: left; }
+    .site-arrow { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<section class="hero">
+  <div class="eyebrow mono">TECHSTARS × PERMANENTE DAY, ROUND 1 &amp; ROUND 2</div>
+  <h1>Good is not the same room as great.</h1>
+  <p class="lede">These answers are accurate, structured, and safe. Safe does not make an interviewer lean forward. Here is the exact rewrite for every question, the four fixes to make first, and the one physical artifact worth more than all the words combined.</p>
+  <div class="status-strip" id="statusStrip"></div>
+  <div class="scroll-cue"><span class="mono">scroll</span><span class="stem"></span></div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-num mono">00</div>
+    <h2>The verdict</h2>
+    <div class="verdict-block">
+      <p>These answers are good. They are not great. The difference between good and great in a Techstars interview is whether the interviewer leans forward or files the answer and moves on.</p>
+      <p>Right now these answers are accurate, structured, and safe. Below is the rewrite for every answer, the four priority fixes, and the one physical artifact that will do more than all the words combined.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-num mono">01</div>
+    <h2>Four priority fixes, do these first</h2>
+    <ol class="fix-list">
+      <li><p>Rewrite the Q1 opener. Lead with outcome, not architecture. Nobody feels anything when you say "closed-loop system" in sentence one.</p></li>
+      <li><p>Bring the Swapna endoscopy report into the room as a physical document. Produce it when answering the proof question. That single moment is worth more than all the words combined.</p></li>
+      <li><p>Strengthen the correlation answer. Acknowledge the RCT limitation honestly, then explain why the evidence design is still meaningful. Pretending it's causal proof loses credibility with clinical audiences.</p></li>
+      <li><p>Add the data-compounding argument to the venture-scale answer. Operational efficiency alone describes a services business. Intelligence compounding over cycles is the venture-scale case.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-wide">
+    <div class="eyebrow-num mono">02</div>
+    <h2>Round one, full question by question</h2>
+
+    <!-- R1 Q1 -->
+    <div class="qcard" data-status="rewrite">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R1 / Q1</div>
+          <div class="qcard-q">What exactly is Orcasho, and why does the world need it now?</div>
+        </div>
+        <span class="badge rewrite">Needs rewrite</span>
+      </div>
+      <p class="qcard-problem">Opens with a definition, not a problem. Nobody feels anything at "closed-loop system" in sentence one. The 96% PPI number is buried at the end when it should open the room. Architecture before outcome is the wrong sequence for a pitch room.</p>
+      <div class="qcard-label">original answer</div>
+      <div class="original-box">Orcasho is a closed-loop system that stabilizes digestion and absorption so patients respond better to food and medication. Today, chronic care is episodic, built around one-time interventions while the patient's body keeps changing every day...</div>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>Every chronic patient you will ever meet is being managed as if their body is static. It is not. Their biology changes every day based on what they eat, what they absorb, and how their gut environment interacts with the medications they are already taking. Current care doesn't track that change. It diagnoses, prescribes, and then waits for the next visit.</p>
+        <p>We built a system that tracks it continuously and adjusts every 20 days. The result: 96% of our patients have discontinued PPIs. Not because we told them to. Because their body stabilized enough that it no longer needed acid suppression.</p>
+        <p>That outcome, biological stabilization through continuous adaptation, is what chronic care has never been able to produce before. We use digestion and absorption as the control point because it sits upstream of almost every chronic symptom. Stabilize that layer and the downstream burden reduces on its own. Patients stay with us 9 to 18 months, which means we accumulate longitudinal feedback that makes the system more accurate over time. That is the compounding advantage no episodic care model can replicate.</p>
+      </div>
+      <div class="qcard-label">why this version is stronger</div>
+      <ul class="why-list">
+        <li>Opens with a problem the interviewer feels immediately.</li>
+        <li>Places the 96% PPI outcome in the first paragraph where it creates impact.</li>
+        <li>Explains the mechanism only after the outcome has landed emotionally.</li>
+        <li>Ends with the compounding advantage, which seeds the venture-scale conversation.</li>
+      </ul>
+    </div>
+
+    <!-- R1 Q2 -->
+    <div class="qcard" data-status="addition">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R1 / Q2</div>
+          <div class="qcard-q">Why can't existing healthcare systems or large companies already solve this?</div>
+        </div>
+        <span class="badge addition">Needs one key reframe</span>
+      </div>
+      <p class="qcard-problem">Accurate but abstract. Tells Permanente interviewers their system is episodic. They already know this and live with it daily, so it risks making them feel criticized rather than understood.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>Permanente is exceptional at the clinical layer. Diagnosis, treatment, specialist referral, acute intervention. That is exactly what it is designed for and what it does well.</p>
+        <p>What exists nowhere, not in Permanente, not in any health system globally, is what happens to that chronic patient in the 340 days of the year they are not in a clinical setting. Their gut environment is changing every day. Their medication response is shifting. Their absorption is varying with every meal. Nobody is tracking that. Nobody is adjusting for it. The patient comes back six months later and the physician sees the outcome of 180 days of unmonitored biological drift with no data on what caused it.</p>
+        <p>We fill that gap. We track every 20 days. We adjust based on what we find. And we feed that data back to the physician in a dashboard they can check any time.</p>
+        <p>This cannot be built inside a clinical system because clinical systems are structured around episodic encounters, and they are not designed or incentivized to run continuous adaptation cycles between visits. It has to be built outside and integrated in. That is exactly what we do.</p>
+      </div>
+      <div class="qcard-label">why this version is stronger</div>
+      <ul class="why-list">
+        <li>Opens by complimenting Permanente's strength, not criticizing their gap.</li>
+        <li>Makes the gap feel concrete with the "340 days" framing.</li>
+        <li>Positions Orcasho as filling the gap rather than replacing the system.</li>
+        <li>Ends by explaining why the integration model is necessary, not just different.</li>
+      </ul>
+    </div>
+
+    <!-- R1 Q3 -->
+    <div class="qcard" data-status="addition">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R1 / Q3</div>
+          <div class="qcard-q">Why are you the right person to build this?</div>
+        </div>
+        <span class="badge addition">Needs one irreplaceable sentence</span>
+      </div>
+      <p class="qcard-problem">Too humble and too process-oriented. Describes what you did but not why only you could have seen it. Reads like a CV summary rather than a founder origin story.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>Most people looked at gut dysfunction and saw a symptom to suppress. I looked at it and saw a control variable.</p>
+        <p>That reframe, from symptom to control variable, is what made it possible to design a feedback loop instead of a protocol. It came from fundamental chemistry training, and it is not an obvious move from inside medicine. Clinicians are trained to identify and treat. I was trained to identify and model. Those are different instincts that produce different architectures.</p>
+        <p>From that reframe, everything else followed. We modeled each patient's internal state as a 15-dimensional biochemical vector. We selected interventions based on ionic directional alignment using cosine similarity. We built adaptation into the core of the system rather than treating it as an exception.</p>
+        <p>I could only build this because I didn't approach it as a healthcare problem. I approached it as a control-system problem that happened to involve human biology. That specific combination of chemistry background and control-system thinking is what produced the architecture that is now running across 300 patients.</p>
+      </div>
+      <div class="qcard-label">why this version is stronger</div>
+      <ul class="why-list">
+        <li>Opens with the single most irreplaceable sentence in the entire interview.</li>
+        <li>Makes the scientific uniqueness concrete and immediately understandable.</li>
+        <li>Shows depth of thinking without academic jargon.</li>
+        <li>Ends with a proof point, 300 patients, that grounds the founder story in reality.</li>
+      </ul>
+    </div>
+
+    <!-- R1 Q4 -->
+    <div class="qcard" data-status="strong">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R1 / Q4</div>
+          <div class="qcard-q">What is the single biggest thing you've learned from your users?</div>
+        </div>
+        <span class="badge strong">Strong, one addition</span>
+      </div>
+      <p class="qcard-problem">Actually the strongest Round 1 answer already. The stability-vs-improvement insight is genuinely non-obvious. Only missing a concrete patient moment before the analytical point.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>We had a patient, post-chemotherapy, on Tamoxifen, who came to us because her digestion was completely destabilized after treatment. After three cycles she told us something that changed how we think about what we are building.</p>
+        <p>She said: "I'm not excited because I feel better. I'm excited because I feel the same way two days in a row for the first time in three years."</p>
+        <p>That sentence is the clearest articulation of what we learned. Patients don't struggle because they lack treatment. They struggle because their response is inconsistent. When digestion stabilizes, the consistency spreads. They don't just improve symptoms, they experience predictability in how their body reacts to food, to medication, to daily variation.</p>
+        <p>That shift from improvement to stability is what drives long-term retention. And it is what traditional episodic care never measures, because it is only visible across time, not in a single clinical encounter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-wide">
+    <div class="eyebrow-num mono">03</div>
+    <h2>Round two, full question by question</h2>
+
+    <!-- R2 Q1 -->
+    <div class="qcard" data-status="rewrite">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R2 / Q1</div>
+          <div class="qcard-q">How do you know this isn't just correlation?</div>
+        </div>
+        <span class="badge rewrite">The hardest question in the interview</span>
+      </div>
+      <p class="qcard-problem">The current answer describes process, not the epistemological challenge. A Permanente clinician hears "repeated observation" and thinks: that is not causal evidence, that is sophisticated anecdote. The fix is to acknowledge the limitation directly, then explain why the evidence design is still meaningful.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>You are right that we do not have a randomized controlled trial. I want to be direct about that.</p>
+        <p>What we have is different, and in some ways more relevant to chronic care management than a standard RCT. We run repeated within-patient intervention cycles. In each cycle, we change one or two variables in a patient's protocol and observe exactly how their biological system responds. When the same protocol change produces the same directional response across multiple cycles in the same patient, and then we see that pattern replicated across patients with similar biochemical profiles, that convergence is how we identify causal signal rather than natural variation.</p>
+        <p>This is closer to a series of n-of-1 trials repeated across 300 patients than to a population-level RCT. It does not give us population-level statistical significance. It gives us mechanistic specificity at the individual patient level across repeated intervention cycles.</p>
+        <p>Then there is the endoscopy evidence.</p>
+      </div>
+      <div class="critical-move">
+        <div class="cm-label mono">produce the swapna report here</div>
+        <p>A before-and-after UGI endoscopy from two independent hospitals, 8 months apart. Before: hyperemic OG junction with GERD Grade A, fundal erosions, duodenitis, pyloric edema. After: esophagus normal, fundus normal, duodenum normal, pylorus normal. Objective tissue-level documentation from a gastroenterologist with no relationship to the company. That is not correlation.</p>
+      </div>
+      <div class="qcard-label" style="margin-top:18px;">closing the answer</div>
+      <div class="rewrite-box">
+        <p>We know a formal trial is the right next step and we are building the data infrastructure to support it. But the combination of repeated within-patient intervention cycles and independent clinical documentation is not nothing. It is the strongest real-world evidence base you can build without institutional research funding.</p>
+      </div>
+      <div class="qcard-label">the critical move in this answer</div>
+      <ul class="why-list">
+        <li>The moment you say "let me show you what this looks like" and physically place the document on the table, the energy of the room shifts.</li>
+        <li>Words describe a system. An independent gastroenterologist's report showing healed tissue proves it. Do not skip this moment.</li>
+      </ul>
+    </div>
+
+    <!-- R2 Q2 -->
+    <div class="qcard" data-status="strong">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R2 / Q2</div>
+          <div class="qcard-q">What exactly becomes harder to replicate as you scale?</div>
+        </div>
+        <span class="badge strong">Strong, one addition</span>
+      </div>
+      <p class="qcard-problem">The strongest Round 2 answer already. The intervention-response pattern framing is correct. Missing one addition: depth per patient versus number of patients, the distinction that makes the moat argument genuinely defensible.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>What becomes hard to replicate is not the data volume. It is the intervention-response depth built over repeated cycles per patient.</p>
+        <p>A competitor who launches tomorrow and signs up 10,000 patients gets cross-sectional data. They know what 10,000 people look like at one point in time. We have patients who have been through 15 to 20 intervention cycles over 18 months. We know how those specific patients respond when we change specific variables. We know what happens in cycle 4 when cycle 3 produced a particular response pattern.</p>
+        <p>That longitudinal depth per patient cannot be acquired by signing up more patients faster. It can only be accumulated through time, one 20-day cycle at a time. A well-funded competitor starting today would need 18 months minimum to get their first patients to the data depth our current patients already represent. And by then, our existing patients will have added another 18 months of cycles.</p>
+        <p>The moat is not data. The moat is time. You cannot compress 20-day biological response cycles. Biology does not run faster with more compute.</p>
+      </div>
+    </div>
+
+    <!-- R2 Q3 -->
+    <div class="qcard" data-status="addition">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R2 / Q3</div>
+          <div class="qcard-q">What happens if a patient gets worse under your system?</div>
+        </div>
+        <span class="badge addition">Good, one addition needed</span>
+      </div>
+      <p class="qcard-problem">Solid framing already, escalation protocol and working alongside healthcare is correct. Missing the safety record itself. Permanente is thinking about liability, give them the answer before they ask.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>First, the record: we have not had a serious adverse event across 300 patients over multiple years of operation. That is not luck. That is design.</p>
+        <p>We work exclusively with known supplement-grade compounds from a vetted library of 70 to 100 components. We make incremental adjustments every 20 days rather than large sudden protocol changes. Every change is directionally validated against the patient's current biochemical state before it is applied. The risk profile of what we do is categorically different from pharmaceutical intervention.</p>
+        <p>That said, if a patient is worsening, our 20-day feedback cycle is specifically designed for early detection. We track changes in symptoms and response patterns so we can identify biological instability before it becomes a clinical crisis. When we see those signals, we adjust conservatively based on prior patterns in that specific patient.</p>
+        <p>More importantly, we escalate. We are not a replacement for clinical care, we are an extension of it. If there are signs that require medical evaluation, we direct the patient back to their physician immediately and use that clinical input to refine the next cycle. In the Permanente model, the physician dashboard means that escalation is visible to the clinical team in real time. They can intervene before we even need to flag it.</p>
+      </div>
+    </div>
+
+    <!-- R2 Q4 -->
+    <div class="qcard" data-status="rewrite">
+      <div class="qcard-head">
+        <div>
+          <div class="qcard-ref mono">R2 / Q4</div>
+          <div class="qcard-q">Why is this a venture-scale company and not just a niche service?</div>
+        </div>
+        <span class="badge rewrite">Needs the data-compounding argument</span>
+      </div>
+      <p class="qcard-problem">Good on operational leverage numbers, 7 to 8 minutes per patient, 1,000 patients per operator is impressive. But those numbers describe a services business with good margins. The data-compounding argument, the actually stronger case, is completely missing.</p>
+      <div class="qcard-label">rewritten answer, use this</div>
+      <div class="rewrite-box">
+        <p>There are two layers to the venture-scale case, and most people only hear the first one.</p>
+        <p>The first layer is operational leverage. We have reduced human intervention time from 30 minutes per patient per cycle to 7 to 8 minutes per month. One operator manages over 1,000 patients. 90% of decisions are automated. Patient growth does not require proportional headcount growth. That is good unit economics, but alone it describes a services business with strong margins.</p>
+        <p>The second layer is where the venture-scale case actually lives. Every patient cycle we run adds to a proprietary dataset that makes the next intervention more accurate. This is not just scaling capacity. The system is scaling intelligence.</p>
+        <p>At 300 patients we have a working system. At 3,000 patients we have a pattern-recognition layer. At 30,000 patients we have a predictive infrastructure that no competitor can build from scratch, because they would need the same years of longitudinal intervention-response cycles to generate it.</p>
+        <p>That is when the data layer becomes licensable. To other health systems. To pharma companies that want to understand real-world supplement-drug interaction patterns. To insurance companies that want to predict chronic care cost trajectories.</p>
+        <p>We do not become venture scale by running more patients through the same system. We become venture scale when the accumulated intelligence from those patients creates a data layer with value far beyond any single patient interaction. That transition happens somewhere between 5,000 and 15,000 patients. We are building toward it deliberately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-wide">
+    <div class="eyebrow-num mono">04</div>
+    <h2>The element missing from both rounds</h2>
+    <p style="max-width:68ch;">Neither round contains a moment where you show the clinical evidence. There are two pieces of objective clinical documentation that most early-stage health companies cannot produce, and they don't appear anywhere in the current answers. That's a significant missed opportunity.</p>
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-title">Document 1: the Swapna endoscopy comparison</div>
+        <div class="doc-card-meta">June 2025 → March 2026, 8 to 9 months</div>
+      </div>
+      <p style="max-width:60ch; margin-top:4px;">Two independent hospitals. Two different gastroenterologists. Objective tissue-level documentation, not a patient saying "I feel better," a specialist documenting that inflamed tissue has healed.</p>
+      <div class="site-row" style="margin-top:8px;">
+        <div class="site-label">OG junction / esophagus</div>
+      </div>
+      <div class="site-row">
+        <div class="site-before">Hyperemic, GERD Grade A</div>
+        <div class="site-arrow">→</div>
+        <div class="site-after">Normal</div>
+      </div>
+      <div class="site-row">
+        <div class="site-label">Fundus</div>
+      </div>
+      <div class="site-row">
+        <div class="site-before">Fundal erosions, antral gastritis ++</div>
+        <div class="site-arrow">→</div>
+        <div class="site-after">Normal</div>
+      </div>
+      <div class="site-row">
+        <div class="site-label">Pylorus</div>
+      </div>
+      <div class="site-row">
+        <div class="site-before">Pyloric edema</div>
+        <div class="site-arrow">→</div>
+        <div class="site-after">Normal</div>
+      </div>
+      <div class="site-row">
+        <div class="site-label">Duodenum</div>
+      </div>
+      <div class="site-row">
+        <div class="site-before">Duodenitis ++, positive rapid urease test</div>
+        <div class="site-arrow">→</div>
+        <div class="site-after">Normal</div>
+      </div>
+      <div class="doc-note-tags">
+        <span class="note-tag resolved">Body: normal</span>
+        <span class="note-tag resolved">8 to 9 months on program</span>
+      </div>
+      <div class="doc-stat-row">
+        <div class="doc-stat"><div class="n">70 to 80%</div><div class="l mono">overall improvement, all sites</div></div>
+        <div class="doc-stat"><div class="n">90 to 100%</div><div class="l mono">OG junction / reflux area</div></div>
+        <div class="doc-stat"><div class="n">100%</div><div class="l mono">fundus, pylorus, duodenum healed</div></div>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-card-head">
+        <div class="doc-card-title">Document 2: the Prabha blood-marker trajectory</div>
+        <div class="doc-card-meta">Oct 2024 → Oct 2025, on Tamoxifen</div>
+      </div>
+      <p style="max-width:60ch; margin-top:4px;">38-year-old breast cancer survivor. These improvements happened despite active hormonal therapy, which typically worsens lipid and thyroid markers, and without any dietary intervention.</p>
+      <div id="markerChart"></div>
+    </div>
+
+    <div class="critical-move" style="margin-top:24px;">
+      <div class="cm-label mono">how to use these in the room</div>
+      <p>Do not lead with statistics. Lead with one patient story. Then say: "let me show you what 8 months in our system looks like on an endoscopy report." Place the document on the table. Let them read it for 30 seconds. Do not fill that silence. Frame it correctly afterward: this is two patients, we see this pattern consistently across 300, these two have documented clinical records we can share.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-wide">
+    <div class="eyebrow-num mono">05</div>
+    <h2>Answer quality scorecard</h2>
+    <div class="doc-card" style="padding-top:8px;">
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R1/Q1</strong> What is Orcasho?</div><span class="badge rewrite">Rewrite</span><div class="sc-fix">Lead with outcome, not architecture. Outcome first.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R1/Q2</strong> Why can't others solve it?</div><span class="badge addition">Reframe</span><div class="sc-fix">Compliment Permanente first, then name the 340-day gap.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R1/Q3</strong> Why are you the right person?</div><span class="badge addition">Add one sentence</span><div class="sc-fix">"Most saw a symptom. I saw a control variable."</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R1/Q4</strong> What have you learned?</div><span class="badge strong">Add patient story</span><div class="sc-fix">Open with the patient's voice before the analysis.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R2/Q1</strong> Isn't this just correlation?</div><span class="badge rewrite">Rewrite</span><div class="sc-fix">Acknowledge the RCT limit, then produce the endoscopy report.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R2/Q2</strong> What can't be replicated?</div><span class="badge strong">Add depth argument</span><div class="sc-fix">Depth per patient versus number of patients.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R2/Q3</strong> Patient safety?</div><span class="badge addition">Add safety record</span><div class="sc-fix">300 patients, no serious adverse event, lead with this.</div></div>
+      <div class="scorecard-row"><div class="sc-q disp"><strong>R2/Q4</strong> Why venture scale?</div><span class="badge rewrite">Add data compounding</span><div class="sc-fix">Intelligence scales with cycles. The data layer becomes licensable.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-num mono">06</div>
+    <h2>Walk-in checklist, the night before</h2>
+    <div class="stat-strip">
+      <div><div class="n">96%</div><div class="l">PPI discontinuation</div></div>
+      <div><div class="n">75%</div><div class="l">know it cold</div></div>
+      <div><div class="n">39%</div><div class="l">know it cold</div></div>
+      <div><div class="n">10:1</div><div class="l">know it cold</div></div>
+    </div>
+    <ul class="checklist" id="checklist">
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Print the Swapna endoscopy before-and-after comparison report. Physical copy in your folder.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Print the Prabha blood-marker table. One page, clean format.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Know the four numbers cold: 96%, 75%, 39%, 10:1.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Open Q1 with outcome, not architecture. Practice saying the first two sentences out loud.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">On the correlation question, acknowledge the RCT limitation first. Then produce the document.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Do not fill the silence when they read the endoscopy report. Let them read.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">Remember the 340-day framing when talking to Permanente specifically.</span></li>
+      <li><span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="cl-text">End every answer within 90 seconds unless they ask you to continue.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p class="close-line">The system is real. The evidence is real. Walk in knowing that.</p>
+  <p class="tiny">ORCASHO — TECHSTARS × PERMANENTE DAY PREP</p>
+</footer>
+
+<script>
+(function(){
+  // ---------- progress bar ----------
+  var fill = document.getElementById('progressFill');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var height = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    var pct = height > 0 ? (scrolled / height) * 100 : 0;
+    fill.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ---------- hero status strip ----------
+  var statuses = ['rewrite','addition','addition','strong','rewrite','strong','addition','rewrite'];
+  var labels = ['1.1','1.2','1.3','1.4','2.1','2.2','2.3','2.4'];
+  var strip = document.getElementById('statusStrip');
+  var stripHTML = '';
+  statuses.forEach(function(s, i){
+    stripHTML += '<div class="status-dot ' + s + '" style="animation-delay:' + (i*70) + 'ms">' + labels[i] + '</div>';
+  });
+  strip.innerHTML = stripHTML;
+
+  // ---------- qcard reveal ----------
+  var cards = document.querySelectorAll('.qcard');
+  if ('IntersectionObserver' in window){
+    var cardIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          cardIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    cards.forEach(function(c){ cardIO.observe(c); });
+  } else {
+    cards.forEach(function(c){ c.classList.add('in-view'); });
+  }
+
+  // ---------- marker chart ----------
+  var markerData = [
+    { name: 'TSH', unit: 'mIU/L', before: 10.0, after: 5.42, max: 12, goodDir: 'down' },
+    { name: 'HDL cholesterol', unit: 'mg/dL', before: 53, after: 71, max: 90, goodDir: 'up' },
+    { name: 'LDL cholesterol', unit: 'mg/dL', before: 91.1, after: 73.4, max: 110, goodDir: 'down' },
+    { name: 'Albumin', unit: 'g/dL', before: 3.47, after: 4.10, max: 5, goodDir: 'up' },
+    { name: 'Total protein', unit: 'g/dL', before: 7.09, after: 7.80, max: 9, goodDir: 'up' }
+  ];
+  var markerHost = document.getElementById('markerChart');
+  var mHTML = '';
+  markerData.forEach(function(m, i){
+    var beforePct = (m.before / m.max) * 100;
+    var afterPct = (m.after / m.max) * 100;
+    mHTML += '<div class="marker-row" data-before="'+beforePct.toFixed(1)+'" data-after="'+afterPct.toFixed(1)+'">' +
+      '<div class="marker-top"><span class="marker-name">' + m.name + '</span>' +
+      '<span class="marker-vals">' + m.before + ' → <span class="good">' + m.after + '</span> ' + m.unit + '</span></div>' +
+      '<div class="marker-track"><div class="marker-fill-before"></div><div class="marker-fill-after"></div></div>' +
+      '</div>';
+  });
+  markerHost.innerHTML = mHTML;
+
+  if ('IntersectionObserver' in window){
+    var markerIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          var rows = entry.target.querySelectorAll('.marker-row');
+          rows.forEach(function(row, i){
+            var fb = row.querySelector('.marker-fill-before');
+            var fa = row.querySelector('.marker-fill-after');
+            setTimeout(function(){
+              fb.style.width = row.getAttribute('data-before') + '%';
+              fa.style.width = row.getAttribute('data-after') + '%';
+            }, i * 90);
+          });
+          markerIO.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    markerIO.observe(markerHost);
+  }
+
+  // ---------- checklist, persisted per-viewer ----------
+  var STORAGE_KEY = 'orcasho_prep_checklist_v1';
+  var items = document.querySelectorAll('#checklist li');
+  var saved = {};
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) saved = JSON.parse(raw);
+  } catch(e) { saved = {}; }
+
+  items.forEach(function(li, i){
+    if (saved[i]) li.classList.add('checked');
+    li.addEventListener('click', function(){
+      li.classList.toggle('checked');
+      try {
+        var state = {};
+        items.forEach(function(el, j){ state[j] = el.classList.contains('checked'); });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch(e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
