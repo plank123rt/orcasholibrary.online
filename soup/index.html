@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spinach, Mushroom & Broccoli Soup</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6f1e4;
+    --deep:#2c3b2d;
+    --leaf:#4d6b4f;
+    --broth:#c98b3f;
+    --mush:#8a6f5c;
+    --avocado:#7c9a56;
+    --paper:#fffdf8;
+    --line: rgba(44,59,45,0.15);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top: env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--deep);
+    font-family:'Karla',sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif; margin:0; font-weight:600;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 20px 80px;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:64px 20px 40px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .bowl{
+    width:150px; height:auto; margin:0 auto 18px;
+    display:block;
+  }
+  .steam{
+    transform-origin:bottom;
+    animation: rise 3.5s ease-in-out infinite;
+    opacity:0.55;
+  }
+  .steam.s2{animation-delay:0.7s;}
+  .steam.s3{animation-delay:1.4s;}
+  @keyframes rise{
+    0%{ transform:translateY(0) scaleY(1); opacity:0; }
+    20%{ opacity:.6;}
+    100%{ transform:translateY(-26px) scaleY(1.3); opacity:0; }
+  }
+  .hero h1{
+    font-size:clamp(30px,5vw,46px);
+    letter-spacing:-0.01em;
+    max-width:14ch;
+    margin:0 auto 10px;
+  }
+  .hero p{
+    max-width:46ch; margin:0 auto; color:var(--leaf); font-size:16px;
+  }
+  .tags{
+    display:flex; justify-content:center; gap:10px; margin-top:20px; flex-wrap:wrap;
+  }
+  .tag{
+    border:1px solid var(--line); border-radius:100px; padding:6px 14px;
+    font-size:13px; color:var(--deep); background:var(--paper);
+  }
+
+  /* SERVINGS CONTROL */
+  .servings{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin:30px auto 0; font-family:'Fraunces',serif; font-size:17px;
+  }
+  .servings button{
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--deep);
+    background:var(--paper); color:var(--deep); font-size:18px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:transform .15s ease, background .15s ease;
+  }
+  .servings button:hover{background:var(--deep); color:var(--cream);}
+  .servings button:active{transform:scale(0.9);}
+  .servings button:focus-visible{outline:2px solid var(--leaf); outline-offset:2px;}
+
+  /* SECTIONS */
+  section.block{margin-top:56px;}
+  .block h2{font-size:26px; margin-bottom:6px;}
+  .block .sub{color:var(--leaf); font-size:14px; margin-bottom:22px;}
+
+  /* Ingredients */
+  .ing-groups{display:grid; gap:28px;}
+  .ing-group h3{
+    font-size:14px; text-transform:none; color:var(--mush);
+    display:flex; align-items:center; gap:8px; margin-bottom:10px; font-family:'Karla',sans-serif; font-weight:700;
+  }
+  .ing-group h3 svg{width:20px; height:20px; flex-shrink:0;}
+  ul.ing-list{list-style:none; margin:0; padding:0; display:grid; gap:2px;}
+  ul.ing-list li{
+    display:flex; align-items:center; gap:12px;
+    padding:10px 4px; border-bottom:1px solid var(--line);
+    cursor:pointer; user-select:none;
+  }
+  ul.ing-list li .box{
+    width:18px; height:18px; border-radius:5px; border:1.5px solid var(--leaf);
+    flex-shrink:0; position:relative; transition:background .18s ease, border-color .18s ease;
+  }
+  ul.ing-list li .box::after{
+    content:""; position:absolute; left:4px; top:0px; width:5px; height:10px;
+    border-right:2px solid var(--paper); border-bottom:2px solid var(--paper);
+    transform:rotate(40deg) scale(0); transition:transform .15s ease;
+  }
+  ul.ing-list li.done .box{background:var(--leaf); border-color:var(--leaf);}
+  ul.ing-list li.done .box::after{transform:rotate(40deg) scale(1);}
+  ul.ing-list li.done span.amt, ul.ing-list li.done span.name{opacity:0.45; text-decoration:line-through;}
+  .amt{font-variant-numeric:tabular-nums; color:var(--broth); font-weight:700; min-width:64px;}
+  .name{flex:1;}
+
+  /* Guac side note */
+  .side-note{
+    margin-top:26px; background:var(--paper); border:1px solid var(--line);
+    border-radius:14px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;
+  }
+  .side-note svg{width:26px; height:26px; flex-shrink:0; margin-top:2px;}
+  .side-note p{margin:0; font-size:14px; color:var(--deep);}
+
+  /* Steps */
+  .steps{list-style:none; margin:0; padding:0; counter-reset:step;}
+  .step{
+    counter-increment:step;
+    display:grid; grid-template-columns:44px 1fr; gap:16px;
+    padding:22px 0; border-bottom:1px solid var(--line);
+  }
+  .step:last-child{border-bottom:none;}
+  .step .num{
+    width:36px; height:36px; border-radius:50%; background:var(--deep); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:600;
+  }
+  .step .num::before{content: counter(step);}
+  .step h4{margin:0 0 6px; font-family:'Fraunces',serif; font-size:18px; font-weight:600;}
+  .step p{margin:0; font-size:15px; color:#3c463c;}
+  .step .time{
+    display:inline-block; margin-top:8px; font-size:12.5px; color:var(--broth);
+    border:1px solid var(--broth); border-radius:100px; padding:3px 10px;
+  }
+
+  /* Guac steps card */
+  .guac-card{
+    margin-top:56px; background:var(--paper); border-radius:20px; padding:30px 28px;
+    border:1px solid var(--line); position:relative; overflow:hidden;
+  }
+  .guac-card::before{
+    content:""; position:absolute; top:-40px; right:-40px; width:140px; height:140px;
+    background:radial-gradient(circle, rgba(124,154,86,0.25), transparent 70%);
+    border-radius:50%;
+  }
+  .guac-card h2{display:flex; align-items:center; gap:10px;}
+  .guac-card h2 svg{width:28px; height:28px;}
+  .guac-steps{margin-top:16px; padding-left:20px; display:grid; gap:10px; font-size:15px;}
+  .guac-steps li::marker{color:var(--avocado); font-weight:700;}
+
+  /* Notes */
+  .notes{
+    margin-top:56px; border-top:2px solid var(--deep); padding-top:20px;
+  }
+  .notes h2{font-size:20px; margin-bottom:8px;}
+  .notes p{font-size:15px; color:#3c463c; margin:0;}
+
+  footer{
+    text-align:center; margin-top:60px; font-size:13px; color:var(--leaf);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .steam{animation:none; opacity:.4;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="bowl" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="steam s1" d="M70 55 C60 45 78 35 68 22" stroke="#8a6f5c" stroke-width="4" stroke-linecap="round"/>
+      <path class="steam s2" d="M100 55 C90 45 108 35 98 20" stroke="#8a6f5c" stroke-width="4" stroke-linecap="round"/>
+      <path class="steam s3" d="M130 55 C120 45 138 35 128 22" stroke="#8a6f5c" stroke-width="4" stroke-linecap="round"/>
+      <path d="M20 62 C20 100 55 128 100 128 C145 128 180 100 180 62 Z" fill="#c98b3f"/>
+      <ellipse cx="100" cy="62" rx="80" ry="16" fill="#4d6b4f"/>
+      <ellipse cx="100" cy="60" rx="80" ry="14" fill="#5f8062"/>
+      <circle cx="70" cy="58" r="5" fill="#8a6f5c"/>
+      <circle cx="112" cy="55" r="4" fill="#8a6f5c"/>
+      <circle cx="95" cy="63" r="4.5" fill="#8a6f5c"/>
+      <circle cx="130" cy="60" r="4" fill="#8a6f5c"/>
+      <rect x="8" y="55" width="18" height="8" rx="4" fill="#2c3b2d"/>
+      <rect x="174" y="55" width="18" height="8" rx="4" fill="#2c3b2d"/>
+    </svg>
+    <h1>Spinach, Mushroom & Broccoli Soup</h1>
+    <p>A creamy, savory vegetable soup with a bowl of fresh guacamole on the side for a cool, bright contrast.</p>
+    <div class="tags">
+      <span class="tag">🍲 40 min</span>
+      <span class="tag">🌱 vegetarian</span>
+      <span class="tag">🔥 4 servings</span>
+    </div>
+    <div class="servings">
+      <button id="minus" aria-label="Fewer servings">−</button>
+      <span><strong id="servingCount">4</strong> servings</span>
+      <button id="plus" aria-label="More servings">+</button>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>Ingredients</h2>
+    <p class="sub">Tap an item to check it off as you prep.</p>
+    <div class="ing-groups">
+
+      <div class="ing-group">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 4c-4 2-4 8-2 10s6-1 6-5-1.5-6-4-5Z" fill="#8a6f5c"/><rect x="10.5" y="12" width="3" height="7" rx="1.3" fill="#8a6f5c"/></svg>
+          For the soup base
+        </h3>
+        <ul class="ing-list">
+          <li><span class="box"></span><span class="amt">2 tbsp</span><span class="name">butter</span></li>
+          <li><span class="box"></span><span class="amt">1 tbsp</span><span class="name">olive oil</span></li>
+          <li><span class="box"></span><span class="amt">1</span><span class="name">medium onion, chopped</span></li>
+          <li><span class="box"></span><span class="amt">3 cloves</span><span class="name">garlic, minced</span></li>
+          <li><span class="box"></span><span class="amt">1 L</span><span class="name">vegetable broth</span></li>
+          <li><span class="box"></span><span class="amt">120 ml</span><span class="name">heavy cream (optional)</span></li>
+          <li><span class="box"></span><span class="amt">1 tsp</span><span class="name">salt</span></li>
+          <li><span class="box"></span><span class="amt">½ tsp</span><span class="name">black pepper</span></li>
+        </ul>
+      </div>
+
+      <div class="ing-group">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="10" rx="9" ry="6" fill="#a88564"/><rect x="9" y="13" width="6" height="7" rx="2" fill="#e6d9c8"/></svg>
+          The vegetables
+        </h3>
+        <ul class="ing-list">
+          <li><span class="box"></span><span class="amt">250 g</span><span class="name">mushrooms, sliced</span></li>
+          <li><span class="box"></span><span class="amt">300 g</span><span class="name">broccoli florets</span></li>
+          <li><span class="box"></span><span class="amt">150 g</span><span class="name">baby spinach</span></li>
+        </ul>
+      </div>
+
+      <div class="ing-group">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c5 2 6 8 4 13-1.5 3.7-6.5 3.7-8 0-2-5-1-11 4-13Z" fill="#7c9a56"/><ellipse cx="12" cy="14" rx="3.4" ry="4" fill="#e6d9c8"/></svg>
+          For the guacamole
+        </h3>
+        <ul class="ing-list">
+          <li><span class="box"></span><span class="amt">2</span><span class="name">ripe avocados</span></li>
+          <li><span class="box"></span><span class="amt">1</span><span class="name">lime, juiced</span></li>
+          <li><span class="box"></span><span class="amt">1</span><span class="name">small tomato, diced</span></li>
+          <li><span class="box"></span><span class="amt">¼</span><span class="name">small red onion, finely chopped</span></li>
+          <li><span class="box"></span><span class="amt">2 tbsp</span><span class="name">cilantro, chopped</span></li>
+          <li><span class="box"></span><span class="amt">¼ tsp</span><span class="name">salt</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="side-note">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#c98b3f"/><rect x="11" y="7" width="2" height="6" rx="1" fill="#fffdf8"/><circle cx="12" cy="16.5" r="1.2" fill="#fffdf8"/></svg>
+      <p>Guacamole is best made fresh, right before serving. Start it while the soup simmers so both land warm and cool together.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Make the soup</h2>
+    <p class="sub">Exact steps, in order.</p>
+    <ol class="steps">
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Sauté the aromatics</h4>
+          <p>Melt the butter and olive oil in a large pot over medium heat. Add the onion and cook until soft. Add the garlic and cook 1 minute more, until fragrant.</p>
+          <span class="time">≈ 5 min</span>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Cook the mushrooms</h4>
+          <p>Add the sliced mushrooms and cook until they release their liquid and start to brown at the edges.</p>
+          <span class="time">≈ 6 min</span>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Add broccoli and broth</h4>
+          <p>Stir in the broccoli florets and pour in the vegetable broth. Bring to a boil, then reduce heat and simmer until the broccoli is fork-tender.</p>
+          <span class="time">≈ 12 min</span>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Wilt the spinach</h4>
+          <p>Stir in the baby spinach and cook just until it wilts down into the soup.</p>
+          <span class="time">≈ 2 min</span>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Blend (optional)</h4>
+          <p>Blend the soup partially or fully with an immersion blender for a creamy texture, or leave it chunky and rustic.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true"></span>
+        <div>
+          <h4>Finish the soup</h4>
+          <p>Stir in the cream if using, then season with salt and pepper. Taste and adjust before serving.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div class="guac-card">
+    <h2><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c5 2 6 8 4 13-1.5 3.7-6.5 3.7-8 0-2-5-1-11 4-13Z" fill="#7c9a56"/><ellipse cx="12" cy="14" rx="3.4" ry="4" fill="#e6d9c8"/></svg> Make the guacamole</h2>
+    <ol class="guac-steps">
+      <li>Mash the avocados in a bowl to your preferred texture, chunky or smooth.</li>
+      <li>Mix in the lime juice, diced tomato, red onion, and cilantro.</li>
+      <li>Season with salt, taste, and adjust the lime and salt as needed.</li>
+      <li>Serve alongside the hot soup in a small bowl.</li>
+    </ol>
+  </div>
+
+  <div class="notes">
+    <h2>Notes</h2>
+    <p>For a vegan version, skip the cream and use olive oil in place of butter. A pinch of cumin or smoked paprika in the guacamole adds extra depth, and a squeeze of lime over the finished soup brightens the whole bowl.</p>
+  </div>
+
+  <footer>Serves 4 · Best eaten the day it's made</footer>
+</div>
+
+<script>
+  document.querySelectorAll('ul.ing-list li').forEach(function(li){
+    li.addEventListener('click', function(){ li.classList.toggle('done'); });
+  });
+
+  var base = {
+    soup: [2,1,1,3,1,0.12,1,0.5],
+    veg: [250,300,150],
+    guac: [2,1,1,0.25,2,0.25]
+  };
+  var count = 4;
+  var countEl = document.getElementById('servingCount');
+  var amtEls = document.querySelectorAll('.amt');
+
+  function fmt(n){
+    var r = Math.round(n*100)/100;
+    return (r % 1 === 0) ? r : r.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+  }
+
+  function render(){
+    countEl.textContent = count;
+    var originals = [
+      ["2","tbsp"],["1","tbsp"],["1",""],["3","cloves"],["1","L"],["120","ml"],["1","tsp"],["0.5","tsp"],
+      ["250","g"],["300","g"],["150","g"],
+      ["2",""],["1",""],["1",""],["0.25",""],["2","tbsp"],["0.25","tsp"]
+    ];
+    amtEls.forEach(function(el, i){
+      var orig = originals[i];
+      if(!orig) return;
+      var val = parseFloat(orig[0]) * (count/4);
+      el.textContent = fmt(val) + (orig[1] ? ' ' + orig[1] : '');
+    });
+  }
+  document.getElementById('plus').addEventListener('click', function(){ if(count<12){count++; render();} });
+  document.getElementById('minus').addEventListener('click', function(){ if(count>1){count--; render();} });
+</script>
+</body>
+</html>
